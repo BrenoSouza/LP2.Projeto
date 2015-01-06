@@ -6,7 +6,7 @@ public class Hospede {
 
 	private String nome, cpf;
 	private Calendar dataNascimento;
-	private Comentario opiniao;
+	private Opiniao opiniao;
 	
 	public Hospede(String nome, String cpf, Calendar dataNascimento){
 		this.nome = nome;
@@ -26,10 +26,10 @@ public class Hospede {
 	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
-	public void setComentario(Comentario opiniao){
+	public void setOpiniao(Opiniao opiniao){
 		this.opiniao = opiniao;
 	}
-	public Comentario getComentario() {
+	public Opiniao getOpiniao() {
 		return opiniao;
 	}
 	@Override
