@@ -1,7 +1,8 @@
 package helloWorld;
 
-public class OláMundo {
+public class Olï¿½Mundo {
 public static void main(String[] args) {
-	System.out.println("Olá mundo");
+	System.out.println("Olï¿½ mundo");
+	System.out.println("LÃ¡ vamos nÃ³s!");
 }
 }
