@@ -67,6 +67,13 @@ public class Hospede {
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}
+	/**
+	 * Método que checa se o CPF inserido é aceitável.
+	 * @param cpf
+	 * Uma String contendo um CPF.
+	 * @return
+	 * true, se o CPF for válido.
+	 */
 	static public boolean isCpfValido(String cpf){
 		if (cpf.indexOf("-") != 9 || cpf.isEmpty() || cpf == null || cpf.length() != 12){
 			return false;
