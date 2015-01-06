@@ -19,7 +19,7 @@ public class Hospede {
 	 * Joga uma excessão caso qualquer um dos atributos estiverem em formato inválido.
 	 */
 	public Hospede(String nome, String cpf, Calendar dataNascimento) throws Exception{
-		if (nome == null|| nome.isEmpty() || cpf == null || cpf.isEmpty() || dataNascimento == null){
+		if (nome == null|| nome.isEmpty() || Hospede.isCpfValido(cpf) == false || dataNascimento == null){
 			throw new Exception ("Dados inválidos. Tente novamente");
 		}
 		this.nome = nome;
@@ -67,9 +67,11 @@ public class Hospede {
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}
-//	static public boolean isCpfValido(String cpf){
-//		if (cpf.indexOf("-") != 10 || cpf.isEmpty() || cpf == null || 
-//	}
+	static public boolean isCpfValido(String cpf){
+		if (cpf.indexOf("-") != 9 || cpf.isEmpty() || cpf == null || cpf.length() != 12){
+			return false;
+		}return true;
+	}
 	@Override
 	public String toString(){
 		return "Nome: " + getNome() + ".\n"
