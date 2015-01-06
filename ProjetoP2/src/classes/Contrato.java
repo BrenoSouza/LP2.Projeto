@@ -26,23 +26,43 @@ public class Contrato {
 		this.listaHospedes.addAll(listaHospedes);
 		this.numeroDiarias = numeroDiarias;
 	}
-
+	/**
+	 * Getter da lista de quartos alugados.
+	 * @return
+	 * Um List<Quarto> com os quartos alugados.
+	 */
 	public List<Quarto> getListaQuartosAlugados() {
 		return listaQuartosAlugados;
 	}
-
+	/**
+	 * Getter da lista de hóspedes ligados ao contrato.
+	 * @return
+	 * Um List<Hospede> com todos os hóspedes ligados ao contrato.
+	 */
 	public List<Hospede> getListaHospedes() {
 		return listaHospedes;
 	}
-
+	/**
+	 * Getter da lista de serviços ligados ao contrato.
+	 * @return
+	 * Um List<Servico> com todos os serviços ligados ao contrato.
+	 */
 	public List<Servico> getListaServicos() {
 		return listaServicos;
 	}
-
+	/**
+	 * Getter do número de diárias do contrato.
+	 * @return
+	 * O número de diárias do contrato.
+	 */
 	public int getNumeroDiarias() {
 		return numeroDiarias;
 	}
-	
+	/**
+	 * Método que calcula o preço final a ser pago por tudo relevante ao contrato.
+	 * @return
+	 * O preço final a ser pago.
+	 */
 	public double calculaPrecoFinal(){
 		// TODO O método todo;
 		return 0.0;
