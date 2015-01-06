@@ -67,11 +67,14 @@ public class Hospede {
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}
+//	static public boolean isCpfValido(String cpf){
+//		if (cpf.indexOf("-") != 10 || cpf.isEmpty() || cpf == null || 
+//	}
 	@Override
 	public String toString(){
 		return "Nome: " + getNome() + ".\n"
 				+ "CPF: " + getCpf() + ".\n"
-				+ "Data de Nascimento: " + getDataNascimento() + ".\n" // Ajustar depois a formatação desse objeto Calendar
+				+ "Data de Nascimento: " + getDataNascimento() + ".\n"  // Ajustar depois a formatação desse objeto Calendar
 				+ ((getOpiniao() == null) ? "." : ("Opinião: " + getOpiniao().toString() + "."));
 
 	}
