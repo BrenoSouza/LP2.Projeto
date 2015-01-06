@@ -8,11 +8,11 @@ public class Hospede {
 	private Calendar dataNascimento;
 	private Comentario opiniao;
 	
-	public Hospede(String nome, String cpf, Calendar dataNascimento, Comentario opiniao){
+	public Hospede(String nome, String cpf, Calendar dataNascimento){
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
-		this.opiniao = opiniao;
+		this.opiniao = null;
 	}
 
 	public String getNome() {
