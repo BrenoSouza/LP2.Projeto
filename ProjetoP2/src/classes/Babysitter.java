@@ -34,7 +34,8 @@ public class Babysitter extends Servico {
 	
 	@Override
 	public double calculaPrecoTotal() {
-		return (horasPrecoExtra * 50) + (horasPrecoNormal * 25);
+		double preco = (horasPrecoExtra * 50) + (horasPrecoNormal * 25);
+		return preco;
 	}
 
 }
