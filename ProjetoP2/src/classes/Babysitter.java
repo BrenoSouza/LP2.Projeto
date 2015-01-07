@@ -3,44 +3,38 @@ package classes;
 import java.util.Calendar;
 
 public class Babysitter extends Servico {
-	
-	static private int quantidadeCriancas;	
+	private Calendar horaEntrada;
 	private Calendar horaSaida;
-	private Calendar dataNascimento;
-	private int quantidadeHoras;
-	private int quantidadeHorasDobradas;
+	private int horasPrecoNormal;
+	private int horasPrecoExtra;
 	
-	public Babysitter(Calendar data, Calendar horaSaida, Calendar dataNascimento) throws Exception {
-		super(data);
-		
-		if (!idadeEhValida(dataNascimento)) {
-			throw new Exception("Parametros invalidos!");
+	public Babysitter(Calendar horaEntrada, int horaSaida) throws Exception {
+		super(horaEntrada);
+		this.horaEntrada = horaEntrada;
+		this.horaSaida = Calendar.getInstance();
+		this.horaSaida.set(Calendar.HOUR_OF_DAY, horaSaida);
+	}
+	
+	public void horasTrabalhadas(){
+		int inicio = horaEntrada.get(Calendar.HOUR_OF_DAY);
+		int fim = horaSaida.get(Calendar.HOUR_OF_DAY);
+		while (inicio != fim){
+			if (inicio < 24){
+				inicio ++;
+			}else{
+				inicio = 1;
+			}
+			if (inicio > 18 || inicio < 7){
+				horasPrecoExtra++;
+			}else{
+				horasPrecoNormal++;
+			}
 		}
-		
-		this.horaSaida = horaSaida;
-		this.dataNascimento = dataNascimento;
-		quantidadeCriancas++;
-		
-	}
-	
-	
-	private boolean idadeEhValida(Calendar dataNascimento) {
-		// TODO o m�todo todo
-		return true;
-	}
-	
-	private int getQuantidadeHoras() {
-		return quantidadeHoras;
-	}
-	
-	private int getQuantidadeHorasDobradas() {
-		return quantidadeHorasDobradas;
 	}
 	
 	@Override
 	public double calculaPrecoTotal() {
-		// TODO o m�todo todo
-		return 1.1;
+		return (horasPrecoExtra * 50) + (horasPrecoNormal * 25);
 	}
 
 }
