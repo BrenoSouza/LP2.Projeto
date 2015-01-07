@@ -1,7 +1,5 @@
 package classes;
 
-import java.util.Calendar;
-
 	public class Restaurante extends Servico {
 
 		private boolean isCobertura;
@@ -13,8 +11,8 @@ import java.util.Calendar;
 		 * @param preco Preco da conta
 		 * @throws Exception Caso o preco informado seja menor que zero.
 		 */
-		public Restaurante(Calendar data, boolean isCobertura, double preco) throws Exception {
-			super(data);
+		public Restaurante(boolean isCobertura, double preco) throws Exception {
+			super();
 			if (preco < 0){
 				throw new Exception("O preco da conta nao pode ser menor que zero.");
 			}
