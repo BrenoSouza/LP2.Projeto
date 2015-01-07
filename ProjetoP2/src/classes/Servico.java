@@ -8,6 +8,7 @@ public class Servico {
 	private Calendar horaEntrada;
 	private Calendar horaSaida;
 	private int diarias;
+	private double preco;
 	
 	public Servico(Calendar data, Calendar horaEntrada, Calendar horaSaida,
 					int diarias) throws Exception {
@@ -21,6 +22,10 @@ public class Servico {
 		this.horaSaida = horaSaida;
 		this.diarias = diarias;
 	
+	}
+	
+	public double calculaPrecoTotal() {
+		return 1.1;
 	}
 	
 	public Calendar getHoraEntrada() {

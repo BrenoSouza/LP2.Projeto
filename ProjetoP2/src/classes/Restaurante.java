@@ -5,6 +5,7 @@ import java.util.Calendar;
 	public class Restaurante extends Servico {
 
 		private boolean isCobertura;
+		private double precoDaConta;
 		
 		public Restaurante(Calendar data, Calendar horaEntrada,
 				Calendar horaSaida, int diarias, boolean isCobertura)
@@ -13,8 +14,14 @@ import java.util.Calendar;
 			
 			this.isCobertura = isCobertura;
 		}
-
-		
 	
+	@Override
+	public double calculaPrecoTotal() {
+		return 1.1;
+	}
+	
+	public boolean getIsCobertura() {
+		return isCobertura;
+	}
 	
 }
