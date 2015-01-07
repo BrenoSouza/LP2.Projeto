@@ -10,6 +10,8 @@ public class AluguelCarro extends Servico {
 	private int diarias;
 	private final double DIARIA_LUXO = 100.00;
 	private final double DIARIA_EXECUTIVO = 60.00;
+	private final double PRECO_TANQUE_CHEIO = 150.00;
+	private final double PRECO_SEGURO = 100.00;
 	private double preco;	
 	
 	public AluguelCarro(Calendar data, int diarias, boolean isLuxo, boolean isTanqueCheio, boolean isSegurado) throws Exception {
@@ -50,9 +52,9 @@ public class AluguelCarro extends Servico {
 	public double calculaPrecoTotal() {
 		preco = 0.0;
 		if (isTanqueCheio()){
-			preco += 150;
+			preco += PRECO_TANQUE_CHEIO;
 		}if (isSegurado()){
-			preco += 100;
+			preco += PRECO_SEGURO;
 		}if (isLuxo()){
 			preco += (DIARIA_LUXO * diarias);
 		}else{
