@@ -5,10 +5,10 @@ import java.util.List;
 
 public class Contrato {
 
-	List<Quarto> listaQuartosAlugados = new ArrayList<Quarto>();
-	List<Hospede> listaHospedes = new ArrayList<Hospede>();
-	List<Servico> listaServicos = new ArrayList<Servico>();
-	int numeroDiarias;
+	private List<Quarto> listaQuartosAlugados = new ArrayList<Quarto>();
+	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
+	private List<Servico> listaServicos = new ArrayList<Servico>();
+	private int numeroDiarias;
 	/**
 	 * Construtor da classe Contrato.
 	 * @param listaQuartosAlugados
