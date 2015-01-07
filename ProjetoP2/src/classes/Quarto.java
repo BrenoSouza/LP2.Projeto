@@ -1,7 +1,6 @@
 package classes;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public abstract class Quarto extends Servico{
@@ -18,8 +17,8 @@ public abstract class Quarto extends Servico{
 	 * @param precoDiaria Preco da diaria
 	 * @throws Exception Caso o numero/numeroHospedes/diarias seja menor que zero.
 	 */
-	public Quarto(int numero, int numeroHospedes, int diarias, Calendar data, double precoDiaria) throws Exception{
-		super(data);
+	public Quarto(int numero, int numeroHospedes, int diarias, double precoDiaria) throws Exception{
+		super();
 		if (numeroHospedes < 0 || diarias < 0 || numero < 0){
 			throw new Exception("O numero de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
 		}

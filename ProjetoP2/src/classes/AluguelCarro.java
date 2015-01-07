@@ -1,7 +1,5 @@
 package classes;
 
-import java.util.Calendar;
-
 public class AluguelCarro extends Servico {
 
 	private boolean isLuxo;
@@ -14,9 +12,8 @@ public class AluguelCarro extends Servico {
 	private final double PRECO_SEGURO = 100.00;
 	private double preco;	
 	
-	public AluguelCarro(Calendar data, int diarias, boolean isLuxo, boolean isTanqueCheio, boolean isSegurado) throws Exception {
-		super(data);
-		
+	public AluguelCarro(int diarias, boolean isLuxo, boolean isTanqueCheio, boolean isSegurado) throws Exception {
+		super();
 		if (diarias <= 0) {
 			throw new Exception("Parametros invalidos!");
 		}
