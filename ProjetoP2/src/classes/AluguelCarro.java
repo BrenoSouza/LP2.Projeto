@@ -18,9 +18,8 @@ public class AluguelCarro extends Servico {
 			int quantidadeCarros) throws Exception {
 		super(data);
 		
-		if (quantidadeCarros < 0) {
-			// TODO os casos de excess�o.
-			throw new Exception("");
+		if (diarias < 0 || quantidadeCarros < 0) {
+			throw new Exception("Parametros invalidos!");
 		}
 		
 		this.isLuxo = isLuxo;
