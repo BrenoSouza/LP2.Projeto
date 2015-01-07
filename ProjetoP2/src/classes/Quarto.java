@@ -76,11 +76,11 @@ public abstract class Quarto extends Servico{
 	 * Adiciona hospedes no quarto.
 	 * @param hospede O hospede a ser adicionado.
 	 */
-	public void adicionaHospede(Hospede hospede) throws Exception{
+	public boolean adicionaHospede(Hospede hospede) throws Exception{
 		if (hospede == null){
 			throw new Exception("Nao é um hospede valido.");
 		}
-		listaHospedes.add(hospede);
+		return listaHospedes.add(hospede);
 	}
 	/**
 	 * O preco da diaria do quarto.
@@ -93,11 +93,11 @@ public abstract class Quarto extends Servico{
 	 * Remove um hospede do quarto.
 	 * @param hospede O hospede a ser removido.
 	 */
-	public void removeHospede(Hospede hospede) throws Exception{
+	public boolean removeHospede(Hospede hospede) throws Exception{
 		if (hospede == null){
 			throw new Exception("Nao é um hospede valido.");
 		}
-		listaHospedes.remove(hospede);
+		return listaHospedes.remove(hospede);
 	}
 	@Override
 	public double calculaPrecoTotal(){
