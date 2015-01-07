@@ -5,19 +5,20 @@ import java.util.Calendar;
 public class Babysitter extends Servico {
 	
 	static private int quantidadeCriancas;	
+	private Calendar horaSaida;
+	private Calendar dataNascimento;
 	private int quantidadeHoras;
 	private int quantidadeHorasDobradas;
 	
-	
-	public Babysitter(Calendar data, int quantidadeHoras, int quantidadeHorasDobradas , Calendar dataNascimento) throws Exception {
+	public Babysitter(Calendar data, Calendar horaSaida, Calendar dataNascimento) throws Exception {
 		super(data);
 		
-		if (!idadeEhValida(dataNascimento) || quantidadeHoras < 1 || quantidadeHorasDobradas < 1) {
+		if (!idadeEhValida(dataNascimento)) {
 			throw new Exception("Parametros invalidos!");
 		}
 		
-		this.quantidadeHoras = quantidadeHoras;
-		this.quantidadeHorasDobradas = quantidadeHorasDobradas;
+		this.horaSaida = horaSaida;
+		this.dataNascimento = dataNascimento;
 		quantidadeCriancas++;
 		
 	}
@@ -34,14 +35,6 @@ public class Babysitter extends Servico {
 	
 	private int getQuantidadeHorasDobradas() {
 		return quantidadeHorasDobradas;
-	}
-	
-	private void setQuantidadeHoras(int quantidadeHoras) {
-		this.quantidadeHoras = quantidadeHoras;
-	}
-	
-	private void setQuantidadeHorasDobradas(int quantidadeHorasDobradas) {
-		this.quantidadeHorasDobradas = quantidadeHorasDobradas;
 	}
 	
 	@Override
