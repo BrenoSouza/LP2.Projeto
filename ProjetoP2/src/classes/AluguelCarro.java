@@ -10,15 +10,12 @@ public class AluguelCarro extends Servico {
 	private int diarias;
 	private final double DIARIA_LUXO = 100.00;
 	private final double DIARIA_EXECUTIVO = 60.00;
-	private int quantidadeCarros;
 	private double preco;	
 	
-	public AluguelCarro(Calendar data, int diarias, boolean isLuxo, 
-			boolean isTanqueCheio, boolean isSegurado, 
-			int quantidadeCarros) throws Exception {
+	public AluguelCarro(Calendar data, int diarias, boolean isLuxo, boolean isTanqueCheio, boolean isSegurado) throws Exception {
 		super(data);
 		
-		if (diarias < 0 || quantidadeCarros < 0) {
+		if (diarias <= 0) {
 			throw new Exception("Parametros invalidos!");
 		}
 		
@@ -26,24 +23,7 @@ public class AluguelCarro extends Servico {
 		this.isSegurado = isSegurado;
 		this.isTanqueCheio = isTanqueCheio;
 		this.diarias = diarias;
-		this.quantidadeCarros = quantidadeCarros;
 		
-	}
-
-	public int getQuantidadeCarros() {
-		return quantidadeCarros;
-	}
-
-	public void setQuantidadeCarros(int quantidadeCarros) {
-		this.quantidadeCarros = quantidadeCarros;
-	}
-
-	public double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(double preco) {
-		this.preco = preco;
 	}
 
 	public boolean isLuxo() {
@@ -68,8 +48,17 @@ public class AluguelCarro extends Servico {
 	
 	@Override
 	public double calculaPrecoTotal() {
-		// TODO o m�todo todo
-		return 1.1;
+		preco = 0.0;
+		if (isTanqueCheio()){
+			preco += 150;
+		}if (isSegurado()){
+			preco += 100;
+		}if (isLuxo()){
+			preco += (DIARIA_LUXO * diarias);
+		}else{
+			preco += (DIARIA_EXECUTIVO * diarias);
+		}return preco;
+		
 	}
 	
 }
