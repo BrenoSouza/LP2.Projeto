@@ -9,10 +9,12 @@ public class Servico {
 	private Calendar horaSaida;
 	private int diarias;
 	
-	public Servico(Calendar data, Calendar horaEntrada, Calendar HoraSaida,
-					int diarias, Contrato contrato) throws Exception {
+	public Servico(Calendar data, Calendar horaEntrada, Calendar horaSaida,
+					int diarias) throws Exception {
 		
-		// Condição para Exceção
+		if (diarias <= 0) { 			//Faltam mais casos
+			throw new Exception("");
+		}
 		
 		this.data = data;
 		this.horaEntrada = horaEntrada;
