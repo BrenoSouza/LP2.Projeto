@@ -13,7 +13,7 @@ public class Servico {
 	public Servico(Calendar data, Calendar horaEntrada, Calendar horaSaida,
 					int diarias) throws Exception {
 		
-		if (diarias <= 0) { 			//Faltam mais casos
+		if (diarias <= 0) { 			//TODO Faltam mais casos
 			throw new Exception("");
 		}
 		

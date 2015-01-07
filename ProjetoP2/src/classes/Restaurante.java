@@ -18,6 +18,7 @@ import java.util.Calendar;
 	
 	@Override
 	public double calculaPrecoTotal() {
+		// TODO o método todo.
 		return 1.1;
 	}
 	

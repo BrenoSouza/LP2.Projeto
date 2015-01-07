@@ -19,11 +19,13 @@ public class Babysitter extends Servico {
 	}
 	
 	private boolean idadeEhValida(Calendar dataNascimento) {
+		// TODO o método todo
 		return true;
 	}
 	
 	@Override
 	public double calculaPrecoTotal() {
+		// TODO o método todo
 		return 1.1;
 	}
 

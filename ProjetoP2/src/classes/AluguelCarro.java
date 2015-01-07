@@ -20,6 +20,7 @@ public class AluguelCarro extends Servico {
 		super(data, horaEntrada, horaSaida, diarias);
 		
 		if (quantidadeCarros < 0) {
+			// TODO os casos de excessão.
 			throw new Exception("");
 		}
 		
@@ -61,6 +62,7 @@ public class AluguelCarro extends Servico {
 
 	@Override
 	public double calculaPrecoTotal() {
+		// TODO o método todo
 		return 1.1;
 	}
 	
