@@ -5,19 +5,17 @@ import java.util.Calendar;
 	public class Restaurante extends Servico {
 
 		private boolean isCobertura;
-		private double precoDaConta;
+		private double precoComida;
 		
-		public Restaurante(Calendar data, boolean isCobertura) throws Exception {
+		public Restaurante(Calendar data, boolean isCobertura, double precoComida) throws Exception {
 			super(data);
-			
 			this.isCobertura = isCobertura;
-			
+			this.precoComida = precoComida;
 		}
 	
 	@Override
 	public double calculaPrecoTotal() {
-		// TODO o m�todo todo.
-		return 1.1;
+		return precoComida;
 	}
 	
 	public boolean getIsCobertura() {
