@@ -7,84 +7,96 @@ public class Hospede {
 	private String nome, cpf;
 	private Calendar dataNascimento;
 	private Opiniao opiniao;
+	private String residencia;
+	
 	/**
 	 * Contrutor da classe Hospede.
 	 * @param nome
-	 * O nome do hóspede.
+	 * O nome do hï¿½spede.
 	 * @param cpf
-	 * O CPF do hóspede.
+	 * O CPF do hï¿½spede.
 	 * @param dataNascimento
-	 * Um objeto Calendar contendo a data de nascimento do hóspede.
+	 * Um objeto Calendar contendo a data de nascimento do hï¿½spede.
 	 * @throws Exception
-	 * Joga uma excessão caso qualquer um dos atributos estiverem em formato inválido.
+	 * Joga uma excessï¿½o caso qualquer um dos atributos estiverem em formato invï¿½lido.
 	 */
-	public Hospede(String nome, String cpf, Calendar dataNascimento) throws Exception{
-		if (nome == null|| nome.isEmpty() || Hospede.isCpfValido(cpf) == false || dataNascimento == null){
-			throw new Exception ("Dados inválidos. Tente novamente");
+	public Hospede(String nome, String residencia, String cpf, Calendar dataNascimento) throws Exception{
+		if (nome == null || residencia == null || residencia.equals("") || nome.isEmpty() || Hospede.isCpfValido(cpf) == false || dataNascimento == null){
+			throw new Exception ("Dados invï¿½lidos. Tente novamente");
 		}
 		this.nome = nome;
 		this.cpf = cpf;
 		this.dataNascimento = dataNascimento;
 		this.opiniao = null;
+		this.residencia = residencia;
 	}
 	/**
-	 * Getter do nome do hóspede.
+	 * Getter do nome do hï¿½spede.
 	 * @return
-	 * O nome do hóspede.
+	 * O nome do hï¿½spede.
 	 */
 	public String getNome() {
 		return nome;
 	}
 	/**
-	 * Getter do CPF do hóspede.
+	 * Getter do CPF do hï¿½spede.
 	 * @return
-	 * O CPF do hóspede.
+	 * O CPF do hï¿½spede.
 	 */
 	public String getCpf() {
 		return cpf;
 	}
 	/**
-	 * Getter da data de nascimento do hóspede.
+	 * Getter da data de nascimento do hï¿½spede.
 	 * @return
-	 * Um objeto Calendar contendo a data de nascimento do hóspede.
+	 * Um objeto Calendar contendo a data de nascimento do hï¿½spede.
 	 */
 	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
 	/**
-	 * O setter do parâmetro Opiniao do hóspede.
+	 * O setter do parï¿½metro Opiniao do hï¿½spede.
 	 * @param opiniao
-	 * Um objeto Opiniao contendo a opinião do hóspede sobre o hotel.
+	 * Um objeto Opiniao contendo a opiniï¿½o do hï¿½spede sobre o hotel.
 	 */
 	public void setOpiniao(Opiniao opiniao){
 		this.opiniao = opiniao;
 	}
 	/**
-	 * O getter do parâmetro opinião do hóspede.
+	 * O getter do parï¿½metro opiniï¿½o do hï¿½spede.
 	 * @return
-	 * Um objeto Opiniao contendo a opinião do hóspede sobre o hotel.
+	 * Um objeto Opiniao contendo a opiniï¿½o do hï¿½spede sobre o hotel.
 	 */
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}
 	/**
-	 * Método que checa se o CPF inserido é aceitável.
+	 * Mï¿½todo que checa se o CPF inserido ï¿½ aceitï¿½vel.
 	 * @param cpf
 	 * Uma String contendo um CPF.
 	 * @return
-	 * true, se o CPF for válido.
+	 * true, se o CPF for vï¿½lido.
 	 */
-	static public boolean isCpfValido(String cpf){
+	static private boolean isCpfValido(String cpf){
 		if (cpf.indexOf("-") != 9 || cpf.isEmpty() || cpf == null || cpf.length() != 12){
 			return false;
 		}return true;
 	}
+	
+	public void setResidencia(String residencia) {
+		this.residencia = residencia;
+	}
+	
+	public String getResidencia() {
+		return residencia;
+	}
+	
 	@Override
 	public String toString(){
 		return "Nome: " + getNome() + ".\n"
 				+ "CPF: " + getCpf() + ".\n"
-				+ "Data de Nascimento: " + getDataNascimento() + ".\n"  // Ajustar depois a formatação desse objeto Calendar
-				+ ((getOpiniao() == null) ? "." : ("Opinião: " + getOpiniao().toString() + "."));
+				+ "Data de Nascimento: " + getDataNascimento() + ".\n"  // Ajustar depois a formataï¿½ï¿½o desse objeto Calendar
+				+ ((getOpiniao() == null) ? "." : ("Opiniï¿½o: " + getOpiniao().toString() + "."));
 
 	}
 
