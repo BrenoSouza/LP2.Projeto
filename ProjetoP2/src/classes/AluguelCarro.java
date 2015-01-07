@@ -13,14 +13,13 @@ public class AluguelCarro extends Servico {
 	private int quantidadeCarros;
 	private double preco;	
 	
-	public AluguelCarro(Calendar data, Calendar horaEntrada,
-			Calendar horaSaida, int diarias, boolean isLuxo, 
+	public AluguelCarro(Calendar data, int diarias, boolean isLuxo, 
 			boolean isTanqueCheio, boolean isSegurado, 
 			int quantidadeCarros) throws Exception {
-		super(data, horaEntrada, horaSaida, diarias);
+		super(data);
 		
 		if (quantidadeCarros < 0) {
-			// TODO os casos de excessão.
+			// TODO os casos de excessï¿½o.
 			throw new Exception("");
 		}
 		
@@ -60,9 +59,17 @@ public class AluguelCarro extends Servico {
 		return isSegurado;
 	}
 
+	public void setDiarias(int diarias) {
+		this.diarias = diarias;
+	}
+	
+	public int getDiarias() {
+		return diarias;
+	}
+	
 	@Override
 	public double calculaPrecoTotal() {
-		// TODO o método todo
+		// TODO o mï¿½todo todo
 		return 1.1;
 	}
 	

@@ -7,10 +7,8 @@ import java.util.Calendar;
 		private boolean isCobertura;
 		private double precoDaConta;
 		
-		public Restaurante(Calendar data, Calendar horaEntrada,
-				Calendar horaSaida, int diarias, boolean isCobertura)
-				throws Exception {
-			super(data, horaEntrada, horaSaida, diarias);
+		public Restaurante(Calendar data, boolean isCobertura) throws Exception {
+			super(data);
 			
 			this.isCobertura = isCobertura;
 			
@@ -18,7 +16,7 @@ import java.util.Calendar;
 	
 	@Override
 	public double calculaPrecoTotal() {
-		// TODO o método todo.
+		// TODO o mï¿½todo todo.
 		return 1.1;
 	}
 	
