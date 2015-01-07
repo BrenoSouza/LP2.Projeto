@@ -11,11 +11,7 @@ public class AluguelCarro extends Servico {
 	private final double DIARIA_LUXO = 100.00;
 	private final double DIARIA_EXECUTIVO = 60.00;
 	private int quantidadeCarros;
-	private double preco;
-	private Calendar data;
-	private Calendar horaEntrada;
-	private Calendar horaSaida;
-	
+	private double preco;	
 	
 	public AluguelCarro(Calendar data, Calendar horaEntrada,
 			Calendar horaSaida, int diarias, boolean isLuxo, 
@@ -32,9 +28,6 @@ public class AluguelCarro extends Servico {
 		this.isTanqueCheio = isTanqueCheio;
 		this.diarias = diarias;
 		this.quantidadeCarros = quantidadeCarros;
-		this.data = data;
-		this.horaEntrada = horaEntrada;
-		this.horaSaida = horaSaida;
 		
 	}
 

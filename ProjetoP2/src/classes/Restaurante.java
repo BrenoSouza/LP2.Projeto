@@ -13,6 +13,7 @@ import java.util.Calendar;
 			super(data, horaEntrada, horaSaida, diarias);
 			
 			this.isCobertura = isCobertura;
+			
 		}
 	
 	@Override

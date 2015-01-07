@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class Babysitter extends Servico {
 	
-	static private int quantidadeCriancas;
+	static private int quantidadeCriancas;	
 	
 	public Babysitter(Calendar data, Calendar horaEntrada, Calendar horaSaida,
 			int diarias, Calendar dataNascimento) throws Exception {
