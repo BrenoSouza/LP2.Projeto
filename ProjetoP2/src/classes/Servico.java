@@ -25,6 +25,7 @@ public class Servico {
 	}
 	
 	public double calculaPrecoTotal() {
+		// TODO método todo
 		return 1.1;
 	}
 	
