@@ -58,6 +58,10 @@ public abstract class Quarto extends Servico{
 		return listaHospedes.remove(hospede);
 	}
 	
+	public double calculaPrecoTotal(){
+		return getPrecoDiaria() * getDiarias();
+	}
+	
 	
 	
 	
