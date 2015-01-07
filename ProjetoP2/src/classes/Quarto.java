@@ -49,6 +49,10 @@ public abstract class Quarto extends Servico{
 		//TODO excessões
 		return listaHospedes.add(hospede);
 	}
+	public double getPrecoDiaria() {
+		return precoDiaria;
+	}
+
 	public boolean removeHospede(Hospede hospede){
 		//TODO excessões
 		return listaHospedes.remove(hospede);
