@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import classes.AluguelCarro;
-import classes.Restaurante;
 
 public class TestaAluguelCarro {
 
@@ -17,7 +16,7 @@ public class TestaAluguelCarro {
 	private AluguelCarro aluguelCarroExecutivo3;
 	
 	@Before
-	public void criaAluguel() throws Exception {
+	public void criaServicoAluguel() throws Exception {
 		aluguelCarroLuxo = new AluguelCarro(1, true, false, false);
 		aluguelCarroLuxoTanqueCheio = new AluguelCarro(1, true, true, false);
 		aluguelCarroLuxoComSeguro = new AluguelCarro(1, true, false, true);
