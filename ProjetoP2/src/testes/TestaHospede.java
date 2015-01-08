@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.AluguelCarro;
 import classes.Hospede;
 
 public class TestaHospede {
@@ -86,9 +85,25 @@ public class TestaHospede {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
 	      }
+
+		try {
+	         new Hospede("Joao", "Brazil", null, dataNascimento);
+	         Assert.fail("Esperava excecao, o CPF é um valor null!");
+	      } catch (Exception e) {
+	         Assert.assertEquals("Mensagem errada",
+	               "Dados inválidos. Tente novamente", e.getMessage());
+	      }
+	
+		try {
+	         new Hospede("Joao", "Brazil", "1111c1111-11", dataNascimento);
+	         Assert.fail("Esperava excecao, o CPF é um valor inválido!");
+	      } catch (Exception e) {
+	         Assert.assertEquals("Mensagem errada",
+	               "Dados inválidos. Tente novamente", e.getMessage());
+	      }
 		
 	}
-	
+		
 	
 
 }
