@@ -8,13 +8,13 @@ import classes.Restaurante;
 
 public class TestaRestaurante {
 
-	private Restaurante conta1;
-	private Restaurante conta2;
+	private Restaurante servicoRestaurante1;
+	private Restaurante servicoRestaurante2;
 	
 	@Before
-	public void criaConta() throws Exception {
-		conta1 = new Restaurante(true, 100.00);
-		conta2 = new Restaurante(false, 200.00);
+	public void criaServico() throws Exception {
+		servicoRestaurante1 = new Restaurante(true, 100.00);
+		servicoRestaurante2 = new Restaurante(false, 200.00);
 	}
 	
 	@Test
@@ -30,13 +30,13 @@ public class TestaRestaurante {
 	
 	@Test
 	public void testaIsCobertura() {
-		Assert.assertTrue(conta1.getIsCobertura());
-		Assert.assertFalse(conta2.getIsCobertura());
+		Assert.assertTrue(servicoRestaurante1.getIsCobertura());
+		Assert.assertFalse(servicoRestaurante2.getIsCobertura());
 	}
 	
 	@Test
 	public void testaCalculaPrecoTotal() {
-		Assert.assertTrue(conta1.calculaPrecoTotal() == 100.00);
-		Assert.assertTrue(conta2.calculaPrecoTotal() == 200.00);	
+		Assert.assertTrue(servicoRestaurante1.calculaPrecoTotal() == 100.00);
+		Assert.assertTrue(servicoRestaurante2.calculaPrecoTotal() == 200.00);	
 	}
 }
