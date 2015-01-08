@@ -11,10 +11,9 @@ public class Babysitter extends Servico {
 	 * @param horaEntrada A hora de entrada da babysitter.
 	 * @param horaSaida A hora de saida da babysitter.
 	 */
-	public Babysitter(int horaSaida) {
+	public Babysitter() {
 		super();
-		this.horaSaida = Calendar.getInstance();
-		this.horaSaida.set(Calendar.HOUR_OF_DAY, horaSaida);
+		
 	}
 	/**
 	 * Calcula as horas trabalhadas da babysitter.
@@ -41,6 +40,14 @@ public class Babysitter extends Servico {
 	 */
 	public Calendar getHoraSaida() {
 		return horaSaida;
+	}
+	/**
+	 * Estabelece a hora de saida da babysitter.
+	 * @param horaSaida A hora de saida.
+	 */
+	public void setHoraSaida(int horaSaida) {
+		this.horaSaida = Calendar.getInstance();
+		this.horaSaida.set(Calendar.HOUR_OF_DAY, horaSaida);
 	}
 	/**
 	 * Retorna as horas trabalhadas em horario normal.
