@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class Testeinterface {
 
@@ -49,6 +50,7 @@ public class Testeinterface {
 		
 		
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int resultado;
@@ -62,6 +64,7 @@ public class Testeinterface {
 		frame.getContentPane().add(btnAdicionar);
 		
 		JButton btnRemover = new JButton("Remover");
+		btnRemover.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int resultado;
@@ -81,6 +84,7 @@ public class Testeinterface {
 		textField.setColumns(10);
 		
 		JButton btnEhNois = new JButton("Eh nois");
+		btnEhNois.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		btnEhNois.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int resultado;
