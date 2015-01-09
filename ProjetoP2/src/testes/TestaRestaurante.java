@@ -29,12 +29,6 @@ public class TestaRestaurante {
 	}
 	
 	@Test
-	public void testaIsCobertura() {
-		Assert.assertTrue(servicoRestaurante1.getIsCobertura());
-		Assert.assertFalse(servicoRestaurante2.getIsCobertura());
-	}
-	
-	@Test
 	public void testaCalculaPrecoTotal() {
 		Assert.assertTrue(servicoRestaurante1.calculaPrecoTotal() == 100.00);
 		Assert.assertTrue(servicoRestaurante2.calculaPrecoTotal() == 200.00);	
