@@ -77,6 +77,7 @@ public class Testeinterface {
 		textField.setText("10000000");
 		textField.setBounds(116, 61, 200, 50);
 		frame.getContentPane().add(textField);
+		
 		textField.setColumns(10);
 		
 		JButton btnEhNois = new JButton("Eh nois");
