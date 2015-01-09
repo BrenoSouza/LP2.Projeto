@@ -19,6 +19,8 @@ public class Babysitter extends Servico {
 	 * Calcula as horas trabalhadas da babysitter.
 	 */
 	public void horasTrabalhadas(){
+		this.horasPrecoNormal = 0;
+		this.horasPrecoExtra = 0;
 		int inicio = super.getData().get(Calendar.HOUR_OF_DAY);
 		int fim = horaSaida.get(Calendar.HOUR_OF_DAY);
 		while (inicio != fim){
@@ -38,8 +40,8 @@ public class Babysitter extends Servico {
 	 * Retorna a hora de saida da babysitter.
 	 * @return A hora de saida da babysitter.
 	 */
-	public Calendar getHoraSaida() {
-		return horaSaida;
+	public int getHoraSaida() {
+		return horaSaida.get(Calendar.HOUR_OF_DAY);
 	}
 	/**
 	 * Estabelece a hora de saida da babysitter.
