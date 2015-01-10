@@ -17,10 +17,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import javax.swing.JDesktopPane;
+import java.awt.SystemColor;
 
 public class Main extends JFrame {
 
 	private JPanel contentPane;
+	private JDesktopPane desktopPane;
 
 	/**
 	 * Launch the application.
@@ -66,32 +71,47 @@ public class Main extends JFrame {
 		mnOpo_1.add(mntmOpo_2);
 		
 		JMenuItem mntmOpo_3 = new JMenuItem("Op\u00E7\u00E3o 2.2");
+		mntmOpo_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		mnOpo_1.add(mntmOpo_3);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
 		JToolBar toolBar = new JToolBar();
+		
+		desktopPane = new JDesktopPane();
+		desktopPane.setBackground(SystemColor.inactiveCaptionBorder);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(570, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(10)
+							.addComponent(desktopPane, GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE))
+						.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(497, Short.MAX_VALUE))
+					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+					.addGap(19)
+					.addComponent(desktopPane, GroupLayout.DEFAULT_SIZE, 451, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		
 		JButton btnClientes = new JButton("Clientes    ");
-		btnClientes.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnClientes.setIcon(new ImageIcon(Main.class.getResource("/resources/clientes_icon.png")));
+		btnClientes.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnClientes);
 		
 		JButton btnServios = new JButton("Servi\u00E7os    ");
-		btnServios.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnServios.setIcon(new ImageIcon(Main.class.getResource("/resources/servicos_icon.png")));
+		btnServios.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		btnServios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -99,7 +119,8 @@ public class Main extends JFrame {
 		toolBar.add(btnServios);
 		
 		JButton btnContratos = new JButton("Contratos    ");
-		btnContratos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btnContratos.setIcon(new ImageIcon(Main.class.getResource("/resources/contrato_icon.png")));
+		btnContratos.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnContratos);
 		contentPane.setLayout(gl_contentPane);
 	}
