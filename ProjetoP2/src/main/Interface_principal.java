@@ -59,6 +59,10 @@ public class Interface_principal {
 		btnGerenciarHospedes.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnGerenciarHospedes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				Interface_hospedes tela = new Interface_hospedes();
+//				frame.dispose();
+				frame.setEnabled(false);
+				tela.setVisible(true);
 			}
 		});
 		
