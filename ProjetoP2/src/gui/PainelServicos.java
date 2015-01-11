@@ -20,7 +20,7 @@ public class PainelServicos extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Servi\u00E7os");
 		setClosable(true);
-		setBounds(0, 0, 752, 450);
+		setBounds(50, 0, 752, 450);
 		
 		JLabel lblNewLabel = new JLabel("----------");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

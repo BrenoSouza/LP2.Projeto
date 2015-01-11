@@ -20,7 +20,7 @@ public class PainelContratos extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelContratos.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Contratos");
 		setClosable(true);
-		setBounds(0, 0, 752, 450);
+		setBounds(100, 0, 752, 450);
 		
 		JLabel lblNewLabel = new JLabel("----------");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
