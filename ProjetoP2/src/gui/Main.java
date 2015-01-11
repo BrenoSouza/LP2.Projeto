@@ -138,6 +138,8 @@ public class Main extends JFrame {
 				if (painelClientes == null || painelClientes.isClosed()){
 					painelClientes = new PainelClientes();
 					painelPrincipal.add(painelClientes);
+					teste teste = new teste();
+					teste.setVisible(true);
 					painelClientes.show();
 				}
 			}
@@ -153,6 +155,8 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (painelServicos == null || painelServicos.isClosed()){
 					painelServicos = new PainelServicos();
+					teste teste = new teste();
+					teste.setVisible(true);
 					painelPrincipal.add(painelServicos);
 					painelServicos.show();
 				}
@@ -169,6 +173,8 @@ public class Main extends JFrame {
 				if (painelContratos == null || painelContratos.isClosed()){
 					painelContratos = new PainelContratos();
 					painelPrincipal.add(painelContratos);
+					teste teste = new teste();
+					teste.setVisible(true);
 					painelContratos.show();
 				}
 			}
