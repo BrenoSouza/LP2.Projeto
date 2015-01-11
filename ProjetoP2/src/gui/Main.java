@@ -141,6 +141,11 @@ public class Main extends JFrame {
 					teste teste = new teste();
 					teste.setVisible(true);
 					painelClientes.show();
+				}else{
+					painelClientes.dispose();
+					painelClientes = new PainelClientes();
+					painelPrincipal.add(painelClientes);
+					painelClientes.show();
 				}
 			}
 		});
