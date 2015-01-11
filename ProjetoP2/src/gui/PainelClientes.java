@@ -1,0 +1,44 @@
+package gui;
+
+import java.awt.EventQueue;
+
+import javax.swing.JInternalFrame;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+
+public class PainelClientes extends JInternalFrame {
+
+
+
+	/**
+	 * Create the frame.
+	 */
+	public PainelClientes() {
+		setResizable(true);
+		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
+		setTitle("Clientes");
+		setClosable(true);
+		setBounds(0, 0, 752, 450);
+		
+		JLabel lblNewLabel = new JLabel("----------");
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(154)
+					.addComponent(lblNewLabel)
+					.addContainerGap(234, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(112)
+					.addComponent(lblNewLabel)
+					.addContainerGap(145, Short.MAX_VALUE))
+		);
+		getContentPane().setLayout(groupLayout);
+
+	}
+}
