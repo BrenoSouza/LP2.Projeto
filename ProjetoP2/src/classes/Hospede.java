@@ -23,7 +23,7 @@ public class Hospede {
 	 * Joga uma excess�o caso qualquer um dos atributos estiverem em formato inv�lido.
 	 */
 	public Hospede(String nome, String endereco, String cpf, Calendar dataNascimento) throws Exception{
-		if (nome == null || endereco == null || endereco.isEmpty() || nome.isEmpty() || dataNascimento == null){
+		if (nome == null || endereco == null || endereco.isEmpty() || nome.isEmpty() || dataNascimento == null || cpf == null || cpf.equals("   .   .   -  ")){
 			throw new Exception ("Dados inv�lidos. Tente novamente");
 		}
 		this.nome = nome;
@@ -86,7 +86,7 @@ public class Hospede {
 	 * true, se o CPF for v�lido.
 	 */
 	static private boolean isCpfValido(String cpf){
-		if (cpf.isEmpty() || cpf == null || cpf.length() != 11){
+		if (cpf.isEmpty() || cpf == null || cpf.length() != 14){
 			return false;
 		}return true;
 	}

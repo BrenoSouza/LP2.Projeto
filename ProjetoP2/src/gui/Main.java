@@ -136,7 +136,7 @@ public class Main extends JFrame {
 		btnClientes = new JButton("Clientes    ");
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
-				if (painelClientes == null || painelClientes.isClosed()){
+				if (painelCadastro == null || painelCadastro.isClosed()){
 					try{
 						painelCadastro = new PainelCadastroClientes();
 						painelClientes = new PainelClientes();
