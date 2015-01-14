@@ -1,6 +1,6 @@
 package gui;
 
-import classes.*;
+import classes.Hospede;
 
 import java.awt.EventQueue;
 
