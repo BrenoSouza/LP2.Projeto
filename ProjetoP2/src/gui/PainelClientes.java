@@ -8,6 +8,18 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
+import java.awt.Font;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JFormattedTextField;
+import javax.swing.DropMode;
+import javax.swing.text.DateFormatter;
+import javax.swing.text.MaskFormatter;
+
 public class PainelClientes extends JInternalFrame {
 
 
@@ -15,28 +27,28 @@ public class PainelClientes extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelClientes() {
+	public PainelClientes() throws Exception{
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");
 		setClosable(true);
 		setBounds(0, 0, 752, 450);
 		
-		JLabel lblNewLabel = new JLabel("----------");
+		
+		DateFormat formatoData = new SimpleDateFormat("dd-MM-yyyy");
+        DateFormatter df = new DateFormatter(formatoData);
+		
+		MaskFormatter mascara = new MaskFormatter("###.###.###-##");
+        mascara.setPlaceholderCharacter('_');
+
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(154)
-					.addComponent(lblNewLabel)
-					.addContainerGap(234, Short.MAX_VALUE))
+				.addGap(0, 736, Short.MAX_VALUE)
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(112)
-					.addComponent(lblNewLabel)
-					.addContainerGap(145, Short.MAX_VALUE))
+				.addGap(0, 421, Short.MAX_VALUE)
 		);
 		getContentPane().setLayout(groupLayout);
 

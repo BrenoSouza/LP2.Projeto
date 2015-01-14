@@ -41,6 +41,7 @@ public class Main extends JFrame {
 	private PainelClientes painelClientes;
 	private PainelServicos painelServicos;
 	private PainelContratos painelContratos;
+	private PainelCadastroClientes painelCadastro;
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
 
@@ -64,7 +65,7 @@ public class Main extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Main() {
+	public Main() throws Exception{
 		setTitle("Hotel Riviera Campina - Admnistra\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
@@ -134,16 +135,23 @@ public class Main extends JFrame {
 
 		btnClientes = new JButton("Clientes    ");
 		btnClientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e){
 				if (painelClientes == null || painelClientes.isClosed()){
-					painelClientes = new PainelClientes();
-					painelPrincipal.add(painelClientes);
-					teste teste = new teste();
-					teste.setVisible(true);
-					painelClientes.show();
+					try{
+						painelCadastro = new PainelCadastroClientes();
+						painelClientes = new PainelClientes();
+					}catch (Exception e1){
+						System.out.println(e1.getMessage());
+					}
+					painelPrincipal.add(painelCadastro);
+					painelCadastro.show();
 				}else{
 					painelClientes.dispose();
-					painelClientes = new PainelClientes();
+					try{
+						painelClientes = new PainelClientes();
+					}catch (Exception e2){
+						System.out.println(e2.getMessage());
+					}
 					painelPrincipal.add(painelClientes);
 					painelClientes.show();
 				}
@@ -160,8 +168,6 @@ public class Main extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (painelServicos == null || painelServicos.isClosed()){
 					painelServicos = new PainelServicos();
-					teste teste = new teste();
-					teste.setVisible(true);
 					painelPrincipal.add(painelServicos);
 					painelServicos.show();
 				}
@@ -178,8 +184,6 @@ public class Main extends JFrame {
 				if (painelContratos == null || painelContratos.isClosed()){
 					painelContratos = new PainelContratos();
 					painelPrincipal.add(painelContratos);
-					teste teste = new teste();
-					teste.setVisible(true);
 					painelContratos.show();
 				}
 			}
