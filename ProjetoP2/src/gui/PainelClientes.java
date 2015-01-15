@@ -11,7 +11,9 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -20,14 +22,18 @@ import javax.swing.DropMode;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.MaskFormatter;
 
+import classes.Hospede;
+
 public class PainelClientes extends JInternalFrame {
 
+	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 
 
 	/**
 	 * Create the frame.
 	 */
-	public PainelClientes() throws Exception{
+	public PainelClientes(List<Hospede> listaHospedes) throws Exception{
+		this.listaHospedes.addAll(listaHospedes);
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");

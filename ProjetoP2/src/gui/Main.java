@@ -44,6 +44,7 @@ public class Main extends JFrame {
 	private PainelCadastroClientes painelCadastro;
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
+	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 
 	/**
 	 * Launch the application.
@@ -139,7 +140,7 @@ public class Main extends JFrame {
 				if (painelCadastro == null || painelCadastro.isClosed()){
 					try{
 						painelCadastro = new PainelCadastroClientes();
-						painelClientes = new PainelClientes();
+						painelClientes = new PainelClientes(listaHospedes);
 					}catch (Exception e1){
 						System.out.println(e1.getMessage());
 					}
@@ -148,7 +149,7 @@ public class Main extends JFrame {
 				}else{
 					painelClientes.dispose();
 					try{
-						painelClientes = new PainelClientes();
+						painelClientes = new PainelClientes(listaHospedes);
 					}catch (Exception e2){
 						System.out.println(e2.getMessage());
 					}
