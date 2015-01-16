@@ -12,7 +12,7 @@ public class Contrato {
 	private int numeroDiarias;
 	private Hospede hospedePrincipal = null;
 	private Calendar dataCheckIn;
-	private Calendar dataCheckOut;
+	private Calendar dataCheckOut = Calendar.getInstance();
 	private String status = "ABERTO";
 	/**
 	 * Construtor da classe Contrato.
@@ -33,8 +33,8 @@ public class Contrato {
 		this.listaHospedes.addAll(listaHospedes);
 		this.numeroDiarias = numeroDiarias;
 		this.dataCheckIn = dataCheckIn;
-		dataCheckOut = dataCheckIn;
-		dataCheckOut.add(Calendar.DATE, numeroDiarias);
+		dataCheckOut.setTime(dataCheckIn.getTime());
+		dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
 	}
 	/**
 	 * Getter da lista de quartos alugados.

@@ -45,7 +45,7 @@ public class PainelContratos extends JInternalFrame {
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-		this.listaContratos.addAll(listaContratos);
+		this.listaContratos = listaContratos;
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelContratos.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Contratos");
@@ -53,17 +53,19 @@ public class PainelContratos extends JInternalFrame {
 		setBounds(100, 0, 752, 450);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addGap(10)
-						.addComponent(scrollPanePrincipal, GroupLayout.PREFERRED_SIZE, 716, GroupLayout.PREFERRED_SIZE))
-				);
+					.addGap(10)
+					.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+					.addGap(10))
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-						.addGap(11)
-						.addComponent(scrollPanePrincipal, GroupLayout.PREFERRED_SIZE, 399, GroupLayout.PREFERRED_SIZE))
-				);
+					.addGap(11)
+					.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+					.addGap(11))
+		);
 
 		tableContratos = new JTable();
 		// INÍCIO DE CONSTRUÇÃO DA TABELA
@@ -99,9 +101,23 @@ public class PainelContratos extends JInternalFrame {
 			// FIM DE CONSTRUÇÃO DE TABELA.
 			
 		}
-		tableContratos.setModel(new DefaultTableModel(designTabela,	new String[] {
-				"Hóspede principal", "Data de Check-In", "Data de Check-Out", "Despesas Atuais", "Status"
-			}));
+				//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
+				@SuppressWarnings("serial")
+				DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
+						"Hóspede principal", "Data de Check-In", "Data de Check-Out", "Despesas Atuais", "Status"
+				}) {
+
+					@Override
+				    public boolean isCellEditable(int row, int column) {
+				        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
+				        return false;
+				    }
+				};
+
+	
+		tableContratos.setModel(modeloTabela);
+		tableContratos.setRowSelectionAllowed(true);
+		
 		scrollPanePrincipal.setViewportView(tableContratos);
 		
 		
@@ -109,4 +125,5 @@ public class PainelContratos extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 
 	}
+	
 }
