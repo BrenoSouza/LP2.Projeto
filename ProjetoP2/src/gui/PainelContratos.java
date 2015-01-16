@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 
@@ -26,6 +28,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
@@ -33,6 +38,10 @@ public class PainelContratos extends JInternalFrame {
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private final SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 	private JTable table;
+	private Contrato contratoSelecionado = null;
+	private JButton btnVisualizar;
+	private JButton btnEditar;
+	private JButton btnNovo;
 
 
 	/**
@@ -51,24 +60,51 @@ public class PainelContratos extends JInternalFrame {
 		setTitle("Contratos");
 		setClosable(true);
 		setBounds(100, 0, 752, 450);
+		
+		btnVisualizar = new JButton("Visualizar");
+		btnVisualizar.setEnabled(false);
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.setEnabled(false);
+		
+		btnNovo = new JButton("Novo");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
-					.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
-					.addGap(10))
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnVisualizar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+							.addGap(220)
+							.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(11)
-					.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
-					.addGap(11))
+					.addContainerGap()
+					.addComponent(scrollPanePrincipal, GroupLayout.PREFERRED_SIZE, 345, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnVisualizar)
+						.addComponent(btnNovo)
+						.addComponent(btnEditar))
+					.addContainerGap())
 		);
 
 		tableContratos = new JTable();
+//		tableContratos.addFocusListener(new FocusAdapter() { Método que deseleciona a seleção se o usuário clicar fora da tabela, ainda em construção.
+//			@Override
+//			public void focusLost(FocusEvent arg0) {
+//				tableContratos.getSelectionModel().clearSelection();
+//			}
+//		});
 		// INÍCIO DE CONSTRUÇÃO DA TABELA
+		// designTabela = o conteúdo da tabela em si, preenchida através de um loop for.
 				Object[][] designTabela = new Object[listaContratos.size()][5];
 				for (int i = 0; i < listaContratos.size(); i++){
 					Contrato contratoAtual = listaContratos.get(i);
@@ -115,8 +151,26 @@ public class PainelContratos extends JInternalFrame {
 				};
 
 	
-		tableContratos.setModel(modeloTabela);
-		tableContratos.setRowSelectionAllowed(true);
+		tableContratos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
+		tableContratos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
+		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
+				ListSelectionModel modeloSelecaoLinha = tableContratos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				
+				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+					//Necessita ser esse nome de método para funcionar
+					public void valueChanged(ListSelectionEvent e) {
+						int[] indiceSelecionado = tableContratos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+						if (indiceSelecionado.length <= 0){
+							contratoSelecionado = null;
+						}else{
+							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
+							setContratoSelecionado(indiceSelecionado[0]);
+						}atualizaBotoes();
+						
+					}
+				});
+		//O event acima se refere a como o programa vai lidar quando o usuário clica em uma linha da tabela.
 		
 		scrollPanePrincipal.setViewportView(tableContratos);
 		
@@ -125,5 +179,19 @@ public class PainelContratos extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 
 	}
-	
+	public void setContratoSelecionado(int indice){
+		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
+		contratoSelecionado = listaContratos.get(indice); // Lembrando que a tabela está na mesma ordem que a listaContratos, então os índices são os mesmos.
+	}
+	public void atualizaBotoes(){
+		if (contratoSelecionado == null){
+			btnNovo.setEnabled(true);
+			btnEditar.setEnabled(false);
+			btnVisualizar.setEnabled(false);
+		}else{
+			btnNovo.setEnabled(false);
+			btnEditar.setEnabled(true);
+			btnVisualizar.setEnabled(true);
+		}
+	}
 }
