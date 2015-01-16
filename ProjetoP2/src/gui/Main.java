@@ -125,29 +125,27 @@ public class Main extends JFrame {
 		setContentPane(contentPane);
 
 		JToolBar toolBar = new JToolBar();
+		toolBar.setFloatable(false);
 
 		painelPrincipal = new JDesktopPane();
 		painelPrincipal.setBorder(new LineBorder(new Color(0, 0, 0)));
 		painelPrincipal.setBackground(SystemColor.window);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-				gl_contentPane.createParallelGroup(Alignment.TRAILING)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 758, Short.MAX_VALUE)
-						.addGap(16))
-						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-								.addGap(11)
-								.addComponent(painelPrincipal, GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE)
-								.addContainerGap())
-				);
+					.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 958, Short.MAX_VALUE)
+					.addGap(16))
+				.addComponent(painelPrincipal, GroupLayout.DEFAULT_SIZE, 974, Short.MAX_VALUE)
+		);
 		gl_contentPane.setVerticalGroup(
-				gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(painelPrincipal, GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
-						.addContainerGap())
-				);
+					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(painelPrincipal, GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+					.addContainerGap())
+		);
 		GroupLayout gl_painelPrincipal = new GroupLayout(painelPrincipal);
 		gl_painelPrincipal.setHorizontalGroup(
 				gl_painelPrincipal.createParallelGroup(Alignment.LEADING)
