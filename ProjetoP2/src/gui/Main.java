@@ -210,7 +210,7 @@ public class Main extends JFrame {
 		btnContratos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (painelContratos == null || painelContratos.isClosed()){
-					painelContratos = new PainelContratos(listaContratos);
+					painelContratos = new PainelContratos(listaContratos, painelPrincipal);
 					painelPrincipal.add(painelContratos);
 					painelContratos.show();
 				}
