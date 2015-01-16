@@ -24,7 +24,9 @@ public class Contrato {
 	 * O número de diárias.
 	 */
 	public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias, Calendar dataCheckIn) throws Exception{
-		if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 || listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0){
+		if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 
+//				|| listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0
+				){
 			throw new Exception ("Dados inválidos. Tente novamente.");
 		}
 		this.listaQuartosAlugados.addAll(listaQuartosAlugados);
@@ -112,6 +114,14 @@ public class Contrato {
 	 */
 	public Calendar getDataCheckOut(){
 		return dataCheckOut;
+	}
+	/**
+	 * Getter da string com o status do contrato.
+	 * @return
+	 * String com o status do contrato.
+	 */
+	public String getStatus(){
+		return status;
 	}
 
 }
