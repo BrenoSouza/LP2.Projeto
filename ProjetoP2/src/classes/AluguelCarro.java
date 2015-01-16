@@ -63,7 +63,7 @@ public class AluguelCarro extends Servico {
 	 * @param diarias um parametro com o número de diárias.
 	 */
 	public void setDiarias(int diarias) {
-		this.diarias = diarias;
+		this.diarias += diarias;
 	}
 	
 	/**
@@ -93,5 +93,7 @@ public class AluguelCarro extends Servico {
 		}return preco;
 		
 	}
+	
+	
 	
 }
