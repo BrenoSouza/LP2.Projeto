@@ -42,7 +42,7 @@ public class Babysitter extends Servico {
 	 * Retorna a data de saida da babysitter.
 	 * @return A data de saida da babysitter.
 	 */
-	public String getSaida() {
+	public String getFim() {
 		String dataFormatada = Main.getFormatodata().format(horaSaida.getTime());
 		return dataFormatada;
 	}
@@ -87,7 +87,7 @@ public class Babysitter extends Servico {
 		horasTrabalhadas();
 		return "Servico --- Babysitter ---" +
 				"\nInicio -> " + this.getInicioServico() + " Hora de entrada ->" + this.getHoraEntrada() +
-				"\nFim -> " + this.getSaida() + " Hora de saida ->" + this.getHoraSaida() +
+				"\nFim -> " + this.getFim() + " Hora de saida ->" + this.getHoraSaida() +
 				"\nHoras ->" + this.getHorasPrecoNormal() + ", preco normal | " + this.getHorasPrecoExtra() + ", preco dobrado" +
 				"\nCusto final: " + this.calculaPrecoTotal();
 	}
