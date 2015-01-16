@@ -86,8 +86,7 @@ public class PainelCadastroClientes extends JInternalFrame {
 		btnCriarHspede.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
-					Calendar data = Calendar.getInstance();
-					data.setTime(FormatoData.parse(campoData.getText()));
+					Calendar data = Main.converteParaCalendar(campoData.getText());
 					String nomeHospede = campoNome.getText();
 					String cpfHospede = campoCPF.getText();
 					String enderecoHospede = campoEndereco.getText();
