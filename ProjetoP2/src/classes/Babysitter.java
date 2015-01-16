@@ -1,5 +1,7 @@
 package classes;
 
+import gui.Main;
+
 import java.util.Calendar;
 
 public class Babysitter extends Servico {
@@ -37,6 +39,14 @@ public class Babysitter extends Servico {
 		}
 	}
 	/**
+	 * Retorna a data de saida da babysitter.
+	 * @return A data de saida da babysitter.
+	 */
+	public String getSaida() {
+		String dataFormatada = Main.getFormatodata().format(horaSaida.getTime());
+		return dataFormatada;
+	}
+	/**
 	 * Retorna a hora de saida da babysitter.
 	 * @return A hora de saida da babysitter.
 	 */
@@ -70,6 +80,16 @@ public class Babysitter extends Servico {
 	public double calculaPrecoTotal() {
 		horasTrabalhadas();
 		return (horasPrecoExtra * 50) + (horasPrecoNormal * 25);
+	}
+	
+	@Override
+	public String toString(){
+		horasTrabalhadas();
+		return "Servico --- Babysitter ---" +
+				"\nInicio -> " + this.getInicioServico() + " Hora de entrada ->" + this.getHoraEntrada() +
+				"\nFim -> " + this.getSaida() + " Hora de saida ->" + this.getHoraSaida() +
+				"\nHoras ->" + this.getHorasPrecoNormal() + ", preco normal | " + this.getHorasPrecoExtra() + ", preco dobrado" +
+				"\nCusto final: " + this.calculaPrecoTotal();
 	}
 
 }
