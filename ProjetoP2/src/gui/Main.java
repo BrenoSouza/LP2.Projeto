@@ -72,12 +72,13 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	/**
-	 * Método de conversão string > calendar
+	 * Método de conversão string para Calendar
 	 * @param data
 	 * Uma data no formato dd/mm/aaaa
 	 * @return
 	 * Um calendar com essa data
 	 * @throws Exception
+	 * Se a string estiver em algum formato inválido
 	 */
 	public static Calendar converteParaCalendar(String data) throws Exception{
 		Calendar dataDeRetorno = Calendar.getInstance();
