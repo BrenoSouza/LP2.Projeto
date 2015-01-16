@@ -31,7 +31,7 @@ public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableContratos;
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
-	private final SimpleDateFormat formatoData = new SimpleDateFormat("dd/mm/yyyy");
+	private final SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 	private JTable table;
 
 
