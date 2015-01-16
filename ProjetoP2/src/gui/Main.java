@@ -51,6 +51,10 @@ public class Main extends JFrame {
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
 
+	public static SimpleDateFormat getFormatodata() {
+		return FormatoData;
+	}
+
 	/**
 	 * Launch the application.
 	 */
@@ -85,12 +89,12 @@ public class Main extends JFrame {
 		dataDeRetorno.setTime(FormatoData.parse(data));
 		return dataDeRetorno;
 		
-		
 	}
 	public static String converteParaString (Calendar data) throws Exception{
 		String dataFormatada = FormatoData.format(data.getTime());
 		return dataFormatada;
 	}
+	
 	public Main() throws Exception{
 		setTitle("Hotel Riviera Campina - Admnistra\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
