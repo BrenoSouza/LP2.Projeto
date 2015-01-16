@@ -9,6 +9,7 @@ public class Contrato {
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	private List<Servico> listaServicos = new ArrayList<Servico>();
 	private int numeroDiarias;
+	private Hospede hospedePrincipal = null;
 	/**
 	 * Construtor da classe Contrato.
 	 * @param listaQuartosAlugados
@@ -57,6 +58,22 @@ public class Contrato {
 	 */
 	public int getNumeroDiarias() {
 		return numeroDiarias;
+	}
+	/**
+	 * Setter do objeto referente ao hóspede principal do contrato.
+	 * @param hospede
+	 * O hóspede que deseja ser marcado como o principal do contrato.
+	 */
+	public void setHospedePrincipal(Hospede hospede){
+		hospedePrincipal = hospede;
+	}
+	/**
+	 * Getter do objeto Hospede referente ao hóspede principal do contrato.
+	 * @return
+	 * Um objeto Hospede com o hospede principal do contrato.
+	 */
+	public Hospede getHospedePrincipal(){
+		return hospedePrincipal;
 	}
 	/**
 	 * Método que calcula o preço final a ser pago por tudo relevante ao contrato.
