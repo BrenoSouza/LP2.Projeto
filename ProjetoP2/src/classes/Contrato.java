@@ -1,6 +1,7 @@
 package classes;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Contrato {
@@ -10,6 +11,9 @@ public class Contrato {
 	private List<Servico> listaServicos = new ArrayList<Servico>();
 	private int numeroDiarias;
 	private Hospede hospedePrincipal = null;
+	private Calendar dataCheckIn;
+	private Calendar dataCheckOut;
+	private String status = "ABERTO";
 	/**
 	 * Construtor da classe Contrato.
 	 * @param listaQuartosAlugados
@@ -19,13 +23,16 @@ public class Contrato {
 	 * @param numeroDiarias
 	 * O número de diárias.
 	 */
-	public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws Exception{
+	public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias, Calendar dataCheckIn) throws Exception{
 		if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 || listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0){
 			throw new Exception ("Dados inválidos. Tente novamente.");
 		}
 		this.listaQuartosAlugados.addAll(listaQuartosAlugados);
 		this.listaHospedes.addAll(listaHospedes);
 		this.numeroDiarias = numeroDiarias;
+		this.dataCheckIn = dataCheckIn;
+		dataCheckOut = dataCheckIn;
+		dataCheckOut.add(Calendar.DATE, numeroDiarias);
 	}
 	/**
 	 * Getter da lista de quartos alugados.
@@ -83,6 +90,28 @@ public class Contrato {
 	public double calculaPrecoFinal(){
 		// TODO O método todo;
 		return 0.0;
+	}
+	/**
+	 * Método para mudar o status do contrato de "ABERTO" para "FECHADO"
+	 */
+	public void fechaContrato(){
+		status = "FECHADO";
+	}
+	/**
+	 * Getter do Calendar com a data de check in
+	 * @return
+	 * Um Calendar com a data de check in
+	 */
+	public Calendar getDataCheckIn(){
+		return dataCheckIn;
+	}
+	/**
+	 * Getter do Calendar com a data de check out
+	 * @return
+	 * Um Calendar com a data de check out
+	 */
+	public Calendar getDataCheckOut(){
+		return dataCheckOut;
 	}
 
 }

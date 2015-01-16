@@ -53,7 +53,7 @@ public class PainelContratos extends JInternalFrame {
 		);
 		
 		tableContratos = new JTable();
-		
+		Object[][] designTabela = new Object[listaContratos.size()][];
 		tableContratos.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null},
