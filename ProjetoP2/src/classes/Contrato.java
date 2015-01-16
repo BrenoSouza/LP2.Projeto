@@ -14,7 +14,7 @@ public class Contrato {
 	private int numeroDiarias;
 	private Hospede hospedePrincipal = null;
 	private Calendar dataCheckIn;
-	private Calendar dataCheckOut;
+	private Calendar dataCheckOut = Calendar.getInstance();
 	private String status = "ABERTO";
 	/**
 	 * Construtor da classe Contrato.
