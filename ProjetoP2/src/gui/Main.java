@@ -49,7 +49,7 @@ public class Main extends JFrame {
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
-	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/mm/yyyy");
+	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
 
 	/**
 	 * Launch the application.
