@@ -32,4 +32,12 @@ package classes;
 		return preco;
 	}
 	
+	@Override
+	public String toString() {
+		return "Servico --- Restaurante ---" +
+				"\nHora -> " + this.getHoraEntrada() +
+				"\nCobertura? " + (this.getIsCobertura() ? "Sim" : "Nao") +
+				"\nCusto final: " + this.calculaPrecoTotal();
+	}
+	
 }
