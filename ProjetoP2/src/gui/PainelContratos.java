@@ -42,7 +42,6 @@ public class PainelContratos extends JInternalFrame {
 		try{
 		Contrato teste = new Contrato(new ArrayList<Quarto>(), new ArrayList<Hospede>(), 5, Calendar.getInstance());
 		listaContratos.add(teste);
-		JOptionPane.showMessageDialog(null, Main.converteParaString(Calendar.getInstance()));
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
