@@ -49,7 +49,7 @@ public class PainelContratos extends JInternalFrame {
 	 */
 	public PainelContratos(List<Contrato> listaContratos){
 		try{
-		Contrato teste = new Contrato(new ArrayList<Quarto>(), new ArrayList<Hospede>(), 5, Calendar.getInstance());
+		Contrato teste = new Contrato(new ArrayList<Quarto>(), new ArrayList<Hospede>(), 5);
 		listaContratos.add(teste);
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
