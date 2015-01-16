@@ -97,7 +97,7 @@ public class PainelContratos extends JInternalFrame {
 		);
 
 		tableContratos = new JTable();
-//		tableContratos.addFocusListener(new FocusAdapter() {  Método que deseleciona a seleção se o usuário clicar fora da tabela, ainda em construção.
+//		tableContratos.addFocusListener(new FocusAdapter() { Método que deseleciona a seleção se o usuário clicar fora da tabela, ainda em construção.
 //			@Override
 //			public void focusLost(FocusEvent arg0) {
 //				tableContratos.getSelectionModel().clearSelection();
