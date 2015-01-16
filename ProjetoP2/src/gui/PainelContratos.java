@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JDesktopPane;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -29,8 +30,11 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
@@ -42,12 +46,14 @@ public class PainelContratos extends JInternalFrame {
 	private JButton btnVisualizar;
 	private JButton btnEditar;
 	private JButton btnNovo;
+	private JDesktopPane painelPrincipal;
 
 
 	/**
 	 * Create the frame.
 	 */
-	public PainelContratos(List<Contrato> listaContratos){
+	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal){
+		this.painelPrincipal = painelPrincipal;
 		try{
 		Contrato teste = new Contrato(new ArrayList<Quarto>(), new ArrayList<Hospede>(), 5, Calendar.getInstance());
 		listaContratos.add(teste);
@@ -59,9 +65,16 @@ public class PainelContratos extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelContratos.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Contratos");
 		setClosable(true);
-		setBounds(100, 0, 752, 450);
+		setBounds(0, 0, 752, 450);
 		
 		btnVisualizar = new JButton("Visualizar");
+		btnVisualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PainelVisualizacaoContrato painelVisualizacao = new PainelVisualizacaoContrato(contratoSelecionado);
+				adicionaNoPainel(painelVisualizacao);
+				painelVisualizacao.show();
+			}
+		});
 		btnVisualizar.setEnabled(false);
 		
 		btnEditar = new JButton("Editar");
@@ -83,7 +96,7 @@ public class PainelContratos extends JInternalFrame {
 							.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
-		groupLayout.setVerticalGroup(
+			groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
@@ -97,12 +110,7 @@ public class PainelContratos extends JInternalFrame {
 		);
 
 		tableContratos = new JTable();
-//		tableContratos.addFocusListener(new FocusAdapter() { Método que deseleciona a seleção se o usuário clicar fora da tabela, ainda em construção.
-//			@Override
-//			public void focusLost(FocusEvent arg0) {
-//				tableContratos.getSelectionModel().clearSelection();
-//			}
-//		});
+		
 		// INÍCIO DE CONSTRUÇÃO DA TABELA
 		// designTabela = o conteúdo da tabela em si, preenchida através de um loop for.
 				Object[][] designTabela = new Object[listaContratos.size()][5];
@@ -185,13 +193,14 @@ public class PainelContratos extends JInternalFrame {
 	}
 	public void atualizaBotoes(){
 		if (contratoSelecionado == null){
-			btnNovo.setEnabled(true);
 			btnEditar.setEnabled(false);
 			btnVisualizar.setEnabled(false);
 		}else{
-			btnNovo.setEnabled(false);
 			btnEditar.setEnabled(true);
 			btnVisualizar.setEnabled(true);
 		}
+	}
+	public void adicionaNoPainel(JInternalFrame painel){
+		painelPrincipal.add(painel);
 	}
 }
