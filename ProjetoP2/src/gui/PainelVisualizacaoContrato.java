@@ -29,8 +29,8 @@ import javax.swing.table.DefaultTableModel;
 public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JTabbedPane painelTabas;
 	private Contrato contrato;
+	private JTable table;
 	private List<Hospede> listaHospedes;
-	private JTable tabelaHospedes;
 	
 
 
@@ -40,7 +40,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		this.contrato = contrato;
 		listaHospedes = contrato.getListaHospedes();
 		try{
-		listaHospedes.add(new Hospede("whatever","whatever", "1111111", Calendar.getInstance()));} catch (Exception e){ }
+		listaHospedes.add(new Hospede("zé buceta","buceta", "1111111", Calendar.getInstance()));} catch (Exception e){ }
 		painelTabas = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -89,7 +89,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblHospedesRegistrados.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		tabelaHospedes = new JTable();		
+		JTable tabelaHospedes = new JTable();		
 				// INÍCIO DE CONSTRUÇÃO DA TABELA
 				// designTabela = o conteúdo da tabela em si, preenchida através de um loop for
 						Object[][] designTabela = new Object[listaHospedes.size()][3];
@@ -126,6 +126,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 				tabelaHospedes.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
 				tabelaHospedes.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
 				scrollPane.setViewportView(tabelaHospedes);
+		scrollPane.setViewportView(table);
 		GroupLayout gl_panelDetalhes = new GroupLayout(panelDetalhes);
 		gl_panelDetalhes.setHorizontalGroup(
 			gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
