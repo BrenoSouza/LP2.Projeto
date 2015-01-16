@@ -104,4 +104,11 @@ public abstract class Quarto extends Servico{
 		return getPrecoDiaria() * getDiarias();
 	}
 	
+	@Override
+	public String toString() {
+		return "\nNumero do quarto -> " + this.getNumero() +
+				"\nNumero de hospedes -> " + this.getNumeroHospedes() +
+				"\nDiarias -> " + this.getDiarias();
+	}
+	
 }
