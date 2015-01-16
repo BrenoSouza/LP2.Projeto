@@ -41,7 +41,7 @@ public class Main extends JFrame {
 
 	private JPanel contentPane;
 	private JButton btnClientes;
-	private JDesktopPane painelPrincipal;
+	private JDesktopPane painelPrincipal = new JDesktopPane();
 	private PainelClientes painelClientes;
 	private PainelServicos painelServicos;
 	private PainelContratos painelContratos;
@@ -131,7 +131,6 @@ public class Main extends JFrame {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
 
-		painelPrincipal = new JDesktopPane();
 		painelPrincipal.setBorder(new LineBorder(new Color(0, 0, 0)));
 		painelPrincipal.setBackground(SystemColor.window);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

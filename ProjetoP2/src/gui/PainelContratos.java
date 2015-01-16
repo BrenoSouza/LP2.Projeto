@@ -40,13 +40,13 @@ public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableContratos;
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
-	private final SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 	private JTable table;
 	private Contrato contratoSelecionado = null;
 	private JButton btnVisualizar;
 	private JButton btnEditar;
 	private JButton btnNovo;
 	private JDesktopPane painelPrincipal;
+	private Contrato teste;
 
 
 	/**
@@ -55,11 +55,8 @@ public class PainelContratos extends JInternalFrame {
 	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal){
 		this.painelPrincipal = painelPrincipal;
 		try{
-		Contrato teste = new Contrato(new ArrayList<Quarto>(), new ArrayList<Hospede>(), 5);
+		teste = new Contrato(new ArrayList<Quarto>(), new ArrayList<Hospede>(), 5);} catch (Exception e){ System.out.println(e.getMessage());
 		listaContratos.add(teste);
-		} catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
 		this.listaContratos = listaContratos;
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelContratos.class.getResource("/resources/contrato_icon.png")));
@@ -115,33 +112,33 @@ public class PainelContratos extends JInternalFrame {
 		// designTabela = o conteúdo da tabela em si, preenchida através de um loop for.
 				Object[][] designTabela = new Object[listaContratos.size()][5];
 				for (int i = 0; i < listaContratos.size(); i++){
-					Contrato contratoAtual = listaContratos.get(i);
+					Contrato contratoSelecionado = listaContratos.get(i);
 					// Para preencher a primeira linha da tabela, com o nome do Hóspede Principal.
-					if (contratoAtual.getHospedePrincipal() == null){
+					if (contratoSelecionado.getHospedePrincipal() == null){
 						designTabela[i][0] = "Não especificado";
 					}else{
-						designTabela[i][0] = contratoAtual.getHospedePrincipal().getNome();
+						designTabela[i][0] = contratoSelecionado.getHospedePrincipal().getNome();
 					}
 					// Para conseguir uma String formatada com a data do checkin, através de um método na classe Main.
 					String dataFormatadaCheckIn = "";
 					try{
-						dataFormatadaCheckIn = Main.converteParaString(contratoAtual.getDataCheckIn());
-					}catch (Exception e){
-						JOptionPane.showMessageDialog(null, e.getMessage());
+						dataFormatadaCheckIn = Main.converteParaString(contratoSelecionado.getDataCheckIn());
+					}catch (Exception e1){
+						JOptionPane.showMessageDialog(null, "PUTA QUE PARIU 2");
 					}
 					designTabela[i][1] = dataFormatadaCheckIn;
 					// Para conseguir uma String formatada com a estimada data do checkout.
 					String dataFormatadaCheckOut = "";
 					try{
-						dataFormatadaCheckOut = Main.converteParaString(contratoAtual.getDataCheckOut());
-					}catch (Exception e){
+						dataFormatadaCheckOut = Main.converteParaString(contratoSelecionado.getDataCheckOut());
+					}catch (Exception e2){
 						JOptionPane.showMessageDialog(null, e.getMessage());
 					}
 					designTabela[i][2] = dataFormatadaCheckOut;
 					// Para colocar na tabela o total de despesas do contrato.
-					designTabela[i][3] = contratoAtual.calculaPrecoFinal();
+					designTabela[i][3] = contratoSelecionado.calculaPrecoFinal();
 					// Para colocar na tabela o status do contrato.
-					designTabela[i][4] = contratoAtual.getStatus();
+					designTabela[i][4] = contratoSelecionado.getStatus();
 			// FIM DE CONSTRUÇÃO DE TABELA.
 			
 		}
@@ -185,6 +182,7 @@ public class PainelContratos extends JInternalFrame {
 		
 		scrollPanePrincipal.setRowHeaderView(table);
 		getContentPane().setLayout(groupLayout);
+		}
 
 	}
 	public void setContratoSelecionado(int indice){
