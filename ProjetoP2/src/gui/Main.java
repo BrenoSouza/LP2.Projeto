@@ -24,13 +24,17 @@ import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
 
 import java.awt.SystemColor;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import classes.*;
+
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
 
 public class Main extends JFrame {
@@ -45,6 +49,7 @@ public class Main extends JFrame {
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
+	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/mm/yyyy");
 
 	/**
 	 * Launch the application.
@@ -66,6 +71,21 @@ public class Main extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	/**
+	 * Método de conversão string > calendar
+	 * @param data
+	 * Uma data no formato dd/mm/aaaa
+	 * @return
+	 * Um calendar com essa data
+	 * @throws Exception
+	 */
+	public static Calendar converteParaCalendar(String data) throws Exception{
+		Calendar dataDeRetorno = Calendar.getInstance();
+		dataDeRetorno.setTime(FormatoData.parse(data));
+		return dataDeRetorno;
+		
+		
+	}
 	public Main() throws Exception{
 		setTitle("Hotel Riviera Campina - Admnistra\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

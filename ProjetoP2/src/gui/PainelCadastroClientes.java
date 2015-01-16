@@ -27,6 +27,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 public class PainelCadastroClientes extends JInternalFrame {
@@ -44,6 +46,11 @@ public class PainelCadastroClientes extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public PainelCadastroClientes() throws Exception{
+		getContentPane().addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+			}
+		});
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");
