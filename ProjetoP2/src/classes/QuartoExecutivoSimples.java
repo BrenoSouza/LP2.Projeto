@@ -10,5 +10,13 @@ public class QuartoExecutivoSimples extends Quarto {
 	public QuartoExecutivoSimples(int numero, int diarias) throws Exception {
 		super(numero, 3, diarias, 360.0);
 	}
+	
+	@Override
+	public String toString() {
+		return "Servico --- Quarto Executivo Simples ---" +
+				super.toString() +
+				"\nPreco da diaria -> " + this.getPrecoDiaria() +
+				"\nCusto final -> " + this.calculaPrecoTotal();
+	}
 
 }
