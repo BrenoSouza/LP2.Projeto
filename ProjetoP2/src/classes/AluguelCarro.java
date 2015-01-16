@@ -1,5 +1,7 @@
 package classes;
 
+import java.util.Calendar;
+
 public class AluguelCarro extends Servico {
 
 	private boolean isLuxo;
@@ -79,6 +81,12 @@ public class AluguelCarro extends Servico {
 	 * Calcula o preco total do servico.
 	 * @return O preco final.
 	 */
+	
+	public String getFim() {
+		int diaInicio = super.getData().get(Calendar.DAY_OF_MONTH);
+		super.getData().set(Calendar.DAY_OF_MONTH, diaInicio + getDiarias());
+		return super.getInicioServico();
+	}
 	@Override
 	public double calculaPrecoTotal() {
 		preco = 0.0;
@@ -94,6 +102,15 @@ public class AluguelCarro extends Servico {
 		
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Servico --- Aluguel de Carro ---" +
+				"\nInicio -> " + this.getInicioServico() +
+				"\nFim -> " + this.getFim() +
+				"\nExtras -> Tanque cheio? " + (this.isTanqueCheio() ? "Sim" : "Nao") +
+				"\n            Segurado? " + (this.isSegurado() ? "Sim" : "Nao") +
+				"\n            Luxo? " + (this.isLuxo() ? "Sim" : "Nao") +
+				"\nCusto final: " + this.calculaPrecoTotal();
+	}
 	
 }
