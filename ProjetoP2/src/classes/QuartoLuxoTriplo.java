@@ -10,5 +10,13 @@ public class QuartoLuxoTriplo extends Quarto {
 	public QuartoLuxoTriplo(int numero, int diarias) throws Exception {
 		super(numero, 3, diarias, 620.0);
 	}
+	
+	@Override
+	public String toString() {
+		return "Servico --- Quarto Executivo triplo ---" +
+				super.toString() +
+				"\nPreco da diaria -> " + this.getPrecoDiaria() +
+				"\nCusto final -> " + this.calculaPrecoTotal();
+	}
 
 }
