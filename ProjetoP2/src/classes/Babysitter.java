@@ -43,7 +43,7 @@ public class Babysitter extends Servico {
 	 * @return A data de saida da babysitter.
 	 */
 	public String getFim() {
-		String dataFormatada = Main.getFormatodata().format(horaSaida);
+		String dataFormatada = Main.getFormatodata().format(horaSaida.getTime());
 		return dataFormatada;
 	}
 	/**

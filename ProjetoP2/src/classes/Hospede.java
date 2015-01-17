@@ -79,19 +79,6 @@ public class Hospede {
 	}
 	
 	/**
-	 * M�todo que checa se o CPF inserido � aceit�vel.
-	 * @param cpf
-	 * Uma String contendo um CPF.
-	 * @return
-	 * true, se o CPF for v�lido.
-	 */
-	static private boolean isCpfValido(String cpf){
-		if (cpf.isEmpty() || cpf == null || cpf.length() != 14){
-			return false;
-		}return true;
-	}
-	
-	/**
 	 * O setter do endereco do h�spede.
 	 * @param endereco
 	 * Uma String contendo o endereço do h�spede.
