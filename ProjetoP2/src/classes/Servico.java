@@ -32,13 +32,17 @@ public abstract class Servico {
 	public int getHoraEntrada(){
 		return getData().get(Calendar.HOUR_OF_DAY);
 	}
+	public int getMinutosEntrada(){
+		return getData().get(Calendar.MINUTE);
+	}
 	/**
 	 * Retorna a data de inicio do servico.
 	 * @return A data de inicio do servico.
 	 */
 	public String getInicioServico(){
-		String dataFormatada = Main.getFormatodata().format(data);
+		String dataFormatada = Main.getFormatodata().format(data.getTime());
 		return dataFormatada;	
 	}
+	public abstract String getTipo();
 	
 }

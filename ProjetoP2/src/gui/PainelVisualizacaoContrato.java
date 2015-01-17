@@ -5,14 +5,18 @@ import java.time.Period;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTabbedPane;
 
+import classes.AluguelCarro;
 import classes.Contrato;
 import classes.Hospede;
+import classes.Servico;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -21,24 +25,37 @@ import java.awt.Font;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JTabbedPane painelTabas;
 	private Contrato contrato;
 	private List<Hospede> listaHospedes;
+	private List<Servico> listaServicos;
 	private JScrollPane scrollPane_1;
 	private JLabel lblNewLabelServicosAssociados;
 	private JTable tabelaServicos;
+	private JDesktopPane painelPrincipal;
+	private Servico servicoSelecionado = null;
+	private JButton btnVisualizar;
+	private JButton btnEditar;
+	private PainelVisualizacaoServico painelVisualizacaoServico;
 	
 
 
-	public PainelVisualizacaoContrato(Contrato contrato) {
+	public PainelVisualizacaoContrato(Contrato contrato, JDesktopPane painelPrincipal) {
 		setClosable(true);
+		this.painelPrincipal = painelPrincipal;
 		setBounds(100, 100, 800, 400);
 		this.contrato = contrato;
 		listaHospedes = contrato.getListaHospedes();
+		listaServicos = contrato.getListaServicos();
 		try{
 			Calendar dataNascimento = Calendar.getInstance();
 			dataNascimento.set(Calendar.YEAR, 1990);
@@ -107,7 +124,9 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblHospedesRegistrados.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		JTable tabelaHospedes = new JTable();		
+		JTable tabelaHospedes = new JTable();
+		try{
+		contrato.getListaServicos().add(new AluguelCarro(5, true, false, true));} catch (Exception e){ JOptionPane.showMessageDialog(null, e.getMessage());}
 				// INÍCIO DE CONSTRUÇÃO DA TABELA
 				// designTabela = o conteúdo da tabela em si, preenchida através de um loop for
 						Object[][] designTabela = new Object[listaHospedes.size()][3];
@@ -211,6 +230,19 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		
 		lblNewLabelServicosAssociados = new JLabel("Servi\u00E7os associados ao contrato:");
 		lblNewLabelServicosAssociados.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		btnVisualizar = new JButton("Visualizar");
+		btnVisualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				painelVisualizacaoServico = new PainelVisualizacaoServico(servicoSelecionado);
+				getPainelPrincipal().add(painelVisualizacaoServico);
+				painelVisualizacaoServico.show();
+			}
+		});
+		btnVisualizar.setEnabled(false);
+		
+		btnEditar = new JButton("Editar");
+		btnEditar.setEnabled(false);
 		GroupLayout gl_panelServicos = new GroupLayout(panelServicos);
 		gl_panelServicos.setHorizontalGroup(
 			gl_panelServicos.createParallelGroup(Alignment.LEADING)
@@ -218,7 +250,11 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(gl_panelServicos.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
-						.addComponent(lblNewLabelServicosAssociados))
+						.addComponent(lblNewLabelServicosAssociados)
+						.addGroup(gl_panelServicos.createSequentialGroup()
+							.addComponent(btnVisualizar)
+							.addPreferredGap(ComponentPlacement.RELATED, 601, Short.MAX_VALUE)
+							.addComponent(btnEditar)))
 					.addContainerGap())
 		);
 		gl_panelServicos.setVerticalGroup(
@@ -227,14 +263,79 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 					.addGap(8)
 					.addComponent(lblNewLabelServicosAssociados)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panelServicos.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnVisualizar)
+						.addComponent(btnEditar))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		tabelaServicos = new JTable();
+		//INICIO DA CONSTRUÇÃO DE TABELA
+		Object [][] tabelaServicosDesign = new Object [contrato.getListaServicos().size()][4];
+		for (int i = 0; i < contrato.getListaServicos().size(); i++){
+			Servico servicoAtual = contrato.getListaServicos().get(i);
+			//Primeira célula da linha: o método getTipo() do serviço
+			tabelaServicosDesign[i][0] = servicoAtual.getTipo();
+			//Segunda célula da linha: a data do serviço
+			tabelaServicosDesign[i][1] = servicoAtual.getInicioServico();
+			//Terceira célula da linha: a hora de entrada do serviço
+			tabelaServicosDesign[i][2] = servicoAtual.getHoraEntrada() + ":" + servicoAtual.getMinutosEntrada();
+			//Quarta célula da linha: o preço total do serviço
+			tabelaServicosDesign[i][3] = "R$ " + servicoAtual.calculaPrecoTotal();
+		}
+		//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
+		@SuppressWarnings("serial")
+		DefaultTableModel modeloTabelaServicos = new DefaultTableModel(tabelaServicosDesign, new String[] {
+				"Serviço", "Data", "Hora", "Preço"
+		}) {
+
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
+		        return false;
+		    }
+		};
+		//FIM DE CONSTRUÇÃO DE TABELA
+		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
+		ListSelectionModel modeloSelecaoLinha = tabelaServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+		
+		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+			//Necessita ser esse nome de método para funcionar
+			public void valueChanged(ListSelectionEvent e) {
+				int[] indiceSelecionado = tabelaServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+				if (indiceSelecionado.length <= 0){
+					servicoSelecionado = null;
+				}else{
+					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
+					setServicoSelecionado(indiceSelecionado[0]);
+				}atualizaBotoes();
+				
+			}
+		});
+//O event acima se refere a como o programa vai lidar quando o usuário clica em uma linha da tabela.
+		tabelaServicos.setModel(modeloTabelaServicos);
+		tabelaServicos.setRowSelectionAllowed(true);
 		scrollPane_1.setViewportView(tabelaServicos);
 		panelServicos.setLayout(gl_panelServicos);
 		getContentPane().setLayout(groupLayout);
 
+	}
+	public void setServicoSelecionado(int i){
+		servicoSelecionado = listaServicos.get(i);
+	}
+	public void atualizaBotoes(){
+		if (servicoSelecionado == null){
+			btnVisualizar.setEnabled(false);
+			btnEditar.setEnabled(false);
+		}else{
+			btnVisualizar.setEnabled(true);
+			btnEditar.setEnabled(true);
+		}
+	}
+	public JDesktopPane getPainelPrincipal(){
+		return painelPrincipal;
 	}
 }

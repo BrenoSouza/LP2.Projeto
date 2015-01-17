@@ -40,7 +40,6 @@ public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableContratos;
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
-	private final SimpleDateFormat formatoData = new SimpleDateFormat("dd/MM/yyyy");
 	private JTable table;
 	private Contrato contratoSelecionado = null;
 	private JButton btnVisualizar;
@@ -70,7 +69,8 @@ public class PainelContratos extends JInternalFrame {
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PainelVisualizacaoContrato painelVisualizacao = new PainelVisualizacaoContrato(contratoSelecionado);
+				PainelVisualizacaoContrato painelVisualizacao = new PainelVisualizacaoContrato(contratoSelecionado, getPainelPrincipal());
+				//Não posso chamar o painel principal dentro de um construtor, por ele não ser final. Então fiz esse método que o retorna.
 				adicionaNoPainel(painelVisualizacao);
 				painelVisualizacao.show();
 			}
@@ -202,5 +202,8 @@ public class PainelContratos extends JInternalFrame {
 	}
 	public void adicionaNoPainel(JInternalFrame painel){
 		painelPrincipal.add(painel);
+	}
+	public JDesktopPane getPainelPrincipal(){
+		return painelPrincipal;
 	}
 }

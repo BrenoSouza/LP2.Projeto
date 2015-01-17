@@ -39,5 +39,8 @@ package classes;
 				"\nCobertura? " + (this.getIsCobertura() ? "Sim" : "Nao") +
 				"\nCusto final: " + this.calculaPrecoTotal();
 	}
+	public String getTipo() {
+		return "Restaurante" + (getIsCobertura() ? "Cobertura" : "");
+	}
 	
 }

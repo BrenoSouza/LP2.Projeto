@@ -19,4 +19,9 @@ public class QuartoLuxoTriplo extends Quarto {
 				"\nCusto final -> " + this.calculaPrecoTotal();
 	}
 
+	@Override
+	public String getTipo() {
+		return "Quarto Luxo Triplo, " + getDiarias() + " diárias";
+	}
+
 }

@@ -19,4 +19,9 @@ public class QuartoExecutivoTriplo extends Quarto {
 				"\nCusto final -> " + this.calculaPrecoTotal();
 	}
 
+	@Override
+	public String getTipo() {
+		return "Quarto Executivo Triplo, " + getDiarias() + " diárias";
+	}
+
 }

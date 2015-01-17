@@ -112,5 +112,10 @@ public class AluguelCarro extends Servico {
 				"\n            Luxo? " + (this.isLuxo() ? "Sim" : "Nao") +
 				"\nCusto final: " + this.calculaPrecoTotal();
 	}
+
+	@Override
+	public String getTipo() {
+		return "Aluguel de carro" + (isTanqueCheio() ? ", tanque cheio" : "") + (isLuxo() ? ", luxo" : "") + (isSegurado() ? ", segurado" : "");
+	}
 	
 }

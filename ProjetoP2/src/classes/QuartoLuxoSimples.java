@@ -19,4 +19,9 @@ public class QuartoLuxoSimples extends Quarto {
 				"\nCusto final -> " + this.calculaPrecoTotal();
 	}
 
+	@Override
+	public String getTipo() {
+		return "Quarto Luxo Simples, " + getDiarias() + " diárias";
+	}
+
 }

@@ -19,4 +19,9 @@ public class QuartoExecutivoSimples extends Quarto {
 				"\nCusto final -> " + this.calculaPrecoTotal();
 	}
 
+	@Override
+	public String getTipo() {
+		return "Quarto Executivo Simples, " + getDiarias() + " diárias";
+	}
+
 }
