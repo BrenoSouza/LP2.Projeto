@@ -37,7 +37,7 @@ public abstract class Servico {
 	 * @return A data de inicio do servico.
 	 */
 	public String getInicioServico(){
-		String dataFormatada = Main.getFormatodata().format(data.getTime());
+		String dataFormatada = Main.getFormatodata().format(data);
 		return dataFormatada;	
 	}
 	

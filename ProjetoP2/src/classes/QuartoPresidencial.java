@@ -15,7 +15,7 @@ public class QuartoPresidencial extends Quarto {
 	public String toString() {
 		return "Servico --- Quarto Presidencial ---" +
 				super.toString() +
-				"\nPreco da diaria -> " + this.getPrecoDiaria() +
+				"\nPreco da diaria eh nois parça -> " + this.getPrecoDiaria() +
 				"\nCusto final -> " + this.calculaPrecoTotal();
 	}
 

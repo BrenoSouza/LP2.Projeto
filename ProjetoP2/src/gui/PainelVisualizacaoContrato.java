@@ -1,8 +1,6 @@
 package gui;
 
-import java.awt.EventQueue;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Period;
 import java.util.Calendar;
 import java.util.List;
@@ -21,16 +19,18 @@ import javax.swing.JLabel;
 
 import java.awt.Font;
 
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JTabbedPane painelTabas;
 	private Contrato contrato;
-	private JTable table;
 	private List<Hospede> listaHospedes;
+	private JScrollPane scrollPane_1;
+	private JLabel lblNewLabelServicosAssociados;
+	private JTable tabelaServicos;
 	
 
 
@@ -40,7 +40,9 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		this.contrato = contrato;
 		listaHospedes = contrato.getListaHospedes();
 		try{
-		listaHospedes.add(new Hospede("zé buceta","buceta", "1111111", Calendar.getInstance()));} catch (Exception e){ }
+			Calendar dataNascimento = Calendar.getInstance();
+			dataNascimento.set(Calendar.YEAR, 1990);
+		listaHospedes.add(new Hospede("Fulano de Tal","Casa do Fulano", "1111111", dataNascimento));} catch (Exception e){ }
 		painelTabas = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -65,24 +67,40 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblHospedePrincipal.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblHospedePrincipalVariavel = new JLabel("New label");
+		if (contrato.getHospedePrincipal() == null){
+			lblHospedePrincipalVariavel.setText("Não definido");
+		}else{
+			lblHospedePrincipalVariavel.setText(contrato.getHospedePrincipal().getNome());
+		}
 		lblHospedePrincipalVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblDataCheckIn = new JLabel("Data de Check-In:");
 		lblDataCheckIn.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblDataCheckInVariavel = new JLabel("New label");
+		try{
+			lblDataCheckInVariavel.setText(Main.converteParaString(contrato.getDataCheckIn()));
+		}catch (Exception e){
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 		lblDataCheckInVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblDataMarcadaCheckOut = new JLabel("Data marcada para Check-Out:");
 		lblDataMarcadaCheckOut.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblDataMarcadaCheckOutVariavel = new JLabel("New label");
+		try{
+			lblDataMarcadaCheckOutVariavel.setText(Main.converteParaString(contrato.getDataCheckOut()));
+		}catch (Exception e){
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
 		lblDataMarcadaCheckOutVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblTotalASerPago = new JLabel("Total a ser pago:");
 		lblTotalASerPago.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblTotalASerPagoVariavel = new JLabel("New label");
+		lblTotalASerPagoVariavel.setText(Double.toString(contrato.calculaPrecoFinal()));
 		lblTotalASerPagoVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblHospedesRegistrados = new JLabel("H\u00F3spedes registrados:");
@@ -126,7 +144,6 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 				tabelaHospedes.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
 				tabelaHospedes.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
 				scrollPane.setViewportView(tabelaHospedes);
-		scrollPane.setViewportView(table);
 		GroupLayout gl_panelDetalhes = new GroupLayout(panelDetalhes);
 		gl_panelDetalhes.setHorizontalGroup(
 			gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
@@ -189,6 +206,34 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		panelDetalhes.setLayout(gl_panelDetalhes);
 		JPanel panelServicos = new JPanel();
 		painelTabas.addTab("Servi\u00E7os", null, panelServicos, null);
+		
+		scrollPane_1 = new JScrollPane();
+		
+		lblNewLabelServicosAssociados = new JLabel("Servi\u00E7os associados ao contrato:");
+		lblNewLabelServicosAssociados.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GroupLayout gl_panelServicos = new GroupLayout(panelServicos);
+		gl_panelServicos.setHorizontalGroup(
+			gl_panelServicos.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelServicos.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelServicos.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+						.addComponent(lblNewLabelServicosAssociados))
+					.addContainerGap())
+		);
+		gl_panelServicos.setVerticalGroup(
+			gl_panelServicos.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelServicos.createSequentialGroup()
+					.addGap(8)
+					.addComponent(lblNewLabelServicosAssociados)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		tabelaServicos = new JTable();
+		scrollPane_1.setViewportView(tabelaServicos);
+		panelServicos.setLayout(gl_panelServicos);
 		getContentPane().setLayout(groupLayout);
 
 	}
