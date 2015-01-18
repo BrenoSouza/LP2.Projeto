@@ -34,7 +34,9 @@ public class PainelServicos extends JInternalFrame {
 	private Contrato contratoSelecionado = null;
 	private List<Contrato> listaContratos;
 	private JDesktopPane painelPrincipal;
-
+	private JButton btnAdicionar;
+	private JButton btnAtualizar;
+	private JButton btnRemover;
 
 	/**
 	 * Create the frame.
@@ -59,11 +61,14 @@ public class PainelServicos extends JInternalFrame {
 		setBounds(50, 0, 752, 450);
 		getContentPane().setLayout(null);
 		
-		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar = new JButton("Adicionar");
 		
-		JButton btnAtualizar = new JButton("Atualizar");
+		btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.setEnabled(false);
 		
-		JButton btnRemover = new JButton("Remover");
+		btnRemover = new JButton("Remover");
+		btnRemover.setEnabled(false);
+		
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -105,6 +110,7 @@ public class PainelServicos extends JInternalFrame {
 			// 			
 		}
 		
+		//GAMBIARRA
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 				"Serviços", "Descrição", "Preço" })     {
@@ -118,6 +124,24 @@ public class PainelServicos extends JInternalFrame {
 		
 		tableServicos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
 
+		tableServicos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e n�o s� uma c�lula
+		//CRIANDO UMA A��O PRA QUANDO UMA LINHA FOR SELECIONADA
+				ListSelectionModel modeloSelecaoLinha = tableServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar s� uma op��o de vez
+				
+				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+					//Necessita ser esse nome de m�todo para funcionar
+					public void valueChanged(ListSelectionEvent e) {
+						int[] indiceSelecionado = tableServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os �ndices da lista dos objetos selecionados. Como nessa tabela s� se seleciona uma op��o de cada vez, sempre ter� s� um elemento essa array.
+						if (indiceSelecionado.length <= 0){
+							contratoSelecionado = null;
+						}else{
+							// Aqui � uma gambiarra mais complicada: java n�o permite que eu use o listaContratos (ou qualquer outra vari�vel n�o final) dentro de um m�todo do construtor, como � esse. Para solucionar isso, optei pela gambiarra de s� usar esse �ndice em um m�todo fora do construtor, setContratoSelecionado, que consegue usar as vari�veis sem problemas.
+							setServicoSelecionado(indiceSelecionado[0]);
+						}atualizaBotoes();
+						
+					}
+				});
 		
 		scrollPane.setViewportView(tableServicos);
 		
@@ -133,11 +157,11 @@ public class PainelServicos extends JInternalFrame {
 	}
 	public void atualizaBotoes(){
 		if (contratoSelecionado == null){
-			//btnEditar.setEnabled(false);
-			//btnVisualizar.setEnabled(false);
+			btnRemover.setEnabled(false);
+			btnAtualizar.setEnabled(false);
 		}else{
-			//btnEditar.setEnabled(true);
-			//btnVisualizar.setEnabled(true);
+			btnRemover.setEnabled(true);
+			btnAtualizar.setEnabled(true);
 		}
 	}
 	public void adicionaNoPainel(JInternalFrame painel){
