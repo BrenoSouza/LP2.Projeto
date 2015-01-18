@@ -37,7 +37,8 @@ public class PainelServicos extends JInternalFrame {
 	private JButton btnAdicionar;
 	private JButton btnAtualizar;
 	private JButton btnRemover;
-
+	private JButton btnVisualizar;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -58,7 +59,7 @@ public class PainelServicos extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Servi\u00E7os");
 		setClosable(true);
-		setBounds(50, 0, 752, 450);
+		setBounds(0, 0, 752, 450);
 		getContentPane().setLayout(null);
 		
 		btnAdicionar = new JButton("Adicionar");
@@ -69,33 +70,38 @@ public class PainelServicos extends JInternalFrame {
 		btnRemover = new JButton("Remover");
 		btnRemover.setEnabled(false);
 		
+		btnVisualizar = new JButton("Visualizar");
+		btnVisualizar.setEnabled(false);
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(49)
+					.addComponent(btnAdicionar)
+					.addPreferredGap(ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+					.addComponent(btnVisualizar)
+					.addGap(79)
+					.addComponent(btnAtualizar)
+					.addGap(76)
+					.addComponent(btnRemover)
+					.addGap(61))
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
 					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(92)
-					.addComponent(btnAdicionar)
-					.addGap(141)
-					.addComponent(btnAtualizar)
-					.addPreferredGap(ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
-					.addComponent(btnRemover)
-					.addGap(72))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(52, Short.MAX_VALUE)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
-					.addGap(52)
+					.addContainerGap(159, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+					.addGap(28)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnRemover)
 						.addComponent(btnAtualizar)
-						.addComponent(btnAdicionar)
-						.addComponent(btnRemover))
+						.addComponent(btnVisualizar)
+						.addComponent(btnAdicionar))
 					.addGap(43))
 		);
 		
@@ -106,8 +112,8 @@ public class PainelServicos extends JInternalFrame {
 		Object [][] designTabela = new Object[contratoSelecionado.getListaServicos().size()][3];
 		
 		for (int i = 0; i < contratoSelecionado.getListaServicos().size(); i++) {
-			
-			// 			
+		
+						
 		}
 		
 		//GAMBIARRA
@@ -159,14 +165,18 @@ public class PainelServicos extends JInternalFrame {
 		if (contratoSelecionado == null){
 			btnRemover.setEnabled(false);
 			btnAtualizar.setEnabled(false);
+			btnVisualizar.setEnabled(false);
 		}else{
 			btnRemover.setEnabled(true);
 			btnAtualizar.setEnabled(true);
+			btnVisualizar.setEnabled(true);
 		}
 	}
+	
 	public void adicionaNoPainel(JInternalFrame painel){
 		painelPrincipal.add(painel);
 	}
+	
 	public JDesktopPane getPainelPrincipal(){
 		return painelPrincipal;
 	}
