@@ -16,17 +16,17 @@ public class AluguelCarro extends Servico {
 	
 	/**
 	 * Construtor do Serviço de Alguel de Carros.
-	 * @param diarias Quantidade de diarias do aluguel de Carros.
+	 * @param diarias Quantidade de diárias do aluguel de Carros.
 	 * @param isLuxo Se o carro escolhido é de Luxo.
 	 * @param isTanqueCheio Se o tanque do carro está cheio.
 	 * @param isSegurado Se o carro está com seguro.
-	 * @throws Exception Se o número de diarias for menor que 1.
+	 * @throws Exception Se o número de diárias for menor que 1.
 	 */
 	
 	public AluguelCarro(int diarias, boolean isLuxo, boolean isTanqueCheio, boolean isSegurado) throws Exception {
 		super();
 		if (diarias < 1) {
-			throw new Exception("Parametros invalidos!");
+			throw new Exception("Parametros inválidos!");
 		}
 		
 		this.isLuxo = isLuxo;
@@ -62,7 +62,7 @@ public class AluguelCarro extends Servico {
 
 	/**
 	 * O setter do número de diárias.
-	 * @param diarias um parametro com o número de diárias.
+	 * @param diarias Um parâmetro com o número de diárias.
 	 */
 	public void setDiarias(int diarias) {
 		this.diarias += diarias;
@@ -70,7 +70,7 @@ public class AluguelCarro extends Servico {
 	
 	/**
 	 * Getter do número de diarias.
-	 * @return O numero de dias que o carro será alugado.
+	 * @return O número de dias que o carro será alugado.
 	 * 
 	 */
 	public int getDiarias() {
@@ -78,8 +78,8 @@ public class AluguelCarro extends Servico {
 	}
 	
 	/**
-	 * Calcula o preco total do servico.
-	 * @return O preco final.
+	 * Calcula o preço total do servico.
+	 * @return O preço final.
 	 */
 	
 	public String getFim() {
@@ -104,12 +104,12 @@ public class AluguelCarro extends Servico {
 	
 	@Override
 	public String toString() {
-		return "Servico --- Aluguel de Carro ---" +
-				"\nInicio -> " + this.getInicioServico() +
+		return "Serviço --- Aluguel de Carro ---" +
+				"\nInício -> " + this.getInicioServico() +
 				"\nFim -> " + this.getFim() +
-				"\nExtras -> Tanque cheio? " + (this.isTanqueCheio() ? "Sim" : "Nao") +
-				"\n            Segurado? " + (this.isSegurado() ? "Sim" : "Nao") +
-				"\n            Luxo? " + (this.isLuxo() ? "Sim" : "Nao") +
+				"\nExtras -> Tanque cheio? " + (this.isTanqueCheio() ? "Sim" : "Não") +
+				"\n            Segurado? " + (this.isSegurado() ? "Sim" : "Não") +
+				"\n            Luxo? " + (this.isLuxo() ? "Sim" : "Não") +
 				"\nCusto final: " + this.calculaPrecoTotal();
 	}
 
