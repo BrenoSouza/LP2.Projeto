@@ -76,13 +76,13 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	/**
-	 * Método de conversão string para Calendar
+	 * Mï¿½todo de conversï¿½o string para Calendar
 	 * @param data
 	 * Uma data no formato dd/mm/aaaa
 	 * @return
 	 * Um calendar com essa data
 	 * @throws Exception
-	 * Se a string estiver em algum formato inválido
+	 * Se a string estiver em algum formato invï¿½lido
 	 */
 	public static Calendar converteParaCalendar(String data) throws Exception{
 		Calendar dataDeRetorno = Calendar.getInstance();
@@ -194,7 +194,7 @@ public class Main extends JFrame {
 		btnServios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (painelServicos == null || painelServicos.isClosed()){
-					painelServicos = new PainelServicos();
+					painelServicos = new PainelServicos(listaContratos);
 					painelPrincipal.add(painelServicos);
 					painelServicos.show();
 				}
