@@ -24,6 +24,8 @@ import javax.swing.JTable;
 public class PainelServicos extends JInternalFrame {
 	
 	private JTable tableServicos;
+	private JTable table;
+	private JScrollPane scrollPane = new JScrollPane();
 	private Contrato contratoSelecionado;
 	private List<Contrato> listaContratos;
 	private JDesktopPane painelPrincipal;
@@ -47,8 +49,6 @@ public class PainelServicos extends JInternalFrame {
 		setTitle("Servi\u00E7os");
 		setClosable(true);
 		setBounds(50, 0, 752, 450);
-		
-		JScrollPane scrollPane = new JScrollPane();
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -74,8 +74,7 @@ public class PainelServicos extends JInternalFrame {
 		
 		for (int i = 0; i < contratoSelecionado.getListaServicos().size(); i++) {
 			
-			
-			
+			// 			
 		}
 		
 		@SuppressWarnings("serial")
@@ -89,9 +88,10 @@ public class PainelServicos extends JInternalFrame {
 		    }
 		};
 		
-		tableServicos.setModel(modeloTabela);
+		scrollPane.setViewportView(tableServicos);
 		
-		scrollPane.setColumnHeaderView(tableServicos);
+		
+		scrollPane.setRowHeaderView(table);
 		getContentPane().setLayout(groupLayout);
 
 	}
