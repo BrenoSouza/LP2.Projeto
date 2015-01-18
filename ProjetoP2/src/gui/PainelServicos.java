@@ -9,7 +9,10 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -23,10 +26,10 @@ import javax.swing.JTable;
 
 public class PainelServicos extends JInternalFrame {
 	
+	private final JScrollPane scrollPane = new JScrollPane();
 	private JTable tableServicos;
 	private JTable table;
-	private JScrollPane scrollPane = new JScrollPane();
-	private Contrato contratoSelecionado;
+	private Contrato contratoSelecionado = null;
 	private List<Contrato> listaContratos;
 	private JDesktopPane painelPrincipal;
 
@@ -44,11 +47,15 @@ public class PainelServicos extends JInternalFrame {
 		}
 		this.listaContratos = listaContratos;
 		
+		//teste
+		contratoSelecionado = listaContratos.get(0);
+		
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Servi\u00E7os");
 		setClosable(true);
 		setBounds(50, 0, 752, 450);
+		getContentPane().setLayout(null);
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -89,6 +96,7 @@ public class PainelServicos extends JInternalFrame {
 		};
 		
 		tableServicos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
+
 		
 		scrollPane.setViewportView(tableServicos);
 		
@@ -96,5 +104,25 @@ public class PainelServicos extends JInternalFrame {
 		scrollPane.setRowHeaderView(table);
 		getContentPane().setLayout(groupLayout);
 
+	}
+	
+	public void setServicoSelecionado(int indice){
+		// Fim da gambiarra. Como estou em outro m�todo, posso usar vari�veis n�o finais a vontade sem problema.
+		contratoSelecionado = listaContratos.get(indice); // Lembrando que a tabela est� na mesma ordem que a listaContratos, ent�o os �ndices s�o os mesmos.
+	}
+	public void atualizaBotoes(){
+		if (contratoSelecionado == null){
+			//btnEditar.setEnabled(false);
+			//btnVisualizar.setEnabled(false);
+		}else{
+			//btnEditar.setEnabled(true);
+			//btnVisualizar.setEnabled(true);
+		}
+	}
+	public void adicionaNoPainel(JInternalFrame painel){
+		painelPrincipal.add(painel);
+	}
+	public JDesktopPane getPainelPrincipal(){
+		return painelPrincipal;
 	}
 }
