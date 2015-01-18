@@ -79,7 +79,7 @@ public class PainelServicos extends JInternalFrame {
 		
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
-				"Serviços", "Descrição", "Preço"	})     {
+				"Serviços", "Descrição", "Preço" })     {
 
 			@Override
 		    public boolean isCellEditable(int row, int column) {
@@ -87,6 +87,8 @@ public class PainelServicos extends JInternalFrame {
 		        return false;
 		    }
 		};
+		
+		tableServicos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
 		
 		scrollPane.setViewportView(tableServicos);
 		
