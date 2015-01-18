@@ -29,6 +29,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 public class PainelServicos extends JInternalFrame {
 	
@@ -38,26 +39,44 @@ public class PainelServicos extends JInternalFrame {
 	private Contrato contratoSelecionado = null;
 	private Servico servicoSelecionado;
 	private List<Contrato> listaContratos;
+	private List<Hospede> listaHospedes = new ArrayList();
+	private List<Hospede> listaHospedes2 = new ArrayList();
 	private JDesktopPane painelPrincipal;
 	private PainelVisualizacaoServico painelVisualizacao;
 	private JButton btnAdicionar;
 	private JButton btnAtualizar;
 	private JButton btnRemover;
 	private JButton btnVisualizar;
-	
+	private JComboBox comboBox;
+	private String[] nomesHospedes;
 	
 	/**
 	 * Create the frame.
 	 */
+	
 	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
 		this.painelPrincipal = painelPrincipal;
 		try{
-		Contrato teste = new Contrato(new ArrayList<Quarto>(), new ArrayList<Hospede>(), 5);
-		listaContratos.add(teste);
+			Calendar dataNascimento = Calendar.getInstance();
+			dataNascimento.set(Calendar.YEAR, 1990);
+			listaHospedes.add(new Hospede("Fulano de Tal","Casa do Fulano", "111111111-11", dataNascimento));
+			listaHospedes2.add(new Hospede("Cicrano de Tal","Casa do Fulano", "111111111-11", dataNascimento));
+			listaContratos.add(new Contrato(new ArrayList<Quarto>(), listaHospedes, 5));
+			listaContratos.add(new Contrato(new ArrayList<Quarto>(), listaHospedes2, 5));
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
-		this.listaContratos = listaContratos;
+		this.listaContratos = listaContratos;		
+
+		comboBox = new JComboBox<String>();
+
+		if (listaContratos.size()!= 0){
+			for (int i = 0; i < listaContratos.size(); i++) {
+				//comboBox.insertItemAt("Breno", 0);
+				comboBox.insertItemAt(listaContratos.get(i).getListaHospedes().get(0).getNome(), i);
+			}
+		}
+		
 		
 		//teste
 		contratoSelecionado = listaContratos.get(0);
@@ -88,6 +107,8 @@ public class PainelServicos extends JInternalFrame {
 		});
 		btnVisualizar.setEnabled(false);
 		
+		JLabel lblSelecionarContrato = new JLabel("Selecionar Contrato: ");
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -105,11 +126,21 @@ public class PainelServicos extends JInternalFrame {
 					.addContainerGap()
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblSelecionarContrato)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(377, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(159, Short.MAX_VALUE)
+					.addGap(22)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSelecionarContrato)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
 					.addGap(28)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
