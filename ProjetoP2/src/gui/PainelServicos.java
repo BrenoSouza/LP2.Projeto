@@ -23,6 +23,8 @@ import classes.Quarto;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PainelServicos extends JInternalFrame {
 	
@@ -57,20 +59,39 @@ public class PainelServicos extends JInternalFrame {
 		setBounds(50, 0, 752, 450);
 		getContentPane().setLayout(null);
 		
+		JButton btnAdicionar = new JButton("Adicionar");
+		
+		JButton btnAtualizar = new JButton("Atualizar");
+		
+		JButton btnRemover = new JButton("Remover");
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(92)
+					.addComponent(btnAdicionar)
+					.addGap(141)
+					.addComponent(btnAtualizar)
+					.addPreferredGap(ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+					.addComponent(btnRemover)
+					.addGap(72))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap(52, Short.MAX_VALUE)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
-					.addGap(120))
+					.addGap(52)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAtualizar)
+						.addComponent(btnAdicionar)
+						.addComponent(btnRemover))
+					.addGap(43))
 		);
 		
 		//CONSTRUCAO DA TABELA
