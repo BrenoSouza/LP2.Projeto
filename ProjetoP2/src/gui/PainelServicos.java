@@ -20,11 +20,15 @@ import javax.swing.ImageIcon;
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
+import classes.Servico;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PainelServicos extends JInternalFrame {
 	
@@ -32,12 +36,15 @@ public class PainelServicos extends JInternalFrame {
 	private JTable tableServicos;
 	private JTable table;
 	private Contrato contratoSelecionado = null;
+	private Servico servicoSelecionado;
 	private List<Contrato> listaContratos;
 	private JDesktopPane painelPrincipal;
+	private PainelVisualizacaoServico painelVisualizacao;
 	private JButton btnAdicionar;
 	private JButton btnAtualizar;
 	private JButton btnRemover;
 	private JButton btnVisualizar;
+	
 	
 	/**
 	 * Create the frame.
@@ -71,6 +78,14 @@ public class PainelServicos extends JInternalFrame {
 		btnRemover.setEnabled(false);
 		
 		btnVisualizar = new JButton("Visualizar");
+		btnVisualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelVisualizacao = new PainelVisualizacaoServico(servicoSelecionado);
+				adicionaNoPainel(painelVisualizacao);
+				painelVisualizacao.show();
+				
+			}
+		});
 		btnVisualizar.setEnabled(false);
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -140,7 +155,7 @@ public class PainelServicos extends JInternalFrame {
 					public void valueChanged(ListSelectionEvent e) {
 						int[] indiceSelecionado = tableServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os �ndices da lista dos objetos selecionados. Como nessa tabela s� se seleciona uma op��o de cada vez, sempre ter� s� um elemento essa array.
 						if (indiceSelecionado.length <= 0){
-							contratoSelecionado = null;
+							servicoSelecionado = null;
 						}else{
 							// Aqui � uma gambiarra mais complicada: java n�o permite que eu use o listaContratos (ou qualquer outra vari�vel n�o final) dentro de um m�todo do construtor, como � esse. Para solucionar isso, optei pela gambiarra de s� usar esse �ndice em um m�todo fora do construtor, setContratoSelecionado, que consegue usar as vari�veis sem problemas.
 							setServicoSelecionado(indiceSelecionado[0]);
@@ -159,7 +174,7 @@ public class PainelServicos extends JInternalFrame {
 	
 	public void setServicoSelecionado(int indice){
 		// Fim da gambiarra. Como estou em outro m�todo, posso usar vari�veis n�o finais a vontade sem problema.
-		contratoSelecionado = listaContratos.get(indice); // Lembrando que a tabela est� na mesma ordem que a listaContratos, ent�o os �ndices s�o os mesmos.
+		servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); // Lembrando que a tabela est� na mesma ordem que a listaContratos, ent�o os �ndices s�o os mesmos.
 	}
 	public void atualizaBotoes(){
 		if (contratoSelecionado == null){
