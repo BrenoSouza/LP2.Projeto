@@ -49,6 +49,7 @@ public class PainelServicos extends JInternalFrame {
 	private JButton btnVisualizar;
 	private JComboBox comboBox;
 	private String[] nomesHospedes;
+	private PainelAdicionaServico painelAdicionar;
 	
 	/**
 	 * Create the frame.
@@ -89,6 +90,13 @@ public class PainelServicos extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelAdicionar = new PainelAdicionaServico();
+				adicionaNoPainel(painelAdicionar);
+				painelAdicionar.show();
+			}
+		});
 		
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.setEnabled(false);
