@@ -134,6 +134,7 @@ public class Main extends JFrame {
 	public Main() throws Exception{
 		setTitle("Hotel Riviera Campina - Admnistra\u00E7\u00E3o");
 		criaQuartos();
+		listaHospedes.add(new Hospede("Fulano de Tal","Casa do Fulano", "1111111", Calendar.getInstance())); //Adicionando um hóspede por fora, pra testes
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
 
@@ -246,7 +247,7 @@ public class Main extends JFrame {
 		btnContratos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (painelContratos == null || painelContratos.isClosed()){
-					painelContratos = new PainelContratos(listaContratos, painelPrincipal);
+					painelContratos = new PainelContratos(listaContratos, painelPrincipal, listaHospedes);
 					painelPrincipal.add(painelContratos);
 					painelContratos.show();
 				}
