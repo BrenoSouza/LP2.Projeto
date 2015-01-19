@@ -10,32 +10,32 @@ public abstract class Quarto extends Servico{
 	private boolean camaExtra = false;
 	/**
 	 * O construtor do quarto.
-	 * @param numero Numero do quarto.
-	 * @param numeroHospedes Numero de hospedes.
-	 * @param diarias Diarias no hotel.
+	 * @param numero Número do quarto.
+	 * @param numeroHospedes Número de hospedes.
+	 * @param diarias Diárias no hotel.
 	 * @param data Data de entrada.
-	 * @param precoDiaria Preco da diaria
-	 * @throws Exception Caso o numero/numeroHospedes/diarias seja menor que zero.
+	 * @param precoDiaria Preço da diária
+	 * @throws Exception Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
 	public Quarto(int numero, int numeroHospedes, int diarias, double precoDiaria) throws Exception{
 		super();
 		if (numeroHospedes < 0 || diarias < 0 || numero < 0){
-			throw new Exception("O numero de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
+			throw new Exception("O número de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
 		}
 		this.numero = numero;
 		this.numeroHospedes = numeroHospedes;
 		this.diarias = diarias;
 	}
 	/**
-	 * Retorna o numero do quarto.
-	 * @return O numero do quarto.
+	 * Retorna o número do quarto.
+	 * @return O número do quarto.
 	 */
 	public int getNumero() {
 		return numero;
 	}
 	/**
-	 * Retorna o numero de hospedes.
-	 * @return O numero de hospedes.
+	 * Retorna o número de hóspedes.
+	 * @return O número de hóspedes.
 	 */
 	public int getNumeroHospedes() {
 		if (isCamaExtra()){
@@ -45,14 +45,14 @@ public abstract class Quarto extends Servico{
 		}
 	}
 	/**
-	 * Retorna o numero de diarias.
-	 * @return O numero de diarias.
+	 * Retorna o número de diárias.
+	 * @return O número de diárias.
 	 */
 	public int getDiarias() {
 		return diarias;
 	}
 	/**
-	 * Retorna um List de hospedes.
+	 * Retorna um List de hóspede.
 	 * @return Um List<Hospedes>.
 	 */
 	public List<Hospede> getListaHospedes() {
@@ -60,7 +60,7 @@ public abstract class Quarto extends Servico{
 	}
 	/**
 	 * Se foi solicitado cama extra.
-	 * @return True - se tem cama extra/ False = se nao foi pedido cama extra.
+	 * @return True - se tem cama extra/ False = se não foi pedido cama extra.
 	 */
 	public boolean isCamaExtra() {
 		return camaExtra;
@@ -73,29 +73,29 @@ public abstract class Quarto extends Servico{
 		this.camaExtra = camaExtra;
 	}
 	/**
-	 * Adiciona hospedes no quarto.
-	 * @param hospede O hospede a ser adicionado.
+	 * Adiciona hóspedes no quarto.
+	 * @param hospede O hóspede a ser adicionado.
 	 */
 	public boolean adicionaHospede(Hospede hospede) throws Exception{
 		if (hospede == null){
-			throw new Exception("Nao � um hospede valido.");
+			throw new Exception("Nao é um hóspede válido.");
 		}
 		return listaHospedes.add(hospede);
 	}
 	/**
-	 * O preco da diaria do quarto.
-	 * @return O preco da diaria.
+	 * O preço da diária do quarto.
+	 * @return O preço da diária.
 	 */
 	public double getPrecoDiaria() {
 		return precoDiaria;
 	}
 	/**
-	 * Remove um hospede do quarto.
-	 * @param hospede O hospede a ser removido.
+	 * Remove um hóspede do quarto.
+	 * @param hospede O hóspede a ser removido.
 	 */
 	public boolean removeHospede(Hospede hospede) throws Exception{
 		if (hospede == null){
-			throw new Exception("Nao � um hospede valido.");
+			throw new Exception("Nao é um hóspede valido.");
 		}
 		return listaHospedes.remove(hospede);
 	}
@@ -106,9 +106,9 @@ public abstract class Quarto extends Servico{
 	
 	@Override
 	public String toString() {
-		return "\nNumero do quarto -> " + this.getNumero() +
-				"\nNumero de hospedes -> " + this.getNumeroHospedes() +
-				"\nDiarias -> " + this.getDiarias();
+		return "\nNúmero do quarto -> " + this.getNumero() +
+				"\nNúmero de hóspedes -> " + this.getNumeroHospedes() +
+				"\nDiárias -> " + this.getDiarias();
 	}
 	
 }

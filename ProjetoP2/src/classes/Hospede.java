@@ -12,19 +12,19 @@ public class Hospede {
 	/**
 	 * Contrutor da classe Hospede.
 	 * @param nome
-	 * O nome do h�spede.
-	 * @param endereco
+	 * O nome do hóspede.
+	 * @param endereço
 	 * O endereço do Hospede.
 	 * @param cpf
-	 * O CPF do h�spede.
+	 * O CPF do hóspede.
 	 * @param dataNascimento
-	 * Um objeto Calendar contendo a data de nascimento do h�spede.
+	 * Um objeto Calendar contendo a data de nascimento do hóspede.
 	 * @throws Exception
-	 * Joga uma excess�o caso qualquer um dos atributos estiverem em formato inv�lido.
+	 * Joga uma excessão caso qualquer um dos atributos estiverem em formato inválido.
 	 */
 	public Hospede(String nome, String endereco, String cpf, Calendar dataNascimento) throws Exception{
 		if (nome == null || endereco == null || endereco.isEmpty() || nome.isEmpty() || dataNascimento == null || cpf == null || cpf.equals("   .   .   -  ")){
-			throw new Exception ("Dados inv�lidos. Tente novamente");
+			throw new Exception ("Dados inválidos. Tente novamente");
 		}
 		this.nome = nome;
 		this.cpf = cpf;
@@ -34,54 +34,54 @@ public class Hospede {
 	}
 	
 	/**
-	 * Getter do nome do h�spede.
+	 * Getter do nome do hóspede.
 	 * @return
-	 * O nome do h�spede.
+	 * O nome do hóspede.
 	 */
 	public String getNome() {
 		return nome;
 	}
 	
 	/**
-	 * Getter do CPF do h�spede.
+	 * Getter do CPF do hóspede.
 	 * @return
-	 * O CPF do h�spede.
+	 * O CPF do hóspede.
 	 */
 	public String getCpf() {
 		return cpf;
 	}
 	
 	/**
-	 * Getter da data de nascimento do h�spede.
+	 * Getter da data de nascimento do hóspede.
 	 * @return
-	 * Um objeto Calendar contendo a data de nascimento do h�spede.
+	 * Um objeto Calendar contendo a data de nascimento do hóspede.
 	 */
 	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
 	
 	/**
-	 * O setter do par�metro Opiniao do h�spede.
+	 * O setter do parâmetro Opiniao do hóspede.
 	 * @param opiniao
-	 * Um objeto Opiniao contendo a opini�o do h�spede sobre o hotel.
+	 * Um objeto Opiniao contendo a opinião do hóspede sobre o hotel.
 	 */
 	public void setOpiniao(Opiniao opiniao){
 		this.opiniao = opiniao;
 	}
 	
 	/**
-	 * O getter do par�metro opini�o do h�spede.
+	 * O getter do parâmetro opinião do hóspede.
 	 * @return
-	 * Uma objeto Opiniao contendo a opini�o do h�spede sobre o hotel.
+	 * Uma objeto Opiniao contendo a opinião do hóspede sobre o hotel.
 	 */
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}
 	
 	/**
-	 * O setter do endereco do h�spede.
+	 * O setter do endereço do hóspede.
 	 * @param endereco
-	 * Uma String contendo o endereço do h�spede.
+	 * Uma String contendo o endereço do hóspede.
 	 */
 	
 	public void setEndereco(String endereco) {
@@ -89,9 +89,9 @@ public class Hospede {
 	}
 	
 	/**
-	 * Getter o endereço do h�spede.
+	 * Getter o endereço do hóspede.
 	 * @return
-	 * Um String contendo o endereço do h�spede.
+	 * Um String contendo o endereço do hóspede.
 	 */
 	public String getEndereco() {
 		return endereco;
@@ -102,8 +102,8 @@ public class Hospede {
 		return "Nome: " + getNome() + ".\n"
 				+ "CPF: " + getCpf() + ".\n"
 				+ "Endereço: " + getEndereco() + ".\n"
-				+ "Data de Nascimento: " + getDataNascimento() + ".\n"  // Ajustar depois a formata��o desse objeto Calendar
-				+ ((getOpiniao() == null) ? "." : ("Opini�o: " + getOpiniao().toString() + "."));
+				+ "Data de Nascimento: " + getDataNascimento() + ".\n"  // Ajustar depois a formatacão desse objeto Calendar
+				+ ((getOpiniao() == null) ? "." : ("Opinião: " + getOpiniao().toString() + "."));
 
 	}
 

@@ -36,7 +36,7 @@ public class PainelServicos extends JInternalFrame {
 	private final JScrollPane scrollPane = new JScrollPane();
 	private JTable tableServicos;
 	private JTable table;
-	private Contrato contratoSelecionado = null;
+	private Contrato contratoSelecionado;
 	private Servico servicoSelecionado;
 	private List<Contrato> listaContratos;
 	private List<Hospede> listaHospedes = new ArrayList();
@@ -49,6 +49,7 @@ public class PainelServicos extends JInternalFrame {
 	private JButton btnVisualizar;
 	private JComboBox comboBox;
 	private String[] nomesHospedes;
+	private PainelAdicionaServico painelAdicionar;
 	
 	/**
 	 * Create the frame.
@@ -66,20 +67,8 @@ public class PainelServicos extends JInternalFrame {
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
+	
 		this.listaContratos = listaContratos;		
-
-		comboBox = new JComboBox<String>();
-
-		if (listaContratos.size()!= 0){
-			for (int i = 0; i < listaContratos.size(); i++) {
-				//comboBox.insertItemAt("Breno", 0);
-				comboBox.insertItemAt(listaContratos.get(i).getListaHospedes().get(0).getNome(), i);
-			}
-		}
-		
-		
-		//teste
-		contratoSelecionado = listaContratos.get(0);
 		
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
@@ -88,12 +77,48 @@ public class PainelServicos extends JInternalFrame {
 		setBounds(0, 0, 752, 450);
 		getContentPane().setLayout(null);
 		
+		
+		comboBox = new JComboBox<String>();
+
+		if (listaContratos.size()!= 0){
+			for (int i = 0; i < listaContratos.size(); i++) {
+				comboBox.insertItemAt(listaContratos.get(i).getListaHospedes().get(0).getNome(), i);
+			}
+		}
+		
+	
+		if (comboBox.getSelectedIndex() != -1 ) {
+			contratoSelecionado = listaContratos.get(comboBox.getSelectedIndex());
+		}
+
+		
 		btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(comboBox.getSelectedIndex() != -1) {
+					painelAdicionar = new PainelAdicionaServico(contratoSelecionado, getPainelPrincipal());
+					adicionaNoPainel(painelAdicionar);
+					painelAdicionar.show();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Selecione um contrato!");
+				}
+					
+				
+			}
+		});
 		
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.setEnabled(false);
 		
 		btnRemover = new JButton("Remover");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				contratoSelecionado.getListaServicos().remove(comboBox.getSelectedIndex());
+				
+			}
+		});
 		btnRemover.setEnabled(false);
 		
 		btnVisualizar = new JButton("Visualizar");
@@ -163,13 +188,18 @@ public class PainelServicos extends JInternalFrame {
 		
 		tableServicos = new JTable();
 		
-		Object [][] designTabela = new Object[contratoSelecionado.getListaServicos().size()][3];
+		Object [][] designTabela;
 		
-		for (int i = 0; i < contratoSelecionado.getListaServicos().size(); i++) {
-		
-						
+		if(contratoSelecionado == null) {
+			designTabela = new Object[0][3];
 		}
+		else {
+			designTabela = new Object[contratoSelecionado.getListaServicos().size()][3];
 		
+			for (int i = 0; i < contratoSelecionado.getListaServicos().size(); i++) {
+						
+			}
+		}
 		//GAMBIARRA
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
