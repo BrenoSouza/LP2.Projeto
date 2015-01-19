@@ -12,6 +12,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JOptionPane;
 import javax.swing.JToolBar;
 import javax.swing.JButton;
 
@@ -73,9 +74,6 @@ public class Main extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
-	 */
-	/**
 	 * Método de conversão string para Calendar
 	 * @param data
 	 * Uma data no formato dd/mm/aaaa
@@ -90,6 +88,44 @@ public class Main extends JFrame {
 		return dataDeRetorno;
 		
 	}
+	public void criaQuartos(){
+		Quarto quartoParaAdicionar;
+		int numeroQuarto = 1;
+		try{
+			for (int i = 0; i < 5; i++){
+				quartoParaAdicionar = new QuartoPresidencial(numeroQuarto);
+				listaQuartosDisponiveis.add(quartoParaAdicionar);
+				numeroQuarto++;
+			}for (int i = 0; i < 5; i++){
+				quartoParaAdicionar = new QuartoLuxoSimples(numeroQuarto);
+				listaQuartosDisponiveis.add(quartoParaAdicionar);
+				numeroQuarto++;
+			}for (int i = 0; i < 15; i++){
+				quartoParaAdicionar = new QuartoLuxoDuplo(numeroQuarto);
+				listaQuartosDisponiveis.add(quartoParaAdicionar);
+				numeroQuarto++;
+			}for (int i = 0; i < 20; i++){
+				quartoParaAdicionar = new QuartoLuxoTriplo(numeroQuarto);
+				listaQuartosDisponiveis.add(quartoParaAdicionar);
+				numeroQuarto++;
+			}for (int i = 0; i < 5; i++){
+				quartoParaAdicionar = new QuartoExecutivoSimples(numeroQuarto);
+				listaQuartosDisponiveis.add(quartoParaAdicionar);
+				numeroQuarto++;
+			}for (int i = 0; i < 15; i++){
+				quartoParaAdicionar = new QuartoExecutivoDuplo(numeroQuarto);
+				listaQuartosDisponiveis.add(quartoParaAdicionar);
+				numeroQuarto++;
+			}for (int i = 0; i < 20; i++){
+				quartoParaAdicionar = new QuartoExecutivoTriplo(numeroQuarto);
+				listaQuartosDisponiveis.add(quartoParaAdicionar);
+				numeroQuarto++;
+			}
+
+		}catch (Exception e){
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+	}
 	public static String converteParaString (Calendar data) throws Exception{
 		String dataFormatada = FormatoData.format(data.getTime());
 		return dataFormatada;
@@ -97,6 +133,7 @@ public class Main extends JFrame {
 	
 	public Main() throws Exception{
 		setTitle("Hotel Riviera Campina - Admnistra\u00E7\u00E3o");
+		criaQuartos();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
 
