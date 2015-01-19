@@ -70,7 +70,7 @@ public class PainelContratos extends JInternalFrame {
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PainelVisualizacaoContrato painelVisualizacao = new PainelVisualizacaoContrato(contratoSelecionado, getPainelPrincipal());
-				//N„o posso chamar o painel principal dentro de um construtor, por ele n„o ser final. Ent„o fiz esse mÈtodo que o retorna.
+				//N√£o posso chamar o painel principal dentro de um construtor, por ele n√£o ser final. Ent√£o fiz esse m√©todo que o retorna.
 				adicionaNoPainel(painelVisualizacao);
 				painelVisualizacao.show();
 			}
@@ -111,18 +111,18 @@ public class PainelContratos extends JInternalFrame {
 
 		tableContratos = new JTable();
 		
-		// INÕCIO DE CONSTRU«√O DA TABELA
-		// designTabela = o conte˙do da tabela em si, preenchida atravÈs de um loop for.
+		// INÔøΩCIO DE CONSTRU√á√ÉO DA TABELA
+		// designTabela = o conte√∫do da tabela em si, preenchida atrav√©s de um loop for.
 				Object[][] designTabela = new Object[listaContratos.size()][5];
 				for (int i = 0; i < listaContratos.size(); i++){
 					Contrato contratoAtual = listaContratos.get(i);
-					// Para preencher a primeira linha da tabela, com o nome do HÛspede Principal.
+					// Para preencher a primeira linha da tabela, com o nome do H√≥spede Principal.
 					if (contratoAtual.getHospedePrincipal() == null){
-						designTabela[i][0] = "N„o especificado";
+						designTabela[i][0] = "N√£o especificado";
 					}else{
 						designTabela[i][0] = contratoAtual.getHospedePrincipal().getNome();
 					}
-					// Para conseguir uma String formatada com a data do checkin, atravÈs de um mÈtodo na classe Main.
+					// Para conseguir uma String formatada com a data do checkin, atrav√©s de um m√©todo na classe Main.
 					String dataFormatadaCheckIn = "";
 					try{
 						dataFormatadaCheckIn = Main.converteParaString(contratoAtual.getDataCheckIn());
@@ -142,43 +142,43 @@ public class PainelContratos extends JInternalFrame {
 					designTabela[i][3] = contratoAtual.calculaPrecoFinal();
 					// Para colocar na tabela o status do contrato.
 					designTabela[i][4] = contratoAtual.getStatus();
-			// FIM DE CONSTRU«√O DE TABELA.
+			// FIM DE CONSTRU√á√ÉO DE TABELA.
 			
 		}
-				//GAMBIARRA PARA QUE O USU¡RIO N√O POSSA EDITAR OS DADOS DA TABELA
+				//GAMBIARRA PARA QUE O USU√ÅRIO N√ÉO POSSA EDITAR OS DADOS DA TABELA
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
-						"HÛspede principal", "Data de Check-In", "Data de Check-Out", "Despesas Atuais", "Status"
+						"H√≥spede principal", "Data de Check-In", "Data de Check-Out", "Despesas Atuais", "Status"
 				}) {
 
 					@Override
 				    public boolean isCellEditable(int row, int column) {
-				        //Esse mÈtodo pegaria um Ìndice para ver se o usu·rio pode editar certa parte da tabela. Como n„o È necess·rio no nosso uso, ele sempre vai retornar false
+				        //Esse m√©todo pegaria um √≠ndice para ver se o usu√°rio pode editar certa parte da tabela. Como n√£o √© necess√°rio no nosso uso, ele sempre vai retornar false
 				        return false;
 				    }
 				};
 
 	
 		tableContratos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
-		tableContratos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e n„o sÛ uma cÈlula
-		//CRIANDO UMA A«√O PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinha = tableContratos.getSelectionModel(); // SINGLE_SELECTION = Selecionar sÛ uma opÁ„o de vez
+		tableContratos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e n√£o s√≥ uma c√©lula
+		//CRIANDO UMA A√á√ÉO PRA QUANDO UMA LINHA FOR SELECIONADA
+				ListSelectionModel modeloSelecaoLinha = tableContratos.getSelectionModel(); // SINGLE_SELECTION = Selecionar s√≥ uma op√ß√£o de vez
 				
 				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-					//Necessita ser esse nome de mÈtodo para funcionar
+					//Necessita ser esse nome de m√©todo para funcionar
 					public void valueChanged(ListSelectionEvent e) {
-						int[] indiceSelecionado = tableContratos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os Ìndices da lista dos objetos selecionados. Como nessa tabela sÛ se seleciona uma opÁ„o de cada vez, sempre ter· sÛ um elemento essa array.
+						int[] indiceSelecionado = tableContratos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os √≠ndices da lista dos objetos selecionados. Como nessa tabela s√≥ se seleciona uma op√ß√£o de cada vez, sempre ter√° s√≥ um elemento essa array.
 						if (indiceSelecionado.length <= 0){
 							contratoSelecionado = null;
 						}else{
-							// Aqui È uma gambiarra mais complicada: java n„o permite que eu use o listaContratos (ou qualquer outra vari·vel n„o final) dentro de um mÈtodo do construtor, como È esse. Para solucionar isso, optei pela gambiarra de sÛ usar esse Ìndice em um mÈtodo fora do construtor, setContratoSelecionado, que consegue usar as vari·veis sem problemas.
+							// Aqui √© uma gambiarra mais complicada: java n√£o permite que eu use o listaContratos (ou qualquer outra vari√°vel n√£o final) dentro de um m√©todo do construtor, como √© esse. Para solucionar isso, optei pela gambiarra de s√≥ usar esse √≠ndice em um m√©todo fora do construtor, setContratoSelecionado, que consegue usar as vari√°veis sem problemas.
 							setContratoSelecionado(indiceSelecionado[0]);
 						}atualizaBotoes();
 						
 					}
 				});
-		//O event acima se refere a como o programa vai lidar quando o usu·rio clica em uma linha da tabela.
+		//O event acima se refere a como o programa vai lidar quando o usu√°rio clica em uma linha da tabela.
 		
 		scrollPanePrincipal.setViewportView(tableContratos);
 		
@@ -188,8 +188,8 @@ public class PainelContratos extends JInternalFrame {
 
 	}
 	public void setContratoSelecionado(int indice){
-		// Fim da gambiarra. Como estou em outro mÈtodo, posso usar vari·veis n„o finais a vontade sem problema.
-		contratoSelecionado = listaContratos.get(indice); // Lembrando que a tabela est· na mesma ordem que a listaContratos, ent„o os Ìndices s„o os mesmos.
+		// Fim da gambiarra. Como estou em outro m√©todo, posso usar vari√°veis n√£o finais a vontade sem problema.
+		contratoSelecionado = listaContratos.get(indice); // Lembrando que a tabela est√° na mesma ordem que a listaContratos, ent√£o os √≠ndices s√£o os mesmos.
 	}
 	public void atualizaBotoes(){
 		if (contratoSelecionado == null){

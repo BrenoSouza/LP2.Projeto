@@ -91,10 +91,10 @@ public class PainelCadastroClientes extends JInternalFrame {
 					String cpfHospede = campoCPF.getText();
 					String enderecoHospede = campoEndereco.getText();
 					Hospede hospede = new Hospede(nomeHospede, enderecoHospede, cpfHospede, data);
-					JOptionPane.showMessageDialog(null, "HÛspede criado com sucesso.");
+					JOptionPane.showMessageDialog(null, "H√≥spede criado com sucesso.");
 					
 				}catch (java.text.ParseException e){
-					JOptionPane.showMessageDialog(null, "Data em formato inv·lido.");
+					JOptionPane.showMessageDialog(null, "Data em formato inv√°lido.");
 				}catch (Exception e){
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}

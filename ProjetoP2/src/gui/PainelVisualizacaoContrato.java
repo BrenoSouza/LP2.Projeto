@@ -85,7 +85,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		
 		JLabel lblHospedePrincipalVariavel = new JLabel("New label");
 		if (contrato.getHospedePrincipal() == null){
-			lblHospedePrincipalVariavel.setText("N„o definido");
+			lblHospedePrincipalVariavel.setText("N√£o definido");
 		}else{
 			lblHospedePrincipalVariavel.setText(contrato.getHospedePrincipal().getNome());
 		}
@@ -127,26 +127,26 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		JTable tabelaHospedes = new JTable();
 		try{
 		contrato.getListaServicos().add(new AluguelCarro(5, true, false, true));} catch (Exception e){ JOptionPane.showMessageDialog(null, e.getMessage());}
-				// INÕCIO DE CONSTRU«√O DA TABELA
-				// designTabela = o conte˙do da tabela em si, preenchida atravÈs de um loop for
+				// IN√çCIO DE CONSTRU√á√ÉO DA TABELA
+				// designTabela = o conte√∫do da tabela em si, preenchida atrav√©s de um loop for
 						Object[][] designTabela = new Object[listaHospedes.size()][3];
 						LocalDate presente = LocalDate.now();
 						for (int i = 0; i < listaHospedes.size(); i++){
 							Hospede hospedeAtual = listaHospedes.get(i);
-							//Para preencher a primeira coluna da linha: Nome do hÛspede
+							//Para preencher a primeira coluna da linha: Nome do h√≥spede
 							designTabela[i][0] = hospedeAtual.getNome();
-							//Para preencher a segunda coluna da linha: CPF do hÛspede
+							//Para preencher a segunda coluna da linha: CPF do h√≥spede
 							designTabela[i][1] = hospedeAtual.getCpf();
-							//Para preencher a terceira coluna da linha: Idade do hÛspede
+							//Para preencher a terceira coluna da linha: Idade do h√≥spede
 							Calendar nascimento = hospedeAtual.getDataNascimento();
 							LocalDate diaNascimento = LocalDate.of(nascimento.get(nascimento.YEAR), nascimento.get(nascimento.MONTH) + 1, nascimento.get(nascimento.DAY_OF_MONTH));
 							Period periodoDeTempo = Period.between(diaNascimento, presente);
 							designTabela[i][2] = periodoDeTempo.getYears();
 							
-					// FIM DE CONSTRU«√O DE TABELA.
+					// FIM DE CONSTRU√á√ÉO DE TABELA.
 					
 				}
-						//GAMBIARRA PARA QUE O USU¡RIO N√O POSSA EDITAR OS DADOS DA TABELA
+						//GAMBIARRA PARA QUE O USU√ÅRIO N√ÉO POSSA EDITAR OS DADOS DA TABELA
 						@SuppressWarnings("serial")
 						DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 								"Nome", "CPF", "Idade"
@@ -154,14 +154,14 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 
 							@Override
 						    public boolean isCellEditable(int row, int column) {
-						        //Esse mÈtodo pegaria um Ìndice para ver se o usu·rio pode editar certa parte da tabela. Como n„o È necess·rio no nosso uso, ele sempre vai retornar false
+						        //Esse m√©todo pegaria um √≠ndice para ver se o usu√°rio pode editar certa parte da tabela. Como n√£o √© necess√°rio no nosso uso, ele sempre vai retornar false
 						        return false;
 						    }
 						};
 
 			
 				tabelaHospedes.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
-				tabelaHospedes.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e n„o sÛ uma cÈlula
+				tabelaHospedes.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e n√£o s√≥ uma c√©lula
 				scrollPane.setViewportView(tabelaHospedes);
 		GroupLayout gl_panelDetalhes = new GroupLayout(panelDetalhes);
 		gl_panelDetalhes.setHorizontalGroup(
@@ -272,50 +272,50 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		);
 		
 		tabelaServicos = new JTable();
-		//INICIO DA CONSTRU«√O DE TABELA
+		//INICIO DA CONSTRUÔøΩÔøΩO DE TABELA
 		Object [][] tabelaServicosDesign = new Object [contrato.getListaServicos().size()][4];
 		for (int i = 0; i < contrato.getListaServicos().size(); i++){
 			Servico servicoAtual = contrato.getListaServicos().get(i);
-			//Primeira cÈlula da linha: o mÈtodo getTipo() do serviÁo
+			//Primeira c√©lula da linha: o m√©todo getTipo() do servi√ßo
 			tabelaServicosDesign[i][0] = servicoAtual.getTipo();
-			//Segunda cÈlula da linha: a data do serviÁo
+			//Segunda c√©lula da linha: a data do servi√ßo
 			tabelaServicosDesign[i][1] = servicoAtual.getInicioServico();
-			//Terceira cÈlula da linha: a hora de entrada do serviÁo
+			//Terceira c√©lula da linha: a hora de entrada do servi√ßo
 			tabelaServicosDesign[i][2] = servicoAtual.getHoraEntrada() + ":" + servicoAtual.getMinutosEntrada();
-			//Quarta cÈlula da linha: o preÁo total do serviÁo
+			//Quarta c√©lula da linha: o pre√ßo total do servi√ßo
 			tabelaServicosDesign[i][3] = "R$ " + servicoAtual.calculaPrecoTotal();
 		}
-		//GAMBIARRA PARA QUE O USU¡RIO N√O POSSA EDITAR OS DADOS DA TABELA
+		//GAMBIARRA PARA QUE O USUÔøΩRIO N√ÉO POSSA EDITAR OS DADOS DA TABELA
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabelaServicos = new DefaultTableModel(tabelaServicosDesign, new String[] {
-				"ServiÁo", "Data", "Hora", "PreÁo"
+				"ServiÔøΩo", "Data", "Hora", "PreÔøΩo"
 		}) {
 
 			@Override
 		    public boolean isCellEditable(int row, int column) {
-		        //Esse mÈtodo pegaria um Ìndice para ver se o usu·rio pode editar certa parte da tabela. Como n„o È necess·rio no nosso uso, ele sempre vai retornar false
+		        //Esse m√©todo pegaria um √≠ndice para ver se o usu√°rio pode editar certa parte da tabela. Como n√£o √© necess√°rio no nosso uso, ele sempre vai retornar false
 		        return false;
 		    }
 		};
-		//FIM DE CONSTRU«√O DE TABELA
-		//CRIANDO UMA A«√O PRA QUANDO UMA LINHA FOR SELECIONADA
-		ListSelectionModel modeloSelecaoLinha = tabelaServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar sÛ uma opÁ„o de vez
+		//FIM DE CONSTRU√á√ÉO DE TABELA
+		//CRIANDO UMA A√á√ÉO PRA QUANDO UMA LINHA FOR SELECIONADA
+		ListSelectionModel modeloSelecaoLinha = tabelaServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar s√≥ uma op√ß√£o de vez
 		
 		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-			//Necessita ser esse nome de mÈtodo para funcionar
+			//Necessita ser esse nome de m√©todo para funcionar
 			public void valueChanged(ListSelectionEvent e) {
-				int[] indiceSelecionado = tabelaServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os Ìndices da lista dos objetos selecionados. Como nessa tabela sÛ se seleciona uma opÁ„o de cada vez, sempre ter· sÛ um elemento essa array.
+				int[] indiceSelecionado = tabelaServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os √≠ndices da lista dos objetos selecionados. Como nessa tabela s√≥ se seleciona uma op√ß√£o de cada vez, sempre ter√° s√≥ um elemento essa array.
 				if (indiceSelecionado.length <= 0){
 					servicoSelecionado = null;
 				}else{
-					// Aqui È uma gambiarra mais complicada: java n„o permite que eu use o listaContratos (ou qualquer outra vari·vel n„o final) dentro de um mÈtodo do construtor, como È esse. Para solucionar isso, optei pela gambiarra de sÛ usar esse Ìndice em um mÈtodo fora do construtor, setContratoSelecionado, que consegue usar as vari·veis sem problemas.
+					// Aqui √© uma gambiarra mais complicada: java n√£o permite que eu use o listaContratos (ou qualquer outra vari√°vel n√£o final) dentro de um m√©todo do construtor, como √© esse. Para solucionar isso, optei pela gambiarra de s√≥ usar esse √≠ndice em um m√©todo fora do construtor, setContratoSelecionado, que consegue usar as vari√°veis sem problemas.
 					setServicoSelecionado(indiceSelecionado[0]);
 				}atualizaBotoes();
 				
 			}
 		});
-//O event acima se refere a como o programa vai lidar quando o usu·rio clica em uma linha da tabela.
+//O event acima se refere a como o programa vai lidar quando o usu√°rio clica em uma linha da tabela.
 		tabelaServicos.setModel(modeloTabelaServicos);
 		tabelaServicos.setRowSelectionAllowed(true);
 		scrollPane_1.setViewportView(tabelaServicos);
