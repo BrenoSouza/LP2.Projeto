@@ -24,7 +24,7 @@ public class Contrato {
 	 */
 	public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws Exception{
 		if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 
-//				|| listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0 Partes comentadas apenas para testes mais f�ceis do PainelContrato
+//				|| listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0 Partes comentadas apenas para testes mais fáceis do PainelContrato
 				){
 			throw new Exception ("Dados inválidos. Tente novamente.");
 		}
