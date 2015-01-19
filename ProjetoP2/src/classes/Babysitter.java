@@ -9,9 +9,9 @@ public class Babysitter extends Servico {
 	private int horasPrecoNormal;
 	private int horasPrecoExtra;
 	/**
-	 * Construtor do servico de babysitter.
+	 * Construtor do serviço de babysitter.
 	 * @param horaEntrada A hora de entrada da babysitter.
-	 * @param horaSaida A hora de saida da babysitter.
+	 * @param horaSaida A hora de saída da babysitter.
 	 */
 	public Babysitter() {
 		super();
@@ -39,23 +39,23 @@ public class Babysitter extends Servico {
 		}
 	}
 	/**
-	 * Retorna a data de saida da babysitter.
-	 * @return A data de saida da babysitter.
+	 * Retorna uma String com a data de saída da babysitter.
+	 * @return Uma String com a data de saída da babysitter.
 	 */
 	public String getFim() {
 		String dataFormatada = Main.getFormatodata().format(horaSaida.getTime());
 		return dataFormatada;
 	}
 	/**
-	 * Retorna a hora de saida da babysitter.
-	 * @return A hora de saida da babysitter.
+	 * Retorna a hora de saída da babysitter.
+	 * @return A hora de saída da babysitter.
 	 */
 	public int getHoraSaida() {
 		return horaSaida.get(Calendar.HOUR_OF_DAY);
 	}
 	/**
-	 * Estabelece a hora de saida da babysitter.
-	 * @param horaSaida A hora de saida.
+	 * Estabelece a hora de saída da babysitter.
+	 * @param horaSaida A hora de saída.
 	 */
 	public void setHoraSaida(int horaSaida) {
 		this.horaSaida = Calendar.getInstance();
@@ -69,8 +69,8 @@ public class Babysitter extends Servico {
 		return horasPrecoNormal;
 	}
 	/**
-	 * Retorna as horas trabalhadas em horario com preco dobrado.
-	 * @return As horas trabalhadas em horario com preco dobrado.
+	 * Retorna as horas trabalhadas em horario com preço dobrado.
+	 * @return As horas trabalhadas em horario com preço dobrado.
 	 */
 	public int getHorasPrecoExtra() {
 		return horasPrecoExtra;
@@ -85,10 +85,10 @@ public class Babysitter extends Servico {
 	@Override
 	public String toString(){
 		horasTrabalhadas();
-		return "Servico --- Babysitter ---" +
-				"\nInicio -> " + this.getInicioServico() + " Hora de entrada ->" + this.getHoraEntrada() +
-				"\nFim -> " + this.getFim() + " Hora de saida ->" + this.getHoraSaida() +
-				"\nHoras ->" + this.getHorasPrecoNormal() + ", preco normal | " + this.getHorasPrecoExtra() + ", preco dobrado" +
+		return "Serviço --- Babysitter ---" +
+				"\nInício -> " + this.getInicioServico() + " Hora de entrada ->" + this.getHoraEntrada() +
+				"\nFim -> " + this.getFim() + " Hora de saída ->" + this.getHoraSaida() +
+				"\nHoras ->" + this.getHorasPrecoNormal() + ", preço normal | " + this.getHorasPrecoExtra() + ", preço dobrado" +
 				"\nCusto final: " + this.calculaPrecoTotal();
 	}
 	@Override
