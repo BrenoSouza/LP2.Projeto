@@ -20,7 +20,7 @@ public class Contrato {
 	 * Construtor da classe Contrato.
 	 * @param listaQuartosAlugados Um List<Quarto> com o(s) quarto(s) alugado(s).
 	 * @param listaHospedes Um List<Hospede> com o(s) hóspede(s) ligado(s) ao contrato.
-	 * @param numeroDiarias O n�mero de diárias.
+	 * @param numeroDiarias O número de diárias.
 	 */
 	public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws Exception{
 		if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 
