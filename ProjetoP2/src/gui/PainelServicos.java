@@ -96,7 +96,7 @@ public class PainelServicos extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBox.getSelectedIndex() != -1) {
-					painelAdicionar = new PainelAdicionaServico();
+					painelAdicionar = new PainelAdicionaServico(contratoSelecionado, getPainelPrincipal());
 					adicionaNoPainel(painelAdicionar);
 					painelAdicionar.show();
 				}
