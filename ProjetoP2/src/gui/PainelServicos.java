@@ -94,6 +94,13 @@ public class PainelServicos extends JInternalFrame {
 		btnAtualizar.setEnabled(false);
 		
 		btnRemover = new JButton("Remover");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				contratoSelecionado.getListaServicos().remove(comboBox.getSelectedIndex());
+				
+			}
+		});
 		btnRemover.setEnabled(false);
 		
 		btnVisualizar = new JButton("Visualizar");
