@@ -8,7 +8,9 @@ public class Hospede {
 	private Calendar dataNascimento;
 	private Opiniao opiniao;
 	private String endereco;
+	private Contrato contratoLigado = null;
 	
+
 	/**
 	 * Contrutor da classe Hospede.
 	 * @param nome
@@ -49,6 +51,22 @@ public class Hospede {
 	 */
 	public String getCpf() {
 		return cpf;
+	}
+	/**
+	 * Getter da variável referente ao contrato ligado ao hóspede
+	 * @return
+	 * O contrato ligado ao hóspede
+	 */
+	public Contrato getContratoLigado() {
+		return contratoLigado;
+	}
+	/**
+	 * Setter da variável referente ao contrato ligado ao hóspede
+	 * @param contratoLigado
+	 * O contrato a ser ligado com o cliente
+	 */
+	public void setContratoLigado(Contrato contratoLigado) {
+		this.contratoLigado = contratoLigado;
 	}
 	
 	/**
