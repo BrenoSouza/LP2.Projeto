@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
@@ -16,6 +14,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
 
 public class PainelAdicionaServico extends JInternalFrame {
 
@@ -48,49 +47,74 @@ public class PainelAdicionaServico extends JInternalFrame {
 				
 			}
 		});
+		
+		JLabel lblQuartos = new JLabel("Quartos");
+		
+		JLabel lblBabysitter = new JLabel("Babysitter");
+		
+		JLabel lblRestaurante = new JLabel("Restaurante");
+		
+		JLabel lblCarros = new JLabel("Carros");
 
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(152)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnQuartos, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(btnAdicionar))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addGap(152)
-							.addComponent(btnQuartos, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-							.addGap(54)
-							.addComponent(btnAluguelCarros, 0, 0, Short.MAX_VALUE)))
+							.addGap(12)
+							.addComponent(lblQuartos)))
+					.addGap(40)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnAluguelCarros, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(12)
+							.addComponent(lblCarros))
+						.addComponent(btnAdicionar))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(57)
-							.addComponent(btnBabysitter, 0, 0, Short.MAX_VALUE)
-							.addGap(65)
-							.addComponent(btnRestaurante, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-							.addGap(144))
+							.addGap(22)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblBabysitter, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnBabysitter, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+							.addGap(59)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblRestaurante)
+								.addComponent(btnRestaurante, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
-							.addComponent(btnCancelar)
-							.addContainerGap())))
+							.addGap(37)
+							.addComponent(btnCancelar)))
+					.addGap(144))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(43)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnBabysitter, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
 						.addComponent(btnRestaurante, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(btnAluguelCarros, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnQuartos, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblQuartos)
+								.addComponent(lblCarros))
+							.addPreferredGap(ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnAluguelCarros, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnBabysitter, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-							.addComponent(btnQuartos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-					.addPreferredGap(ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAdicionar)
-						.addComponent(btnCancelar))
-					.addGap(21))
+								.addComponent(btnAdicionar)
+								.addComponent(btnCancelar))
+							.addGap(21))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblRestaurante)
+								.addComponent(lblBabysitter))
+							.addContainerGap())))
 		);
 		getContentPane().setLayout(groupLayout);
 
