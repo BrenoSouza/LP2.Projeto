@@ -52,7 +52,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 	public PainelVisualizacaoContrato(Contrato contrato, JDesktopPane painelPrincipal) {
 		setClosable(true);
 		this.painelPrincipal = painelPrincipal;
-		setBounds(100, 100, 800, 400);
+		setBounds(0, 50, 800, 400);
 		this.contrato = contrato;
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();
@@ -288,7 +288,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		//GAMBIARRA PARA QUE O USU�RIO NÃO POSSA EDITAR OS DADOS DA TABELA
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabelaServicos = new DefaultTableModel(tabelaServicosDesign, new String[] {
-				"Servi�o", "Data", "Hora", "Pre�o"
+				"Serviço", "Data", "Hora", "Preço"
 		}) {
 
 			@Override
