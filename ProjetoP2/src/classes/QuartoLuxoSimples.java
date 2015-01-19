@@ -7,8 +7,8 @@ public class QuartoLuxoSimples extends Quarto {
 	 * @param diarias Diárias no hotel.
 	 * @throws Exception Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
-	public QuartoLuxoSimples(int numero, int diarias) throws Exception {
-		super(numero, 3, diarias, 520.0);
+	public QuartoLuxoSimples(int numero) throws Exception {
+		super(numero, 3, 520.0);
 	}
 	
 	@Override

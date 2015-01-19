@@ -4,26 +4,67 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Quarto extends Servico{
-	private int numero, numeroHospedes, diarias;
+	private int numero, numeroHospedes;
+	private int diarias = 0;
 	private double precoDiaria;
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	private boolean camaExtra = false;
+	private boolean isLivre = true;
+
 	/**
 	 * O construtor do quarto.
 	 * @param numero Número do quarto.
 	 * @param numeroHospedes Número de hospedes.
-	 * @param diarias Diárias no hotel.
 	 * @param data Data de entrada.
 	 * @param precoDiaria Preço da diária
 	 * @throws Exception Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
-	public Quarto(int numero, int numeroHospedes, int diarias, double precoDiaria) throws Exception{
+	public Quarto(int numero, int numeroHospedes, double precoDiaria) throws Exception{
 		super();
 		if (numeroHospedes < 0 || diarias < 0 || numero < 0){
 			throw new Exception("O número de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
 		}
 		this.numero = numero;
 		this.numeroHospedes = numeroHospedes;
+		this.diarias = diarias;
+	}
+	/**
+	 * Getter do parâmetro "isLivre"
+	 * @return
+	 * True se o quarto estiver desocupado
+	 */
+	public boolean isLivre() {
+		return isLivre;
+	}
+	/**
+	 * Setter do parâmetro "isLivre"
+	 * @param isLivre
+	 * True se o quarto for ser definido como "vago"
+	 */
+	public void setLivre(boolean isLivre) {
+		if (isLivre){
+			setDiarias(0);
+		}
+		this.isLivre = isLivre;
+	}
+	/**
+	 * Getter de uma string revelando se o quarto está vago ou livre
+	 * @return
+	 * "VAGO" se o quarto estiver livre, "OCUPADO" caso contrário
+	 */
+	public String getEstado(){
+		if (isLivre){
+			return "VAGO";
+		}else{
+			return "OCUPADO";
+		}
+	}
+	/**
+	 * Setter da variável "diarias"
+	 * @param diarias
+	 * O número de diárias
+	 */
+	public void setDiarias(int diarias){
 		this.diarias = diarias;
 	}
 	/**
