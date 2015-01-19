@@ -19,14 +19,14 @@ public class Contrato {
 	/**
 	 * Construtor da classe Contrato.
 	 * @param listaQuartosAlugados Um List<Quarto> com o(s) quarto(s) alugado(s).
-	 * @param listaHospedes Um List<Hospede> com o(s) hóspede(s) ligado(s) ao contrato.
-	 * @param numeroDiarias O número de diárias.
+	 * @param listaHospedes Um List<Hospede> com o(s) hÃ³spede(s) ligado(s) ao contrato.
+	 * @param numeroDiarias O nï¿½mero de diÃ¡rias.
 	 */
 	public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws Exception{
 		if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 
-//				|| listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0 Partes comentadas apenas para testes mais fáceis do PainelContrato
+//				|| listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0 Partes comentadas apenas para testes mais fï¿½ceis do PainelContrato
 				){
-			throw new Exception ("Dados inválidos. Tente novamente.");
+			throw new Exception ("Dados invÃ¡lidos. Tente novamente.");
 		}
 		this.listaQuartosAlugados.addAll(listaQuartosAlugados);
 		this.listaHospedes.addAll(listaHospedes);
@@ -43,74 +43,80 @@ public class Contrato {
 		return listaQuartosAlugados;
 	}
 	/**
-	 * Getter da lista de hóspedes ligados ao contrato.
-	 * @return Um List<Hospede> com todos os hóspedes ligados ao contrato.
+	 * Getter da lista de hÃ³spedes ligados ao contrato.
+	 * @return Um List<Hospede> com todos os hÃ³spedes ligados ao contrato.
 	 */
 	public List<Hospede> getListaHospedes() {
 		return listaHospedes;
 	}
 	/**
-	 * Getter da lista de serviços ligados ao contrato.
-	 * @return Um List<Servico> com todos os serviços ligados ao contrato.
+	 * Getter da lista de serviÃ§os ligados ao contrato.
+	 * @return Um List<Servico> com todos os serviÃ§os ligados ao contrato.
 	 */
 	public List<Servico> getListaServicos() {
 		return listaServicos;
 	}
 	/**
-	 * Getter do número de diárias do contrato.
-	 * @return O número de diárias do contrato.
+	 * Getter do nÃºmero de diÃ¡rias do contrato.
+	 * @return O nÃºmero de diÃ¡rias do contrato.
 	 */
 	public int getNumeroDiarias() {
 		return numeroDiarias;
 	}
 	/**
-	 * Setter do objeto referente ao hóspede principal do contrato.
-	 * @param hospede O hóspede que deseja ser marcado como o principal do contrato.
+	 * Setter do objeto referente ao hÃ³spede principal do contrato.
+	 * @param hospede O hÃ³spede que deseja ser marcado como o principal do contrato.
 	 */
 	public void setHospedePrincipal(Hospede hospede){
 		hospedePrincipal = hospede;
 	}
 	/**
-	 * Getter do objeto Hospede referente ao hóspede principal do contrato.
-	 * @return Um objeto Hospede com o hospede principal do contrato.
+	 * Getter do objeto Hospede referente ao hÃ³spede principal do contrato.
+	 * @return Um objeto Hospede com o hÃ³spede principal do contrato.
 	 */
 	public Hospede getHospedePrincipal(){
 		return hospedePrincipal;
 	}
 	/**
-	 * Método que calcula o preço final a ser pago por tudo relevante ao contrato.
-	 * @return O preço final a ser pago.
+	 * MÃ©todo que calcula o preÃ§o final a ser pago por tudo relevante ao contrato.
+	 * @return O preÃ§o final a ser pago.
 	 */
 	public double calculaPrecoFinal(){
 		return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos());
 	}
 	/**
-	 * Método para mudar o status do contrato de "ABERTO" para "FECHADO"
+	 * MÃ©todo para mudar o status do contrato de "ABERTO" para "FECHADO".
 	 */
 	public void fechaContrato(){
 		status = "FECHADO";
 		this.dataCheckOut = Calendar.getInstance();
 	}
 	/**
-	 * Getter do Calendar com a data de check in
-	 * @return Um Calendar com a data de check in
+	 * Getter do Calendar com a data de check in.
+	 * @return Um Calendar com a data de check in.
 	 */
 	public Calendar getDataCheckIn(){
 		return dataCheckIn;
 	}
-	
+	/**
+	 * Retorna uma String com a data de checkIn.
+	 * @return Uma String com a data de checkIn.
+	 */
 	public String getDataCheckInToString() {
 		String dataFormatada = Main.getFormatodata().format(dataCheckIn.getTime());
 		return dataFormatada;
 	}
 	/**
-	 * Getter do Calendar com a data de check out
-	 * @return Um Calendar com a data de check out
+	 * Getter do Calendar com a data de check out.
+	 * @return Um Calendar com a data de check out.
 	 */
 	public Calendar getDataCheckOut(){
 		return dataCheckOut;
 	}
-	
+	/**
+	 * Retorna uma String com a data de checkOut.
+	 * @return Uma String com a data de checkOut.
+	 */
 	public String getDataCheckOutToString() {
 		String dataFormatada = Main.getFormatodata().format(dataCheckOut.getTime());
 		return dataFormatada;
@@ -123,8 +129,8 @@ public class Contrato {
 		return status;
 	}
 	/**
-	 * Calcula o preco total de todos os servicos ligados ao contrato.
-	 * @return O custo total dos servicos.
+	 * Calcula o preÃ§o total de todos os serviÃ§os ligados ao contrato.
+	 * @return O custo total dos serviÃ§os.
 	 */
 	public double CalculaPrecoServicos() {
 		double servicosPreco = 0;
@@ -134,7 +140,7 @@ public class Contrato {
 		return servicosPreco;
 	}
 	/**
-	 * Calcula o preco total de todos os quartos ligados ao contrato.
+	 * Calcula o preÃ§o total de todos os quartos ligados ao contrato.
 	 * @return O custo total dos quartos.
 	 */
 	public double CalculaPrecoQuartos() {
@@ -144,7 +150,10 @@ public class Contrato {
 		}
 		return quartosPreco;
 	}
-
+	/**
+	 * Cria uma String com todos os serviÃ§os ligados ao contrato.
+	 * @return Uma String formatada com o toString() de todos os serviÃ§os.
+	 */
 	private String ServicosFinal() {
 		String servicosToString = "";
 		for(Servico i: listaServicos){
@@ -153,7 +162,10 @@ public class Contrato {
 		}
 		return servicosToString;
 	}
-	
+	/**
+	 * Cria uma String com todos os quartos ligados ao contrato.
+	 * @return Uma String formatada com o toString() de todos os quartos.
+	 */
 	private String QuartosFinal() {
 		String quartosToString = "";
 		for(Quarto i: listaQuartosAlugados){
@@ -165,11 +177,11 @@ public class Contrato {
 	
 	@Override
 	public String toString() {
-		return "--- Relatorio ---" + " CheckIn: " + this.getDataCheckInToString() + " | CheckOut: "+ this.getDataCheckOutToString() +
+		return "--- RelatÃ³rio ---" + " CheckIn: " + this.getDataCheckInToString() + " | CheckOut: "+ this.getDataCheckOutToString() +
 				"\nStatus -> " + this.getStatus() +
-				"\n vvv Servicos vvv" +
+				"\n vvv ServiÃ§os vvv" +
 				ServicosFinal() +
-				"Custo total dos servicos: R$ " + this.CalculaPrecoServicos() +
+				"Custo total dos serviÃ§os: R$ " + this.CalculaPrecoServicos() +
 				"\n vvv Quartos vvv" + 
 				QuartosFinal() +
 				"Custo total dos quartos: R$ " + this.CalculaPrecoQuartos() +
