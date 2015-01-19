@@ -177,26 +177,26 @@ public class PainelServicos extends JInternalFrame {
 
 			@Override
 		    public boolean isCellEditable(int row, int column) {
-		        //Esse m�todo pegaria um �ndice para ver se o usu�rio pode editar certa parte da tabela. Como n�o � necess�rio no nosso uso, ele sempre vai retornar false
+		        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 		        return false;
 		    }
 		};
 		
 		tableServicos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
 
-		tableServicos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e n�o s� uma c�lula
-		//CRIANDO UMA A��O PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinha = tableServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar s� uma op��o de vez
+		tableServicos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
+		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
+				ListSelectionModel modeloSelecaoLinha = tableServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
 				
 				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-					//Necessita ser esse nome de m�todo para funcionar
+					//Necessita ser esse nome de método para funcionar
 					public void valueChanged(ListSelectionEvent e) {
-						int[] indiceSelecionado = tableServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os �ndices da lista dos objetos selecionados. Como nessa tabela s� se seleciona uma op��o de cada vez, sempre ter� s� um elemento essa array.
+						int[] indiceSelecionado = tableServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá um elemento essa array.
 						if (indiceSelecionado.length <= 0){
 							servicoSelecionado = null;
 						}else{
-							// Aqui � uma gambiarra mais complicada: java n�o permite que eu use o listaContratos (ou qualquer outra vari�vel n�o final) dentro de um m�todo do construtor, como � esse. Para solucionar isso, optei pela gambiarra de s� usar esse �ndice em um m�todo fora do construtor, setContratoSelecionado, que consegue usar as vari�veis sem problemas.
+							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaServicos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setServicoSelecionado, que consegue usar as variáveis sem problemas.
 							setServicoSelecionado(indiceSelecionado[0]);
 						}atualizaBotoes();
 						
@@ -212,8 +212,8 @@ public class PainelServicos extends JInternalFrame {
 	}
 	
 	public void setServicoSelecionado(int indice){
-		// Fim da gambiarra. Como estou em outro m�todo, posso usar vari�veis n�o finais a vontade sem problema.
-		servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); // Lembrando que a tabela est� na mesma ordem que a listaContratos, ent�o os �ndices s�o os mesmos.
+		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
+		servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); // Lembrando que a tabela está na mesma ordem que a listaContratos, então os índices são os mesmos.
 	}
 	public void atualizaBotoes(){
 		if (contratoSelecionado == null){

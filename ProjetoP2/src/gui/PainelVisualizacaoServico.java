@@ -26,7 +26,7 @@ public class PainelVisualizacaoServico extends JInternalFrame {
 		
 		JLabel lblToStringdoServico = new JLabel("New label");
 		lblToStringdoServico.setText("<html><br>" + servico.toString() + "</br></html>");
-		//Pequeno problema. OJlabel n�o reconhece as tags /n para quebrar uma linha. Um jeito � vc cercar a string com essas tags html ali em cima, mas elas s� quebram quando chega no final da janela.
+		//Pequeno problema. OJlabel não reconhece as tags /n para quebrar uma linha. Um jeito é vc cercar a string com essas tags html ali em cima, mas elas só quebram quando chega no final da janela.
 		lblToStringdoServico.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
