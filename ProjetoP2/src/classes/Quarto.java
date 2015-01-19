@@ -34,8 +34,8 @@ public abstract class Quarto extends Servico{
 		return numero;
 	}
 	/**
-	 * Retorna o número de hospedes.
-	 * @return O número de hospedes.
+	 * Retorna o número de hóspedes.
+	 * @return O número de hóspedes.
 	 */
 	public int getNumeroHospedes() {
 		if (isCamaExtra()){
