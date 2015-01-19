@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 
 public class PainelNovoContrato extends JInternalFrame {
 	private JComboBox comboBoxSelecaoHospede;
@@ -69,6 +70,10 @@ public class PainelNovoContrato extends JInternalFrame {
 		comboBoxSelecaoHospede.setEditable(false); // Para não se poder editar os valores da comboBox.
 		
 		JButton btnCriarNovo = new JButton("Criar novo hóspede");
+		
+		JScrollPane scrollPane = new JScrollPane();
+		
+		JLabel lblTabelaClientes = new JLabel("Clientes sem contrato vinculado:");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -76,13 +81,19 @@ public class PainelNovoContrato extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnCriarNovo, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblSelecaoHospede)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(comboBoxSelecaoHospede, 0, 184, Short.MAX_VALUE)
-							.addGap(310))))
+							.addComponent(comboBoxSelecaoHospede, 0, 187, Short.MAX_VALUE)
+							.addGap(310))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblTabelaClientes)
+							.addContainerGap(578, Short.MAX_VALUE))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -91,7 +102,11 @@ public class PainelNovoContrato extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblSelecaoHospede)
 						.addComponent(comboBoxSelecaoHospede, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblTabelaClientes)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnCriarNovo)
 					.addContainerGap())
 		);
