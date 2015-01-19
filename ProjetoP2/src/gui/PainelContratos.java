@@ -39,20 +39,23 @@ import java.awt.event.ActionEvent;
 public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableContratos;
-	private List<Contrato> listaContratos = new ArrayList<Contrato>();
+	private List<Contrato> listaContratos;
+	private List<Hospede> listaHospedes;
 	private JTable table;
 	private Contrato contratoSelecionado = null;
 	private JButton btnVisualizar;
 	private JButton btnEditar;
 	private JButton btnNovo;
 	private JDesktopPane painelPrincipal;
+	private PainelNovoContrato painelNovo;
 
 
 	/**
 	 * Create the frame.
 	 */
-	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal){
+	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, List<Hospede> listaHospedes){
 		this.painelPrincipal = painelPrincipal;
+		this.listaHospedes = listaHospedes;
 		try{
 		Contrato teste = new Contrato(new ArrayList<Quarto>(), new ArrayList<Hospede>(), 5);
 		listaContratos.add(teste);
@@ -81,6 +84,13 @@ public class PainelContratos extends JInternalFrame {
 		btnEditar.setEnabled(false);
 		
 		btnNovo = new JButton("Novo");
+		btnNovo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				painelNovo = new PainelNovoContrato(getListaHospedes());
+				adicionaNoPainel(painelNovo);
+				painelNovo.show();
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -89,20 +99,20 @@ public class PainelContratos extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnVisualizar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
-							.addComponent(btnEditar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnVisualizar, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+							.addGap(229)
+							.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
 							.addGap(220)
-							.addComponent(btnNovo, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnNovo, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
-			groupLayout.setVerticalGroup(
+		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(scrollPanePrincipal, GroupLayout.PREFERRED_SIZE, 345, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGap(31)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE, false)
 						.addComponent(btnVisualizar)
 						.addComponent(btnNovo)
 						.addComponent(btnEditar))
@@ -186,6 +196,9 @@ public class PainelContratos extends JInternalFrame {
 		scrollPanePrincipal.setRowHeaderView(table);
 		getContentPane().setLayout(groupLayout);
 
+	}
+	public List<Hospede> getListaHospedes() {
+		return listaHospedes;
 	}
 	public void setContratoSelecionado(int indice){
 		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
