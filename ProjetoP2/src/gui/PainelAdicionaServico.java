@@ -41,6 +41,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				disposeOnClosed();
+				
+			}
+		});
 
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -88,4 +95,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 
 	}
+	
+	private void disposeOnClosed() {  
+	    this.dispose();  
+	}    
 }
