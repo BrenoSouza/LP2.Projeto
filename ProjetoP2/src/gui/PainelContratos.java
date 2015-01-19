@@ -41,6 +41,7 @@ public class PainelContratos extends JInternalFrame {
 	private JTable tableContratos;
 	private List<Contrato> listaContratos;
 	private List<Hospede> listaHospedes;
+	private List<Quarto> listaQuartosDisponiveis;
 	private JTable table;
 	private Contrato contratoSelecionado = null;
 	private JButton btnVisualizar;
@@ -53,9 +54,10 @@ public class PainelContratos extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, List<Hospede> listaHospedes){
+	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, List<Hospede> listaHospedes, List<Quarto> listaQuartosDisponiveis){
 		this.painelPrincipal = painelPrincipal;
 		this.listaHospedes = listaHospedes;
+		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		try{
 		Contrato teste = new Contrato(new ArrayList<Quarto>(), new ArrayList<Hospede>(), 5);
 		listaContratos.add(teste);
@@ -86,7 +88,7 @@ public class PainelContratos extends JInternalFrame {
 		btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelNovo = new PainelNovoContrato(getListaHospedes());
+				painelNovo = new PainelNovoContrato(getListaHospedes(), getListaQuartosDisponiveis());
 				adicionaNoPainel(painelNovo);
 				painelNovo.show();
 			}
@@ -196,6 +198,9 @@ public class PainelContratos extends JInternalFrame {
 		scrollPanePrincipal.setRowHeaderView(table);
 		getContentPane().setLayout(groupLayout);
 
+	}
+	public List<Quarto> getListaQuartosDisponiveis() {
+		return listaQuartosDisponiveis;
 	}
 	public List<Hospede> getListaHospedes() {
 		return listaHospedes;

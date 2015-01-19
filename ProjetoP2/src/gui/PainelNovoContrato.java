@@ -16,15 +16,19 @@ import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import classes.Hospede;
+import classes.Quarto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JButton;
 
 public class PainelNovoContrato extends JInternalFrame {
 	private JComboBox comboBoxSelecaoHospede;
 	private JLabel lblSelecaoHospede;
 	private List<Hospede> listaHospedes;
 	private List<Hospede> listaHospedesSemContrato;
+	private List<Quarto> listaQuartosDisponiveis;
 	private Hospede hospedeSelecionado = null;
 
 	
@@ -32,11 +36,12 @@ public class PainelNovoContrato extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelNovoContrato(List<Hospede> listaHospedes) {
+	public PainelNovoContrato(List<Hospede> listaHospedes, List<Quarto> listaQuartosDisponiveis) {
 		setResizable(true);
 		setClosable(true);
 		setBounds(0, 0, 650, 280);
 		this.listaHospedes = listaHospedes;
+		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		lblSelecaoHospede = new JLabel("Hóspede Principal:");
 		lblSelecaoHospede.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		listaHospedesSemContrato = new ArrayList<Hospede>();
@@ -62,15 +67,22 @@ public class PainelNovoContrato extends JInternalFrame {
 		});
 		comboBoxSelecaoHospede.setSelectedIndex(0);
 		comboBoxSelecaoHospede.setEditable(false); // Para não se poder editar os valores da comboBox.
+		
+		JButton btnCriarNovo = new JButton("Criar novo hóspede");
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblSelecaoHospede)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(comboBoxSelecaoHospede, 0, 181, Short.MAX_VALUE)
-					.addGap(316))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnCriarNovo, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblSelecaoHospede)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(comboBoxSelecaoHospede, 0, 184, Short.MAX_VALUE)
+							.addGap(310))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -79,7 +91,9 @@ public class PainelNovoContrato extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblSelecaoHospede)
 						.addComponent(comboBoxSelecaoHospede, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(219, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 185, Short.MAX_VALUE)
+					.addComponent(btnCriarNovo)
+					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
 
