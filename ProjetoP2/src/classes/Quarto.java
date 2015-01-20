@@ -65,7 +65,9 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 	 * O número de diárias
 	 */
 	public void setDiarias(int diarias){
-		this.diarias = diarias;
+		if (diarias >= 0){
+			this.diarias = diarias;
+		}
 	}
 	/**
 	 * Retorna o número do quarto.
@@ -153,6 +155,22 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 	}
 	public int compareTo(Quarto q){
 		return this.getNumero() - q.getNumero();
+	}
+	/**
+	 * Método para que o quarto retorne ao seu padrão (Livre e com 0 diárias)
+	 */
+	public void retornaPadrao(){
+		setDiarias(0);
+		setLivre(true);
+	}
+	/**
+	 * Método para que o quarto entre no estado de Vago
+	 * @param diarias
+	 * As diárias para o quarto
+	 */
+	public void setToOcupado(int diarias){
+		setDiarias(diarias);
+		setLivre(false);
 	}
 	
 }
