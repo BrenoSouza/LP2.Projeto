@@ -32,11 +32,11 @@ public class DialogoDiarias extends JDialog {
 //		Essa linha acima garante que esse JDialog seja tratado como uma aplicação modal, ou seja: Quando ela for iniciada, a classe mãe (no caso PainelNovoContrato) PARA de ser processado e só volta quando essa classe for "disposed".
 //		Isso garante que o usuário tenha tempo de selecionar uma opção. Se a aplicação não fosse modal, o diálogo seria aberto, mas a classe mãe continuaria a processar, e ela chamaria o getDiarias() que, como o user não fez nada, retornaria o valor padrão (1).
 		
-		setBounds(100, 100, 450, 150);
+		setBounds(100, 100, 385, 150);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		JLabel lblDialogoDiarias = new JLabel("Selecione o número de diárias referente ao quarto selecionado:");
+		JLabel lblDialogoDiarias = new JLabel("Selecione o número de diárias referente ao contrato:");
 		lblDialogoDiarias.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		spinnerDiarias = new JSpinner();
 		spinnerDiarias.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
@@ -61,7 +61,7 @@ public class DialogoDiarias extends JDialog {
 							.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(spinnerDiarias, Alignment.LEADING)
 								.addComponent(btnNewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-					.addContainerGap(14, Short.MAX_VALUE))
+					.addContainerGap(16, Short.MAX_VALUE))
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
@@ -72,7 +72,7 @@ public class DialogoDiarias extends JDialog {
 					.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(btnNewButton)
-					.addContainerGap(19, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		contentPanel.setLayout(gl_contentPanel);
 	}
