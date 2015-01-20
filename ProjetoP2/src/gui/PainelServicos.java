@@ -211,8 +211,7 @@ public class PainelServicos extends JInternalFrame {
 					designTabela[i][0] = servicoAtual.getTipo();
 				}
 				designTabela[i][1] = "Teste";
-				// Para colocar na tabela o total de despesas do contrato.
-				designTabela[i][3] = servicoAtual.calculaPrecoTotal();
+				designTabela[i][2] = servicoAtual.calculaPrecoTotal();
 			}
 		}
 		//GAMBIARRA
