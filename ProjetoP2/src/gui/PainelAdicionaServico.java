@@ -3,6 +3,7 @@ package gui;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
+import classes.AluguelCarro;
 import classes.Babysitter;
 import classes.Contrato;
 import classes.Servico;
@@ -49,6 +50,10 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JPanel panelBabysitter = new JPanel();
 	private JPanel panelCarros = new JPanel();
 	private JPanel panelRestaurante = new JPanel();
+	private JComboBox cBoxTipoCarro;
+	private JCheckBox chckbxSeguro;
+	private JCheckBox chckbxTanqueCheio;
+	private JSpinner spinnerDiariasCarro;
 	private final String[] TIPOS_QUARTOS = {"Presidencial", "Luxo Simples", "Luxo Duplo", "Luxo Triplo", "Executivo Simples",
 			"Executivo Duplo", "Executivo Triplo"};
 	private final String[] TIPOS_CARROS = {"Luxo", "Executivo"};
@@ -107,7 +112,17 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		break;
 				    	}
 				    	else if(comp == panelCarros) {
-				    		JOptionPane.showMessageDialog(null, "Carros!");
+				    		int diarias = Integer.parseInt(spinnerDiariasCarro.getValue().toString());
+				    		boolean tipoCarro = cBoxTipoCarro.getSelectedIndex() == 0 ? true : false;
+				    		try {
+				    			//Servico servico = new AluguelCarro(diarias, tipoCarro, chckbxTanqueCheio.isSelected(), chckbxSeguro.isSelected());
+								//adicionaServico(servico);
+					    		JOptionPane.showMessageDialog(null, "Carros!");
+					    		disposeOnClosed();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
 				    		break;
 				    	}
 				    	else if(comp == panelBabysitter) {
@@ -179,6 +194,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 						.addComponent(chckbxCamasExtras))
 					.addContainerGap(127, Short.MAX_VALUE))
 		);
+		
 		panelQuartos.setLayout(gl_panelQuartos);
 		panelBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
@@ -202,7 +218,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		);
 		panelBabysitter.setLayout(gl_panelBabysitter);
 		
-		JCheckBox chckbxTanqueCheio = new JCheckBox("Tanque Cheio");
+		chckbxTanqueCheio = new JCheckBox("Tanque Cheio");
 		chckbxTanqueCheio.setBounds(202, 44, 202, 36);
 		panelCarros.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
@@ -210,13 +226,14 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		JLabel lblTipoCarro = new JLabel("Tipo de Carro:");
 		
-		JComboBox cBoxTipoCarro = new JComboBox(TIPOS_CARROS);
+		cBoxTipoCarro = new JComboBox(TIPOS_CARROS);
 		
-		JCheckBox chckbxSeguro = new JCheckBox("Seguro");
+		chckbxSeguro = new JCheckBox("Seguro");
 		
-		JLabel lblDiarias_1 = new JLabel("Diárias:");
+		JLabel lblDiariasCarro = new JLabel("Diárias:");
 		
-		JSpinner spinnerDiariasCarro = new JSpinner();
+		spinnerDiariasCarro = new JSpinner();
+		
 		GroupLayout gl_panelCarros = new GroupLayout(panelCarros);
 		gl_panelCarros.setHorizontalGroup(
 			gl_panelCarros.createParallelGroup(Alignment.LEADING)
@@ -226,7 +243,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(cBoxTipoCarro, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
 					.addGap(82)
-					.addComponent(lblDiarias_1)
+					.addComponent(lblDiariasCarro)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(spinnerDiariasCarro, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
@@ -245,7 +262,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 						.addComponent(chckbxSeguro)
 						.addComponent(chckbxTanqueCheio)
 						.addComponent(spinnerDiariasCarro, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDiarias_1)))
+						.addComponent(lblDiariasCarro)))
 		);
 		panelCarros.setLayout(gl_panelCarros);
 		
@@ -335,7 +352,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 	}
 	
 	private void adicionaServico(Servico servico) {
-		contrato.getListaServicos().add(servico);
+		contrato.getListaServicos().add(servico); 
+			JOptionPane.showMessageDialog(null, "OK");		
 	}
 	
 	private void disposeOnClosed() {  
