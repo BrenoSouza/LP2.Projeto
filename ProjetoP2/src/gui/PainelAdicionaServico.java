@@ -3,7 +3,9 @@ package gui;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 
+import classes.Babysitter;
 import classes.Contrato;
+import classes.Servico;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -39,6 +41,8 @@ import javax.swing.JSpinner;
 
 public class PainelAdicionaServico extends JInternalFrame {
 
+	private Contrato contrato;
+	private Servico servicoParaAdicionar;
 	private JPanel panelExterno = new JPanel();  
 	private CardLayout layoutPainel = new CardLayout();  
 	private JPanel panelQuartos = new JPanel();
@@ -54,6 +58,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public PainelAdicionaServico(Contrato contrato, JDesktopPane painelPrincipal) {
+		this.contrato = contrato;
+		
 		setClosable(true);
 		setBounds(100, 100, 800, 400);
 		
@@ -88,7 +94,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 		btnRestaurante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				layoutPainel.show(panelExterno, "restaurante"); 
-				
 			}
 		});
 		
@@ -106,6 +111,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		break;
 				    	}
 				    	else if(comp == panelBabysitter) {
+				    		//adicionaServico(new Babysitter());
 				    		JOptionPane.showMessageDialog(null, "Babysitter!");
 				    		break;
 				    	}
@@ -325,8 +331,12 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addGap(21))
 		);
 		getContentPane().setLayout(groupLayout);
+		
 	}
 	
+	private void adicionaServico(Servico servico) {
+		contrato.getListaServicos().add(servico);
+	}
 	
 	private void disposeOnClosed() {  
 	    this.dispose();  
