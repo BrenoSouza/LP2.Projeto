@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -29,6 +30,7 @@ import classes.Quarto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PainelNovoContrato extends JInternalFrame {
@@ -352,6 +354,7 @@ public class PainelNovoContrato extends JInternalFrame {
 		
 		LocalDate presente = LocalDate.now();
 			// PREENCHENDO TABELA DOS HÓSPEDES SEM CONTRATO
+			Collections.sort(listaHospedesSemContrato);
 				Object [][] designTabela = new Object[listaHospedesSemContrato.size()][3];
 				for (int i = 0; i < listaHospedesSemContrato.size(); i++){
 					Hospede hospedeAtual = listaHospedesSemContrato.get(i);
@@ -382,6 +385,7 @@ public class PainelNovoContrato extends JInternalFrame {
 			// FIM DO PREENCHIMENTO DA TABELA DOS HÓSPEDES SEM CONTRATO
 				
 			// PREENCHENDO TABELA DOS HÓSPEDES DO CONTRATO
+				Collections.sort(listaHospedesDoContrato);
 				designTabela = new Object[listaHospedesDoContrato.size()][3];
 				for (int i = 0; i < listaHospedesDoContrato.size(); i++){
 					Hospede hospedeAtual = listaHospedesDoContrato.get(i);
@@ -413,6 +417,7 @@ public class PainelNovoContrato extends JInternalFrame {
 			// FIM DO PREENCHIMENTO DA TABELA DOS HÓSPEDES NO CONTRATO
 				
 			// PREENCHENDO TABELA DOS QUARTOS VAGOS NO HOTEL
+				Collections.sort(listaQuartosDisponiveis);
 				designTabela = new Object[listaQuartosDisponiveis.size()][4];
 				if (listaQuartosDisponiveis.size() > 0){
 				for (int i = 0; i < listaQuartosDisponiveis.size(); i++){
@@ -444,6 +449,7 @@ public class PainelNovoContrato extends JInternalFrame {
 			// FIM DO PREENCHIMENTO DA TABELA DOS QUARTOS VAGOS NO HOTEL
 					
 			// PREENCHENDO TABELA DOS QUARTOS DO CONTRATO
+				Collections.sort(listaQuartosDoContrato);
 				designTabela = new Object[listaQuartosDoContrato.size()][6];	
 				for (int j = 0; j < listaQuartosDoContrato.size(); j++){
 					Quarto quartoAtualContrato = listaQuartosDoContrato.get(j);
