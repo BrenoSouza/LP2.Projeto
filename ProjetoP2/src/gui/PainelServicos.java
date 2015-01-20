@@ -29,6 +29,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JComboBox;
 
 public class PainelServicos extends JInternalFrame {
@@ -47,7 +48,7 @@ public class PainelServicos extends JInternalFrame {
 	private JButton btnAtualizar;
 	private JButton btnRemover;
 	private JButton btnVisualizar;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
 	private String[] nomesHospedes;
 	private PainelAdicionaServico painelAdicionar;
 	
@@ -82,7 +83,12 @@ public class PainelServicos extends JInternalFrame {
 
 		if (listaContratos.size()!= 0){
 			for (int i = 0; i < listaContratos.size(); i++) {
-				comboBox.insertItemAt(listaContratos.get(i).getListaHospedes().get(0).getNome(), i);
+				if(listaContratos.get(i).getHospedePrincipal() == null) {
+					comboBox.insertItemAt("Nome não especificado!", i);
+				}
+				else {
+					comboBox.insertItemAt(listaContratos.get(i).getHospedePrincipal().getNome(), i);
+				}
 			}
 		}
 		
@@ -197,7 +203,16 @@ public class PainelServicos extends JInternalFrame {
 			designTabela = new Object[contratoSelecionado.getListaServicos().size()][3];
 		
 			for (int i = 0; i < contratoSelecionado.getListaServicos().size(); i++) {
-						
+				Servico servicoAtual = contratoSelecionado.getListaServicos().get(i);
+				
+				if (servicoAtual.getTipo() == null){
+					designTabela[i][0] = "Não especificado";
+				}else{
+					designTabela[i][0] = servicoAtual.getTipo();
+				}
+				designTabela[i][1] = "Teste";
+				// Para colocar na tabela o total de despesas do contrato.
+				designTabela[i][3] = servicoAtual.calculaPrecoTotal();
 			}
 		}
 		//GAMBIARRA
