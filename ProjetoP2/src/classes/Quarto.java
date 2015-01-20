@@ -159,7 +159,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 	/**
 	 * Método para que o quarto retorne ao seu padrão (Livre e com 0 diárias)
 	 */
-	public void retornaPadrao(){
+	public void setToLivre(){
 		setDiarias(0);
 		setLivre(true);
 	}
