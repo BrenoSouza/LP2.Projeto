@@ -236,6 +236,7 @@ public class PainelNovoContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				dialogoDiarias = new DialogoDiarias();
 				dialogoDiarias.setVisible(true);
+				//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 				quartoVagoSelecionado.setToOcupado(dialogoDiarias.getDiarias());
 				listaQuartosDoContrato.add(quartoVagoSelecionado);
 				PainelNovoContrato.this.listaQuartosDisponiveis.remove(quartoVagoSelecionado);
