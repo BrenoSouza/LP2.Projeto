@@ -21,7 +21,7 @@ public class QuartoPresidencial extends Quarto {
 
 	@Override
 	public String getTipo() {
-		return "Quarto Presidencial" + (getDiarias() != 0 ? (", " + getDiarias() + " diárias") : "");
+		return "Quarto Presidencial" + (getDiarias() != 0 ? (", " + getDiarias() + " diária(s)") : "");
 	}
 
 }

@@ -21,7 +21,7 @@ public class QuartoLuxoDuplo extends Quarto {
 
 	@Override
 	public String getTipo() {
-		return "Quarto Luxo Duplo" + (getDiarias() != 0 ? (", " + getDiarias() + " diárias") : "");
+		return "Quarto Luxo Duplo" + (getDiarias() != 0 ? (", " + getDiarias() + " diária(s)") : "");
 	}
 
 }
