@@ -31,6 +31,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.JSpinner;
 
 public class PainelAdicionaServico extends JInternalFrame {
 
@@ -102,6 +103,10 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		JComboBox comboBox_1 = new JComboBox();
 		
+		JLabel lblDirias = new JLabel("Diárias:");
+		
+		JSpinner spinner = new JSpinner();
+		
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
 		gl_panelQuartos.setHorizontalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
@@ -110,11 +115,15 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addComponent(lblTipoDeQuarto)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-					.addGap(77)
+					.addGap(101)
+					.addComponent(lblDirias)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
 					.addComponent(lblCamasExtras)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(268, Short.MAX_VALUE))
+					.addGap(31))
 		);
 		gl_panelQuartos.setVerticalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
@@ -123,9 +132,11 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTipoDeQuarto)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCamasExtras)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(131, Short.MAX_VALUE))
+						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblCamasExtras, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDirias))
+					.addContainerGap(126, Short.MAX_VALUE))
 		);
 		panelQuartos.setLayout(gl_panelQuartos);
 		
@@ -140,6 +151,12 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JLabel lblTipoCarro = new JLabel("Tipo de Carro:");
 		
 		JComboBox comboBox_2 = new JComboBox();
+		
+		JCheckBox chckbxSeguro = new JCheckBox("Seguro");
+		
+		JLabel lblDirias_1 = new JLabel("Diárias:");
+		
+		JSpinner spinner_1 = new JSpinner();
 		GroupLayout gl_panelCarros = new GroupLayout(panelCarros);
 		gl_panelCarros.setHorizontalGroup(
 			gl_panelCarros.createParallelGroup(Alignment.LEADING)
@@ -148,17 +165,27 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addComponent(lblTipoCarro)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-					.addGap(100)
-					.addComponent(chckbxTanqueCheio))
+					.addGap(82)
+					.addComponent(lblDirias_1)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+					.addComponent(chckbxTanqueCheio)
+					.addGap(18)
+					.addComponent(chckbxSeguro)
+					.addGap(34))
 		);
 		gl_panelCarros.setVerticalGroup(
 			gl_panelCarros.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCarros.createSequentialGroup()
 					.addGap(5)
 					.addGroup(gl_panelCarros.createParallelGroup(Alignment.BASELINE)
-						.addComponent(chckbxTanqueCheio)
 						.addComponent(lblTipoCarro)
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(chckbxSeguro)
+						.addComponent(chckbxTanqueCheio)
+						.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDirias_1)))
 		);
 		panelCarros.setLayout(gl_panelCarros);
 		
