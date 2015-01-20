@@ -61,7 +61,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JButton btnQuartos = new JButton(imagemQuarto);
 		btnQuartos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				layoutPainel.show(panelExterno, "1quarto" );
+				layoutPainel.show(panelExterno, "quarto" );
 				
 			}
 		});
@@ -71,18 +71,23 @@ public class PainelAdicionaServico extends JInternalFrame {
 		btnAluguelCarros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				layoutPainel.show(panelExterno, "2carros"); 
+				layoutPainel.show(panelExterno, "carros"); 
 			}
 		});
 		
 		Icon imagemBabysitter = new ImageIcon(PainelServicos.class.getResource("/resources/babysitter.png"));
 		JButton btnBabysitter = new JButton(imagemBabysitter);
+		btnBabysitter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				layoutPainel.show(panelExterno, "babysitter");
+			}
+		});
 		
 		Icon imagemRestaurante = new ImageIcon(PainelServicos.class.getResource("/resources/restaurante.png"));
 		JButton btnRestaurante = new JButton(imagemRestaurante);
 		btnRestaurante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				layoutPainel.show(panelExterno, "4restaurante"); 
+				layoutPainel.show(panelExterno, "restaurante"); 
 				
 			}
 		});
@@ -92,9 +97,22 @@ public class PainelAdicionaServico extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				for (Component comp : panelExterno.getComponents()) {
 				    if (comp.isVisible() == true) {
-				    	if(comp == panelQuartos)
-				    		JOptionPane.showMessageDialog(null, "Deu certo!");
+				    	if(comp == panelQuartos) {
+				    		JOptionPane.showMessageDialog(null, "Quartos!");
 				    		break;
+				    	}
+				    	else if(comp == panelCarros) {
+				    		JOptionPane.showMessageDialog(null, "Carros!");
+				    		break;
+				    	}
+				    	else if(comp == panelBabysitter) {
+				    		JOptionPane.showMessageDialog(null, "Babysitter!");
+				    		break;
+				    	}
+				    	else {
+				    		JOptionPane.showMessageDialog(null, "Restaurante!");
+				    		break;
+				    	}
 				    }
 				}
 			}
@@ -113,7 +131,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		panelExterno.setLayout(layoutPainel);
 		panelQuartos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
-		panelExterno.add(panelQuartos, "1quarto");
+		panelExterno.add(panelQuartos, "quarto");
 		
 		JLabel lblTipoDeQuarto = new JLabel("Tipo de Quarto:");
 		
@@ -158,13 +176,31 @@ public class PainelAdicionaServico extends JInternalFrame {
 		panelQuartos.setLayout(gl_panelQuartos);
 		panelBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
-		panelExterno.add(panelBabysitter, "3babysitter");
+		panelExterno.add(panelBabysitter, "babysitter");
+		
+		JLabel lblHoraEntrada = new JLabel("Hora Entrada:");
+		GroupLayout gl_panelBabysitter = new GroupLayout(panelBabysitter);
+		gl_panelBabysitter.setHorizontalGroup(
+			gl_panelBabysitter.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelBabysitter.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblHoraEntrada)
+					.addContainerGap(681, Short.MAX_VALUE))
+		);
+		gl_panelBabysitter.setVerticalGroup(
+			gl_panelBabysitter.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelBabysitter.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblHoraEntrada)
+					.addContainerGap(136, Short.MAX_VALUE))
+		);
+		panelBabysitter.setLayout(gl_panelBabysitter);
 		
 		JCheckBox chckbxTanqueCheio = new JCheckBox("Tanque Cheio");
 		chckbxTanqueCheio.setBounds(202, 44, 202, 36);
 		panelCarros.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
-		panelExterno.add(panelCarros, "2carros");
+		panelExterno.add(panelCarros, "carros");
 		
 		JLabel lblTipoCarro = new JLabel("Tipo de Carro:");
 		
@@ -212,7 +248,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		panelRestaurante.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelRestaurante.add(chckbxCobertura_1);
 
-		panelExterno.add(panelRestaurante, "4restaurante");
+		panelExterno.add(panelRestaurante, "restaurante");
 		
 		JLabel lblQuartos = new JLabel("Quartos");
 		
