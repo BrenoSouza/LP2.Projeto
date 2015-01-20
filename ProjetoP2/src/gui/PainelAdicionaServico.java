@@ -35,12 +35,16 @@ import javax.swing.JSpinner;
 
 public class PainelAdicionaServico extends JInternalFrame {
 
-	JPanel panelExterno = new JPanel();  
-	CardLayout layoutPainel = new CardLayout();  
-	JPanel panelQuartos = new JPanel();
-	JPanel panelBabysitter = new JPanel();
-	JPanel panelCarros = new JPanel();
-	JPanel panelRestaurante = new JPanel();
+	private JPanel panelExterno = new JPanel();  
+	private CardLayout layoutPainel = new CardLayout();  
+	private JPanel panelQuartos = new JPanel();
+	private JPanel panelBabysitter = new JPanel();
+	private JPanel panelCarros = new JPanel();
+	private JPanel panelRestaurante = new JPanel();
+	private final String[] TIPOS_QUARTOS = {"Presidencial", "Luxo Simples", "Luxo Duplo", "Luxo Triplo", "Executivo Simples",
+			"Executivo Duplo", "Executivo Triplo"};
+	private final String[] TIPOS_CARROS = {"Luxo", "Executivo"};
+	
 	
 	/**
 	 * Create the frame.
@@ -80,6 +84,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 		});
 		
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				
+			}
+		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -97,11 +108,11 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		JLabel lblTipoDeQuarto = new JLabel("Tipo de Quarto:");
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox cBoxTipoQuarto = new JComboBox(TIPOS_QUARTOS);
 		
 		JLabel lblDirias = new JLabel("Diárias:");
 		
-		JSpinner spinner = new JSpinner();
+		JSpinner spinnerDiarias = new JSpinner();
 		
 		JCheckBox chckbxCamasExtras = new JCheckBox("Camas Extras");
 		
@@ -112,28 +123,31 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addContainerGap()
 					.addComponent(lblTipoDeQuarto)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
+					.addComponent(cBoxTipoQuarto, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
 					.addGap(96)
 					.addComponent(lblDirias)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+					.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
 					.addComponent(chckbxCamasExtras)
-					.addGap(59))
+					.addGap(63))
 		);
 		gl_panelQuartos.setVerticalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelQuartos.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblTipoDeQuarto)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDirias)
-						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblDirias)
+							.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
+							.addComponent(cBoxTipoQuarto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblTipoDeQuarto))
 						.addComponent(chckbxCamasExtras))
-					.addContainerGap(126, Short.MAX_VALUE))
+					.addContainerGap(127, Short.MAX_VALUE))
 		);
 		panelQuartos.setLayout(gl_panelQuartos);
+		panelBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		panelExterno.add(panelBabysitter, "3babysitter");
 		
@@ -145,13 +159,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		JLabel lblTipoCarro = new JLabel("Tipo de Carro:");
 		
-		JComboBox comboBox_2 = new JComboBox();
+		JComboBox cBoxTipoCarro = new JComboBox(TIPOS_CARROS);
 		
 		JCheckBox chckbxSeguro = new JCheckBox("Seguro");
 		
-		JLabel lblDirias_1 = new JLabel("Diárias:");
+		JLabel lblDiarias_1 = new JLabel("Diárias:");
 		
-		JSpinner spinner_1 = new JSpinner();
+		JSpinner spinnerDiariasCarro = new JSpinner();
 		GroupLayout gl_panelCarros = new GroupLayout(panelCarros);
 		gl_panelCarros.setHorizontalGroup(
 			gl_panelCarros.createParallelGroup(Alignment.LEADING)
@@ -159,11 +173,11 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addContainerGap()
 					.addComponent(lblTipoCarro)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+					.addComponent(cBoxTipoCarro, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
 					.addGap(82)
-					.addComponent(lblDirias_1)
+					.addComponent(lblDiarias_1)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+					.addComponent(spinnerDiariasCarro, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
 					.addComponent(chckbxTanqueCheio)
 					.addGap(18)
@@ -176,16 +190,17 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addGap(5)
 					.addGroup(gl_panelCarros.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTipoCarro)
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(cBoxTipoCarro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(chckbxSeguro)
 						.addComponent(chckbxTanqueCheio)
-						.addComponent(spinner_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDirias_1)))
+						.addComponent(spinnerDiariasCarro, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDiarias_1)))
 		);
 		panelCarros.setLayout(gl_panelCarros);
 		
 		JCheckBox chckbxCobertura_1 = new JCheckBox("Cobertura");
 		chckbxCobertura_1.setBounds(123, 33, 143, 37);
+		panelRestaurante.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelRestaurante.add(chckbxCobertura_1);
 
 		panelExterno.add(panelRestaurante, "4restaurante");
