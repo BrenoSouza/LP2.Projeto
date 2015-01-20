@@ -10,6 +10,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -26,9 +27,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.JCheckBox;
 
 import java.awt.CardLayout;
+
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.JSpinner;
@@ -86,10 +90,15 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JButton btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				
-				
+				for (Component comp : panelExterno.getComponents()) {
+				    if (comp.isVisible() == true) {
+				    	if(comp == panelQuartos)
+				    		JOptionPane.showMessageDialog(null, "Deu certo!");
+				    		break;
+				    }
+				}
 			}
+			
 		});
 		
 		JButton btnCancelar = new JButton("Cancelar");
