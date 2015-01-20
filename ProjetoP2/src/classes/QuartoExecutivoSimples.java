@@ -21,7 +21,7 @@ public class QuartoExecutivoSimples extends Quarto {
 
 	@Override
 	public String getTipo() {
-		return "Quarto Executivo Simples, " + getDiarias() + " diárias";
+		return "Quarto Executivo Simples" + (getDiarias() != 0 ? (", " + getDiarias() + " diárias") : "");
 	}
 
 }
