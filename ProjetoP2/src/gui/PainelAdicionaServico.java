@@ -27,6 +27,10 @@ import javax.swing.JCheckBox;
 
 import java.awt.CardLayout;
 import javax.swing.JComboBox;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.MatteBorder;
 
 public class PainelAdicionaServico extends JInternalFrame {
 
@@ -86,6 +90,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		});
 		
 		panelExterno.setLayout(layoutPainel);
+		panelQuartos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		panelExterno.add(panelQuartos, "1quarto");
 		
@@ -128,9 +133,34 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		JCheckBox chckbxTanqueCheio = new JCheckBox("Tanque Cheio");
 		chckbxTanqueCheio.setBounds(202, 44, 202, 36);
-		panelCarros.add(chckbxTanqueCheio);
+		panelCarros.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		panelExterno.add(panelCarros, "2carros");
+		
+		JLabel lblTipoCarro = new JLabel("Tipo de Carro:");
+		
+		JComboBox comboBox_2 = new JComboBox();
+		GroupLayout gl_panelCarros = new GroupLayout(panelCarros);
+		gl_panelCarros.setHorizontalGroup(
+			gl_panelCarros.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCarros.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblTipoCarro)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+					.addGap(100)
+					.addComponent(chckbxTanqueCheio))
+		);
+		gl_panelCarros.setVerticalGroup(
+			gl_panelCarros.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelCarros.createSequentialGroup()
+					.addGap(5)
+					.addGroup(gl_panelCarros.createParallelGroup(Alignment.BASELINE)
+						.addComponent(chckbxTanqueCheio)
+						.addComponent(lblTipoCarro)
+						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+		);
+		panelCarros.setLayout(gl_panelCarros);
 		
 		JCheckBox chckbxCobertura_1 = new JCheckBox("Cobertura");
 		chckbxCobertura_1.setBounds(123, 33, 143, 37);
