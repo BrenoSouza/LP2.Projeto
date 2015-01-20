@@ -2,7 +2,7 @@ package classes;
 
 import java.util.Calendar;
 
-public class Hospede {
+public class Hospede implements Comparable<Hospede>{
 
 	private String nome, cpf;
 	private Calendar dataNascimento;
@@ -123,6 +123,10 @@ public class Hospede {
 				+ "Data de Nascimento: " + getDataNascimento() + ".\n"  // Ajustar depois a formatacão desse objeto Calendar
 				+ ((getOpiniao() == null) ? "." : ("Opinião: " + getOpiniao().toString() + "."));
 
+	}
+
+	public int compareTo(Hospede h) {
+		return this.getNome().compareTo(h.getNome());
 	}
 
 }
