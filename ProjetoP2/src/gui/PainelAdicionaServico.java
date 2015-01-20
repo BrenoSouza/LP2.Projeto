@@ -99,13 +99,11 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		
-		JLabel lblCamasExtras = new JLabel("Camas extras:");
-		
-		JComboBox comboBox_1 = new JComboBox();
-		
 		JLabel lblDirias = new JLabel("Diárias:");
 		
 		JSpinner spinner = new JSpinner();
+		
+		JCheckBox chckbxCamasExtras = new JCheckBox("Camas Extras");
 		
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
 		gl_panelQuartos.setHorizontalGroup(
@@ -115,15 +113,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addComponent(lblTipoDeQuarto)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-					.addGap(101)
+					.addGap(96)
 					.addComponent(lblDirias)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
-					.addComponent(lblCamasExtras)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-					.addGap(31))
+					.addPreferredGap(ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
+					.addComponent(chckbxCamasExtras)
+					.addGap(59))
 		);
 		gl_panelQuartos.setVerticalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
@@ -132,10 +128,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTipoDeQuarto)
 						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblCamasExtras, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDirias)
 						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDirias))
+						.addComponent(chckbxCamasExtras))
 					.addContainerGap(126, Short.MAX_VALUE))
 		);
 		panelQuartos.setLayout(gl_panelQuartos);
