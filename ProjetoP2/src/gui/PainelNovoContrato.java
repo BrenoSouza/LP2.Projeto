@@ -58,6 +58,7 @@ public class PainelNovoContrato extends JInternalFrame {
 	private JTable tabelaQuartosNoContrato;
 	private JTable tabelaQuartosLivres;
 	private JLabel lblQuartosLivres;
+	private DialogoDiarias dialogoDiarias;
 
 
 
@@ -233,6 +234,9 @@ public class PainelNovoContrato extends JInternalFrame {
 		btnAdicionarNoContratoQuarto.setEnabled(false);
 		btnAdicionarNoContratoQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dialogoDiarias = new DialogoDiarias();
+				dialogoDiarias.setVisible(true);
+				quartoVagoSelecionado.setToOcupado(dialogoDiarias.getDiarias());
 				listaQuartosDoContrato.add(quartoVagoSelecionado);
 				PainelNovoContrato.this.listaQuartosDisponiveis.remove(quartoVagoSelecionado);
 				escreveTabelas();
@@ -246,6 +250,7 @@ public class PainelNovoContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				PainelNovoContrato.this.listaQuartosDisponiveis.add(quartoContratoSelecionado);
 				listaQuartosDoContrato.remove(quartoContratoSelecionado);
+				quartoContratoSelecionado.setToLivre();
 				escreveTabelas();
 			}
 		});
@@ -480,6 +485,7 @@ public class PainelNovoContrato extends JInternalFrame {
 					};
 					tabelaQuartosNoContrato.setModel(modeloTabela4);
 					tabelaQuartosNoContrato.getColumnModel().getColumn(3).setPreferredWidth(170); //Aumentando o tamanho da quarta coluna, pq a String de título dela é grande
+					tabelaQuartosNoContrato.getColumnModel().getColumn(0).setPreferredWidth(130); // Idem ao comment acima
 					tabelaQuartosNoContrato.setRowSelectionAllowed(true);
 				
 				
