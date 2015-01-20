@@ -144,7 +144,7 @@ public class PainelServicos extends JInternalFrame {
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(49)
 					.addComponent(btnAdicionar)
@@ -163,9 +163,9 @@ public class PainelServicos extends JInternalFrame {
 					.addContainerGap()
 					.addComponent(lblSelecionarContrato)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(377, Short.MAX_VALUE))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(362, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(291)
 					.addComponent(lblServiosContratados)
 					.addContainerGap(299, Short.MAX_VALUE))
@@ -176,7 +176,7 @@ public class PainelServicos extends JInternalFrame {
 					.addGap(22)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblSelecionarContrato)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
 					.addComponent(lblServiosContratados)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
