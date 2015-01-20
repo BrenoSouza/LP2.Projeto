@@ -3,7 +3,7 @@ package classes;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Quarto extends Servico{
+public abstract class Quarto extends Servico implements Comparable<Quarto>{
 	private int numero, numeroHospedes;
 	private int diarias = 0;
 	private double precoDiaria;
@@ -150,6 +150,9 @@ public abstract class Quarto extends Servico{
 		return "\nNúmero do quarto -> " + this.getNumero() +
 				"\nNúmero de hóspedes -> " + this.getNumeroHospedes() +
 				"\nDiárias -> " + this.getDiarias();
+	}
+	public int compareTo(Quarto q){
+		return this.getNumero() - q.getNumero();
 	}
 	
 }
