@@ -56,10 +56,6 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		this.contrato = contrato;
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();
-		try{
-			Calendar dataNascimento = Calendar.getInstance();
-			dataNascimento.set(Calendar.YEAR, 1990);
-		listaHospedes.add(new Hospede("Fulano de Tal","Casa do Fulano", "1111111", dataNascimento));} catch (Exception e){ }
 		painelTabas = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
