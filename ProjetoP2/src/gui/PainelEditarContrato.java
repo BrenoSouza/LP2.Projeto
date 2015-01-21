@@ -57,6 +57,8 @@ public class PainelEditarContrato extends JInternalFrame {
 	private JButton btnAdicionarDinamico;
 	private JButton btnEditarDinamico;
 	private Hospede hospedePrincipal;
+	private double precoTotal;
+	private JLabel lblPrecoTotal;
 	
 	
 	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal) {
@@ -134,6 +136,9 @@ public class PainelEditarContrato extends JInternalFrame {
 			}
 		});
 		atualizaBotoes();
+		
+		lblPrecoTotal = new JLabel("Preço a ser pago:");
+		lblPrecoTotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -144,22 +149,25 @@ public class PainelEditarContrato extends JInternalFrame {
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-								.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE))
+								.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE)
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))
 							.addGap(13))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(13, Short.MAX_VALUE))
+							.addContainerGap(15, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblServicos)
-							.addContainerGap(898, Short.MAX_VALUE))
+							.addContainerGap(888, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnRemoverDinamico, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
 							.addGap(250)
 							.addComponent(btnEditarDinamico, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
 							.addGap(265)
 							.addComponent(btnAdicionarDinamico, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())))
+							.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblPrecoTotal)
+							.addContainerGap(898, Short.MAX_VALUE))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -176,7 +184,9 @@ public class PainelEditarContrato extends JInternalFrame {
 					.addComponent(lblServicos)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblPrecoTotal)
+					.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnRemoverDinamico)
 						.addComponent(btnAdicionarDinamico)
@@ -353,6 +363,14 @@ public class PainelEditarContrato extends JInternalFrame {
 					tabelaQuartos.getColumnModel().getColumn(3).setPreferredWidth(180); //Aumentando o tamanho da quarta coluna, pq a String de título dela é grande
 					tabelaQuartos.getColumnModel().getColumn(0).setPreferredWidth(130); // Idem ao comment acima
 					tabelaQuartos.setRowSelectionAllowed(true);
+					precoTotal = 0;
+					for (Quarto quarto : listaQuartos){
+						precoTotal += quarto.calculaPrecoTotal();
+					}
+					for (Servico servico: listaServicos){
+						precoTotal += servico.calculaPrecoTotal();
+					}
+					lblPrecoTotal.setText("Preço a ser pago: tiver oR$ " + precoTotal);
 	}
 	public void atualizaBotoes(){
 		if (objetoDinamico == null){
