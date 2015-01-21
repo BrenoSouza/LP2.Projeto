@@ -43,12 +43,13 @@ public class PainelServicos extends JInternalFrame {
 	private List<Hospede> listaHospedes = new ArrayList();
 	private List<Hospede> listaHospedes2 = new ArrayList();
 	private JDesktopPane painelPrincipal;
+	private int indiceContratoSelecionado;
 	private PainelVisualizacaoServico painelVisualizacao;
 	private JButton btnAdicionar;
 	private JButton btnAtualizar;
 	private JButton btnRemover;
 	private JButton btnVisualizar;
-	private JComboBox<String> comboBox;
+	private JComboBox<String> comboBox = new JComboBox<String>();;
 	private String[] nomesHospedes;
 	private PainelAdicionaServico painelAdicionar;
 	
@@ -77,11 +78,8 @@ public class PainelServicos extends JInternalFrame {
 		setClosable(true);
 		setBounds(0, 0, 752, 450);
 		getContentPane().setLayout(null);
-		
-		
-		comboBox = new JComboBox<String>();
 
-		if (listaContratos.size()!= 0){
+		if (listaContratos.size() != 0){
 			for (int i = 0; i < listaContratos.size(); i++) {
 				if(listaContratos.get(i).getHospedePrincipal() == null) {
 					comboBox.insertItemAt("Nome não especificado!", i);
@@ -91,12 +89,6 @@ public class PainelServicos extends JInternalFrame {
 				}
 			}
 		}
-		
-	
-		if (comboBox.getSelectedIndex() != -1 ) {
-			contratoSelecionado = listaContratos.get(comboBox.getSelectedIndex());
-		}
-
 		
 		btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
@@ -170,6 +162,15 @@ public class PainelServicos extends JInternalFrame {
 					.addComponent(lblServiosContratados)
 					.addContainerGap(299, Short.MAX_VALUE))
 		);
+		
+		comboBox.addActionListener(new ActionListener() {	
+			public void actionPerformed(ActionEvent e) {
+				
+				indiceContratoSelecionado = comboBox.getSelectedIndex();  
+			}
+		});
+		
+		
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -247,12 +248,14 @@ public class PainelServicos extends JInternalFrame {
 					}
 				});
 		
+		contratoSelecionado = listaContratos.get(indiceContratoSelecionado);
+				
 		scrollPane.setViewportView(tableServicos);
 		
 		
 		scrollPane.setRowHeaderView(table);
 		getContentPane().setLayout(groupLayout);
-
+		
 	}
 	
 	public void setServicoSelecionado(int indice){
