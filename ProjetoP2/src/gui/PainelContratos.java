@@ -51,6 +51,7 @@ public class PainelContratos extends JInternalFrame {
 	private JButton btnNovo;
 	private JDesktopPane painelPrincipal;
 	private PainelNovoContrato painelNovo;
+	private PainelEditarContrato painelEditar;
 
 
 	/**
@@ -87,6 +88,13 @@ public class PainelContratos extends JInternalFrame {
 		btnVisualizar.setEnabled(false);
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				painelEditar = new PainelEditarContrato(contratoSelecionado, getPainelPrincipal());
+				adicionaNoPainel(painelEditar);
+				painelEditar.show();
+			}
+		});
 		btnEditar.setEnabled(false);
 		
 		btnNovo = new JButton("Novo");
