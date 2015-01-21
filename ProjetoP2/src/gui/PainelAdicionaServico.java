@@ -126,7 +126,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		try {
 				    			Servico servico = new AluguelCarro(diarias, tipoCarro, chckbxTanqueCheio.isSelected(), chckbxSeguro.isSelected());
 								adicionaServico(servico);
-					    		JOptionPane.showMessageDialog(null, "Carros!");
+					    		JOptionPane.showMessageDialog(null, "Adicionado!");
 					    		disposeOnClosed();
 							} catch (Exception e1) {
 								// TODO Auto-generated catch block
@@ -136,7 +136,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    	}
 				    	else if(comp == panelBabysitter) {
 				    		adicionaServico(new Babysitter());
-				    		JOptionPane.showMessageDialog(null, "Babysitter!");
+				    		JOptionPane.showMessageDialog(null, "Adicionado!");
+				    		disposeOnClosed();
 				    		break;
 				    	}
 				    	else {

@@ -11,6 +11,8 @@ import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -58,6 +60,13 @@ public class PainelServicos extends JInternalFrame {
 	 */
 	
 	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameActivated(InternalFrameEvent arg0) {
+				escreveTabela();
+			}
+		});		
+		
 		this.painelPrincipal = painelPrincipal;
 		try{
 			Calendar dataNascimento = Calendar.getInstance();
@@ -194,40 +203,7 @@ public class PainelServicos extends JInternalFrame {
 		//CONSTRUCAO DA TABELA
 		
 		tableServicos = new JTable();
-		
-		Object [][] designTabela;
-		
-		if(contratoSelecionado == null) {
-			designTabela = new Object[0][3];
-		}
-		else {
-			designTabela = new Object[contratoSelecionado.getListaServicos().size()][3];
-		
-			for (int i = 0; i < contratoSelecionado.getListaServicos().size(); i++) {
-				Servico servicoAtual = contratoSelecionado.getListaServicos().get(i);
-				
-				if (servicoAtual.getTipo() == null){
-					designTabela[i][0] = "Não especificado";
-				}else{
-					designTabela[i][0] = servicoAtual.getTipo();
-				}
-				designTabela[i][1] = "Teste";
-				designTabela[i][2] = servicoAtual.calculaPrecoTotal();
-			}
-		}
-		//GAMBIARRA
-		@SuppressWarnings("serial")
-		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
-				"Serviços", "Descrição", "Preço" })     {
-
-			@Override
-		    public boolean isCellEditable(int row, int column) {
-		        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
-		        return false;
-		    }
-		};
-		
-		tableServicos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
+		escreveTabela();
 
 		tableServicos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
@@ -246,10 +222,10 @@ public class PainelServicos extends JInternalFrame {
 						}atualizaBotoes();
 						
 					}
-				});
+				}); 
 		
-		contratoSelecionado = listaContratos.get(indiceContratoSelecionado);
-				
+		contratoSelecionado = listaContratos.get(indiceContratoSelecionado);	
+			
 		scrollPane.setViewportView(tableServicos);
 		
 		
@@ -257,11 +233,49 @@ public class PainelServicos extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 		
 	}
+
+
+	private void escreveTabela() {
+		Object [][] designTabela;
+		if(contratoSelecionado == null) {
+			designTabela = new Object[0][3];
+		}
+		else {
+			designTabela = new Object[contratoSelecionado.getListaServicos().size()][3];
+			
+		for (int i = 0; i < contratoSelecionado.getListaServicos().size(); i++) {
+			Servico servicoAtual = contratoSelecionado.getListaServicos().get(i);
+			if (servicoAtual.getTipo() == null){
+				designTabela[i][0] = "Não especificado";
+			}else{
+				designTabela[i][0] = servicoAtual.getTipo();
+			}
+			designTabela[i][1] = "Teste";
+			designTabela[i][2] = 0;
+			}
+		}
+		
+		//GAMBIARRA
+		@SuppressWarnings("serial")
+		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
+				"Serviços", "Descrição", "Preço" })     {
+
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
+		        return false;
+		    }
+		};
+		
+		tableServicos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
+	}
+
 	
 	public void setServicoSelecionado(int indice){
 		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
 		servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); // Lembrando que a tabela está na mesma ordem que a listaContratos, então os índices são os mesmos.
 	}
+	
 	public void atualizaBotoes(){
 		if (contratoSelecionado == null){
 			btnRemover.setEnabled(false);
