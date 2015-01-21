@@ -54,6 +54,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JCheckBox chckbxSeguro;
 	private JCheckBox chckbxTanqueCheio;
 	private JSpinner spinnerDiariasCarro;
+	private JComboBox cBoxTipoQuarto;
+	private JSpinner spinnerDiarias;
+	private JCheckBox chckbxCamasExtras;
 	private final String[] TIPOS_QUARTOS = {"Presidencial", "Luxo Simples", "Luxo Duplo", "Luxo Triplo", "Executivo Simples",
 			"Executivo Duplo", "Executivo Triplo"};
 	private final String[] TIPOS_CARROS = {"Luxo", "Executivo"};
@@ -65,6 +68,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 	public PainelAdicionaServico(Contrato contrato, JDesktopPane painelPrincipal) {
 		this.contrato = contrato;
 		
+		setResizable(true);
+		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
+		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);
 		setBounds(100, 100, 800, 400);
 		
@@ -108,6 +114,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 				for (Component comp : panelExterno.getComponents()) {
 				    if (comp.isVisible() == true) {
 				    	if(comp == panelQuartos) {
+				    		int tipoQuarto = cBoxTipoQuarto.getSelectedIndex();
+				    		int diarias = Integer.parseInt(spinnerDiarias.getValue().toString());
+				    		boolean chckbxCamasExtras;
 				    		JOptionPane.showMessageDialog(null, "Quartos!");
 				    		break;
 				    	}
@@ -156,13 +165,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		JLabel lblTipoDeQuarto = new JLabel("Tipo de Quarto:");
 		
-		JComboBox cBoxTipoQuarto = new JComboBox(TIPOS_QUARTOS);
+		cBoxTipoQuarto = new JComboBox(TIPOS_QUARTOS);
 		
-		JLabel lblDirias = new JLabel("Diárias:");
+		JLabel lblDiarias = new JLabel("Diárias:");
 		
-		JSpinner spinnerDiarias = new JSpinner();
+		spinnerDiarias = new JSpinner();
 		
-		JCheckBox chckbxCamasExtras = new JCheckBox("Camas Extras");
+		chckbxCamasExtras = new JCheckBox("Camas Extras");
 		
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
 		gl_panelQuartos.setHorizontalGroup(
@@ -173,7 +182,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(cBoxTipoQuarto, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
 					.addGap(96)
-					.addComponent(lblDirias)
+					.addComponent(lblDiarias)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
@@ -186,7 +195,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblDirias)
+							.addComponent(lblDiarias)
 							.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
 							.addComponent(cBoxTipoQuarto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
