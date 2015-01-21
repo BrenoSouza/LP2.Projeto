@@ -31,6 +31,12 @@ import classes.Hospede;
 import classes.Quarto;
 import classes.Servico;
 
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class PainelEditarContrato extends JInternalFrame {
 	private JLabel lblQuartos;
 	private JLabel lblHospedes;
@@ -50,13 +56,21 @@ public class PainelEditarContrato extends JInternalFrame {
 	private Object objetoDinamico = null;
 	private JButton btnAdicionarDinamico;
 	private JButton btnEditarDinamico;
-	private final static String CLASSE_HOSPEDE = "nada";
+	private Hospede hospedePrincipal;
 	
 	
 	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal) {
-		setBounds(0, 0, 968, 530);
+		setClosable(true);
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameActivated(InternalFrameEvent arg0) {
+				escreveTabelas();
+			}
+		});
+		setBounds(0, 0, 970, 530);
 		this.contrato = contrato;
 		this.painelPrincipal = painelPrincipal;
+		hospedePrincipal = contrato.getHospedePrincipal();
 		listaQuartos = contrato.getListaQuartosAlugados();
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();
@@ -78,10 +92,47 @@ public class PainelEditarContrato extends JInternalFrame {
 		lblServicos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		btnRemoverDinamico = new JButton("Remover");
+		btnRemoverDinamico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (objetoDinamico instanceof Hospede){
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					if (escolha == JOptionPane.YES_OPTION){
+						listaHospedes.remove(objetoDinamico);
+						if (objetoDinamico == hospedePrincipal){
+							getContrato().setHospedePrincipal(null);
+						}
+					}
+				}else if (objetoDinamico instanceof Quarto){
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse quarto do contrato?", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					if (escolha == JOptionPane.YES_OPTION){
+						listaQuartos.remove(objetoDinamico);
+						((Quarto) objetoDinamico).setToLivre();
+					}
+				}else if (objetoDinamico instanceof Servico){
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse serviço do contrato?", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					if (escolha == JOptionPane.YES_OPTION){
+						listaServicos.remove(objetoDinamico);
+					}
+				}
+				escreveTabelas();
+			}
+		});
 		
 		btnAdicionarDinamico = new JButton("Adicionar");
+		btnAdicionarDinamico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO Falta codificar os paineis dessas partes.
+				escreveTabelas();
+			}
+		});
 		
 		btnEditarDinamico = new JButton("Editar");
+		btnEditarDinamico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// TODO Falta codificar os paineis dessas partes.
+				escreveTabelas();
+			}
+		});
 		atualizaBotoes();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -329,5 +380,8 @@ public class PainelEditarContrato extends JInternalFrame {
 	}
 	public void setObjetoDinamico (int i, List<? extends Object> lista){
 		objetoDinamico = lista.get(i);
+	}
+	public Contrato getContrato(){
+		return contrato;
 	}
 }
