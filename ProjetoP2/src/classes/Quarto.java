@@ -26,7 +26,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 		}
 		this.numero = numero;
 		this.numeroHospedes = numeroHospedes;
-		this.diarias = diarias;
+		this.precoDiaria = precoDiaria;
 	}
 	/**
 	 * Getter do parâmetro "isLivre"
