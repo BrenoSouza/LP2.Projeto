@@ -220,7 +220,7 @@ public class PainelContratos extends JInternalFrame {
 							}
 							designTabela[i][2] = dataFormatadaCheckOut;
 							// Para colocar na tabela o total de despesas do contrato.
-							designTabela[i][3] = contratoAtual.calculaPrecoFinal();
+							designTabela[i][3] = "R$ " + contratoAtual.calculaPrecoFinal();
 							// Para colocar na tabela o status do contrato.
 							designTabela[i][4] = contratoAtual.getStatus();
 					// FIM DE CONSTRUÇÃO DE TABELA.
