@@ -17,6 +17,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class PainelVisualizacaoClientes extends JInternalFrame {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Create the frame.
 	 */
 	public PainelVisualizacaoClientes(Hospede hospede) {

@@ -8,7 +8,7 @@ public class ColecaoDeHospedes {
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	
 	public List<Hospede> getListaHospedes() {
-		return this.listaHospedes;
+		return listaHospedes;
 	}
 	
 	public int getListaHospedeTamanho() {

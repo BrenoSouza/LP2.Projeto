@@ -31,6 +31,7 @@ import javax.swing.text.MaskFormatter;
 
 import classes.Contrato;
 import classes.Hospede;
+import colecoes.ColecaoDeHospedes;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -54,9 +55,9 @@ public class PainelClientes extends JInternalFrame {
 	private Hospede hospedeSelecionado;
 
 
-	public PainelClientes(List<Hospede> listaHospedes, JDesktopPane painelPrincipal) {
+	public PainelClientes(ColecaoDeHospedes listaHospedes, JDesktopPane painelPrincipal) {
 		this.painelPrincipal = painelPrincipal;
-		this.listaHospedes.addAll(listaHospedes);
+		this.listaHospedes.addAll(listaHospedes.getListaHospedes());
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");

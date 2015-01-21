@@ -1,6 +1,7 @@
 package gui;
 
 import classes.Hospede;
+import colecoes.ColecaoDeHospedes;
 
 import java.awt.EventQueue;
 
@@ -29,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.io.LineNumberInputStream;
 
 
 public class PainelCadastroClientes extends JInternalFrame {
@@ -39,17 +41,12 @@ public class PainelCadastroClientes extends JInternalFrame {
 	private final SimpleDateFormat FormatoData = new SimpleDateFormat("dd/mm/yyyy");
 	private JFormattedTextField campoCPF;
 	private JFormattedTextField campoData;
-
+	private ColecaoDeHospedes listaDeHospedes;
 
 	/**
 	 * Create the frame.
 	 */
 	public PainelCadastroClientes() throws Exception{
-		/*getContentPane().addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent arg0) {
-			}
-		});*/
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");
@@ -90,6 +87,7 @@ public class PainelCadastroClientes extends JInternalFrame {
 					String cpfHospede = campoCPF.getText();
 					String enderecoHospede = campoEndereco.getText();
 					Hospede hospede = new Hospede(nomeHospede, enderecoHospede, cpfHospede, data);
+					listaDeHospedes.adicionaHospede(hospede);
 					JOptionPane.showMessageDialog(null, "Hóspede criado com sucesso.");
 					
 				}catch (java.text.ParseException e){
