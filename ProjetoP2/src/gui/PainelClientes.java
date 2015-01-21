@@ -50,6 +50,7 @@ public class PainelClientes extends JInternalFrame {
 	private JButton btnNovo;
 	private JDesktopPane painelPrincipal;
 	private PainelCadastroClientes painelNovo;
+	private PainelVisualizacaoClientes painelVisualizacao;
 	private Hospede hospedeSelecionado;
 
 
@@ -85,6 +86,13 @@ public class PainelClientes extends JInternalFrame {
 		scrollPanePrincipal.setRowHeaderView(table);
 		
 		btnVisualizar = new JButton("Visualizar");
+		btnVisualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				painelVisualizacao = new PainelVisualizacaoClientes(hospedeSelecionado);
+				adicionaNoPainel(painelVisualizacao);
+				painelVisualizacao.show();
+			}
+		});
 		btnVisualizar.setEnabled(false);
 		
 		btnNovo = new JButton("Novo");
