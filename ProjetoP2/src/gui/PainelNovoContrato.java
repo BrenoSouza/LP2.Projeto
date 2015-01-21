@@ -73,6 +73,7 @@ public class PainelNovoContrato extends JInternalFrame {
 	private JTable tabelaHospedesFinal;
 	private JTable tabelaQuartosFinal;
 	private List<Contrato> listaContratos;
+	private Hospede hospedePrincipal;
 
 
 
@@ -124,11 +125,17 @@ public class PainelNovoContrato extends JInternalFrame {
 		
 		scrollPane = new JScrollPane();
 		
-		btnAdicionarNoContrato = new JButton("Adicionar no contrato\r\n");
+		btnAdicionarNoContrato = new JButton("Adicionar no contrato");
 		btnAdicionarNoContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				listaHospedesDoContrato.add(hospedeSelecionado);
 				listaHospedesSemContrato.remove(hospedeSelecionado);
+				if (hospedePrincipal == null){
+					int escolha = JOptionPane.showOptionDialog(null, "Você deseja marcar esse hóspede como o hóspede principal do contrato? \nO hóspede principal do contrato é o que será procurado para questões financeiras.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					if (escolha == JOptionPane.YES_OPTION) {
+						hospedePrincipal = hospedeSelecionado;
+					}
+				}
 				escreveTabelas();
 			}
 		});
@@ -139,6 +146,9 @@ public class PainelNovoContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				listaHospedesSemContrato.add(hospedeSelecionado2);
 				listaHospedesDoContrato.remove(hospedeSelecionado2);
+				if (hospedePrincipal == hospedeSelecionado2){
+					hospedePrincipal = null;
+				}
 				escreveTabelas();
 			}
 		});
@@ -207,6 +217,7 @@ public class PainelNovoContrato extends JInternalFrame {
 				}else{
 					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 					setHospedeSelecionado2(indiceSelecionado[0]);
+					tabelaHospedesSemContrato.clearSelection();
 				}atualizaBotoes();
 				
 			}
@@ -229,6 +240,7 @@ public class PainelNovoContrato extends JInternalFrame {
 				}else{
 					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 					setHospedeSelecionado(indiceSelecionado[0]);
+					tabelaHospedesNoContrato.clearSelection();
 				}atualizaBotoes();
 				
 			}
@@ -330,6 +342,7 @@ public class PainelNovoContrato extends JInternalFrame {
 				}else{
 					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 					setQuartoVagoSelecionado(indiceSelecionado[0]);
+					tabelaQuartosNoContrato.clearSelection();
 				}atualizaBotoes();
 				
 			}
@@ -351,6 +364,7 @@ public class PainelNovoContrato extends JInternalFrame {
 						}else{
 							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 							setQuartoContratoSelecionado(indiceSelecionado[0]);
+							tabelaQuartosLivres.clearSelection();
 						}atualizaBotoes();
 						
 					}
@@ -376,8 +390,12 @@ public class PainelNovoContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					Contrato contrato = new Contrato(listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
+					if (hospedePrincipal != null){
+						contrato.setHospedePrincipal(hospedePrincipal);
+					}
 					getListaContratos().add(contrato);
-					JOptionPane.showMessageDialog(null, "Hóspede criado com sucesso!");
+					JOptionPane.showMessageDialog(null, "Contrato criado com sucesso!");
+					dispose();
 				}catch (Exception e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}

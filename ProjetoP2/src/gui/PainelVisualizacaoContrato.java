@@ -32,6 +32,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JTabbedPane painelTabas;
@@ -46,20 +50,23 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JButton btnVisualizar;
 	private JButton btnEditar;
 	private PainelVisualizacaoServico painelVisualizacaoServico;
+	private JTable tabelaHospedes;
 	
 
 
 	public PainelVisualizacaoContrato(Contrato contrato, JDesktopPane painelPrincipal) {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameActivated(InternalFrameEvent arg0) {
+				escreveTabelas();
+			}
+		});
 		setClosable(true);
 		this.painelPrincipal = painelPrincipal;
 		setBounds(0, 50, 800, 400);
 		this.contrato = contrato;
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();
-		try{
-			Calendar dataNascimento = Calendar.getInstance();
-			dataNascimento.set(Calendar.YEAR, 1990);
-		listaHospedes.add(new Hospede("Fulano de Tal","Casa do Fulano", "1111111", dataNascimento));} catch (Exception e){ }
 		painelTabas = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -124,44 +131,10 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblHospedesRegistrados.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		JTable tabelaHospedes = new JTable();
+		tabelaHospedes = new JTable();
 		try{
 		contrato.getListaServicos().add(new AluguelCarro(5, true, false, true));} catch (Exception e){ JOptionPane.showMessageDialog(null, e.getMessage());}
-				// INÍCIO DE CONSTRUÇÃO DA TABELA
-				// designTabela = o conteúdo da tabela em si, preenchida através de um loop for
-						Object[][] designTabela = new Object[listaHospedes.size()][3];
-						LocalDate presente = LocalDate.now();
-						for (int i = 0; i < listaHospedes.size(); i++){
-							Hospede hospedeAtual = listaHospedes.get(i);
-							//Para preencher a primeira coluna da linha: Nome do hóspede
-							designTabela[i][0] = hospedeAtual.getNome();
-							//Para preencher a segunda coluna da linha: CPF do hóspede
-							designTabela[i][1] = hospedeAtual.getCpf();
-							//Para preencher a terceira coluna da linha: Idade do hóspede
-							Calendar nascimento = hospedeAtual.getDataNascimento();
-							LocalDate diaNascimento = LocalDate.of(nascimento.get(nascimento.YEAR), nascimento.get(nascimento.MONTH) + 1, nascimento.get(nascimento.DAY_OF_MONTH));
-							Period periodoDeTempo = Period.between(diaNascimento, presente);
-							designTabela[i][2] = periodoDeTempo.getYears();
-							
-					// FIM DE CONSTRUÇÃO DE TABELA.
-					
-				}
-						//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
-						@SuppressWarnings("serial")
-						DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
-								"Nome", "CPF", "Idade"
-						}) {
 
-							@Override
-						    public boolean isCellEditable(int row, int column) {
-						        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
-						        return false;
-						    }
-						};
-
-			
-				tabelaHospedes.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
-				tabelaHospedes.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
 				scrollPane.setViewportView(tabelaHospedes);
 		GroupLayout gl_panelDetalhes = new GroupLayout(panelDetalhes);
 		gl_panelDetalhes.setHorizontalGroup(
@@ -272,6 +245,83 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		);
 		
 		tabelaServicos = new JTable();
+		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
+		ListSelectionModel modeloSelecaoLinha = tabelaServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+		
+		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+			//Necessita ser esse nome de método para funcionar
+			public void valueChanged(ListSelectionEvent e) {
+				int[] indiceSelecionado = tabelaServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+				if (indiceSelecionado.length <= 0){
+					servicoSelecionado = null;
+				}else{
+					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
+					setServicoSelecionado(indiceSelecionado[0]);
+				}atualizaBotoes();
+				
+			}
+		});
+//O event acima se refere a como o programa vai lidar quando o usuário clica em uma linha da tabela.
+		tabelaServicos.setRowSelectionAllowed(true);
+		scrollPane_1.setViewportView(tabelaServicos);
+		panelServicos.setLayout(gl_panelServicos);
+		getContentPane().setLayout(groupLayout);
+		escreveTabelas();
+
+	}
+	public void setServicoSelecionado(int i){
+		servicoSelecionado = listaServicos.get(i);
+	}
+	public void atualizaBotoes(){
+		if (servicoSelecionado == null){
+			btnVisualizar.setEnabled(false);
+			btnEditar.setEnabled(false);
+		}else{
+			btnVisualizar.setEnabled(true);
+			btnEditar.setEnabled(true);
+		}
+	}
+	public JDesktopPane getPainelPrincipal(){
+		return painelPrincipal;
+	}
+	public void escreveTabelas(){
+		// INÍCIO DE CONSTRUÇÃO DA TABELA
+		// designTabela = o conteúdo da tabela em si, preenchida através de um loop for
+				Object[][] designTabela = new Object[listaHospedes.size()][3];
+				LocalDate presente = LocalDate.now();
+				for (int i = 0; i < listaHospedes.size(); i++){
+					Hospede hospedeAtual = listaHospedes.get(i);
+					//Para preencher a primeira coluna da linha: Nome do hóspede
+					designTabela[i][0] = hospedeAtual.getNome();
+					//Para preencher a segunda coluna da linha: CPF do hóspede
+					designTabela[i][1] = hospedeAtual.getCpf();
+					//Para preencher a terceira coluna da linha: Idade do hóspede
+					Calendar nascimento = hospedeAtual.getDataNascimento();
+					LocalDate diaNascimento = LocalDate.of(nascimento.get(nascimento.YEAR), nascimento.get(nascimento.MONTH) + 1, nascimento.get(nascimento.DAY_OF_MONTH));
+					Period periodoDeTempo = Period.between(diaNascimento, presente);
+					designTabela[i][2] = periodoDeTempo.getYears();
+					
+			// FIM DE CONSTRUÇÃO DE TABELA.
+			
+		}
+				//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
+				@SuppressWarnings("serial")
+				DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
+						"Nome", "CPF", "Idade"
+				}) {
+
+					@Override
+				    public boolean isCellEditable(int row, int column) {
+				        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
+				        return false;
+				    }
+				};
+
+	
+		tabelaHospedes.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
+		tabelaHospedes.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
+		
 		//INICIO DA CONSTRU��O DE TABELA
 		Object [][] tabelaServicosDesign = new Object [contrato.getListaServicos().size()][4];
 		for (int i = 0; i < contrato.getListaServicos().size(); i++){
@@ -297,45 +347,8 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		        return false;
 		    }
 		};
-		//FIM DE CONSTRUÇÃO DE TABELA
-		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-		ListSelectionModel modeloSelecaoLinha = tabelaServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
-		
-		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-			//Necessita ser esse nome de método para funcionar
-			public void valueChanged(ListSelectionEvent e) {
-				int[] indiceSelecionado = tabelaServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
-				if (indiceSelecionado.length <= 0){
-					servicoSelecionado = null;
-				}else{
-					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
-					setServicoSelecionado(indiceSelecionado[0]);
-				}atualizaBotoes();
-				
-			}
-		});
-//O event acima se refere a como o programa vai lidar quando o usuário clica em uma linha da tabela.
 		tabelaServicos.setModel(modeloTabelaServicos);
-		tabelaServicos.setRowSelectionAllowed(true);
-		scrollPane_1.setViewportView(tabelaServicos);
-		panelServicos.setLayout(gl_panelServicos);
-		getContentPane().setLayout(groupLayout);
-
-	}
-	public void setServicoSelecionado(int i){
-		servicoSelecionado = listaServicos.get(i);
-	}
-	public void atualizaBotoes(){
-		if (servicoSelecionado == null){
-			btnVisualizar.setEnabled(false);
-			btnEditar.setEnabled(false);
-		}else{
-			btnVisualizar.setEnabled(true);
-			btnEditar.setEnabled(true);
-		}
-	}
-	public JDesktopPane getPainelPrincipal(){
-		return painelPrincipal;
+		//FIM DE CONSTRUÇÃO DE TABELA
+		
 	}
 }

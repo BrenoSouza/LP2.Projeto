@@ -107,7 +107,7 @@ public class AluguelCarro extends Servico {
 		return "Serviço --- Aluguel de Carro ---" +
 				"\nInício -> " + this.getInicioServico() +
 				"\nFim -> " + this.getFim() +
-				"\nExtras -> Tanque cheio? " + (this.isTanqueCheio() ? "Sim" : "Não") +
+				"\nExtras ->\n Tanque cheio? " + (this.isTanqueCheio() ? "Sim" : "Não") +
 				"\n            Segurado? " + (this.isSegurado() ? "Sim" : "Não") +
 				"\n            Luxo? " + (this.isLuxo() ? "Sim" : "Não") +
 				"\nCusto final: " + this.calculaPrecoTotal();
