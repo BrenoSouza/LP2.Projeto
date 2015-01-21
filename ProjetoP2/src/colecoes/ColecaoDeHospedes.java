@@ -16,14 +16,14 @@ public class ColecaoDeHospedes {
 	}
 	
 	public void adicionaHospede(Hospede hospede) throws Exception{
-		if (hospede == null){
+		if (hospede == null || listaHospedes.contains(hospede)){
 			throw new Exception("O hospede não foi adicionado.");
 		}
 		listaHospedes.add(hospede);
 	}
 	
 	public void adicionaListaHospedes(List<Hospede> hospedes) throws Exception{
-		if (hospedes == null || hospedes.contains(null)){
+		if (hospedes == null || hospedes.contains(null) || listaHospedes.containsAll(hospedes)){
 			throw new Exception("Os hospedes não foram adicionados.");
 		}
 		listaHospedes.addAll(hospedes);
