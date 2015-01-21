@@ -59,6 +59,7 @@ public class PainelEditarContrato extends JInternalFrame {
 	private Hospede hospedePrincipal;
 	private double precoTotal;
 	private JLabel lblPrecoTotal;
+	private JButton btnFinalizar;
 	
 	
 	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal) {
@@ -139,6 +140,17 @@ public class PainelEditarContrato extends JInternalFrame {
 		
 		lblPrecoTotal = new JLabel("Preço a ser pago:");
 		lblPrecoTotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		btnFinalizar = new JButton("Fazer check-out");
+		btnFinalizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja encerrar esse contrato?\nApós a operação, não será mais possível editar o contrato.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+				if (escolha == JOptionPane.YES_OPTION){
+					getContrato().fechaContrato();
+					dispose();
+				}
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -153,21 +165,23 @@ public class PainelEditarContrato extends JInternalFrame {
 								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))
 							.addGap(13))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(15, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblServicos)
 							.addContainerGap(888, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnRemoverDinamico, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-							.addGap(250)
-							.addComponent(btnEditarDinamico, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-							.addGap(265)
-							.addComponent(btnAdicionarDinamico, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap())
-						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblPrecoTotal)
-							.addContainerGap(898, Short.MAX_VALUE))))
+							.addContainerGap(808, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnRemoverDinamico, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+									.addGap(104)
+									.addComponent(btnEditarDinamico, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+									.addGap(133)
+									.addComponent(btnAdicionarDinamico, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+									.addGap(145)
+									.addComponent(btnFinalizar, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+								.addComponent(scrollPane_2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE))
+							.addGap(15))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -186,9 +200,10 @@ public class PainelEditarContrato extends JInternalFrame {
 					.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(lblPrecoTotal)
-					.addPreferredGap(ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnRemoverDinamico)
+						.addComponent(btnFinalizar)
 						.addComponent(btnAdicionarDinamico)
 						.addComponent(btnEditarDinamico))
 					.addContainerGap())
@@ -370,7 +385,7 @@ public class PainelEditarContrato extends JInternalFrame {
 					for (Servico servico: listaServicos){
 						precoTotal += servico.calculaPrecoTotal();
 					}
-					lblPrecoTotal.setText("Preço a ser pago: tiver oR$ " + precoTotal);
+					lblPrecoTotal.setText("Total a ser pago: R$ " + precoTotal);
 	}
 	public void atualizaBotoes(){
 		if (objetoDinamico == null){
