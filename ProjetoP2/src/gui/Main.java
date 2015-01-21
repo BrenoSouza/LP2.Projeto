@@ -55,9 +55,6 @@ public class Main extends JFrame {
 		return FormatoData;
 	}
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -91,6 +88,7 @@ public class Main extends JFrame {
 		Quarto quartoParaAdicionar;
 		int numeroQuarto = 1;
 		try{
+			listaHospedes.add(new Hospede("fulanin", "casa de chico", "11111111", Calendar.getInstance()));
 			for (int i = 0; i < 5; i++){
 				quartoParaAdicionar = new QuartoPresidencial(numeroQuarto);
 				listaQuartosDisponiveis.add(quartoParaAdicionar);
@@ -135,7 +133,7 @@ public class Main extends JFrame {
 		criaQuartos();
 		listaHospedes.add(new Hospede("Fulano de Tal","Casa do Fulano", "1111111", Calendar.getInstance())); //Adicionando um hóspede por fora, pra testes
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 600);
+		setBounds(0, 0, 1000, 700);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
