@@ -149,15 +149,17 @@ public class Main extends JFrame {
 		JMenuItem mntmOpo_1 = new JMenuItem("Op\u00E7\u00E3o 1.2");
 		mnOpo.add(mntmOpo_1);
 
-		JMenu mnOpo_1 = new JMenu("Op\u00E7\u00E3o 2");
+		JMenu mnOpo_1 = new JMenu("Sobre");
 		menuBar.add(mnOpo_1);
 
 		JMenuItem mntmOpo_2 = new JMenuItem("Op\u00E7\u00E3o 2.1");
 		mnOpo_1.add(mntmOpo_2);
 
-		JMenuItem mntmOpo_3 = new JMenuItem("Op\u00E7\u00E3o 2.2");
+		JMenuItem mntmOpo_3 = new JMenuItem("Sobre o programa");
 		mntmOpo_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				DialogoSobre sobre = new DialogoSobre();
+				sobre.setVisible(true);
 			}
 		});
 		mnOpo_1.add(mntmOpo_3);
