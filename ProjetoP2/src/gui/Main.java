@@ -50,7 +50,7 @@ public class Main extends JFrame {
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
-	private ColecaoDeHospedes listaDeHospedes;
+	private ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
 	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
 
 	public static SimpleDateFormat getFormatodata() {
