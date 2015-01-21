@@ -41,16 +41,15 @@ public class PainelCadastroClientes extends JInternalFrame {
 	private JFormattedTextField campoData;
 
 
-
 	/**
 	 * Create the frame.
 	 */
 	public PainelCadastroClientes() throws Exception{
-		getContentPane().addFocusListener(new FocusAdapter() {
+		/*getContentPane().addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
 			}
-		});
+		});*/
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");
