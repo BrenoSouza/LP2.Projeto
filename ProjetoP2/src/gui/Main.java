@@ -125,7 +125,7 @@ public class Main extends JFrame {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
-	public static String converteParaString (Calendar data) throws Exception{
+	public static String converteParaString (Calendar data) {
 		String dataFormatada = FormatoData.format(data.getTime());
 		return dataFormatada;
 	}

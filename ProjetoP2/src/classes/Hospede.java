@@ -1,5 +1,7 @@
 package classes;
 
+import gui.Main;
+
 import java.util.Calendar;
 
 public class Hospede implements Comparable<Hospede>{
@@ -120,8 +122,8 @@ public class Hospede implements Comparable<Hospede>{
 		return "Nome: " + getNome() + ".\n"
 				+ "CPF: " + getCpf() + ".\n"
 				+ "Endereço: " + getEndereco() + ".\n"
-				+ "Data de Nascimento: " + getDataNascimento() + ".\n"  // Ajustar depois a formatacão desse objeto Calendar
-				+ ((getOpiniao() == null) ? "." : ("Opinião: " + getOpiniao().toString() + "."));
+				+ "Data de Nascimento: " + Main.converteParaString(getDataNascimento()) + ".\n"  // Ajustar depois a formatacão desse objeto Calendar
+				+ ((getOpiniao() == null) ? "" : ("Opinião: " + getOpiniao().toString() + "."));
 
 	}
 
