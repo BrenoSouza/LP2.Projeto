@@ -124,8 +124,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		int diarias = Integer.parseInt(spinnerDiariasCarro.getValue().toString());
 				    		boolean tipoCarro = cBoxTipoCarro.getSelectedIndex() == 0 ? true : false;
 				    		try {
-				    			//Servico servico = new AluguelCarro(diarias, tipoCarro, chckbxTanqueCheio.isSelected(), chckbxSeguro.isSelected());
-								//adicionaServico(servico);
+				    			Servico servico = new AluguelCarro(diarias, tipoCarro, chckbxTanqueCheio.isSelected(), chckbxSeguro.isSelected());
+								adicionaServico(servico);
 					    		JOptionPane.showMessageDialog(null, "Carros!");
 					    		disposeOnClosed();
 							} catch (Exception e1) {
@@ -135,7 +135,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		break;
 				    	}
 				    	else if(comp == panelBabysitter) {
-				    		//adicionaServico(new Babysitter());
+				    		adicionaServico(new Babysitter());
 				    		JOptionPane.showMessageDialog(null, "Babysitter!");
 				    		break;
 				    	}
@@ -362,7 +362,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	
 	private void adicionaServico(Servico servico) {
 		contrato.getListaServicos().add(servico); 
-			JOptionPane.showMessageDialog(null, "OK");		
+		JOptionPane.showMessageDialog(null, contrato.getListaServicos().size());		
 	}
 	
 	private void disposeOnClosed() {  
