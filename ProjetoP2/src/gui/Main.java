@@ -41,7 +41,6 @@ import java.awt.Color;
 public class Main extends JFrame {
 
 	private JPanel contentPane;
-	private JButton btnClientes;
 	private JDesktopPane painelPrincipal = new JDesktopPane();
 	private PainelClientes painelClientes;
 	private PainelServicos painelServicos;
@@ -198,25 +197,11 @@ public class Main extends JFrame {
 				);
 		painelPrincipal.setLayout(gl_painelPrincipal);
 
-		btnClientes = new JButton("Clientes    ");
+		JButton btnClientes = new JButton("Clientes    ");
 		btnClientes.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
-				if (painelCadastro == null || painelCadastro.isClosed()){
-					try{
-						painelCadastro = new PainelCadastroClientes();
-						painelClientes = new PainelClientes(listaHospedes);
-					}catch (Exception e1){
-						System.out.println(e1.getMessage());
-					}
-					painelPrincipal.add(painelCadastro);
-					painelCadastro.show();
-				}else{
-					painelClientes.dispose();
-					try{
-						painelClientes = new PainelClientes(listaHospedes);
-					}catch (Exception e2){
-						System.out.println(e2.getMessage());
-					}
+			public void actionPerformed(ActionEvent e) {
+				if (painelClientes == null || painelClientes.isClosed()){
+					painelClientes = new PainelClientes(listaHospedes, painelPrincipal);
 					painelPrincipal.add(painelClientes);
 					painelClientes.show();
 				}
