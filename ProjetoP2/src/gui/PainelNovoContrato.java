@@ -217,6 +217,7 @@ public class PainelNovoContrato extends JInternalFrame {
 				}else{
 					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 					setHospedeSelecionado2(indiceSelecionado[0]);
+					tabelaHospedesSemContrato.clearSelection();
 				}atualizaBotoes();
 				
 			}
@@ -239,6 +240,7 @@ public class PainelNovoContrato extends JInternalFrame {
 				}else{
 					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 					setHospedeSelecionado(indiceSelecionado[0]);
+					tabelaHospedesNoContrato.clearSelection();
 				}atualizaBotoes();
 				
 			}
@@ -340,6 +342,7 @@ public class PainelNovoContrato extends JInternalFrame {
 				}else{
 					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 					setQuartoVagoSelecionado(indiceSelecionado[0]);
+					tabelaQuartosNoContrato.clearSelection();
 				}atualizaBotoes();
 				
 			}
@@ -361,6 +364,7 @@ public class PainelNovoContrato extends JInternalFrame {
 						}else{
 							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 							setQuartoContratoSelecionado(indiceSelecionado[0]);
+							tabelaQuartosLivres.clearSelection();
 						}atualizaBotoes();
 						
 					}
