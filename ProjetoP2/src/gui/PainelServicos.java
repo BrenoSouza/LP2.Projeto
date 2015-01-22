@@ -55,6 +55,7 @@ public class PainelServicos extends JInternalFrame {
 	private JButton btnVisualizar;;
 	private String[] nomesHospedes;
 	private PainelAdicionaServico painelAdicionar;
+	private ListSelectionModel modeloSelecaoLinhaContrato;
 	
 	/**
 	 * Create the frame.
@@ -115,6 +116,9 @@ public class PainelServicos extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				contratoSelecionado.getListaServicos().remove(servicoSelecionado);
+				escreveTabelaServicos();
+				servicoSelecionado = null;
+				JOptionPane.showMessageDialog(null, "Serviço Removido!");
 			}
 		});
 		btnRemover.setEnabled(false);
@@ -189,7 +193,7 @@ public class PainelServicos extends JInternalFrame {
 		
 		tableContratos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinhaContrato = tableContratos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				modeloSelecaoLinhaContrato = tableContratos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
 				
 				modeloSelecaoLinhaContrato.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinhaContrato.addListSelectionListener(new ListSelectionListener() {
@@ -199,6 +203,7 @@ public class PainelServicos extends JInternalFrame {
 						if (indiceSelecionadoContrato.length <= 0){
 							contratoSelecionado = null;
 							servicoSelecionado = null;
+							escreveTabelaServicos();
 						}else{
 							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaServicos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setServicoSelecionado, que consegue usar as variáveis sem problemas.
 							setContratoSelecionado(indiceSelecionadoContrato[0]);
@@ -341,12 +346,10 @@ public class PainelServicos extends JInternalFrame {
 	}
 	
 	public void atualizaBotoes(){
-		if (contratoSelecionado != null){
-			if (contratoSelecionado.getListaServicos().size() != 0){
-				btnRemover.setEnabled(true);
-				btnAtualizar.setEnabled(true);
-				btnVisualizar.setEnabled(true);
-			}
+		if (contratoSelecionado != null && servicoSelecionado != null){
+			btnRemover.setEnabled(true);
+			btnAtualizar.setEnabled(true);
+			btnVisualizar.setEnabled(true);
 		}else{
 			btnRemover.setEnabled(false);
 			btnAtualizar.setEnabled(false);
