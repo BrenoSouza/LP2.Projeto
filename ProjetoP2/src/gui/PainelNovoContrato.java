@@ -390,6 +390,9 @@ public class PainelNovoContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					Contrato contrato = new Contrato(listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
+					for (Hospede hospede: listaHospedesDoContrato){
+						hospede.setContratoLigado(contrato);
+					}
 					if (hospedePrincipal != null){
 						contrato.setHospedePrincipal(hospedePrincipal);
 					}
