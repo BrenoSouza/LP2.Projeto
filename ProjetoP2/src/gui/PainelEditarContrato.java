@@ -146,6 +146,10 @@ public class PainelEditarContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja encerrar esse contrato?\nApós a operação, não será mais possível editar o contrato.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 				if (escolha == JOptionPane.YES_OPTION){
+					for (Quarto quarto: listaQuartos){
+						quarto.setToLivre();
+						
+					}
 					getContrato().fechaContrato();
 					dispose();
 				}
@@ -378,13 +382,7 @@ public class PainelEditarContrato extends JInternalFrame {
 					tabelaQuartos.getColumnModel().getColumn(3).setPreferredWidth(180); //Aumentando o tamanho da quarta coluna, pq a String de título dela é grande
 					tabelaQuartos.getColumnModel().getColumn(0).setPreferredWidth(130); // Idem ao comment acima
 					tabelaQuartos.setRowSelectionAllowed(true);
-					precoTotal = 0;
-					for (Quarto quarto : listaQuartos){
-						precoTotal += quarto.calculaPrecoTotal();
-					}
-					for (Servico servico: listaServicos){
-						precoTotal += servico.calculaPrecoTotal();
-					}
+					precoTotal = contrato.calculaPrecoFinal();
 					lblPrecoTotal.setText("Total a ser pago: R$ " + precoTotal);
 	}
 	public void atualizaBotoes(){
