@@ -6,6 +6,7 @@ import javax.swing.JInternalFrame;
 import classes.AluguelCarro;
 import classes.Babysitter;
 import classes.Contrato;
+import classes.Restaurante;
 import classes.Servico;
 
 import javax.swing.GroupLayout;
@@ -40,6 +41,7 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
 
 public class PainelAdicionaServico extends JInternalFrame {
 
@@ -58,9 +60,11 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JComboBox cBoxTipoQuarto;
 	private JSpinner spinnerDiarias;
 	private JCheckBox chckbxCamasExtras;
-	private final String[] TIPOS_QUARTOS = {"Presidencial", "Luxo Simples", "Luxo Duplo", "Luxo Triplo", "Executivo Simples",
-			"Executivo Duplo", "Executivo Triplo"};
+	private JCheckBox chckbxCobertura;
+	private JTextField txtfi_preco;
 	private final String[] TIPOS_CARROS = {"Luxo", "Executivo"};
+	private final String[] TIPOS_QUARTOS = {"Presidencial", "Luxo Simples", "Luxo Duplo", "Luxo Triplo", "Executivo Simples",
+			"Executivo Duplo", "Executivo Triplo"};	
 	
 	
 	/**
@@ -119,6 +123,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		int diarias = (Integer) spinnerDiarias.getValue();
 				    		boolean chckbxCamasExtras;
 				    		JOptionPane.showMessageDialog(null, "Adicionado!");
+				    		disposeOnClosed();
 				    		break;
 				    	}
 				    	else if(comp == panelCarros) {
@@ -130,7 +135,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 					    		JOptionPane.showMessageDialog(null, "Adicionado!");
 					    		disposeOnClosed();
 							} catch (Exception e1) {
-								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
 				    		break;
@@ -142,7 +146,14 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		break;
 				    	}
 				    	else {
-				    		JOptionPane.showMessageDialog(null, "Restaurante!");
+				    		int preco = Integer.parseInt(txtfi_preco.getText());
+				    		try {
+								adicionaServico(new Restaurante(chckbxCobertura.isSelected(), preco));
+								JOptionPane.showMessageDialog(null, "Adicionado!");
+								disposeOnClosed();
+							} catch (Exception e1) {
+								e1.printStackTrace();
+							}
 				    		break;
 				    	}
 				    }
@@ -211,22 +222,14 @@ public class PainelAdicionaServico extends JInternalFrame {
 		panelBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		panelExterno.add(panelBabysitter, "babysitter");
-		
-		JLabel lblHoraEntrada = new JLabel("Hora Entrada:");
 		GroupLayout gl_panelBabysitter = new GroupLayout(panelBabysitter);
 		gl_panelBabysitter.setHorizontalGroup(
 			gl_panelBabysitter.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelBabysitter.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblHoraEntrada)
-					.addContainerGap(681, Short.MAX_VALUE))
+				.addGap(0, 763, Short.MAX_VALUE)
 		);
 		gl_panelBabysitter.setVerticalGroup(
 			gl_panelBabysitter.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelBabysitter.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblHoraEntrada)
-					.addContainerGap(136, Short.MAX_VALUE))
+				.addGap(0, 163, Short.MAX_VALUE)
 		);
 		panelBabysitter.setLayout(gl_panelBabysitter);
 		
@@ -268,23 +271,51 @@ public class PainelAdicionaServico extends JInternalFrame {
 		gl_panelCarros.setVerticalGroup(
 			gl_panelCarros.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelCarros.createSequentialGroup()
-					.addGap(5)
+					.addContainerGap()
 					.addGroup(gl_panelCarros.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTipoCarro)
 						.addComponent(cBoxTipoCarro, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(chckbxSeguro)
-						.addComponent(chckbxTanqueCheio)
+						.addComponent(lblDiariasCarro)
 						.addComponent(spinnerDiariasCarro, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDiariasCarro)))
+						.addComponent(chckbxTanqueCheio)
+						.addComponent(chckbxSeguro))
+					.addContainerGap(134, Short.MAX_VALUE))
 		);
 		panelCarros.setLayout(gl_panelCarros);
 		
-		JCheckBox chckbxCobertura_1 = new JCheckBox("Cobertura");
-		chckbxCobertura_1.setBounds(123, 33, 143, 37);
+		chckbxCobertura = new JCheckBox("Cobertura");
+		chckbxCobertura.setBounds(123, 33, 143, 37);
 		panelRestaurante.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelRestaurante.add(chckbxCobertura_1);
+		
+		JLabel lblPreo = new JLabel("Preço:");
 
 		panelExterno.add(panelRestaurante, "restaurante");
+		
+		txtfi_preco = new JTextField();
+		txtfi_preco.setColumns(10);
+		GroupLayout gl_panelRestaurante = new GroupLayout(panelRestaurante);
+		gl_panelRestaurante.setHorizontalGroup(
+			gl_panelRestaurante.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelRestaurante.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblPreo)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(txtfi_preco, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addGap(74)
+					.addComponent(chckbxCobertura)
+					.addGap(434))
+		);
+		gl_panelRestaurante.setVerticalGroup(
+			gl_panelRestaurante.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelRestaurante.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelRestaurante.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPreo)
+						.addComponent(txtfi_preco, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(chckbxCobertura))
+					.addContainerGap(129, Short.MAX_VALUE))
+		);
+		panelRestaurante.setLayout(gl_panelRestaurante);
 		
 		JLabel lblQuartos = new JLabel("Quartos");
 		
@@ -389,5 +420,4 @@ public class PainelAdicionaServico extends JInternalFrame {
 			}
 		});
 	}
-
 }
