@@ -282,6 +282,13 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblQuartos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		btnVisualizarQuarto = new JButton("Visualizar");
+		btnVisualizarQuarto.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PainelVisualizacaoServico painelVisualizarServico = new PainelVisualizacaoServico(quartoSelecionado);
+				getPainelPrincipal().add(painelVisualizarServico);
+				painelVisualizarServico.show();
+			}
+		});
 		btnVisualizarQuarto.setEnabled(false);
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
 		gl_panelQuartos.setHorizontalGroup(
@@ -310,8 +317,8 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
 		ListSelectionModel modeloSelecaoLinha2 = tabelaQuartos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
 		
-		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+		modeloSelecaoLinha2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modeloSelecaoLinha2.addListSelectionListener(new ListSelectionListener() {
 			//Necessita ser esse nome de método para funcionar
 			public void valueChanged(ListSelectionEvent e) {
 				int[] indiceSelecionado = tabelaQuartos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
@@ -325,6 +332,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 			}
 		});
 //O event acima se refere a como o programa vai lidar quando o usuário clica em uma linha da tabela.
+		tabelaServicos.setRowSelectionAllowed(true);
 		scrollPane_2.setViewportView(tabelaQuartos);
 		panelQuartos.setLayout(gl_panelQuartos);
 		getContentPane().setLayout(groupLayout);
