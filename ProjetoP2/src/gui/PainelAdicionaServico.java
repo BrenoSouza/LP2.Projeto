@@ -14,6 +14,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -115,13 +116,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    if (comp.isVisible() == true) {
 				    	if(comp == panelQuartos) {
 				    		int tipoQuarto = cBoxTipoQuarto.getSelectedIndex();
-				    		int diarias = Integer.parseInt(spinnerDiarias.getValue().toString());
+				    		int diarias = (Integer) spinnerDiarias.getValue();
 				    		boolean chckbxCamasExtras;
-				    		JOptionPane.showMessageDialog(null, "Quartos!");
+				    		JOptionPane.showMessageDialog(null, "Adicionado!");
 				    		break;
 				    	}
 				    	else if(comp == panelCarros) {
-				    		int diarias = Integer.parseInt(spinnerDiariasCarro.getValue().toString());
+				    		int diarias = (Integer) spinnerDiariasCarro.getValue();
 				    		boolean tipoCarro = cBoxTipoCarro.getSelectedIndex() == 0 ? true : false;
 				    		try {
 				    			Servico servico = new AluguelCarro(diarias, tipoCarro, chckbxTanqueCheio.isSelected(), chckbxSeguro.isSelected());
@@ -171,6 +172,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JLabel lblDiarias = new JLabel("Diárias:");
 		
 		spinnerDiarias = new JSpinner();
+		spinnerDiarias.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		
 		chckbxCamasExtras = new JCheckBox("Camas Extras");
 		
@@ -243,6 +245,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JLabel lblDiariasCarro = new JLabel("Diárias:");
 		
 		spinnerDiariasCarro = new JSpinner();
+		spinnerDiariasCarro.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 		
 		GroupLayout gl_panelCarros = new GroupLayout(panelCarros);
 		gl_panelCarros.setHorizontalGroup(
@@ -363,12 +366,12 @@ public class PainelAdicionaServico extends JInternalFrame {
 	
 	private void adicionaServico(Servico servico) {
 		contrato.getListaServicos().add(servico); 
-		JOptionPane.showMessageDialog(null, contrato.getListaServicos().size());		
 	}
 	
 	private void disposeOnClosed() {  
 	    this.dispose();  
 	}    
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -386,4 +389,5 @@ public class PainelAdicionaServico extends JInternalFrame {
 			}
 		});
 	}
+
 }
