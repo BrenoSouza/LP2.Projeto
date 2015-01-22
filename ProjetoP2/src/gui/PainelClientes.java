@@ -203,7 +203,7 @@ public class PainelClientes extends JInternalFrame {
 			}else{
 				designTabela[i][3] = hospedeAtual.getContratoLigado().getHospedePrincipal();
 			}
-			if (hospedeAtual.getContratoLigado() == null){
+			if (hospedeAtual.getOpiniao() == null){
 				designTabela[i][4] = "Sem opinião";
 			}else{
 				designTabela[i][4] = hospedeAtual.getOpiniao().getNota();
