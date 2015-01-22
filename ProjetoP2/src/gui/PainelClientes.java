@@ -44,6 +44,10 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 public class PainelClientes extends JInternalFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableHospedes;
 	private JTable table;
@@ -121,7 +125,7 @@ public class PainelClientes extends JInternalFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelEditar = new PainelEditarCliente(hospedeSelecionado);
+				painelEditar = new PainelEditarCliente(hospedeSelecionado, getPainelPrincipal());
 				adicionaNoPainel(painelEditar);
 				painelEditar.show();
 			}

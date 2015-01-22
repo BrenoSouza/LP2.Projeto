@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.EventQueue;
 
+import javax.swing.JComponent;
+import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -20,19 +22,60 @@ import javax.swing.JScrollPane;
 
 import classes.Hospede;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class PainelEditarCliente extends JInternalFrame {
-	
+	private PainelEditarClienteOpiniao painelEditarOpiniao;
+	private JDesktopPane painelPrincipal;
+	private Hospede hospede;
+	private JLabel lblComment;
+	private JLabel lblScore;
+	private JLabel lblContratoLigado;
+	private JLabel lblHospedePrin;
+	private JLabel lblName;
+	private JLabel lblBirth;
+	private JLabel lblAge;
+	private JLabel lblCpfHospede;
+	private JLabel lblAdress;
 	/**
 	 * Create the frame.
 	 */
-	public PainelEditarCliente(Hospede hospede) {
+	public PainelEditarCliente(final Hospede hospede, JDesktopPane painelPrincipal) {
 		setClosable(true);
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {
+				//Opinião
+				String Comment = (hospede.getOpiniao() == null) ? "Sem coméntario." : hospede.getOpiniao().getComentario();
+				lblComment.setText(Comment);
+				String Score = (hospede.getOpiniao() == null) ? "Sem nota." : "" + hospede.getOpiniao().getNota();
+				lblScore.setText(Score);
+				//Contrato
+				String contratoLigado = (hospede.getContratoLigado() != null) ? "Está em um contrato." : "Não está em um contrato.";
+				lblContratoLigado.setText(contratoLigado);
+				String hospedePrincipal = (hospede.getContratoLigado() == null) ? "Nenhum." : hospede.getContratoLigado().getHospedePrincipal().getNome();
+				lblHospedePrin.setText(hospedePrincipal);
+				//Informações
+				String Name = "" + hospede.getNome();
+				lblName.setText(Name);
+				String Birth = Main.converteParaString(hospede.getDataNascimento());
+				lblBirth.setText(Birth);
+				LocalDate presente = LocalDate.now();
+				Calendar nascimento = hospede.getDataNascimento();
+				LocalDate diaNascimento = LocalDate.of(nascimento.get(Calendar.YEAR), nascimento.get(Calendar.MONTH) + 1, nascimento.get(Calendar.DAY_OF_MONTH));
+				Period periodoDeTempo = Period.between(diaNascimento, presente);
+				String Age = "" + periodoDeTempo.getYears();
+				lblAge.setText(Age);
+				String Cpf = "" + hospede.getCpf();
+				lblCpfHospede.setText(Cpf);
+				String Adress = "" + hospede.getEndereco();
+				lblAdress.setText(Adress);
 			}
 		});
 		setBounds(100, 100, 559, 353);
+		this.painelPrincipal = painelPrincipal;
+		this.hospede = hospede;
 		
 		JLabel lblOpinio = new JLabel("Opinião");
 		lblOpinio.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -40,7 +83,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblComentrio = new JLabel("Comentário:");
 		lblComentrio.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		JLabel lblComment = new JLabel("");
+		lblComment = new JLabel("");
 		String Comment = (hospede.getOpiniao() == null) ? "Sem coméntario." : hospede.getOpiniao().getComentario();
 		lblComment.setText(Comment);
 		lblComment.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -48,17 +91,24 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblNota = new JLabel("Nota:");
 		lblNota.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JLabel lblScore = new JLabel("");
+		lblScore = new JLabel("");
 		String Score = (hospede.getOpiniao() == null) ? "Sem nota." : "" + hospede.getOpiniao().getNota();
 		lblScore.setText(Score);
 		lblScore.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
 		JButton btnEditarOpiniao = new JButton("Editar");
+		btnEditarOpiniao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelEditarOpiniao = new PainelEditarClienteOpiniao(getHospede());
+				adicionaNoPainel(painelEditarOpiniao);
+				painelEditarOpiniao.show();
+			}
+		});
 		
 		JLabel lblContrato = new JLabel("Contrato");
 		lblContrato.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JLabel lblContratoLigado = new JLabel("");
+		lblContratoLigado = new JLabel("");
 		String contratoLigado = (hospede.getContratoLigado() != null) ? "Está em um contrato." : "Não está em um contrato.";
 		lblContratoLigado.setText(contratoLigado);
 		lblContratoLigado.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -66,7 +116,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblHospedePrincipal = new JLabel("Hospede Principal:");
 		lblHospedePrincipal.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JLabel lblHospedePrin = new JLabel("");
+		lblHospedePrin = new JLabel("");
 		String hospedePrincipal = (hospede.getContratoLigado() == null) ? "Nenhum." : hospede.getContratoLigado().getHospedePrincipal().getNome();
 		lblHospedePrin.setText(hospedePrincipal);
 		lblHospedePrin.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -82,12 +132,12 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JLabel lblName = new JLabel("");
+		lblName = new JLabel("");
 		String Name = "" + hospede.getNome();
 		lblName.setText(Name);
 		lblName.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JLabel lblBirth = new JLabel("");
+		lblBirth = new JLabel("");
 		String Birth = Main.converteParaString(hospede.getDataNascimento());
 		lblBirth.setText(Birth);
 		lblBirth.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -95,7 +145,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblIdade = new JLabel("Idade:");
 		lblIdade.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JLabel lblAge = new JLabel("");
+		lblAge = new JLabel("");
 		LocalDate presente = LocalDate.now();
 		Calendar nascimento = hospede.getDataNascimento();
 		LocalDate diaNascimento = LocalDate.of(nascimento.get(Calendar.YEAR), nascimento.get(Calendar.MONTH) + 1, nascimento.get(Calendar.DAY_OF_MONTH));
@@ -107,7 +157,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblCpf = new JLabel("Cpf:");
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JLabel lblCpfHospede = new JLabel("");
+		lblCpfHospede = new JLabel("");
 		String Cpf = "" + hospede.getCpf();
 		lblCpfHospede.setText(Cpf);
 		lblCpfHospede.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -115,7 +165,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblEndereo = new JLabel("Endereço:");
 		lblEndereo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JLabel lblAdress = new JLabel("");
+		lblAdress = new JLabel("");
 		String Adress = "" + hospede.getEndereco();
 		lblAdress.setText(Adress);
 		lblAdress.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -228,5 +278,12 @@ public class PainelEditarCliente extends JInternalFrame {
 		);
 		getContentPane().setLayout(groupLayout);
 
+	}
+	public void adicionaNoPainel(JInternalFrame painel){
+		painelPrincipal.add(painel);
+	}
+	
+	public Hospede getHospede() {
+		return hospede;
 	}
 }
