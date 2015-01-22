@@ -189,9 +189,21 @@ public class PainelClientes extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 			designTabela[i][1] = dataFormatadaNascimento;
-			designTabela[i][2] = hospedeAtual.getCpf();
-			designTabela[i][3] = hospedeAtual.getContratoLigado();
-			designTabela[i][4] = hospedeAtual.getNome();
+			if (hospedeAtual.getCpf() == null){
+				designTabela[i][2] = "Não especificado";
+			}else{
+				designTabela[i][2] = hospedeAtual.getCpf();
+			}
+			if (hospedeAtual.getContratoLigado() == null){
+				designTabela[i][3] = "Sem contrato";
+			}else{
+				designTabela[i][3] = hospedeAtual.getContratoLigado().getHospedePrincipal();
+			}
+			if (hospedeAtual.getContratoLigado() == null){
+				designTabela[i][4] = "Sem opinião";
+			}else{
+				designTabela[i][4] = hospedeAtual.getOpiniao().getNota();
+			}
 		}
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
