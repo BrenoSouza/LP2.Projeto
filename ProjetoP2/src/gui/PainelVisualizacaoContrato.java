@@ -3,6 +3,7 @@ package gui;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JDesktopPane;
@@ -16,6 +17,7 @@ import javax.swing.JTabbedPane;
 import classes.AluguelCarro;
 import classes.Contrato;
 import classes.Hospede;
+import classes.Quarto;
 import classes.Servico;
 
 import javax.swing.JPanel;
@@ -30,10 +32,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
@@ -42,6 +46,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 	private Contrato contrato;
 	private List<Hospede> listaHospedes;
 	private List<Servico> listaServicos;
+	private List<Quarto> listaQuartos;
 	private JScrollPane scrollPane_1;
 	private JLabel lblNewLabelServicosAssociados;
 	private JTable tabelaServicos;
@@ -51,6 +56,8 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JButton btnEditar;
 	private PainelVisualizacaoServico painelVisualizacaoServico;
 	private JTable tabelaHospedes;
+	private JLabel lblTotalASerPagoVariavel;
+	private JTable tabelaQuartos;
 	
 
 
@@ -63,10 +70,11 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		});
 		setClosable(true);
 		this.painelPrincipal = painelPrincipal;
-		setBounds(0, 50, 800, 400);
+		setBounds(0, 50, 851, 400);
 		this.contrato = contrato;
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();
+		listaQuartos = contrato.getListaQuartosAlugados();
 		painelTabas = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -123,7 +131,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		JLabel lblTotalASerPago = new JLabel("Total a ser pago:");
 		lblTotalASerPago.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JLabel lblTotalASerPagoVariavel = new JLabel("New label");
+		lblTotalASerPagoVariavel = new JLabel("New label");
 		lblTotalASerPagoVariavel.setText(Double.toString(contrato.calculaPrecoFinal()));
 		lblTotalASerPagoVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
@@ -142,6 +150,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 				.addGroup(gl_panelDetalhes.createSequentialGroup()
 					.addGap(10)
 					.addGroup(gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
 						.addGroup(gl_panelDetalhes.createSequentialGroup()
 							.addComponent(lblHospedePrincipal)
 							.addGap(10)
@@ -158,8 +167,8 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 							.addComponent(lblTotalASerPago)
 							.addGap(10)
 							.addComponent(lblTotalASerPagoVariavel))
-						.addComponent(lblHospedesRegistrados)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 739, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(lblHospedesRegistrados))
+					.addContainerGap())
 		);
 		gl_panelDetalhes.setVerticalGroup(
 			gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
@@ -190,8 +199,9 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 							.addComponent(lblTotalASerPagoVariavel)))
 					.addGap(18)
 					.addComponent(lblHospedesRegistrados)
-					.addGap(6)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+					.addGap(15))
 		);
 		
 		
@@ -266,6 +276,40 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		tabelaServicos.setRowSelectionAllowed(true);
 		scrollPane_1.setViewportView(tabelaServicos);
 		panelServicos.setLayout(gl_panelServicos);
+		
+		JPanel panelQuartos = new JPanel();
+		painelTabas.addTab("Quartos", null, panelQuartos, null);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		
+		JLabel lblQuartos = new JLabel("Quartos associados ao contrato:");
+		if (contrato.getStatus().equals("FECHADO")){
+			lblQuartos.setText("Quartos que foram associados ao contrato:");
+		}
+		lblQuartos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
+		gl_panelQuartos.setHorizontalGroup(
+			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelQuartos.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+						.addComponent(lblQuartos))
+					.addContainerGap())
+		);
+		gl_panelQuartos.setVerticalGroup(
+			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelQuartos.createSequentialGroup()
+					.addGap(8)
+					.addComponent(lblQuartos)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		tabelaQuartos = new JTable();
+		scrollPane_2.setViewportView(tabelaQuartos);
+		panelQuartos.setLayout(gl_panelQuartos);
 		getContentPane().setLayout(groupLayout);
 		escreveTabelas();
 
@@ -349,6 +393,39 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		};
 		tabelaServicos.setModel(modeloTabelaServicos);
 		//FIM DE CONSTRUÇÃO DE TABELA
-		
+		Collections.sort(listaQuartos);
+		designTabela = new Object[listaQuartos.size()][6];	
+		for (int j = 0; j < listaQuartos.size(); j++){
+			Quarto quartoAtualContrato = listaQuartos.get(j);
+			//Para preencher a primeira coluna da linha: Descrição do quarto
+			designTabela[j][0] = quartoAtualContrato.getTipo();
+			//Para preencher a segunda coluna da linha: O preço da diária
+			designTabela[j][1] = "R$ " + quartoAtualContrato.getPrecoDiaria();
+			//Para preencher a terceira coluna da linha: O número de diárias setadas
+			designTabela[j][2] = quartoAtualContrato.getDiarias();
+			//Para preencher a quarta coluna da linha: O número de pessoas que o quarto acomoda
+			designTabela[j][3] = quartoAtualContrato.getNumeroHospedes();
+			//Para preencher a quinta coluna da linha: O número do quarto
+			designTabela[j][4] = quartoAtualContrato.getNumero();
+			//Para preencher a sexta coluna da linha: O preço a ser pago
+			designTabela[j][5] = "R$ " + quartoAtualContrato.calculaPrecoTotal();
+		}
+			//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
+			@SuppressWarnings("serial")
+			DefaultTableModel modeloTabela4 = new DefaultTableModel(designTabela, new String[] {
+					"Descrição", "Preço da diária", "Num. de diárias", "Num. máximo de hóspedes (sem cama extra)", "Número", "Preço"
+			}) {
+	
+				@Override
+			    public boolean isCellEditable(int row, int column) {
+			        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
+			        return false;
+			    }
+			};
+			tabelaQuartos.setModel(modeloTabela4);
+			tabelaQuartos.getColumnModel().getColumn(3).setPreferredWidth(180); //Aumentando o tamanho da quarta coluna, pq a String de título dela é grande
+			tabelaQuartos.getColumnModel().getColumn(0).setPreferredWidth(130); // Idem ao comment acima
+			tabelaQuartos.setRowSelectionAllowed(true);
+		lblTotalASerPagoVariavel.setText("R$ " + contrato.calculaPrecoFinal());
 	}
 }
