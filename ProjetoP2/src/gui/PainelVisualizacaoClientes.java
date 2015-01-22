@@ -48,6 +48,7 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 		setBounds(100, 100, 450, 300);
 		contrato = hospede.getContratoLigado();
 		this.hospede = hospede;
+		this.painelPrincipal = painelPrincipal;
 		
 		JLabel lblInformaes = new JLabel("Informações:");
 		lblInformaes.setFont(new Font("Tahoma", Font.PLAIN, 15));
