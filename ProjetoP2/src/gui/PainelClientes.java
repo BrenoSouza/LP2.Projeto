@@ -45,7 +45,6 @@ import javax.swing.event.InternalFrameEvent;
 
 public class PainelClientes extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
-	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	private JTable tableHospedes;
 	private JTable table;
 	private JButton btnVisualizar;
@@ -55,9 +54,10 @@ public class PainelClientes extends JInternalFrame {
 	private PainelCadastroClientes painelNovo;
 	private PainelVisualizacaoClientes painelVisualizacao;
 	private Hospede hospedeSelecionado;
+	private ColecaoDeHospedes listaDeHospedes;
 
 
-	public PainelClientes(List<Hospede> listaHospedes, JDesktopPane painelPrincipal) {
+	public PainelClientes(ColecaoDeHospedes listaDeHospedes, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
@@ -65,7 +65,7 @@ public class PainelClientes extends JInternalFrame {
 			}
 		});
 		this.painelPrincipal = painelPrincipal;
-		this.listaHospedes = listaHospedes;
+		this.listaDeHospedes = listaDeHospedes;
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");
@@ -108,7 +108,7 @@ public class PainelClientes extends JInternalFrame {
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					painelNovo = new PainelCadastroClientes();
+					painelNovo = new PainelCadastroClientes(getListaDeHospedes());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
@@ -159,8 +159,12 @@ public class PainelClientes extends JInternalFrame {
 
 	}
 
+	public ColecaoDeHospedes getListaDeHospedes() {
+		return listaDeHospedes;
+	}
+
 	private void setHospedeSelecionado(int indice){
-		hospedeSelecionado = listaHospedes.get(indice);
+		hospedeSelecionado = getListaDeHospedes().getListaHospedes().get(indice);
 	}
 
 	private void atualizaBotoes(){
@@ -174,9 +178,9 @@ public class PainelClientes extends JInternalFrame {
 	}
 
 	private void escreveTabela(){
-		Object[][] designTabela = new Object[listaHospedes.size()][5];
-		for (int i = 0; i < listaHospedes.size(); i++){
-			Hospede hospedeAtual = listaHospedes.get(i);
+		Object[][] designTabela = new Object[listaDeHospedes.getListaHospedeTamanho()][5];
+		for (int i = 0; i < listaDeHospedes.getListaHospedeTamanho(); i++){
+			Hospede hospedeAtual = listaDeHospedes.getIndice(i);
 			if (hospedeAtual.getNome() == null){
 				designTabela[i][0] = "Não especificado";
 			}else{

@@ -49,7 +49,6 @@ public class Main extends JFrame {
 	private PainelCadastroClientes painelCadastro;
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
-	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
 	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -94,7 +93,6 @@ public class Main extends JFrame {
 		Quarto quartoParaAdicionar;
 		int numeroQuarto = 1;
 		try{
-			listaHospedes.add(new Hospede("fulanin", "casa de chico", "11111111", Calendar.getInstance()));
 			for (int i = 0; i < 5; i++){
 				quartoParaAdicionar = new QuartoPresidencial(numeroQuarto);
 				listaQuartosDisponiveis.add(quartoParaAdicionar);
@@ -137,7 +135,6 @@ public class Main extends JFrame {
 	public Main() throws Exception{
 		setTitle("Hotel Riviera Campina - Admnistra\u00E7\u00E3o");
 		criaQuartos();
-		listaHospedes.add(new Hospede("Fulano de Tal","Casa do Fulano", "1111111", Calendar.getInstance())); //Adicionando um hóspede por fora, pra testes
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1000, 700);
 
@@ -207,7 +204,7 @@ public class Main extends JFrame {
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (painelClientes == null || painelClientes.isClosed()){
-					painelClientes = new PainelClientes(listaDeHospedes.getListaHospedes(), painelPrincipal);
+					painelClientes = new PainelClientes(listaDeHospedes, painelPrincipal);
 					painelPrincipal.add(painelClientes);
 					painelClientes.show();
 				}
@@ -238,7 +235,7 @@ public class Main extends JFrame {
 		btnContratos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (painelContratos == null || painelContratos.isClosed()){
-					painelContratos = new PainelContratos(listaContratos, painelPrincipal, listaHospedes, listaQuartosDisponiveis);
+					painelContratos = new PainelContratos(listaContratos, painelPrincipal, listaDeHospedes, listaQuartosDisponiveis);
 					painelPrincipal.add(painelContratos);
 					painelContratos.show();
 				}

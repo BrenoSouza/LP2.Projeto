@@ -18,6 +18,7 @@ import javax.swing.ListSelectionModel;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import colecoes.ColecaoDeHospedes;
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
@@ -35,6 +36,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
@@ -42,7 +44,7 @@ public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableContratos;
 	private List<Contrato> listaContratos;
-	private List<Hospede> listaHospedes;
+	private ColecaoDeHospedes listaDeHospedes;
 	private List<Quarto> listaQuartosDisponiveis;
 	private JTable table;
 	private Contrato contratoSelecionado = null;
@@ -57,7 +59,7 @@ public class PainelContratos extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, List<Hospede> listaHospedes, List<Quarto> listaQuartosDisponiveis){
+	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis){
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
@@ -67,7 +69,7 @@ public class PainelContratos extends JInternalFrame {
 			
 			
 		this.painelPrincipal = painelPrincipal;
-		this.listaHospedes = listaHospedes;
+		this.listaDeHospedes = listaDeHospedes;
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.listaContratos = listaContratos;
 		setResizable(true);
@@ -100,7 +102,7 @@ public class PainelContratos extends JInternalFrame {
 		btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelNovo = new PainelNovoContrato(getListaHospedes(), getListaQuartosDisponiveis(), getListaContratos());
+				painelNovo = new PainelNovoContrato(getListaDeHospedes(), getListaQuartosDisponiveis(), getListaContratos(), getPainelPrincipal());
 				adicionaNoPainel(painelNovo);
 				painelNovo.show();
 			}
@@ -163,14 +165,14 @@ public class PainelContratos extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 
 	}
+	public ColecaoDeHospedes getListaDeHospedes() {
+		return listaDeHospedes;
+	}
 	private List<Contrato> getListaContratos() {
 		return listaContratos;
 	}
 	private List<Quarto> getListaQuartosDisponiveis() {
 		return listaQuartosDisponiveis;
-	}
-	private List<Hospede> getListaHospedes() {
-		return listaHospedes;
 	}
 	private void setContratoSelecionado(int indice){
 		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.

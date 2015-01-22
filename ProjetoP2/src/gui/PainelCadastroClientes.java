@@ -47,13 +47,13 @@ public class PainelCadastroClientes extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelCadastroClientes() throws Exception{
+	public PainelCadastroClientes(ColecaoDeHospedes colecao) throws Exception{
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");
 		setClosable(true);
 		setBounds(0, 0, 650, 280);
-		
+		listaDeHospedes = colecao;
 		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
@@ -88,7 +88,7 @@ public class PainelCadastroClientes extends JInternalFrame {
 					String cpfHospede = campoCPF.getText();
 					String enderecoHospede = campoEndereco.getText();
 					Hospede hospede = new Hospede(nomeHospede, enderecoHospede, cpfHospede, data);
-					Main.getListaDeHospedes().adicionaHospede(hospede);
+					listaDeHospedes.adicionaHospede(hospede);
 					JOptionPane.showMessageDialog(null, "Hóspede criado com sucesso.");
 				}catch (java.text.ParseException e){
 					JOptionPane.showMessageDialog(null, "Data em formato inválido.");
