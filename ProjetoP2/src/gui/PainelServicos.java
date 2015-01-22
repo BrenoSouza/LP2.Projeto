@@ -41,8 +41,8 @@ public class PainelServicos extends JInternalFrame {
 	private JTable tableServicos;
 	private JTable tableContratos;
 	private JTable table;
-	private Contrato contratoSelecionado;
-	private Servico servicoSelecionado;
+	private Contrato contratoSelecionado = null;
+	private Servico servicoSelecionado = null ;
 	private List<Contrato> listaContratos;
 	private List<Hospede> listaHospedes = new ArrayList();
 	private List<Hospede> listaHospedes2 = new ArrayList();
@@ -114,8 +114,8 @@ public class PainelServicos extends JInternalFrame {
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//contratoSelecionado.getListaServicos().remove(comboBox.getSelectedIndex());
-				
+				contratoSelecionado.getListaServicos().remove(servicoSelecionado);
+				escreveTabelaServicos();
 			}
 		});
 		btnRemover.setEnabled(false);
@@ -185,8 +185,8 @@ public class PainelServicos extends JInternalFrame {
 		);
 		
 		tableContratos = new JTable();
-		scrollPaneContratos.setColumnHeaderView(tableContratos);
 		escreveTabelaContratos();
+		scrollPaneContratos.setViewportView(tableContratos);
 		
 		tableContratos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
@@ -232,8 +232,8 @@ public class PainelServicos extends JInternalFrame {
 					}
 				}); 
 		
+	
 		contratoSelecionado = listaContratos.get(indiceContratoSelecionado);	
-			
 		scrollPaneServicos.setViewportView(tableServicos);
 		
 		
@@ -330,6 +330,7 @@ public class PainelServicos extends JInternalFrame {
 	
 	public void setServicoSelecionado(int indice){
 		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
+		if (contratoSelecionado != null)
 		servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); // Lembrando que a tabela está na mesma ordem que a listaContratos, então os índices são os mesmos.
 	}
 	
@@ -339,14 +340,16 @@ public class PainelServicos extends JInternalFrame {
 	}
 	
 	public void atualizaBotoes(){
-		if (contratoSelecionado.getListaServicos().size() == 0){
+		if (contratoSelecionado != null){
+			if (contratoSelecionado.getListaServicos().size() != 0){
+				btnRemover.setEnabled(true);
+				btnAtualizar.setEnabled(true);
+				btnVisualizar.setEnabled(true);
+			}
+		}else{
 			btnRemover.setEnabled(false);
 			btnAtualizar.setEnabled(false);
 			btnVisualizar.setEnabled(false);
-		}else{
-			btnRemover.setEnabled(true);
-			btnAtualizar.setEnabled(true);
-			btnVisualizar.setEnabled(true);
 		}
 	}
 	
