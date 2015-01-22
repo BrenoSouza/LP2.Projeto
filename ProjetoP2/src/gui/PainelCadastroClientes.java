@@ -2,6 +2,7 @@ package gui;
 
 import classes.Hospede;
 import colecoes.ColecaoDeHospedes;
+//import gui.Main;
 
 import java.awt.EventQueue;
 
@@ -87,9 +88,8 @@ public class PainelCadastroClientes extends JInternalFrame {
 					String cpfHospede = campoCPF.getText();
 					String enderecoHospede = campoEndereco.getText();
 					Hospede hospede = new Hospede(nomeHospede, enderecoHospede, cpfHospede, data);
-					listaDeHospedes.adicionaHospede(hospede);
+					Main.getListaDeHospedes().adicionaHospede(hospede);
 					JOptionPane.showMessageDialog(null, "Hóspede criado com sucesso.");
-					
 				}catch (java.text.ParseException e){
 					JOptionPane.showMessageDialog(null, "Data em formato inválido.");
 				}catch (Exception e){

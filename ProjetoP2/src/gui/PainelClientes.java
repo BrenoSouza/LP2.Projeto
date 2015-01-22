@@ -40,6 +40,8 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 public class PainelClientes extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
@@ -55,9 +57,15 @@ public class PainelClientes extends JInternalFrame {
 	private Hospede hospedeSelecionado;
 
 
-	public PainelClientes(ColecaoDeHospedes listaHospedes, JDesktopPane painelPrincipal) {
+	public PainelClientes(List<Hospede> listaHospedes, JDesktopPane painelPrincipal) {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameActivated(InternalFrameEvent arg0) {
+				escreveTabela();
+			}
+		});
 		this.painelPrincipal = painelPrincipal;
-		this.listaHospedes.addAll(listaHospedes.getListaHospedes());
+		this.listaHospedes = listaHospedes;
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");

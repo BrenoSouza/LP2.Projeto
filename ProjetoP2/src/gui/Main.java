@@ -50,11 +50,15 @@ public class Main extends JFrame {
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
-	private ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
+	private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
 	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
 
 	public static SimpleDateFormat getFormatodata() {
 		return FormatoData;
+	}
+	
+	public static ColecaoDeHospedes getListaDeHospedes() {
+		return listaDeHospedes;
 	}
 
 	public static void main(String[] args) {
@@ -203,7 +207,7 @@ public class Main extends JFrame {
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (painelClientes == null || painelClientes.isClosed()){
-					painelClientes = new PainelClientes(listaDeHospedes, painelPrincipal);
+					painelClientes = new PainelClientes(listaDeHospedes.getListaHospedes(), painelPrincipal);
 					painelPrincipal.add(painelClientes);
 					painelClientes.show();
 				}

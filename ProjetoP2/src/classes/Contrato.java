@@ -175,6 +175,12 @@ public class Contrato {
 		return quartosToString;
 	}
 	
+	public void setContratoEmHospede(List<Hospede> hospedes) {
+		for(Hospede hospede: hospedes){
+			hospede.setContratoLigado(this);
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "--- Relatório ---" + " CheckIn: " + this.getDataCheckInToString() + " | CheckOut: "+ this.getDataCheckOutToString() +
