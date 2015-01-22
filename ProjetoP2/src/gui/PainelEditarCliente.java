@@ -6,9 +6,11 @@ import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.text.MaskFormatter;
 import javax.swing.JLabel;
 
 import java.awt.Font;
@@ -21,46 +23,54 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
 import classes.Hospede;
+import classes.Opiniao;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.JFormattedTextField;
+
 public class PainelEditarCliente extends JInternalFrame {
+	private final MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
+	private final MaskFormatter mascaraData = new MaskFormatter("##/##/####");
 	private PainelEditarClienteOpiniao painelEditarOpiniao;
 	private JDesktopPane painelPrincipal;
 	private Hospede hospede;
-	private JLabel lblComment;
-	private JLabel lblScore;
-	private JLabel lblContratoLigado;
-	private JLabel lblHospedePrin;
-	private JLabel lblName;
-	private JLabel lblBirth;
 	private JLabel lblAge;
-	private JLabel lblCpfHospede;
-	private JLabel lblAdress;
+	private JTextField textFieldComment;
+	private int nota;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private JRadioButton radioButton3;
+	private JRadioButton radioButton1;
+	private JRadioButton radioButton2;
+	private JRadioButton radioButton4;
+	private JRadioButton radioButton5;
+	private JTextField textFieldName;
+	private JTextField textFieldAdress;
+	private JButton btnCancelar;
+	private JFormattedTextField formattedTextFieldData;
+	private JFormattedTextField formattedTextFieldCpf;
+	private JButton btnEditarInfo;
 	/**
 	 * Create the frame.
 	 */
-	public PainelEditarCliente(final Hospede hospede, JDesktopPane painelPrincipal) {
+	public PainelEditarCliente(final Hospede hospede, JDesktopPane painelPrincipal) throws Exception{
+		setResizable(true);
 		setClosable(true);
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {
 				//Opinião
-				String Comment = (hospede.getOpiniao() == null) ? "Sem coméntario." : hospede.getOpiniao().getComentario();
-				lblComment.setText(Comment);
-				String Score = (hospede.getOpiniao() == null) ? "Sem nota." : "" + hospede.getOpiniao().getNota();
-				lblScore.setText(Score);
-				//Contrato
-				String contratoLigado = (hospede.getContratoLigado() != null) ? "Está em um contrato." : "Não está em um contrato.";
-				lblContratoLigado.setText(contratoLigado);
-				String hospedePrincipal = (hospede.getContratoLigado() == null) ? "Nenhum." : hospede.getContratoLigado().getHospedePrincipal().getNome();
-				lblHospedePrin.setText(hospedePrincipal);
+				String Comment = (hospede.getOpiniao() == null) ? "Sem comentário." : hospede.getOpiniao().getComentario();
+				textFieldComment.setText(Comment);
 				//Informações
 				String Name = "" + hospede.getNome();
-				lblName.setText(Name);
+				textFieldName.setText(Name);
 				String Birth = Main.converteParaString(hospede.getDataNascimento());
-				lblBirth.setText(Birth);
+				formattedTextFieldData.setText(Birth);
 				LocalDate presente = LocalDate.now();
 				Calendar nascimento = hospede.getDataNascimento();
 				LocalDate diaNascimento = LocalDate.of(nascimento.get(Calendar.YEAR), nascimento.get(Calendar.MONTH) + 1, nascimento.get(Calendar.DAY_OF_MONTH));
@@ -68,9 +78,9 @@ public class PainelEditarCliente extends JInternalFrame {
 				String Age = "" + periodoDeTempo.getYears();
 				lblAge.setText(Age);
 				String Cpf = "" + hospede.getCpf();
-				lblCpfHospede.setText(Cpf);
+				formattedTextFieldCpf.setText(Cpf);
 				String Adress = "" + hospede.getEndereco();
-				lblAdress.setText(Adress);
+				textFieldAdress.setText(Adress);
 			}
 		});
 		setBounds(100, 100, 559, 353);
@@ -80,48 +90,11 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblOpinio = new JLabel("Opinião");
 		lblOpinio.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JLabel lblComentrio = new JLabel("Comentário:");
+		JLabel lblComentrio = new JLabel("Comentário");
 		lblComentrio.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
-		lblComment = new JLabel("");
-		String Comment = (hospede.getOpiniao() == null) ? "Sem coméntario." : hospede.getOpiniao().getComentario();
-		lblComment.setText(Comment);
-		lblComment.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		JLabel lblNota = new JLabel("Nota:");
+		JLabel lblNota = new JLabel("Nota");
 		lblNota.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		lblScore = new JLabel("");
-		String Score = (hospede.getOpiniao() == null) ? "Sem nota." : "" + hospede.getOpiniao().getNota();
-		lblScore.setText(Score);
-		lblScore.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		JButton btnEditarOpiniao = new JButton("Editar");
-		btnEditarOpiniao.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				painelEditarOpiniao = new PainelEditarClienteOpiniao(getHospede());
-				adicionaNoPainel(painelEditarOpiniao);
-				painelEditarOpiniao.show();
-			}
-		});
-		
-		JLabel lblContrato = new JLabel("Contrato");
-		lblContrato.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		lblContratoLigado = new JLabel("");
-		String contratoLigado = (hospede.getContratoLigado() != null) ? "Está em um contrato." : "Não está em um contrato.";
-		lblContratoLigado.setText(contratoLigado);
-		lblContratoLigado.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		JLabel lblHospedePrincipal = new JLabel("Hospede Principal:");
-		lblHospedePrincipal.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		lblHospedePrin = new JLabel("");
-		String hospedePrincipal = (hospede.getContratoLigado() == null) ? "Nenhum." : hospede.getContratoLigado().getHospedePrincipal().getNome();
-		lblHospedePrin.setText(hospedePrincipal);
-		lblHospedePrin.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		
-		JButton btnEditarContrato = new JButton("Editar");
 		
 		JLabel lblInformaesPessoais = new JLabel("Informações Pessoais");
 		lblInformaesPessoais.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -132,15 +105,15 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblDataDeNascimento = new JLabel("Data de Nascimento:");
 		lblDataDeNascimento.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		lblName = new JLabel("");
+		textFieldName = new JTextField();
 		String Name = "" + hospede.getNome();
-		lblName.setText(Name);
-		lblName.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textFieldName.setText(Name);
+		textFieldName.setColumns(10);
 		
-		lblBirth = new JLabel("");
+		mascaraData.setPlaceholderCharacter(' ');
+		formattedTextFieldData = new JFormattedTextField(mascaraData);
 		String Birth = Main.converteParaString(hospede.getDataNascimento());
-		lblBirth.setText(Birth);
-		lblBirth.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		formattedTextFieldData.setText(Birth);
 		
 		JLabel lblIdade = new JLabel("Idade:");
 		lblIdade.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -157,124 +130,188 @@ public class PainelEditarCliente extends JInternalFrame {
 		JLabel lblCpf = new JLabel("Cpf:");
 		lblCpf.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		lblCpfHospede = new JLabel("");
+		mascaraCPF.setPlaceholderCharacter(' ');
+		formattedTextFieldCpf = new JFormattedTextField(mascaraCPF);
 		String Cpf = "" + hospede.getCpf();
-		lblCpfHospede.setText(Cpf);
-		lblCpfHospede.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		formattedTextFieldCpf.setText(Cpf);
 		
 		JLabel lblEndereo = new JLabel("Endereço:");
 		lblEndereo.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		lblAdress = new JLabel("");
+		textFieldAdress = new JTextField();
 		String Adress = "" + hospede.getEndereco();
-		lblAdress.setText(Adress);
-		lblAdress.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textFieldAdress.setText(Adress);
+		textFieldAdress.setColumns(10);
 		
-		JButton btnEditarInfo = new JButton("Editar");
+		btnEditarInfo = new JButton("Salvar mudanças");
+		btnEditarInfo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String comment = textFieldComment.getText();
+				Opiniao opiniao;
+				try {
+					opiniao = new Opiniao(comment, getNota());
+					getHospede().setOpiniao(opiniao);
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
+				String Name = textFieldName.getText();
+				getHospede().setNome(Name);
+				String Adress = textFieldAdress.getText();
+				getHospede().setEndereco(Adress);
+				String Cpf = formattedTextFieldCpf.getText();
+				getHospede().setCpf(Cpf);
+				String Data = formattedTextFieldData.getText();
+				try {
+					getHospede().setDataNascimento(Main.converteParaCalendar(Data));
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
+				
+			}
+		});
+		
+		textFieldComment = new JTextField();
+		String Comment = (hospede.getOpiniao() == null) ? "Sem comentário." : hospede.getOpiniao().getComentario();
+		textFieldComment.setText(Comment);
+		textFieldComment.setColumns(10);
+		
+		radioButton1 = new JRadioButton("1");
+		radioButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nota = 1;
+			}
+		});
+		buttonGroup.add(radioButton1);
+		
+		radioButton2 = new JRadioButton("2");
+		radioButton2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nota = 2;
+			}
+		});
+		buttonGroup.add(radioButton2);
+		
+		radioButton3 = new JRadioButton("3");
+		radioButton3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nota = 3;
+			}
+		});
+		buttonGroup.add(radioButton3);
+		
+		radioButton4 = new JRadioButton("4");
+		radioButton4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nota = 4;
+			}
+		});
+		buttonGroup.add(radioButton4);
+		
+		radioButton5 = new JRadioButton("5");
+		radioButton5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nota = 5;
+			}
+		});
+		buttonGroup.add(radioButton5);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(textFieldComment, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+						.addComponent(lblComentrio, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblOpinio, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNota, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblComentrio, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblComment, GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblOpinio, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnEditarOpiniao))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblContrato)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnEditarContrato))
-						.addComponent(lblContratoLigado)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblName, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblCpf, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblCpfHospede, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-								.addComponent(lblDataDeNascimento, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblBirth)
-							.addGap(31)
-							.addComponent(lblIdade, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblAge))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblNota, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblScore)
-									.addGap(24))
-								.addComponent(lblHospedePrincipal, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblHospedePrin))
+							.addComponent(radioButton1)
+							.addGap(18)
+							.addComponent(radioButton2)
+							.addGap(18)
+							.addComponent(radioButton3)
+							.addGap(18)
+							.addComponent(radioButton4)
+							.addGap(18)
+							.addComponent(radioButton5))
+						.addComponent(lblInformaesPessoais)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblEndereo, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblAdress, GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE))
+							.addComponent(textFieldAdress, GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblInformaesPessoais)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnEditarInfo)))
+							.addComponent(lblCpf, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(formattedTextFieldCpf, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblDataDeNascimento, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(formattedTextFieldData, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblIdade, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblAge, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textFieldName, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnEditarInfo)
+							.addPreferredGap(ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
+							.addComponent(btnCancelar)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblOpinio, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnEditarOpiniao))
+					.addComponent(lblOpinio, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblComentrio)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textFieldComment, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNota)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblComentrio)
-						.addComponent(lblComment))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNota)
-						.addComponent(lblScore))
-					.addGap(19)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblContrato)
-						.addComponent(btnEditarContrato))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblContratoLigado)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHospedePrincipal)
-						.addComponent(lblHospedePrin))
-					.addGap(23)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblInformaesPessoais)
-						.addComponent(btnEditarInfo))
+						.addComponent(radioButton1)
+						.addComponent(radioButton2)
+						.addComponent(radioButton3)
+						.addComponent(radioButton4)
+						.addComponent(radioButton5))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblInformaesPessoais)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNome)
-						.addComponent(lblName))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(textFieldName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblDataDeNascimento)
-						.addComponent(lblBirth)
+						.addComponent(formattedTextFieldData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblIdade)
 						.addComponent(lblAge))
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblCpf)
-						.addComponent(lblCpfHospede))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(formattedTextFieldCpf, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAdress)
-						.addComponent(lblEndereo))
-					.addContainerGap(87, Short.MAX_VALUE))
+						.addComponent(lblEndereo)
+						.addComponent(textFieldAdress, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(14)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnEditarInfo)
+						.addComponent(btnCancelar))
+					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
 
@@ -285,5 +322,9 @@ public class PainelEditarCliente extends JInternalFrame {
 	
 	public Hospede getHospede() {
 		return hospede;
+	}
+	
+	private int getNota() {
+		return nota;
 	}
 }

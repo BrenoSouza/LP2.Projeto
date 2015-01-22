@@ -40,6 +40,7 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
@@ -125,7 +126,11 @@ public class PainelClientes extends JInternalFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelEditar = new PainelEditarCliente(hospedeSelecionado, getPainelPrincipal());
+				try {
+					painelEditar = new PainelEditarCliente(hospedeSelecionado, getPainelPrincipal());
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
 				adicionaNoPainel(painelEditar);
 				painelEditar.show();
 			}

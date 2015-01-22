@@ -45,7 +45,13 @@ public class Hospede implements Comparable<Hospede>{
 	public String getNome() {
 		return nome;
 	}
-	
+	/**
+	 * 
+	 * @param nome
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	/**
 	 * Getter do CPF do hóspede.
 	 * @return
@@ -53,6 +59,10 @@ public class Hospede implements Comparable<Hospede>{
 	 */
 	public String getCpf() {
 		return cpf;
+	}
+	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 	/**
 	 * Getter da variável referente ao contrato ligado ao hóspede
@@ -80,6 +90,9 @@ public class Hospede implements Comparable<Hospede>{
 		return dataNascimento;
 	}
 	
+	public void setDataNascimento(Calendar dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 	/**
 	 * O setter do parâmetro Opiniao do hóspede.
 	 * @param opiniao
