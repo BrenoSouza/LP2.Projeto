@@ -53,6 +53,7 @@ public class PainelClientes extends JInternalFrame {
 	private JDesktopPane painelPrincipal;
 	private PainelCadastroClientes painelNovo;
 	private PainelVisualizacaoClientes painelVisualizacao;
+	private PainelEditarCliente painelEditar;
 	private Hospede hospedeSelecionado;
 	private ColecaoDeHospedes listaDeHospedes;
 
@@ -97,7 +98,7 @@ public class PainelClientes extends JInternalFrame {
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelVisualizacao = new PainelVisualizacaoClientes(hospedeSelecionado);
+				painelVisualizacao = new PainelVisualizacaoClientes(hospedeSelecionado, getPainelPrincipal());
 				adicionaNoPainel(painelVisualizacao);
 				painelVisualizacao.show();
 			}
@@ -118,6 +119,13 @@ public class PainelClientes extends JInternalFrame {
 		});
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				painelEditar = new PainelEditarCliente();
+				adicionaNoPainel(painelEditar);
+				painelEditar.show();
+			}
+		});
 		btnEditar.setEnabled(false);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -166,6 +174,7 @@ public class PainelClientes extends JInternalFrame {
 	private void setHospedeSelecionado(int indice){
 		hospedeSelecionado = getListaDeHospedes().getListaHospedes().get(indice);
 	}
+	
 
 	private void atualizaBotoes(){
 		if (hospedeSelecionado == null){
@@ -201,7 +210,7 @@ public class PainelClientes extends JInternalFrame {
 			if (hospedeAtual.getContratoLigado() == null){
 				designTabela[i][3] = "Sem contrato";
 			}else{
-				designTabela[i][3] = hospedeAtual.getContratoLigado().getHospedePrincipal();
+				designTabela[i][3] = hospedeAtual.getContratoLigado().getStatus();
 			}
 			if (hospedeAtual.getOpiniao() == null){
 				designTabela[i][4] = "Sem opinião";
