@@ -158,7 +158,7 @@ public class PainelNovoContrato extends JInternalFrame {
 		});
 		btnRemoverDoContrato.setEnabled(false);
 		
-		btnCriarNovo = new JButton("Criar novo hóspede");
+		btnCriarNovo = new JButton("Cadastrar novo hóspede");
 		btnCriarNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{

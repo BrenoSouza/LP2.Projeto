@@ -3,7 +3,7 @@ package classes;
 import java.util.Calendar;
 import gui.Main;
 
-public abstract class Servico {
+public abstract class Servico{
 	
 	private Calendar data;
 	/**
