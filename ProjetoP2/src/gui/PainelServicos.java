@@ -126,7 +126,6 @@ public class PainelServicos extends JInternalFrame {
 				painelVisualizacao = new PainelVisualizacaoServico(servicoSelecionado);
 				adicionaNoPainel(painelVisualizacao);
 				painelVisualizacao.show();
-				
 			}
 		});
 		btnVisualizar.setEnabled(false);
@@ -187,6 +186,7 @@ public class PainelServicos extends JInternalFrame {
 		tableContratos = new JTable();
 		escreveTabelaContratos();
 		scrollPaneContratos.setViewportView(tableContratos);
+		scrollPaneContratos.setRowHeaderView(table);
 		
 		tableContratos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
@@ -235,9 +235,8 @@ public class PainelServicos extends JInternalFrame {
 	
 		contratoSelecionado = listaContratos.get(indiceContratoSelecionado);	
 		scrollPaneServicos.setViewportView(tableServicos);
-		
-		
 		scrollPaneServicos.setRowHeaderView(table);
+		
 		getContentPane().setLayout(groupLayout);
 		
 	}
@@ -288,7 +287,6 @@ public class PainelServicos extends JInternalFrame {
 		        return false;
 		    }
 		};
-
 
 		tableContratos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
 }
