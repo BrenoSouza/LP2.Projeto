@@ -89,7 +89,8 @@ public class PainelCadastroClientes extends JInternalFrame {
 					String enderecoHospede = campoEndereco.getText();
 					Hospede hospede = new Hospede(nomeHospede, enderecoHospede, cpfHospede, data);
 					listaDeHospedes.adicionaHospede(hospede);
-					JOptionPane.showMessageDialog(null, "Hóspede criado com sucesso.");
+					JOptionPane.showMessageDialog(null, "Hóspede criado com sucesso!");
+					dispose();
 				}catch (java.text.ParseException e){
 					JOptionPane.showMessageDialog(null, "Data em formato inválido.");
 				}catch (Exception e){
