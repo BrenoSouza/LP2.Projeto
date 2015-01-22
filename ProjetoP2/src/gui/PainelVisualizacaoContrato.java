@@ -52,12 +52,13 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JTable tabelaServicos;
 	private JDesktopPane painelPrincipal;
 	private Servico servicoSelecionado = null;
+	private Quarto quartoSelecionado = null;
 	private JButton btnVisualizar;
-	private JButton btnEditar;
 	private PainelVisualizacaoServico painelVisualizacaoServico;
 	private JTable tabelaHospedes;
 	private JLabel lblTotalASerPagoVariavel;
 	private JTable tabelaQuartos;
+	private JButton btnVisualizarQuarto;
 	
 
 
@@ -223,21 +224,15 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 			}
 		});
 		btnVisualizar.setEnabled(false);
-		
-		btnEditar = new JButton("Editar");
-		btnEditar.setEnabled(false);
 		GroupLayout gl_panelServicos = new GroupLayout(panelServicos);
 		gl_panelServicos.setHorizontalGroup(
 			gl_panelServicos.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelServicos.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelServicos.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
 						.addComponent(lblNewLabelServicosAssociados)
-						.addGroup(gl_panelServicos.createSequentialGroup()
-							.addComponent(btnVisualizar)
-							.addPreferredGap(ComponentPlacement.RELATED, 601, Short.MAX_VALUE)
-							.addComponent(btnEditar)))
+						.addComponent(btnVisualizar, Alignment.TRAILING))
 					.addContainerGap())
 		);
 		gl_panelServicos.setVerticalGroup(
@@ -248,9 +243,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 247, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panelServicos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVisualizar)
-						.addComponent(btnEditar))
+					.addComponent(btnVisualizar)
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
@@ -287,14 +280,18 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 			lblQuartos.setText("Quartos que foram associados ao contrato:");
 		}
 		lblQuartos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		btnVisualizarQuarto = new JButton("Visualizar");
+		btnVisualizarQuarto.setEnabled(false);
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
 		gl_panelQuartos.setHorizontalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelQuartos.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
-						.addComponent(lblQuartos))
+						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+						.addComponent(lblQuartos)
+						.addComponent(btnVisualizarQuarto, Alignment.TRAILING))
 					.addContainerGap())
 		);
 		gl_panelQuartos.setVerticalGroup(
@@ -303,11 +300,31 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 					.addGap(8)
 					.addComponent(lblQuartos)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
-					.addContainerGap())
+					.addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnVisualizarQuarto)
+					.addContainerGap(16, Short.MAX_VALUE))
 		);
 		
 		tabelaQuartos = new JTable();
+		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
+		ListSelectionModel modeloSelecaoLinha2 = tabelaQuartos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+		
+		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+			//Necessita ser esse nome de método para funcionar
+			public void valueChanged(ListSelectionEvent e) {
+				int[] indiceSelecionado = tabelaQuartos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+				if (indiceSelecionado.length <= 0){
+					quartoSelecionado = null;
+				}else{
+					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
+					setQuartoSelecionado(indiceSelecionado[0]);
+				}atualizaBotoes();
+				
+			}
+		});
+//O event acima se refere a como o programa vai lidar quando o usuário clica em uma linha da tabela.
 		scrollPane_2.setViewportView(tabelaQuartos);
 		panelQuartos.setLayout(gl_panelQuartos);
 		getContentPane().setLayout(groupLayout);
@@ -317,14 +334,12 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 	public void setServicoSelecionado(int i){
 		servicoSelecionado = listaServicos.get(i);
 	}
+	public void setQuartoSelecionado(int i){
+		quartoSelecionado = listaQuartos.get(i);
+	}
 	public void atualizaBotoes(){
-		if (servicoSelecionado == null){
-			btnVisualizar.setEnabled(false);
-			btnEditar.setEnabled(false);
-		}else{
-			btnVisualizar.setEnabled(true);
-			btnEditar.setEnabled(true);
-		}
+		btnVisualizar.setEnabled(servicoSelecionado != null);
+		btnVisualizarQuarto.setEnabled(quartoSelecionado != null);
 	}
 	public JDesktopPane getPainelPrincipal(){
 		return painelPrincipal;
