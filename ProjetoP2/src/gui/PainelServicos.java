@@ -329,7 +329,7 @@ public class PainelServicos extends JInternalFrame {
 	public void setServicoSelecionado(int indice){
 		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
 		if (contratoSelecionado != null)
-		servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); // Lembrando que a tabela está na mesma ordem que a listaContratos, então os índices são os mesmos.
+			servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); // Lembrando que a tabela está na mesma ordem que a listaContratos, então os índices são os mesmos.
 	}
 	
 	public void setContratoSelecionado(int indice){
