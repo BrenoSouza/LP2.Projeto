@@ -115,7 +115,6 @@ public class PainelServicos extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				contratoSelecionado.getListaServicos().remove(servicoSelecionado);
-				escreveTabelaServicos();
 			}
 		});
 		btnRemover.setEnabled(false);
@@ -199,9 +198,12 @@ public class PainelServicos extends JInternalFrame {
 						int[] indiceSelecionadoContrato = tableContratos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá um elemento essa array.
 						if (indiceSelecionadoContrato.length <= 0){
 							contratoSelecionado = null;
+							servicoSelecionado = null;
 						}else{
 							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaServicos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setServicoSelecionado, que consegue usar as variáveis sem problemas.
 							setContratoSelecionado(indiceSelecionadoContrato[0]);
+							escreveTabelaServicos();
+							
 						}atualizaBotoes();
 						
 					}
@@ -210,7 +212,8 @@ public class PainelServicos extends JInternalFrame {
 		//CONSTRUCAO DA TABELA
 		
 		tableServicos = new JTable();
-		escreveTabelaServicos();
+		if(servicoSelecionado == null)
+			escreveTabelaServicos();
 		
 		
 		tableServicos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
@@ -222,7 +225,7 @@ public class PainelServicos extends JInternalFrame {
 					//Necessita ser esse nome de método para funcionar
 					public void valueChanged(ListSelectionEvent e) {
 						int[] indiceSelecionado = tableServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá um elemento essa array.
-						if (indiceSelecionado.length <= 0){
+						if (indiceSelecionado.length <= 0 || contratoSelecionado == null){
 							servicoSelecionado = null;
 						}else{
 							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaServicos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setServicoSelecionado, que consegue usar as variáveis sem problemas.
