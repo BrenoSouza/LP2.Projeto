@@ -43,5 +43,8 @@ public class ColecaoDeHospedes {
 		}
 		return removeu;
 	}
+	public Hospede getIndice(int i){
+		return listaHospedes.get(i);
+	}
 	
 }

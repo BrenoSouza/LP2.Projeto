@@ -8,6 +8,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
@@ -37,11 +38,17 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
+import colecoes.ColecaoDeHospedes;
+
 public class PainelNovoContrato extends JInternalFrame {
+	public ColecaoDeHospedes getListaDeHospedes() {
+		return listaDeHospedes;
+	}
 	private JScrollPane scrollPane_1;
 	private JLabel lblHospedesSemContrato;
 	private JLabel lblHospedesNoContrato;
-	private List<Hospede> listaHospedes, listaHospedesDoContrato, listaHospedesSemContrato;
+	private ColecaoDeHospedes listaDeHospedes;
+	private List<Hospede> listaHospedesDoContrato, listaHospedesSemContrato;
 	private List<Quarto> listaQuartosDisponiveis, listaQuartosDoContrato;
 	private Quarto quartoVagoSelecionado, quartoContratoSelecionado;
 	private Hospede hospedeSelecionado;
@@ -74,13 +81,14 @@ public class PainelNovoContrato extends JInternalFrame {
 	private JTable tabelaQuartosFinal;
 	private List<Contrato> listaContratos;
 	private Hospede hospedePrincipal;
+	private JDesktopPane painelPrincipal;
 
 
 
 	/**
 	 * Create the frame.
 	 */
-	public PainelNovoContrato(List<Hospede> listaHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos) {
+	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {
@@ -90,15 +98,16 @@ public class PainelNovoContrato extends JInternalFrame {
 		setClosable(true);
 		setResizable(true);
 		setBounds(0, 0, 970, 400);
-		this.listaHospedes = listaHospedes;
+		this.painelPrincipal = painelPrincipal;
+		this.listaDeHospedes = listaDeHospedes;
 		listaHospedesDoContrato = new ArrayList<Hospede>();
 		listaQuartosDoContrato = new ArrayList<Quarto>();
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.listaContratos = listaContratos;
 		listaHospedesSemContrato = new ArrayList<Hospede>();
-		for (int i = 0; i < listaHospedes.size(); i++){
-			if (listaHospedes.get(i).getContratoLigado() == null){
-				listaHospedesSemContrato.add(listaHospedes.get(i));
+		for (int i = 0; i < listaDeHospedes.getListaHospedeTamanho(); i++){
+			if (listaDeHospedes.getIndice(i).getContratoLigado() == null){
+				listaHospedesSemContrato.add(listaDeHospedes.getIndice(i));
 			}
 		}
 		String[] nomesHospedes = new String[listaHospedesSemContrato.size() + 1]; // Criando a lista com os nomes dos hóspedes para serem escolhidos.
@@ -157,6 +166,15 @@ public class PainelNovoContrato extends JInternalFrame {
 		btnCriarNovo = new JButton("Criar novo hóspede");
 		btnCriarNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try{
+					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(getListaDeHospedes());
+					getPainelPrincipal().add(painelCadastro);
+					painelCadastro.show();
+					
+				}catch (Exception e){
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+				
 			}
 		});
 		
@@ -446,6 +464,9 @@ public class PainelNovoContrato extends JInternalFrame {
 		getContentPane().setLayout(groupLayout);
 		escreveTabelas();
 
+	}
+	public JDesktopPane getPainelPrincipal() {
+		return painelPrincipal;
 	}
 	public List<Contrato> getListaContratos() {
 		return listaContratos;
