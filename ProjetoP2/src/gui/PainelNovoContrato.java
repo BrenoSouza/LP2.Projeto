@@ -105,11 +105,6 @@ public class PainelNovoContrato extends JInternalFrame {
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.listaContratos = listaContratos;
 		listaHospedesSemContrato = new ArrayList<Hospede>();
-		for (int i = 0; i < listaDeHospedes.getListaHospedeTamanho(); i++){
-			if (listaDeHospedes.getIndice(i).getContratoLigado() == null){
-				listaHospedesSemContrato.add(listaDeHospedes.getIndice(i));
-			}
-		}
 		String[] nomesHospedes = new String[listaHospedesSemContrato.size() + 1]; // Criando a lista com os nomes dos hóspedes para serem escolhidos.
 		nomesHospedes[0] = "-- SELECIONE UM HÓSPEDE --"; // Criando uma mensagem para ser a de primeiro índice.
 		for (int i = 0; i < listaHospedesSemContrato.size(); i++){
@@ -490,7 +485,12 @@ public class PainelNovoContrato extends JInternalFrame {
 		btnRemoverDoContratoQuarto.setEnabled(!(quartoContratoSelecionado == null));
 	}
 	private void escreveTabelas(){
-		
+		listaHospedesSemContrato = new ArrayList<Hospede>();
+		for (int i = 0; i < listaDeHospedes.getListaHospedeTamanho(); i++){
+			if (listaDeHospedes.getIndice(i).getContratoLigado() == null){
+				listaHospedesSemContrato.add(listaDeHospedes.getIndice(i));
+			}
+		}listaHospedesSemContrato.removeAll(listaHospedesDoContrato);
 		LocalDate presente = LocalDate.now();
 			// PREENCHENDO TABELA DOS HÓSPEDES SEM CONTRATO
 			Collections.sort(listaHospedesSemContrato);
