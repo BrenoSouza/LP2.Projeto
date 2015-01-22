@@ -1,7 +1,7 @@
 package classes;
 
 public class Opiniao {
-	private String comentario;
+	private String comentario = "";
 	private int nota;
 	/**
 	 * Construtor de Opinião.

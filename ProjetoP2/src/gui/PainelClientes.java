@@ -121,7 +121,7 @@ public class PainelClientes extends JInternalFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelEditar = new PainelEditarCliente();
+				painelEditar = new PainelEditarCliente(hospedeSelecionado);
 				adicionaNoPainel(painelEditar);
 				painelEditar.show();
 			}
