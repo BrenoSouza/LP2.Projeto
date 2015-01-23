@@ -38,6 +38,9 @@ import colecoes.*;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import java.awt.Toolkit;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class Main extends JFrame {
 
@@ -133,6 +136,7 @@ public class Main extends JFrame {
 	}
 	
 	public Main() throws Exception{
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/resources/hotel39.png")));
 		setTitle("Hotel Riviera Campina - Admnistra\u00E7\u00E3o");
 		criaQuartos();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -245,6 +249,7 @@ public class Main extends JFrame {
 		btnContratos.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnContratos);
 		contentPane.setLayout(gl_contentPane);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuBar, mnOpo, mntmOpo, mntmOpo_1, mnOpo_1, mntmOpo_2, mntmOpo_3, contentPane, toolBar, btnClientes, btnServios, btnContratos, painelPrincipal}));
 	}
 
 }
