@@ -64,26 +64,30 @@ public class PainelEditarCliente extends JInternalFrame {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {
 				//Opinião
-				String Comment = (hospede.getOpiniao() == null) ? "Sem comentário." : hospede.getOpiniao().getComentario();
+				String Comment = (hospede.getOpiniao() == null) ? "" : hospede.getOpiniao().getComentario();
 				textFieldComment.setText(Comment);
 				if (hospede.getOpiniao() != null) {
-					//System.out.println(hospede.getOpiniao().getNota());
 					switch(hospede.getOpiniao().getNota()){
 					case 1:
 						radioButton1.setSelected(true);
 						nota = 1;
+						break;
 					case 2:
 						radioButton2.setSelected(true);
 						nota = 2;
+						break;
 					case 3:
 						radioButton3.setSelected(true);
 						nota = 3;
+						break;
 					case 4:
 						radioButton4.setSelected(true);
 						nota = 4;
+						break;
 					case 5:
 						radioButton5.setSelected(true);
 						nota = 5;
+						break;
 					}
 				}
 				//Informações
@@ -167,32 +171,36 @@ public class PainelEditarCliente extends JInternalFrame {
 		btnEditarInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String comment = textFieldComment.getText();
-				Opiniao opiniao;
-				try {
-					opiniao = new Opiniao(comment, getNota());
-					getHospede().setOpiniao(opiniao);
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage());
+				if (!comment.isEmpty() && getNota() > 0) {
+					Opiniao opiniao;
+					try {
+						opiniao = new Opiniao(comment, getNota());
+						getHospede().setOpiniao(opiniao);
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage());
+					}
+					String Name = textFieldName.getText();
+					getHospede().setNome(Name);
+					String Adress = textFieldAdress.getText();
+					getHospede().setEndereco(Adress);
+					String Cpf = formattedTextFieldCpf.getText();
+					getHospede().setCpf(Cpf);
+					String Data = formattedTextFieldData.getText();
+					try {
+						getHospede().setDataNascimento(Main.converteParaCalendar(Data));
+					} catch (Exception e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage());
+					}
+					JOptionPane.showMessageDialog(null, "Mudanças salvas.");
+					dispose();
+				}else{
+					JOptionPane.showMessageDialog(null, "A opinião do hóspede não foi editada corretamente.");
 				}
-				String Name = textFieldName.getText();
-				getHospede().setNome(Name);
-				String Adress = textFieldAdress.getText();
-				getHospede().setEndereco(Adress);
-				String Cpf = formattedTextFieldCpf.getText();
-				getHospede().setCpf(Cpf);
-				String Data = formattedTextFieldData.getText();
-				try {
-					getHospede().setDataNascimento(Main.converteParaCalendar(Data));
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage());
-				}
-				JOptionPane.showMessageDialog(null, "Mudanças salvas.");
-				dispose();
 			}
 		});
 		
 		textFieldComment = new JTextField();
-		String Comment = (hospede.getOpiniao() == null) ? "Sem comentário." : hospede.getOpiniao().getComentario();
+		String Comment = (hospede.getOpiniao() == null) ? "" : hospede.getOpiniao().getComentario();
 		textFieldComment.setText(Comment);
 		textFieldComment.setColumns(10);
 		
