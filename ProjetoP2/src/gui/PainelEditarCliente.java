@@ -66,6 +66,26 @@ public class PainelEditarCliente extends JInternalFrame {
 				//Opinião
 				String Comment = (hospede.getOpiniao() == null) ? "Sem comentário." : hospede.getOpiniao().getComentario();
 				textFieldComment.setText(Comment);
+				if (hospede.getOpiniao() != null) {
+					//System.out.println(hospede.getOpiniao().getNota());
+					switch(hospede.getOpiniao().getNota()){
+					case 1:
+						radioButton1.setSelected(true);
+						nota = 1;
+					case 2:
+						radioButton2.setSelected(true);
+						nota = 2;
+					case 3:
+						radioButton3.setSelected(true);
+						nota = 3;
+					case 4:
+						radioButton4.setSelected(true);
+						nota = 4;
+					case 5:
+						radioButton5.setSelected(true);
+						nota = 5;
+					}
+				}
 				//Informações
 				String Name = "" + hospede.getNome();
 				textFieldName.setText(Name);
@@ -166,7 +186,8 @@ public class PainelEditarCliente extends JInternalFrame {
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
-				
+				JOptionPane.showMessageDialog(null, "Mudanças salvas.");
+				dispose();
 			}
 		});
 		
