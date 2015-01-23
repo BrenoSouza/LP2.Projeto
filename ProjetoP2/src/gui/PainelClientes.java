@@ -61,6 +61,7 @@ public class PainelClientes extends JInternalFrame {
 	private PainelEditarCliente painelEditar;
 	private Hospede hospedeSelecionado;
 	private ColecaoDeHospedes listaDeHospedes;
+	private JButton btnRemover;
 
 
 	public PainelClientes(ColecaoDeHospedes listaDeHospedes, JDesktopPane painelPrincipal) {
@@ -136,20 +137,34 @@ public class PainelClientes extends JInternalFrame {
 			}
 		});
 		btnEditar.setEnabled(false);
+		
+		btnRemover = new JButton("Remover");
+		btnRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja remover esse hóspede?", "Deletar hóspede" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+				if (escolha == JOptionPane.YES_OPTION){
+					getListaDeHospedes().removeHospede(hospedeSelecionado);
+				}
+				escreveTabela();
+			}
+		});
+		btnRemover.setEnabled(false);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
-							.addComponent(scrollPanePrincipal, GroupLayout.PREFERRED_SIZE, 716, GroupLayout.PREFERRED_SIZE))
+							.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(btnVisualizar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-							.addGap(228)
-							.addComponent(btnEditar)
+							.addGap(114)
+							.addComponent(btnRemover)
 							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnEditar)
+							.addGap(150)
 							.addComponent(btnNovo)))
 					.addContainerGap())
 		);
@@ -157,22 +172,16 @@ public class PainelClientes extends JInternalFrame {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(11)
-					.addComponent(scrollPanePrincipal, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE)
+					.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
 					.addGap(43)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnVisualizar)
 						.addComponent(btnNovo)
-						.addComponent(btnEditar))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnEditar)
+						.addComponent(btnRemover))
+					.addContainerGap())
 		);
 		getContentPane().setLayout(groupLayout);
-
-
-		//DateFormat formatoData = new SimpleDateFormat("dd-MM-yyyy");
-		//DateFormatter df = new DateFormatter(formatoData);
-
-		//MaskFormatter mascara = new MaskFormatter("###.###.###-##");
-		//mascara.setPlaceholderCharacter('_');
 
 	}
 
@@ -187,11 +196,13 @@ public class PainelClientes extends JInternalFrame {
 
 	private void atualizaBotoes(){
 		if (hospedeSelecionado == null){
+			btnRemover.setEnabled(false);
 			btnEditar.setEnabled(false);
 			btnVisualizar.setEnabled(false);
 		}else{
 			btnEditar.setEnabled(true);
 			btnVisualizar.setEnabled(true);
+			btnRemover.setEnabled(true);
 		}
 	}
 
@@ -224,7 +235,7 @@ public class PainelClientes extends JInternalFrame {
 			if (hospedeAtual.getOpiniao() == null){
 				designTabela[i][4] = "Sem opinião";
 			}else{
-				designTabela[i][4] = hospedeAtual.getOpiniao().getNota();
+				designTabela[i][4] = hospedeAtual.getOpiniao().getComentario().substring(0, 11) + "..."  + "  |   Nota -> " + hospedeAtual.getOpiniao().getNota();;
 			}
 		}
 		@SuppressWarnings("serial")
@@ -247,4 +258,5 @@ public class PainelClientes extends JInternalFrame {
 	public JDesktopPane getPainelPrincipal(){
 		return painelPrincipal;
 	}
+	
 }
