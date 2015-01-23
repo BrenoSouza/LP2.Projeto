@@ -39,6 +39,7 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import java.awt.Rectangle;
 
 public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
@@ -60,6 +61,7 @@ public class PainelContratos extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis){
+		setNormalBounds(new Rectangle(0, 0, 1000, 1000));
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
@@ -126,7 +128,7 @@ public class PainelContratos extends JInternalFrame {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(scrollPanePrincipal, GroupLayout.PREFERRED_SIZE, 345, GroupLayout.PREFERRED_SIZE)
+					.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
 					.addGap(31)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE, false)
 						.addComponent(btnVisualizar)
