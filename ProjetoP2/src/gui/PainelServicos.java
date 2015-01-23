@@ -46,6 +46,7 @@ public class PainelServicos extends JInternalFrame {
 	private List<Contrato> listaContratos;
 	private List<Hospede> listaHospedes = new ArrayList();
 	private List<Hospede> listaHospedes2 = new ArrayList();
+	private List<Quarto> listaQuartosDisponiveis;
 	private JDesktopPane painelPrincipal;
 	private int indiceContratoSelecionado;
 	private PainelVisualizacaoServico painelVisualizacao;
@@ -61,7 +62,7 @@ public class PainelServicos extends JInternalFrame {
 	 * Create the frame.
 	 */
 	
-	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
+	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, List<Quarto> listaQuartosDisponiveis) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
@@ -71,6 +72,7 @@ public class PainelServicos extends JInternalFrame {
 		});		
 		
 		this.painelPrincipal = painelPrincipal;
+		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		try{
 			Calendar dataNascimento = Calendar.getInstance();
 			dataNascimento.set(Calendar.YEAR, 1990);
@@ -96,7 +98,7 @@ public class PainelServicos extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(contratoSelecionado != null) {
-					painelAdicionar = new PainelAdicionaServico(contratoSelecionado, getPainelPrincipal());
+					painelAdicionar = new PainelAdicionaServico(contratoSelecionado, getPainelPrincipal(), getListaQuartosDisponiveis());
 					adicionaNoPainel(painelAdicionar);
 					painelAdicionar.show();
 				}
@@ -359,6 +361,10 @@ public class PainelServicos extends JInternalFrame {
 	
 	public void adicionaNoPainel(JInternalFrame painel){
 		painelPrincipal.add(painel);
+	}
+	
+	public List<Quarto> getListaQuartosDisponiveis() {
+		return listaQuartosDisponiveis;
 	}
 	
 	public JDesktopPane getPainelPrincipal(){
