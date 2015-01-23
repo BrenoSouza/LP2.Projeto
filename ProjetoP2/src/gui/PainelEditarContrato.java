@@ -60,9 +60,10 @@ public class PainelEditarContrato extends JInternalFrame {
 	private double precoTotal;
 	private JLabel lblPrecoTotal;
 	private JButton btnFinalizar;
+	private List<Quarto> listaQuartosHotel;
 	
 	
-	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal) {
+	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaQuartosHotel) {
 		setClosable(true);
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
@@ -77,6 +78,7 @@ public class PainelEditarContrato extends JInternalFrame {
 		listaQuartos = contrato.getListaQuartosAlugados();
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();
+		this.listaQuartosHotel = listaQuartosHotel;
 		try{
 			listaServicos.add(new AluguelCarro(1, true, true, true));
 		}catch (Exception e){
@@ -148,9 +150,11 @@ public class PainelEditarContrato extends JInternalFrame {
 				if (escolha == JOptionPane.YES_OPTION){
 					for (Quarto quarto: listaQuartos){
 						quarto.setToLivre();
+						PainelEditarContrato.this.listaQuartosHotel.add(quarto);
 						
 					}
 					getContrato().fechaContrato();
+					Collections.sort(PainelEditarContrato.this.listaQuartosHotel);
 					dispose();
 				}
 			}
@@ -285,6 +289,7 @@ public class PainelEditarContrato extends JInternalFrame {
 		escreveTabelas();
 
 	}
+
 	public void escreveTabelas(){
 		// INÍCIO DE CONSTRUÇÃO DA TABELA
 				// designTabela = o conteúdo da tabela em si, preenchida através de um loop for
