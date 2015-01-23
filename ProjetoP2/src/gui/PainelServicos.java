@@ -46,6 +46,7 @@ public class PainelServicos extends JInternalFrame {
 	private List<Contrato> listaContratos;
 	private List<Hospede> listaHospedes = new ArrayList();
 	private List<Hospede> listaHospedes2 = new ArrayList();
+	private List<Quarto> listaQuartosDisponiveis;
 	private JDesktopPane painelPrincipal;
 	private int indiceContratoSelecionado;
 	private PainelVisualizacaoServico painelVisualizacao;
@@ -61,7 +62,7 @@ public class PainelServicos extends JInternalFrame {
 	 * Create the frame.
 	 */
 	
-	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
+	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, List<Quarto> listaQuartosDisponiveis) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
