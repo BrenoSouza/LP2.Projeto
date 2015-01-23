@@ -58,7 +58,6 @@ public class PainelEditarCliente extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public PainelEditarCliente(final Hospede hospede, JDesktopPane painelPrincipal) throws Exception{
-		setResizable(true);
 		setClosable(true);
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
@@ -171,7 +170,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		btnEditarInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String comment = textFieldComment.getText();
-				if (!comment.isEmpty() && getNota() > 0) {
+				if (!comment.isEmpty() && comment.length() > 10 && getNota() > 0) {
 					Opiniao opiniao;
 					try {
 						opiniao = new Opiniao(comment, getNota());

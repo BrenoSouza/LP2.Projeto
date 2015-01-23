@@ -10,7 +10,7 @@ public class Opiniao {
 	 * @throws Exception Caso o comentário tenha mais que 140 caracteres ou seja vazio e caso a nota seja menor que zero ou maior que 5.
 	 */
 	public Opiniao(String comentario, int nota) throws Exception{
-		if (comentario.length() > 140 || comentario.isEmpty() || comentario == null){
+		if (comentario.length() > 140 ||comentario.length() < 10 || comentario.isEmpty() || comentario == null){
 			throw new Exception("O comentário não pode ser vazio e deve possuir no máximo 140 caracteres.");
 		}
 		if (nota < 0 || nota > 5){

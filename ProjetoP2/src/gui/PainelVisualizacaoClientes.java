@@ -45,7 +45,7 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 			}
 		});
 		setClosable(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 333);
 		contrato = hospede.getContratoLigado();
 		this.hospede = hospede;
 		this.painelPrincipal = painelPrincipal;
@@ -95,13 +95,13 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 					.addComponent(lblInformaes)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblToStringHospede)
-					.addPreferredGap(ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
 					.addComponent(lblContrato)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblContratoCliente)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnVisualizarContrato)
-					.addGap(33))
+					.addGap(45))
 		);
 		getContentPane().setLayout(groupLayout);
 
