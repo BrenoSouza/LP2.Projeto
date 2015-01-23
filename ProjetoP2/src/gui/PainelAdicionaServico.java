@@ -6,6 +6,7 @@ import javax.swing.JInternalFrame;
 import classes.AluguelCarro;
 import classes.Babysitter;
 import classes.Contrato;
+import classes.Quarto;
 import classes.Restaurante;
 import classes.Servico;
 
@@ -37,6 +38,7 @@ import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
 
 import java.awt.Color;
+import java.util.List;
 
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
@@ -46,7 +48,8 @@ import javax.swing.JTextField;
 public class PainelAdicionaServico extends JInternalFrame {
 
 	private Contrato contrato;
-	private Servico servicoParaAdicionar;
+	private List<Quarto> listaQuartosDisponiveis;
+	private List<Quarto> listaQuartosDoContrato;
 	private JPanel panelExterno = new JPanel();  
 	private CardLayout layoutPainel = new CardLayout();  
 	private JPanel panelQuartos = new JPanel();
@@ -70,9 +73,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelAdicionaServico(Contrato contrato, JDesktopPane painelPrincipal) {
+	public PainelAdicionaServico(Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaQuartosDisponiveis) {
 		this.contrato = contrato;
-		
+		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");

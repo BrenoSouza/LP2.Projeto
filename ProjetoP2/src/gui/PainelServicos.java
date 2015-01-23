@@ -72,6 +72,7 @@ public class PainelServicos extends JInternalFrame {
 		});		
 		
 		this.painelPrincipal = painelPrincipal;
+		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		try{
 			Calendar dataNascimento = Calendar.getInstance();
 			dataNascimento.set(Calendar.YEAR, 1990);
@@ -97,7 +98,7 @@ public class PainelServicos extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(contratoSelecionado != null) {
-					painelAdicionar = new PainelAdicionaServico(contratoSelecionado, getPainelPrincipal());
+					painelAdicionar = new PainelAdicionaServico(contratoSelecionado, getPainelPrincipal(), getListaQuartosDisponiveis());
 					adicionaNoPainel(painelAdicionar);
 					painelAdicionar.show();
 				}
@@ -360,6 +361,10 @@ public class PainelServicos extends JInternalFrame {
 	
 	public void adicionaNoPainel(JInternalFrame painel){
 		painelPrincipal.add(painel);
+	}
+	
+	public List<Quarto> getListaQuartosDisponiveis() {
+		return listaQuartosDisponiveis;
 	}
 	
 	public JDesktopPane getPainelPrincipal(){
