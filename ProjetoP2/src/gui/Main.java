@@ -145,13 +145,26 @@ public class Main extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		JMenu mnOpo = new JMenu("Op\u00E7\u00E3o 1");
+		JMenu mnOpo = new JMenu("Programa");
 		menuBar.add(mnOpo);
 
-		JMenuItem mntmOpo = new JMenuItem("Op\u00E7\u00E3o 1.1");
+		JMenuItem mntmOpo = new JMenuItem("Fechar janelas");
+		mntmOpo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JInternalFrame[] listaPaineis = painelPrincipal.getAllFrames();
+				for (JInternalFrame frame: listaPaineis){
+					frame.dispose();
+				}
+			}
+		});
 		mnOpo.add(mntmOpo);
 
-		JMenuItem mntmOpo_1 = new JMenuItem("Op\u00E7\u00E3o 1.2");
+		JMenuItem mntmOpo_1 = new JMenuItem("Sair");
+		mntmOpo_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		mnOpo.add(mntmOpo_1);
 
 		JMenu mnOpo_1 = new JMenu("Sobre");
