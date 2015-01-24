@@ -32,7 +32,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JComboBox;
 import javax.swing.JTabbedPane;
 
 public class PainelServicos extends JInternalFrame {
@@ -51,13 +50,11 @@ public class PainelServicos extends JInternalFrame {
 	private List<Hospede> listaHospedes2 = new ArrayList();
 	private List<Quarto> listaQuartosDisponiveis;
 	private JDesktopPane painelPrincipal;
-	private int indiceContratoSelecionado;
 	private PainelVisualizacaoServico painelVisualizacao;
 	private JButton btnAdicionar;
 	private JButton btnAtualizar;
 	private JButton btnRemover;
 	private JButton btnVisualizar;;
-	private String[] nomesHospedes;
 	private PainelAdicionaServico painelAdicionar;
 	private ListSelectionModel modeloSelecaoLinhaContrato;
 	
