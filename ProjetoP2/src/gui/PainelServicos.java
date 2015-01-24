@@ -1,8 +1,8 @@
 package gui;
 
-import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JDesktopPane;
@@ -33,13 +33,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
+import javax.swing.JTabbedPane;
 
 public class PainelServicos extends JInternalFrame {
 	
 	private final JScrollPane scrollPaneServicos = new JScrollPane();
 	private JScrollPane scrollPaneContratos = new JScrollPane();
+	private JScrollPane scrollPaneQuartos = new JScrollPane();
 	private JTable tableServicos;
 	private JTable tableContratos;
+	private JTable tableQuartos;
 	private JTable table;
 	private Contrato contratoSelecionado = null;
 	private Servico servicoSelecionado = null ;
@@ -68,6 +71,7 @@ public class PainelServicos extends JInternalFrame {
 			public void internalFrameActivated(InternalFrameEvent arg0) {
 				escreveTabelaServicos();
 				escreveTabelaContratos();
+				escreveTabelaQuartos();
 			}			
 		});		
 		
@@ -139,54 +143,76 @@ public class PainelServicos extends JInternalFrame {
 		
 		JLabel lblServiosContratados = new JLabel("Serviços Contratados");
 		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		
 		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(49)
-							.addComponent(btnAdicionar)
-							.addGap(80)
-							.addComponent(btnVisualizar)
-							.addGap(79)
-							.addComponent(btnAtualizar)
-							.addGap(77)
-							.addComponent(btnRemover))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPaneContratos, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(293)
-							.addComponent(lblSelecionarContrato))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(285)
-							.addComponent(lblServiosContratados))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPaneServicos, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)))
+					.addGap(61)
+					.addComponent(btnAdicionar)
+					.addGap(70)
+					.addComponent(btnVisualizar)
+					.addGap(80)
+					.addComponent(btnAtualizar)
+					.addGap(86)
+					.addComponent(btnRemover)
+					.addGap(0))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(scrollPaneContratos, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
+					.addContainerGap())
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(276)
+					.addComponent(lblServiosContratados)
+					.addContainerGap(314, Short.MAX_VALUE))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(279)
+					.addComponent(lblSelecionarContrato)
+					.addContainerGap(312, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
+					.addGap(16)
 					.addComponent(lblSelecionarContrato)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(scrollPaneContratos, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPaneContratos, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(lblServiosContratados, GroupLayout.DEFAULT_SIZE, 15, Short.MAX_VALUE)
-					.addGap(11)
-					.addComponent(scrollPaneServicos, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblServiosContratados, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAdicionar)
-						.addComponent(btnVisualizar)
+						.addComponent(btnRemover)
 						.addComponent(btnAtualizar)
-						.addComponent(btnRemover))
+						.addComponent(btnVisualizar))
 					.addContainerGap())
 		);
+		
+		//CONSTRUCAO DA TABELA
+		
+		tableServicos = new JTable();
+		
+		
+		tableServicos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
+		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
+				ListSelectionModel modeloSelecaoLinha = tableServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				
+				tabbedPane.addTab("Quartos", null, scrollPaneQuartos, null);
+				
+				tableQuartos = new JTable();
+				scrollPaneServicos.setColumnHeaderView(tableQuartos);
+				tabbedPane.addTab("Adicionais", null, scrollPaneServicos, null);
+				
+				scrollPaneServicos.setViewportView(tableServicos);
+				scrollPaneServicos.setRowHeaderView(table);
 		
 		tableContratos = new JTable();
 		escreveTabelaContratos();
@@ -206,26 +232,19 @@ public class PainelServicos extends JInternalFrame {
 							contratoSelecionado = null;
 							servicoSelecionado = null;
 							escreveTabelaServicos();
+							escreveTabelaQuartos();
 						}else{
 							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaServicos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setServicoSelecionado, que consegue usar as variáveis sem problemas.
 							setContratoSelecionado(indiceSelecionadoContrato[0]);
 							escreveTabelaServicos();
+							escreveTabelaQuartos();
 							
 						}atualizaBotoes();
 						
 					}
 				});
-		
-		//CONSTRUCAO DA TABELA
-		
-		tableServicos = new JTable();
 		if(servicoSelecionado == null)
 			escreveTabelaServicos();
-		
-		
-		tableServicos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
-		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinha = tableServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
 				
 				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
@@ -242,15 +261,81 @@ public class PainelServicos extends JInternalFrame {
 					}
 				}); 
 		
-	
-		contratoSelecionado = listaContratos.get(indiceContratoSelecionado);	
-		scrollPaneServicos.setViewportView(tableServicos);
-		scrollPaneServicos.setRowHeaderView(table);
-		
 		getContentPane().setLayout(groupLayout);
+	
 		
+		tableQuartos = new JTable();
+		escreveTabelaQuartos();
+		scrollPaneQuartos.setViewportView(tableQuartos);
+		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
+				ListSelectionModel modeloSelecaoLinhaQuartos = tableQuartos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				
+				modeloSelecaoLinhaQuartos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				modeloSelecaoLinhaQuartos.addListSelectionListener(new ListSelectionListener() {
+					//Necessita ser esse nome de método para funcionar
+					public void valueChanged(ListSelectionEvent e) {
+						int[] indiceSelecionado = tableQuartos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+						if (indiceSelecionado.length <= 0){
+							servicoSelecionado = null;
+						}else{
+							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
+							setServicoSelecionado(indiceSelecionado[0]);
+							// O QUE É???
+							tableQuartos.clearSelection();
+						}atualizaBotoes();
+						
+					}
+				});
+	
+
 	}
 
+	private void escreveTabelaQuartos() {
+		
+		// PREENCHENDO TABELA DOS QUARTOS DO CONTRATO
+		Object [][] designTabela;
+		if(contratoSelecionado == null || contratoSelecionado.getListaQuartosAlugados().size() == 0) {
+			designTabela = new Object[0][3];
+		}
+		else {
+			Collections.sort(contratoSelecionado.getListaQuartosAlugados());
+			int tamanhoDaTabela = contratoSelecionado.getListaQuartosAlugados().size();
+
+			designTabela = new Object[tamanhoDaTabela][6];	
+			for (int j = 0; j < tamanhoDaTabela; j++){
+				Quarto quartoAtualContrato = contratoSelecionado.getListaQuartosAlugados().get(j);
+				//Para preencher a primeira coluna da linha: Descrição do quarto
+				designTabela[j][0] = quartoAtualContrato.getTipo();
+				//Para preencher a segunda coluna da linha: O preço da diária
+				designTabela[j][1] = "R$ " + quartoAtualContrato.getPrecoDiaria();
+				//Para preencher a terceira coluna da linha: O número de diárias setadas
+				designTabela[j][2] = quartoAtualContrato.getDiarias();
+				//Para preencher a quarta coluna da linha: O número de pessoas que o quarto acomoda
+				designTabela[j][3] = quartoAtualContrato.getNumeroHospedes();
+				//Para preencher a quinta coluna da linha: O número do quarto
+				designTabela[j][4] = quartoAtualContrato.getNumero();
+				//Para preencher a sexta coluna da linha: O preço a ser pago
+				designTabela[j][5] = "R$ " + quartoAtualContrato.calculaPrecoTotal();
+			
+			}
+		}
+			//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
+			@SuppressWarnings("serial")
+			DefaultTableModel modeloTabelaQuartos = new DefaultTableModel(designTabela, new String[] {
+					"Descrição", "Preço da diária", "Num. de diárias", "Num. máximo de hóspedes (sem cama extra)", "Número", "Preço"
+			}) {
+	
+				@Override
+			    public boolean isCellEditable(int row, int column) {
+			        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
+			        return false;
+			    }
+			};
+			
+			tableQuartos.setModel(modeloTabelaQuartos);
+		
+		
+	}
 	
 	private void escreveTabelaContratos() {
 		Object[][] designTabela = new Object[listaContratos.size()][5];
@@ -307,18 +392,21 @@ public class PainelServicos extends JInternalFrame {
 			designTabela = new Object[0][3];
 		}
 		else {
-			designTabela = new Object[contratoSelecionado.getListaServicos().size()][3];
+			int tamanhoTabela = contratoSelecionado.getListaServicos().size();
+			designTabela = new Object[tamanhoTabela][3];
 			
-		for (int i = 0; i < contratoSelecionado.getListaServicos().size(); i++) {
-			Servico servicoAtual = contratoSelecionado.getListaServicos().get(i);
-			if (servicoAtual.getTipo() == null){
+			for (int i = 0; i < contratoSelecionado.getListaServicos().size(); i++) {
+				Servico servicoAtual = contratoSelecionado.getListaServicos().get(i);
+				if (servicoAtual.getTipo() == null){
 				designTabela[i][0] = "Não especificado";
-			}else{
-				designTabela[i][0] = servicoAtual.getTipo();
+				}else{
+					designTabela[i][0] = servicoAtual.toString();
+				}
+				designTabela[i][1] = "Teste";
+				designTabela[i][2] = 0;
 			}
-			designTabela[i][1] = "Teste";
-			designTabela[i][2] = 0;
-			}
+					
+		
 		}
 		
 		//GAMBIARRA
