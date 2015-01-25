@@ -83,11 +83,6 @@ public class PainelNovoContrato extends JInternalFrame {
 	private Hospede hospedePrincipal;
 	private JDesktopPane painelPrincipal;
 
-
-
-	/**
-	 * Create the frame.
-	 */
 	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
