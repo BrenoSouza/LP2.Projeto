@@ -460,6 +460,9 @@ public class PainelNovoContrato extends JInternalFrame {
 		escreveTabelas();
 
 	}
+	public List<Quarto> getListaQuartosDisponiveis() {
+		return listaQuartosDisponiveis;
+	}
 	public JDesktopPane getPainelPrincipal() {
 		return painelPrincipal;
 	}
