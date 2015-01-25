@@ -172,5 +172,12 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 		setDiarias(diarias);
 		setLivre(false);
 	}
-	
+	@Override
+	public boolean equals (Object obj){
+		if (!(obj instanceof Quarto)){
+			return false;
+		}
+		Quarto outroQuarto = (Quarto) obj;
+		return (this.getNumero() == outroQuarto.getNumero() && this.getTipo() == outroQuarto.getTipo());
+	}
 }
