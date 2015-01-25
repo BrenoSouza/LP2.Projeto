@@ -94,7 +94,7 @@ public class PainelContratos extends JInternalFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelEditar = new PainelEditarContrato(contratoSelecionado, getPainelPrincipal(), PainelContratos.this.listaQuartosDisponiveis);
+				painelEditar = new PainelEditarContrato(contratoSelecionado, getPainelPrincipal(), PainelContratos.this.listaQuartosDisponiveis, PainelContratos.this.listaDeHospedes);
 				adicionaNoPainel(painelEditar);
 				painelEditar.show();
 			}
