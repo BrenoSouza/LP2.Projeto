@@ -53,12 +53,14 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JDesktopPane painelPrincipal;
 	private Servico servicoSelecionado = null;
 	private Quarto quartoSelecionado = null;
+	private Hospede hospedeSelecionado = null;
 	private JButton btnVisualizar;
 	private PainelVisualizacaoServico painelVisualizacaoServico;
 	private JTable tabelaHospedes;
 	private JLabel lblTotalASerPagoVariavel;
 	private JTable tabelaQuartos;
 	private JButton btnVisualizarQuarto;
+	private JButton btnVisualizarHospede;
 	
 
 
@@ -141,34 +143,64 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		tabelaHospedes = new JTable();
-		try{
-		contrato.getListaServicos().add(new AluguelCarro(5, true, false, true));} catch (Exception e){ JOptionPane.showMessageDialog(null, e.getMessage());}
-
-				scrollPane.setViewportView(tabelaHospedes);
+		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
+				ListSelectionModel modeloSelecaoLinha4 = tabelaHospedes.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				
+				modeloSelecaoLinha4.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				modeloSelecaoLinha4.addListSelectionListener(new ListSelectionListener() {
+					//Necessita ser esse nome de método para funcionar
+					public void valueChanged(ListSelectionEvent e) {
+						int[] indiceSelecionado = tabelaHospedes.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+						if (indiceSelecionado.length <= 0){
+							hospedeSelecionado = null;
+						}else{
+							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
+							setHospedeSelecionado(indiceSelecionado[0]);
+						}atualizaBotoes();
+						
+					}
+				});
+		//O event acima se refere a como o programa vai lidar quando o usuário clica em uma linha da tabela.
+		scrollPane.setViewportView(tabelaHospedes);
+		
+		btnVisualizarHospede = new JButton("Visualizar");
+		btnVisualizarHospede.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PainelVisualizacaoClientes painelVisualizaHospede = new PainelVisualizacaoClientes(hospedeSelecionado, PainelVisualizacaoContrato.this.painelPrincipal);
+				PainelVisualizacaoContrato.this.painelPrincipal.add(painelVisualizaHospede);
+				painelVisualizaHospede.show();
+			}
+		});
+		btnVisualizarHospede.setEnabled(false);
 		GroupLayout gl_panelDetalhes = new GroupLayout(panelDetalhes);
 		gl_panelDetalhes.setHorizontalGroup(
 			gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelDetalhes.createSequentialGroup()
-					.addGap(10)
 					.addGroup(gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
 						.addGroup(gl_panelDetalhes.createSequentialGroup()
-							.addComponent(lblHospedePrincipal)
 							.addGap(10)
-							.addComponent(lblHospedePrincipalVariavel))
-						.addGroup(gl_panelDetalhes.createSequentialGroup()
-							.addComponent(lblDataCheckIn)
-							.addGap(6)
-							.addComponent(lblDataCheckInVariavel))
-						.addGroup(gl_panelDetalhes.createSequentialGroup()
-							.addComponent(lblDataMarcadaCheckOut)
-							.addGap(10)
-							.addComponent(lblDataMarcadaCheckOutVariavel))
-						.addGroup(gl_panelDetalhes.createSequentialGroup()
-							.addComponent(lblTotalASerPago)
-							.addGap(10)
-							.addComponent(lblTotalASerPagoVariavel))
-						.addComponent(lblHospedesRegistrados))
+							.addGroup(gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)
+								.addGroup(gl_panelDetalhes.createSequentialGroup()
+									.addComponent(lblHospedePrincipal)
+									.addGap(10)
+									.addComponent(lblHospedePrincipalVariavel))
+								.addGroup(gl_panelDetalhes.createSequentialGroup()
+									.addComponent(lblDataCheckIn)
+									.addGap(6)
+									.addComponent(lblDataCheckInVariavel))
+								.addGroup(gl_panelDetalhes.createSequentialGroup()
+									.addComponent(lblDataMarcadaCheckOut)
+									.addGap(10)
+									.addComponent(lblDataMarcadaCheckOutVariavel))
+								.addGroup(gl_panelDetalhes.createSequentialGroup()
+									.addComponent(lblTotalASerPago)
+									.addGap(10)
+									.addComponent(lblTotalASerPagoVariavel))
+								.addComponent(lblHospedesRegistrados)))
+						.addGroup(Alignment.TRAILING, gl_panelDetalhes.createSequentialGroup()
+							.addContainerGap(723, Short.MAX_VALUE)
+							.addComponent(btnVisualizarHospede)))
 					.addContainerGap())
 		);
 		gl_panelDetalhes.setVerticalGroup(
@@ -201,8 +233,10 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 					.addGap(18)
 					.addComponent(lblHospedesRegistrados)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
-					.addGap(15))
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+					.addGap(7)
+					.addComponent(btnVisualizarHospede)
+					.addContainerGap())
 		);
 		
 		
@@ -339,15 +373,19 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		escreveTabelas();
 
 	}
-	public void setServicoSelecionado(int i){
+	private void setServicoSelecionado(int i){
 		servicoSelecionado = listaServicos.get(i);
 	}
-	public void setQuartoSelecionado(int i){
+	private void setQuartoSelecionado(int i){
 		quartoSelecionado = listaQuartos.get(i);
+	}
+	private void setHospedeSelecionado(int i){
+		hospedeSelecionado = listaHospedes.get(i);
 	}
 	public void atualizaBotoes(){
 		btnVisualizar.setEnabled(servicoSelecionado != null);
 		btnVisualizarQuarto.setEnabled(quartoSelecionado != null);
+		btnVisualizarHospede.setEnabled(hospedeSelecionado != null);
 	}
 	public JDesktopPane getPainelPrincipal(){
 		return painelPrincipal;
