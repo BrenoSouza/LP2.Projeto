@@ -36,10 +36,6 @@ import javax.swing.event.InternalFrameEvent;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class PainelEditarContrato extends JInternalFrame {
 	private JLabel lblQuartos;
@@ -91,56 +87,11 @@ public class PainelEditarContrato extends JInternalFrame {
 		lblHospedes = new JLabel("Hóspedes:");
 		lblHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane = new JScrollPane();
-		scrollPane.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {/*Evento mouse clicked, acontece quando o elemento é clicado com o mouse, obviamente
-				* Eu prefiro colocar esse evento no scrollPane, mas eu suponho que colocar no próprio JTable não mude muita coisa
-				* Antes disso, os botões só ativavam se você selecionasse uma opção da tabela, mas e se a tabela estivesse vazia?
-				* Agora, se você clicar em qualquer canto dentro da tabela, o botão Adicionar, que não precisa de seleção, será ativo
-				* Também, desativa as seleções das outras tabelas, com o clearSelection().
-				* Sem isso, por exemplo, se alguém selecionasse um quarto, mas depois clicasse na tabela serviços, o botão se tornaria "Adiciona serviço",
-				* mas os outros botões ainda seriam "Editar quarto" e "Remover quarto", o que não faz sentido. Melhor deselecionar o que estava selecionado.*/
-				tabelaQuartos.clearSelection();
-				tabelaServicos.clearSelection();
-				btnAdicionarDinamico.setEnabled(true);
-				btnAdicionarDinamico.setText("Adicionar hóspede");
-			}
-		});
 		lblQuartos = new JLabel("Quartos:");
 		lblQuartos.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane_1 = new JScrollPane();
-		scrollPane_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) { /*Evento mouse clicked, acontece quando o elemento é clicado com o mouse, obviamente
-				* Eu prefiro colocar esse evento no scrollPane, mas eu suponho que colocar no próprio JTable não mude muita coisa
-				* Antes disso, os botões só ativavam se você selecionasse uma opção da tabela, mas e se a tabela estivesse vazia?
-				* Agora, se você clicar em qualquer canto dentro da tabela, o botão Adicionar, que não precisa de seleção, será ativo
-				* Também, desativa as seleções das outras tabelas, com o clearSelection().
-				* Sem isso, por exemplo, se alguém selecionasse um quarto, mas depois clicasse na tabela serviços, o botão se tornaria "Adiciona serviço",
-				* mas os outros botões ainda seriam "Editar quarto" e "Remover quarto", o que não faz sentido. Melhor deselecionar o que estava selecionado.*/
-				tabelaHospedes.clearSelection();
-				tabelaServicos.clearSelection();
-				btnAdicionarDinamico.setEnabled(true);
-				btnAdicionarDinamico.setText("Adicionar quarto");
-			}
-		});
 		
 		scrollPane_2 = new JScrollPane();
-		scrollPane_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {/*Evento mouse clicked, acontece quando o elemento é clicado com o mouse, obviamente
-				* Eu prefiro colocar esse evento no scrollPane, mas eu suponho que colocar no próprio JTable não mude muita coisa
-				* Antes disso, os botões só ativavam se você selecionasse uma opção da tabela, mas e se a tabela estivesse vazia?
-				* Agora, se você clicar em qualquer canto dentro da tabela, o botão Adicionar, que não precisa de seleção, será ativo
-				* Também, desativa as seleções das outras tabelas, com o clearSelection().
-				* Sem isso, por exemplo, se alguém selecionasse um quarto, mas depois clicasse na tabela serviços, o botão se tornaria "Adiciona serviço",
-				* mas os outros botões ainda seriam "Editar quarto" e "Remover quarto", o que não faz sentido. Melhor deselecionar o que estava selecionado.*/
-				tabelaHospedes.clearSelection();
-				tabelaQuartos.clearSelection();
-				btnAdicionarDinamico.setEnabled(true);
-				btnAdicionarDinamico.setText("Adicionar serviço");
-			}
-		});
 		
 		lblServicos = new JLabel("Serviços:");
 		lblServicos.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -149,7 +100,7 @@ public class PainelEditarContrato extends JInternalFrame {
 		btnRemoverDinamico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (objetoDinamico instanceof Hospede){
-					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?" + (objetoDinamico == hospedePrincipal ? "\nEsse hóspede está configurado como o hóspede principal do contrato selecionado." : ""), /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION){
 						listaHospedes.remove(objetoDinamico);
 						if (objetoDinamico == hospedePrincipal){
@@ -161,7 +112,6 @@ public class PainelEditarContrato extends JInternalFrame {
 					if (escolha == JOptionPane.YES_OPTION){
 						listaQuartos.remove(objetoDinamico);
 						((Quarto) objetoDinamico).setToLivre();
-						PainelEditarContrato.this.listaQuartosHotel.add((Quarto) objetoDinamico);
 					}
 				}else if (objetoDinamico instanceof Servico){
 					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse serviço do contrato?", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
