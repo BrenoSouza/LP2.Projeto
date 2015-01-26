@@ -39,6 +39,7 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
 import colecoes.ColecaoDeHospedes;
+import javax.swing.ImageIcon;
 
 public class PainelNovoContrato extends JInternalFrame {
 	public ColecaoDeHospedes getListaDeHospedes() {
@@ -84,6 +85,8 @@ public class PainelNovoContrato extends JInternalFrame {
 	private JDesktopPane painelPrincipal;
 
 	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
+		setFrameIcon(new ImageIcon(PainelNovoContrato.class.getResource("/resources/contrato_icon.png")));
+		setTitle("Novo contrato");
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {

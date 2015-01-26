@@ -33,6 +33,7 @@ import classes.Hospede;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
 
 public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 	private JScrollPane scrollPane_1;
@@ -52,6 +53,8 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 
 
 	public PainelEditarContratoAdicionarHospede(ColecaoDeHospedes listaDeHospedes, Contrato contrato, JDesktopPane painelPrincipal) {
+		setFrameIcon(new ImageIcon(PainelEditarContratoAdicionarHospede.class.getResource("/resources/contrato_icon.png")));
+		setTitle("Adicionar hóspede no contrato");
 		setResizable(true);
 		setClosable(true);
 		addInternalFrameListener(new InternalFrameAdapter() {

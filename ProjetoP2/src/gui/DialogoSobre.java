@@ -20,6 +20,7 @@ public class DialogoSobre extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	public DialogoSobre() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DialogoSobre.class.getResource("/resources/hotel39.png")));
 		setTitle("Sobre");
 		setResizable(false);
 		setBounds(100, 100, 570, 300);

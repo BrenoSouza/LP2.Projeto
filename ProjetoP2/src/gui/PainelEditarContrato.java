@@ -42,6 +42,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class PainelEditarContrato extends JInternalFrame {
 	private JLabel lblQuartos;
@@ -74,6 +75,8 @@ public class PainelEditarContrato extends JInternalFrame {
 	private ColecaoDeHospedes listaHospedesHotel;
 	
 	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaQuartosHotel, ColecaoDeHospedes listaHospedesHotel) {
+		setFrameIcon(new ImageIcon(PainelEditarContrato.class.getResource("/resources/contrato_icon.png")));
+		setTitle("Editar contrato");
 		setClosable(true);
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
