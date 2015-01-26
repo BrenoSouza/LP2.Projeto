@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.ImageIcon;
 
 public class PainelVisualizacaoClientes extends JInternalFrame {
 	private PainelVisualizacaoContrato painelContrato;
@@ -38,6 +39,8 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public PainelVisualizacaoClientes(Hospede hospede, JDesktopPane painelPrincipal) {
+		setFrameIcon(new ImageIcon(PainelVisualizacaoClientes.class.getResource("/resources/clientes_icon.png")));
+		setTitle("Cliente - Informações");
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {

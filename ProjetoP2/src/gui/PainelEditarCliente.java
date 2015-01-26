@@ -32,6 +32,7 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JFormattedTextField;
+import javax.swing.ImageIcon;
 
 public class PainelEditarCliente extends JInternalFrame {
 	private final MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
@@ -58,6 +59,8 @@ public class PainelEditarCliente extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public PainelEditarCliente(final Hospede hospede, JDesktopPane painelPrincipal) throws Exception{
+		setFrameIcon(new ImageIcon(PainelEditarCliente.class.getResource("/resources/clientes_icon.png")));
+		setTitle("Clientes - Editar");
 		setClosable(true);
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
