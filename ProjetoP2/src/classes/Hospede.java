@@ -11,7 +11,7 @@ public class Hospede implements Comparable<Hospede>{
 	private Opiniao opiniao;
 	private String endereco;
 	private Contrato contratoLigado = null;
-	
+
 
 	/**
 	 * Contrutor da classe Hospede.
@@ -36,7 +36,7 @@ public class Hospede implements Comparable<Hospede>{
 		this.opiniao = null;
 		this.endereco = endereco;
 	}
-	
+
 	/**
 	 * Getter do nome do hóspede.
 	 * @return
@@ -60,7 +60,7 @@ public class Hospede implements Comparable<Hospede>{
 	public String getCpf() {
 		return cpf;
 	}
-	
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
@@ -80,7 +80,7 @@ public class Hospede implements Comparable<Hospede>{
 	public void setContratoLigado(Contrato contratoLigado) {
 		this.contratoLigado = contratoLigado;
 	}
-	
+
 	/**
 	 * Getter da data de nascimento do hóspede.
 	 * @return
@@ -89,7 +89,7 @@ public class Hospede implements Comparable<Hospede>{
 	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
-	
+
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
@@ -101,7 +101,7 @@ public class Hospede implements Comparable<Hospede>{
 	public void setOpiniao(Opiniao opiniao){
 		this.opiniao = opiniao;
 	}
-	
+
 	/**
 	 * O getter do parâmetro opinião do hóspede.
 	 * @return
@@ -110,17 +110,17 @@ public class Hospede implements Comparable<Hospede>{
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}
-	
+
 	/**
 	 * O setter do endereço do hóspede.
 	 * @param endereco
 	 * Uma String contendo o endereço do hóspede.
 	 */
-	
+
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	
+
 	/**
 	 * Getter o endereço do hóspede.
 	 * @return
@@ -129,7 +129,7 @@ public class Hospede implements Comparable<Hospede>{
 	public String getEndereco() {
 		return endereco;
 	}
-	
+
 	@Override
 	public String toString(){
 		return "Nome: " + getNome() + ".\n"
@@ -141,7 +141,7 @@ public class Hospede implements Comparable<Hospede>{
 	}
 
 	public int compareTo(Hospede h) {
-		return this.getNome().compareTo(h.getNome());
+		return (this.getNome().compareTo(h.getNome()));
 	}
 
 }

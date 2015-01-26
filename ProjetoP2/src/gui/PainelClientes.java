@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -207,6 +208,7 @@ public class PainelClientes extends JInternalFrame {
 	}
 
 	private void escreveTabela(){
+		Collections.sort(listaDeHospedes.getListaHospedes());
 		Object[][] designTabela = new Object[listaDeHospedes.getListaHospedeTamanho()][5];
 		for (int i = 0; i < listaDeHospedes.getListaHospedeTamanho(); i++){
 			Hospede hospedeAtual = listaDeHospedes.getIndice(i);
