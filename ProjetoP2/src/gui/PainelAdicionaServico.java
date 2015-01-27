@@ -6,6 +6,7 @@ import javax.swing.JInternalFrame;
 import classes.AluguelCarro;
 import classes.Babysitter;
 import classes.Contrato;
+import classes.Hospede;
 import classes.Quarto;
 import classes.Restaurante;
 import classes.Servico;
@@ -48,8 +49,11 @@ import javax.swing.JTextField;
 public class PainelAdicionaServico extends JInternalFrame {
 
 	private Contrato contrato;
+	private JDesktopPane painelPrincipal;
 	private List<Quarto> listaQuartosDisponiveis;
 	private List<Quarto> listaQuartosDoContrato;
+	private List<Hospede> listaHospedes;
+	private Servico servicoParaAdicionar;
 	private JPanel panelExterno = new JPanel();  
 	private CardLayout layoutPainel = new CardLayout();  
 	private JPanel panelQuartos = new JPanel();
@@ -75,6 +79,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 	 */
 	public PainelAdicionaServico(Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaQuartosDisponiveis) {
 		this.contrato = contrato;
+		this.painelPrincipal = painelPrincipal;
+		this.listaHospedes = listaHospedes;
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
@@ -120,16 +126,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (Component comp : panelExterno.getComponents()) {
-				    if (comp.isVisible() == true) {
-				    	if(comp == panelQuartos) {
-				    		int tipoQuarto = cBoxTipoQuarto.getSelectedIndex();
-				    		int diarias = (Integer) spinnerDiarias.getValue();
-				    		boolean chckbxCamasExtras;
-				    		JOptionPane.showMessageDialog(null, "Adicionado!");
-				    		disposeOnClosed();
-				    		break;
-				    	}
-				    	else if(comp == panelCarros) {
+					if (comp.isVisible() == true) {
+						if(comp == panelCarros) {
 				    		int diarias = (Integer) spinnerDiariasCarro.getValue();
 				    		boolean tipoCarro = cBoxTipoCarro.getSelectedIndex() == 0 ? true : false;
 				    		try {
@@ -142,6 +140,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 							}
 				    		break;
 				    	}
+				    	else if(comp == panelQuartos) {
+				    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(listaHospedes, getListaQuartosDisponiveis(), getContrato(), getPainelPrincipal());				    			
+				    		adicionaNoPainel(painelAddQuarto);
+				    		painelAddQuarto.show();
+				    		disposeOnClosed();
+				    		break;
+				    	}
 				    	else if(comp == panelBabysitter) {
 				    		adicionaServico(new Babysitter());
 				    		JOptionPane.showMessageDialog(null, "Adicionado!");
@@ -149,7 +154,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		break;
 				    	}
 				    	else {
-				    		int preco = Integer.parseInt(txtfi_preco.getText());
+				    		double preco = Double.parseDouble(txtfi_preco.getText());
 				    		try {
 								adicionaServico(new Restaurante(chckbxCobertura.isSelected(), preco));
 								JOptionPane.showMessageDialog(null, "Adicionado!");
@@ -159,11 +164,11 @@ public class PainelAdicionaServico extends JInternalFrame {
 							}
 				    		break;
 				    	}
-				    }
+				    }			
 				}
 			}
-			
-		});
+		}
+		);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -406,6 +411,18 @@ public class PainelAdicionaServico extends JInternalFrame {
 	    this.dispose();  
 	}    
 	
+	private Contrato getContrato() {
+		return contrato;
+	}
+
+	public List<Quarto> getListaQuartosDisponiveis() {
+		return listaQuartosDisponiveis;
+	}
+	
+	public JDesktopPane getPainelPrincipal() {
+		return painelPrincipal;
+	}
+	
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -423,4 +440,10 @@ public class PainelAdicionaServico extends JInternalFrame {
 			}
 		});
 	}
+	
+	public void adicionaNoPainel(JInternalFrame painel){
+		painelPrincipal.add(painel);
+	}
+
 }
+
