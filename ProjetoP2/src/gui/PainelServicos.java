@@ -439,8 +439,10 @@ public class PainelServicos extends JInternalFrame {
 				servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); 		
 				}
 			}
-			else {
-				servicoSelecionado = contratoSelecionado.getListaQuartosAlugados().get(indice);
+			if (tableQuartos != null) {
+				if(tableQuartos.isColumnSelected(indice)) {
+					servicoSelecionado = contratoSelecionado.getListaQuartosAlugados().get(indice);
+				}
 			}
 		}
 	}
