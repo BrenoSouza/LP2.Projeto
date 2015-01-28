@@ -47,4 +47,13 @@ public class ColecaoDeHospedes {
 		return listaHospedes.get(i);
 	}
 	
+	public Hospede pesquisar(String cpf) {
+		for (Hospede hospede: getListaHospedes()){
+			if(hospede.getCpf() == cpf){
+				return hospede;
+			}
+		}
+		return null;
+	}
+	
 }
