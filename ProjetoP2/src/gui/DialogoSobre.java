@@ -20,6 +20,7 @@ public class DialogoSobre extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 
 	public DialogoSobre() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(DialogoSobre.class.getResource("/resources/hotel39.png")));
 		setTitle("Sobre");
 		setResizable(false);
 		setBounds(100, 100, 570, 300);
@@ -27,13 +28,13 @@ public class DialogoSobre extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
-		JLabel lblPrograma = new JLabel("Programa de admnistração do Hotel Riviera Campina");
+		JLabel lblPrograma = new JLabel("Programa de administração do Hotel Riviera Campina");
 		lblPrograma.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JLabel lblProjeto = new JLabel("Projeto da cadeira de Programação 2 do semestre 2014.2 da UFCG");
 		lblProjeto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblMembros = new JLabel("<html>Membros do projeto:<br>\r\n- Gabriel Dantas (gabriel.dantas@ccc.ufcg.edu.br)<br>\r\n- Gabriel Morais (gabriel.araujo@ccc.ufcg.edu.br)<br>\r\n- Breno Gonçalo (jose.souza@ccc.ufcg.edu.br)<br>\r\n</html>");
+		JLabel lblMembros = new JLabel("<html>Membros do projeto:<br>\r\n- Gabriel Dantas (gabriel.dantas@ccc.ufcg.edu.br)<br>\r\n- Gabriel Morais (gabriel.araujo@ccc.ufcg.edu.br)<br>\r\n- Breno Souza (jose.souza@ccc.ufcg.edu.br)<br>\r\n</html>");
 		lblMembros.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblLink = new JLabel("Link do repositório: github.com/BrenoSouza/LP2.Projeto");

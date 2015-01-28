@@ -40,6 +40,7 @@ import java.awt.event.ComponentEvent;
 
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
+import javax.swing.ImageIcon;
 
 public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JTabbedPane painelTabas;
@@ -65,6 +66,8 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 
 
 	public PainelVisualizacaoContrato(Contrato contrato, JDesktopPane painelPrincipal) {
+		setFrameIcon(new ImageIcon(PainelVisualizacaoContrato.class.getResource("/resources/contrato_icon.png")));
+		setTitle("Visualização de contrato");
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {

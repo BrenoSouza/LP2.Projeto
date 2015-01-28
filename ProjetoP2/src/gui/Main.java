@@ -137,7 +137,7 @@ public class Main extends JFrame {
 	
 	public Main() throws Exception{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/resources/hotel39.png")));
-		setTitle("Hotel Riviera Campina - Admnistra\u00E7\u00E3o");
+		setTitle("Hotel Riviera Campina - Administra\u00E7\u00E3o");
 		criaQuartos();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1000, 700);
