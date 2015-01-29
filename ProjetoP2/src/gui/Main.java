@@ -1,46 +1,48 @@
 package gui;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JOptionPane;
-import javax.swing.JToolBar;
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Font;
-
-import javax.swing.ImageIcon;
-import javax.swing.JInternalFrame;
-import javax.swing.JDesktopPane;
-
 import java.awt.SystemColor;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import classes.*;
-import colecoes.*;
-
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import java.awt.Color;
-import java.awt.Toolkit;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
+
+import classes.Contrato;
+import classes.Quarto;
+import classes.QuartoExecutivoDuplo;
+import classes.QuartoExecutivoSimples;
+import classes.QuartoExecutivoTriplo;
+import classes.QuartoLuxoDuplo;
+import classes.QuartoLuxoSimples;
+import classes.QuartoLuxoTriplo;
+import classes.QuartoPresidencial;
+import colecoes.ColecaoDeHospedes;
 
 public class Main extends JFrame {
 

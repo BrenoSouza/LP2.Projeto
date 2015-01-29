@@ -1,45 +1,29 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
-import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JDesktopPane;
-import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.ListSelectionModel;
 
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-
-import colecoes.ColecaoDeHospedes;
 import classes.Contrato;
-import classes.Hospede;
 import classes.Quarto;
-
-import java.awt.Component;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-
-import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
-import java.awt.Rectangle;
+import colecoes.ColecaoDeHospedes;
 
 public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();

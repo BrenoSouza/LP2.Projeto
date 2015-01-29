@@ -1,7 +1,31 @@
 package gui;
 
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.border.EtchedBorder;
 
 import classes.AluguelCarro;
 import classes.Babysitter;
@@ -10,41 +34,6 @@ import classes.Hospede;
 import classes.Quarto;
 import classes.Restaurante;
 import classes.Servico;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.SpinnerNumberModel;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
-
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JCheckBox;
-
-import java.awt.CardLayout;
-
-import javax.swing.JComboBox;
-import javax.swing.border.LineBorder;
-
-import java.awt.Color;
-import java.util.List;
-
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.MatteBorder;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
 
 public class PainelAdicionaServico extends JInternalFrame {
 

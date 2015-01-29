@@ -1,15 +1,14 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.Font;
 
-import javax.swing.JInternalFrame;
-
-import classes.Servico;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import classes.Servico;
 
 public class PainelVisualizacaoServico extends JInternalFrame {
 

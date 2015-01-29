@@ -1,19 +1,16 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.awt.Font;
 import java.awt.Toolkit;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 
 public class DialogoSobre extends JDialog {
 

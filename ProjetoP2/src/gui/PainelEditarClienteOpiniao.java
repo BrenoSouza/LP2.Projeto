@@ -1,28 +1,22 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JInternalFrame;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
-import javax.swing.JButton;
-import javax.swing.ButtonGroup;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 import classes.Hospede;
 import classes.Opiniao;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
 
 public class PainelEditarClienteOpiniao extends JInternalFrame {
 	private static final long serialVersionUID = 1L;

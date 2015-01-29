@@ -2,6 +2,7 @@ package colecoes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import classes.Hospede;
 
 public class ColecaoDeHospedes {

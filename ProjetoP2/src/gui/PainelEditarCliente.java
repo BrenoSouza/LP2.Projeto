@@ -1,38 +1,29 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 
-import javax.swing.JComponent;
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
-import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JFormattedTextField;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.text.MaskFormatter;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Calendar;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
 
 import classes.Hospede;
 import classes.Opiniao;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JFormattedTextField;
-import javax.swing.ImageIcon;
 
 public class PainelEditarCliente extends JInternalFrame {
 	private final MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
