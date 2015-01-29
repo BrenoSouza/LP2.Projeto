@@ -22,6 +22,10 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.text.MaskFormatter;
 
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+
 import classes.Hospede;
 import classes.Opiniao;
 
@@ -90,8 +94,8 @@ public class PainelEditarCliente extends JInternalFrame {
 				formattedTextFieldData.setText(Birth);
 				LocalDate presente = LocalDate.now();
 				Calendar nascimento = hospede.getDataNascimento();
-				LocalDate diaNascimento = LocalDate.of(nascimento.get(Calendar.YEAR), nascimento.get(Calendar.MONTH) + 1, nascimento.get(Calendar.DAY_OF_MONTH));
-				Period periodoDeTempo = Period.between(diaNascimento, presente);
+				LocalDate diaNascimento = new LocalDate(nascimento.get(nascimento.YEAR), nascimento.get(nascimento.MONTH), nascimento.get(nascimento.DAY_OF_YEAR));
+				Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
 				String Age = "" + periodoDeTempo.getYears();
 				lblAge.setText(Age);
 				String Cpf = "" + hospede.getCpf();
@@ -138,8 +142,8 @@ public class PainelEditarCliente extends JInternalFrame {
 		lblAge = new JLabel("");
 		LocalDate presente = LocalDate.now();
 		Calendar nascimento = hospede.getDataNascimento();
-		LocalDate diaNascimento = LocalDate.of(nascimento.get(Calendar.YEAR), nascimento.get(Calendar.MONTH) + 1, nascimento.get(Calendar.DAY_OF_MONTH));
-		Period periodoDeTempo = Period.between(diaNascimento, presente);
+		LocalDate diaNascimento = new LocalDate(nascimento.get(nascimento.YEAR), nascimento.get(nascimento.MONTH), nascimento.get(nascimento.DAY_OF_YEAR));
+		Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
 		String Age = "" + periodoDeTempo.getYears();
 		lblAge.setText(Age);
 		lblAge.setFont(new Font("Tahoma", Font.PLAIN, 12));

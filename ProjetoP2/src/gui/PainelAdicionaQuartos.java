@@ -26,6 +26,10 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
@@ -262,8 +266,8 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 					designTabela[i][1] = hospedeAtual.getCpf();
 					//Para preencher a terceira coluna da linha: Idade do hóspede
 					Calendar nascimento = hospedeAtual.getDataNascimento();
-					LocalDate diaNascimento = LocalDate.of(nascimento.get(Calendar.YEAR), nascimento.get(Calendar.MONTH) + 1, nascimento.get(Calendar.DAY_OF_MONTH));
-					Period periodoDeTempo = Period.between(diaNascimento, presente);
+					LocalDate diaNascimento = new LocalDate(nascimento.get(nascimento.YEAR), nascimento.get(nascimento.MONTH), nascimento.get(nascimento.DAY_OF_YEAR));
+					Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
 					designTabela[i][2] = periodoDeTempo.getYears();
 				}
 				//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
