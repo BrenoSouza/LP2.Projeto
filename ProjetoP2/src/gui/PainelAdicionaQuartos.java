@@ -266,7 +266,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 					designTabela[i][1] = hospedeAtual.getCpf();
 					//Para preencher a terceira coluna da linha: Idade do hóspede
 					Calendar nascimento = hospedeAtual.getDataNascimento();
-					LocalDate diaNascimento = new LocalDate(nascimento.get(nascimento.YEAR), nascimento.get(nascimento.MONTH), nascimento.get(nascimento.DAY_OF_YEAR));
+					LocalDate diaNascimento = LocalDate.fromCalendarFields(nascimento);
 					Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
 					designTabela[i][2] = periodoDeTempo.getYears();
 				}

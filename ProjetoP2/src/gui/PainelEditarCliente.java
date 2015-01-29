@@ -94,7 +94,7 @@ public class PainelEditarCliente extends JInternalFrame {
 				formattedTextFieldData.setText(Birth);
 				LocalDate presente = LocalDate.now();
 				Calendar nascimento = hospede.getDataNascimento();
-				LocalDate diaNascimento = new LocalDate(nascimento.get(nascimento.YEAR), nascimento.get(nascimento.MONTH), nascimento.get(nascimento.DAY_OF_YEAR));
+				LocalDate diaNascimento = LocalDate.fromCalendarFields(nascimento);
 				Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
 				String Age = "" + periodoDeTempo.getYears();
 				lblAge.setText(Age);
@@ -142,7 +142,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		lblAge = new JLabel("");
 		LocalDate presente = LocalDate.now();
 		Calendar nascimento = hospede.getDataNascimento();
-		LocalDate diaNascimento = new LocalDate(nascimento.get(nascimento.YEAR), nascimento.get(nascimento.MONTH), nascimento.get(nascimento.DAY_OF_YEAR));
+		LocalDate diaNascimento = LocalDate.fromCalendarFields(nascimento);
 		Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
 		String Age = "" + periodoDeTempo.getYears();
 		lblAge.setText(Age);
