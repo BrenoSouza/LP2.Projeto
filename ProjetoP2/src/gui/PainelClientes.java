@@ -49,13 +49,16 @@ public class PainelClientes extends JInternalFrame {
 	private JTextField textFieldPesquisa;
 	private JButton btnCancelaPesquisa;
 	private JButton btnPesquisar;
+	private boolean pesquisaAtiva = false;
 
 
 	public PainelClientes(ColecaoDeHospedes listaDeHospedes, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
-				escreveTabela(getColecaoDeHospedes().getListaHospedes());
+				if (pesquisaAtiva == false) {
+					escreveTabela(getColecaoDeHospedes().getListaHospedes());
+				}
 			}
 		});
 		this.painelPrincipal = painelPrincipal;
@@ -149,6 +152,7 @@ public class PainelClientes extends JInternalFrame {
 						hospedesPesquisados.add(hospede);
 					}
 				}
+				pesquisaAtiva = true;
 				if (hospedesPesquisados.size() == 0){
 					JOptionPane.showMessageDialog(null, "Sem resultados.");
 					escreveTabela(hospedesPesquisados);
@@ -156,6 +160,7 @@ public class PainelClientes extends JInternalFrame {
 					JOptionPane.showMessageDialog(null, (hospedesPesquisados.size() >= 2) ? hospedesPesquisados.size() + " hóspedes encontrados." : hospedesPesquisados.size() + " hóspede encontrado.");
 					escreveTabela(hospedesPesquisados);
 				}
+				btnCancelaPesquisa.setEnabled(true);
 			}
 		});
 		btnPesquisar.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/search.png")));
@@ -165,11 +170,15 @@ public class PainelClientes extends JInternalFrame {
 		btnCancelaPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textFieldPesquisa.setText("");
+				pesquisaAtiva = false;
 				escreveTabela(getColecaoDeHospedes().getListaHospedes());
+				btnCancelaPesquisa.setEnabled(false);
 			}
 		});
+		btnCancelaPesquisa.setEnabled(false);
 		btnCancelaPesquisa.setToolTipText("Cancelar pesquisa( A tabela volta a ter todos os hóspedes).");
 		btnCancelaPesquisa.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/cross.png")));
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
