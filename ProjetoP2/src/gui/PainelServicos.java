@@ -69,7 +69,7 @@ public class PainelServicos extends JInternalFrame {
 				escreveTabelaQuartos();
 			}			
 		});		
-		
+		this.listaHospedes = listaHospedes;
 		this.painelPrincipal = painelPrincipal;
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		try{

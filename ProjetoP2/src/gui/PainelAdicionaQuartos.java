@@ -226,12 +226,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	}
 	
 	private void adicionaHospedesSemContratoNaLista() {
-		try {
-			listaDeHospedes.adicionaHospede(new Hospede(",",",",",", null));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		JOptionPane.showMessageDialog(null, listaDeHospedes.getListaHospedeTamanho());
 		for (int i = 0; i < listaDeHospedes.getListaHospedeTamanho(); i++) {
 			if (listaDeHospedes.getIndice(i).getContratoLigado() != null) {
