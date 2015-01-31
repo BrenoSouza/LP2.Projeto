@@ -26,6 +26,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import colecoes.ColecaoDeHospedes;
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
@@ -43,7 +44,7 @@ public class PainelServicos extends JInternalFrame {
 	private Contrato contratoSelecionado = null;
 	private Servico servicoSelecionado = null ;
 	private List<Contrato> listaContratos;
-	private List<Hospede> listaHospedes = new ArrayList();
+	private ColecaoDeHospedes listaHospedes;
 	private List<Hospede> listaHospedes2 = new ArrayList();
 	private List<Quarto> listaQuartosDisponiveis;
 	private JDesktopPane painelPrincipal;
@@ -59,7 +60,7 @@ public class PainelServicos extends JInternalFrame {
 	 * Create the frame.
 	 */
 	
-	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, List<Quarto> listaQuartosDisponiveis) {
+	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, List<Quarto> listaQuartosDisponiveis, ColecaoDeHospedes listaHospedes) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
@@ -68,15 +69,13 @@ public class PainelServicos extends JInternalFrame {
 				escreveTabelaQuartos();
 			}			
 		});		
-		
+		this.listaHospedes = listaHospedes;
 		this.painelPrincipal = painelPrincipal;
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		try{
 			Calendar dataNascimento = Calendar.getInstance();
 			dataNascimento.set(Calendar.YEAR, 1990);
-			listaHospedes.add(new Hospede("Fulano de Tal","Casa do Fulano", "111111111-11", dataNascimento));
 			listaHospedes2.add(new Hospede("Cicrano de Tal","Casa do Fulano", "111111111-11", dataNascimento));
-			listaContratos.add(new Contrato(new ArrayList<Quarto>(), listaHospedes, 5));
 			listaContratos.add(new Contrato(new ArrayList<Quarto>(), listaHospedes2, 5));
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
@@ -96,14 +95,16 @@ public class PainelServicos extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(contratoSelecionado != null) {
-					painelAdicionar = new PainelAdicionaServico(contratoSelecionado, getPainelPrincipal(), getListaQuartosDisponiveis());
+					painelAdicionar = new PainelAdicionaServico(contratoSelecionado, getPainelPrincipal(), getListaQuartosDisponiveis(), getColecaoHospedes());
 					adicionaNoPainel(painelAdicionar);
 					painelAdicionar.show();
 				}
 				else {
 					JOptionPane.showMessageDialog(null, "Selecione um contrato!");
 				}
-					
+				escreveTabelaServicos();
+				escreveTabelaContratos();
+				escreveTabelaQuartos();	
 				
 			}
 		});
@@ -136,8 +137,13 @@ public class PainelServicos extends JInternalFrame {
 				painelVisualizacao = new PainelVisualizacaoServico(servicoSelecionado);
 				adicionaNoPainel(painelVisualizacao);
 				painelVisualizacao.show();
+				escreveTabelaContratos();
+				escreveTabelaServicos();
+				escreveTabelaQuartos();
 			}
 		});
+		
+		
 		btnVisualizar.setEnabled(false);
 		
 		JLabel lblSelecionarContrato = new JLabel("Selecionar Contrato: ");
@@ -247,8 +253,6 @@ public class PainelServicos extends JInternalFrame {
 						
 					}
 				});
-		if(servicoSelecionado == null)
-			escreveTabelaServicos();
 				
 				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
@@ -285,7 +289,6 @@ public class PainelServicos extends JInternalFrame {
 							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 							setServicoSelecionado(indiceSelecionadoQuartos[0]);
 							tableServicos.clearSelection();
-							// O QUE É???
 						}atualizaBotoes();
 						
 					}
@@ -294,6 +297,10 @@ public class PainelServicos extends JInternalFrame {
 
 	}
 
+	private ColecaoDeHospedes getColecaoHospedes() {
+		return listaHospedes;
+	}
+	
 	private void escreveTabelaQuartos() {
 		
 		// PREENCHENDO TABELA DOS QUARTOS DO CONTRATO
@@ -432,14 +439,14 @@ public class PainelServicos extends JInternalFrame {
 		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
 		if (contratoSelecionado != null) {
 			if (tableServicos != null) {
-				if(tableServicos.isColumnSelected(indice)){
-				servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); 		
+				if(tableServicos.isRowSelected(indice)){
+					servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); 		
 				}
 			}
-			if (tableQuartos != null) {
-				if(tableQuartos.isColumnSelected(indice)) {
-					servicoSelecionado = contratoSelecionado.getListaQuartosAlugados().get(indice);
-				}
+		}
+		if (tableQuartos != null) {
+			if(tableQuartos.isRowSelected(indice)) {
+				servicoSelecionado = contratoSelecionado.getListaQuartosAlugados().get(indice);	
 			}
 		}
 	}

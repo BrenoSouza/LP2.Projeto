@@ -27,6 +27,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 
+import colecoes.ColecaoDeHospedes;
 import classes.AluguelCarro;
 import classes.Babysitter;
 import classes.Contrato;
@@ -41,7 +42,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JDesktopPane painelPrincipal;
 	private List<Quarto> listaQuartosDisponiveis;
 	private List<Quarto> listaQuartosDoContrato;
-	private List<Hospede> listaHospedes;
+	private ColecaoDeHospedes listaHospedes;
 	private Servico servicoParaAdicionar;
 	private JPanel panelExterno = new JPanel();  
 	private CardLayout layoutPainel = new CardLayout();  
@@ -66,7 +67,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelAdicionaServico(Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaQuartosDisponiveis) {
+	public PainelAdicionaServico(Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaQuartosDisponiveis, ColecaoDeHospedes listaHospedes) {
 		this.contrato = contrato;
 		this.painelPrincipal = painelPrincipal;
 		this.listaHospedes = listaHospedes;
@@ -130,7 +131,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		break;
 				    	}
 				    	else if(comp == panelQuartos) {
-				    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(listaHospedes, getListaQuartosDisponiveis(), getContrato(), getPainelPrincipal());				    			
+				    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(getColecaoHospedes(), getListaQuartosDisponiveis(), getContrato(), getPainelPrincipal());				    			
 				    		adicionaNoPainel(painelAddQuarto);
 				    		painelAddQuarto.show();
 				    		disposeOnClosed();
@@ -390,6 +391,10 @@ public class PainelAdicionaServico extends JInternalFrame {
 		);
 		getContentPane().setLayout(groupLayout);
 		
+	}
+	
+	private ColecaoDeHospedes getColecaoHospedes() {
+		return listaHospedes;
 	}
 	
 	private void adicionaServico(Servico servico) {
