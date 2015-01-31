@@ -239,7 +239,7 @@ public class Main extends JFrame {
 		btnServios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (painelServicos == null || painelServicos.isClosed()){
-					painelServicos = new PainelServicos(listaContratos, painelPrincipal, listaQuartosDisponiveis);
+					painelServicos = new PainelServicos(listaContratos, painelPrincipal, listaQuartosDisponiveis, listaDeHospedes);
 					painelPrincipal.add(painelServicos);
 					painelServicos.show();
 				}
