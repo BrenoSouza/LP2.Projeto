@@ -30,9 +30,12 @@ import classes.Hospede;
 import classes.Opiniao;
 
 public class PainelEditarCliente extends JInternalFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
 	private final MaskFormatter mascaraData = new MaskFormatter("##/##/####");
-	private PainelEditarClienteOpiniao painelEditarOpiniao;
 	private JDesktopPane painelPrincipal;
 	private Hospede hospede;
 	private JLabel lblAge;

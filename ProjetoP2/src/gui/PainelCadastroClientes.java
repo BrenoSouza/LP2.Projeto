@@ -3,7 +3,6 @@ package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import javax.swing.GroupLayout;
@@ -20,15 +19,18 @@ import javax.swing.text.MaskFormatter;
 
 import classes.Hospede;
 import colecoes.ColecaoDeHospedes;
-//import gui.Main;
+
 
 
 public class PainelCadastroClientes extends JInternalFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField campoNome;
 	private JTextField campoEndereco;
 	private final MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
 	private final MaskFormatter mascaraData = new MaskFormatter("##/##/####");
-	private final SimpleDateFormat FormatoData = new SimpleDateFormat("dd/mm/yyyy");
 	private JFormattedTextField campoCPF;
 	private JFormattedTextField campoData;
 	private ColecaoDeHospedes listaDeHospedes;
