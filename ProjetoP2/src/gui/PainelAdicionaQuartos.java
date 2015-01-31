@@ -87,12 +87,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.contrato = contrato;
 		
-		String[] nomesHospedes = new String[listaHospedesSemContrato.size() + 1]; // Criando a lista com os nomes dos hóspedes para serem escolhidos.
-		nomesHospedes[0] = "-- SELECIONE UM HÓSPEDE --"; // Criando uma mensagem para ser a de primeiro índice.
-		for (int i = 0; i < listaHospedesSemContrato.size(); i++){
-			nomesHospedes[i + 1] = (listaHospedesSemContrato.get(i)).getNome();
-		}
-		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -174,7 +168,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
 		ListSelectionModel modeloSelecaoLinha = tableHospedesSemContrato.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
 		
-		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
 			//Necessita ser esse nome de método para funcionar
@@ -226,13 +220,11 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	}
 	
 	private void adicionaHospedesSemContratoNaLista() {
-		
 		JOptionPane.showMessageDialog(null, listaDeHospedes.getListaHospedeTamanho());
 		for (int i = 0; i < listaDeHospedes.getListaHospedeTamanho(); i++) {
-			if (listaDeHospedes.getIndice(i).getContratoLigado() != null) {
+			if (listaDeHospedes.getIndice(i).getContratoLigado() == null) {
 				listaHospedesSemContrato.add(listaDeHospedes.getIndice(i));
 			}
-			
 		}
 	}
 	
@@ -300,12 +292,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 }
 	
 	private void escreveTabelaHospedesSemContrato() {
-		listaHospedesSemContrato = new ArrayList<Hospede>();
-		for (int i = 0; i < contrato.getListaHospedes().size(); i++){
-			if (contrato.getListaHospedes().get(i).getContratoLigado() == null){
-				listaHospedesSemContrato.add(contrato.getListaHospedes().get(i));
-			}
-		}listaHospedesSemContrato.removeAll(listaHospedesDoContrato);
 		LocalDate presente = LocalDate.now();
 			// PREENCHENDO TABELA DOS HÓSPEDES SEM CONTRATO
 			Collections.sort(listaHospedesSemContrato);
