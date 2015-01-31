@@ -149,7 +149,13 @@ public class PainelClientes extends JInternalFrame {
 						hospedesPesquisados.add(hospede);
 					}
 				}
-				escreveTabela(hospedesPesquisados);
+				if (hospedesPesquisados.size() == 0){
+					JOptionPane.showMessageDialog(null, "Sem resultados.");
+					escreveTabela(hospedesPesquisados);
+				}else{
+					JOptionPane.showMessageDialog(null, (hospedesPesquisados.size() >= 2) ? hospedesPesquisados.size() + " hóspedes encontrados." : hospedesPesquisados.size() + " hóspede encontrado.");
+					escreveTabela(hospedesPesquisados);
+				}
 			}
 		});
 		btnPesquisar.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/search.png")));
@@ -158,6 +164,7 @@ public class PainelClientes extends JInternalFrame {
 		btnCancelaPesquisa = new JButton("");
 		btnCancelaPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				textFieldPesquisa.setText("");
 				escreveTabela(getColecaoDeHospedes().getListaHospedes());
 			}
 		});
