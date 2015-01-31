@@ -432,14 +432,14 @@ public class PainelServicos extends JInternalFrame {
 		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
 		if (contratoSelecionado != null) {
 			if (tableServicos != null) {
-				if(tableServicos.isColumnSelected(indice)){
-				servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); 		
+				if(tableServicos.isRowSelected(indice)){
+					servicoSelecionado = contratoSelecionado.getListaServicos().get(indice); 		
 				}
 			}
-			if (tableQuartos != null) {
-				if(tableQuartos.isColumnSelected(indice)) {
-					servicoSelecionado = contratoSelecionado.getListaQuartosAlugados().get(indice);
-				}
+		}
+		if (tableQuartos != null) {
+			if(tableQuartos.isRowSelected(indice)) {
+				servicoSelecionado = contratoSelecionado.getListaQuartosAlugados().get(indice);	
 			}
 		}
 	}
