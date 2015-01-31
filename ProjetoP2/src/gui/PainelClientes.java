@@ -2,7 +2,9 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -24,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
 import classes.Hospede;
 import colecoes.ColecaoDeHospedes;
 
+import javax.swing.JTextField;
+
 public class PainelClientes extends JInternalFrame {
 	/**
 	 * 
@@ -42,13 +46,16 @@ public class PainelClientes extends JInternalFrame {
 	private Hospede hospedeSelecionado;
 	private ColecaoDeHospedes listaDeHospedes;
 	private JButton btnRemover;
+	private JTextField textFieldPesquisa;
+	private JButton btnCancelaPesquisa;
+	private JButton btnPesquisar;
 
 
 	public PainelClientes(ColecaoDeHospedes listaDeHospedes, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
-				escreveTabela();
+				escreveTabela(getColecaoDeHospedes().getListaHospedes());
 			}
 		});
 		this.painelPrincipal = painelPrincipal;
@@ -60,7 +67,7 @@ public class PainelClientes extends JInternalFrame {
 		setBounds(0, 0, 752, 450);
 
 		tableHospedes = new JTable();
-		escreveTabela();
+		escreveTabela(getColecaoDeHospedes().getListaHospedes());
 
 		tableHospedes.setRowSelectionAllowed(true);
 		ListSelectionModel modeloSelecaoLinha = tableHospedes.getSelectionModel();
@@ -95,7 +102,7 @@ public class PainelClientes extends JInternalFrame {
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					painelNovo = new PainelCadastroClientes(getListaDeHospedes());
+					painelNovo = new PainelCadastroClientes(getColecaoDeHospedes());
 				} catch (Exception e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
@@ -123,12 +130,39 @@ public class PainelClientes extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja remover esse hóspede?", "Deletar hóspede" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 				if (escolha == JOptionPane.YES_OPTION){
-					getListaDeHospedes().removeHospede(hospedeSelecionado);
+					getColecaoDeHospedes().removeHospede(hospedeSelecionado);
 				}
-				escreveTabela();
+				escreveTabela(getColecaoDeHospedes().getListaHospedes());
 			}
 		});
 		btnRemover.setEnabled(false);
+		
+		textFieldPesquisa = new JTextField();
+		textFieldPesquisa.setColumns(10);
+		
+		btnPesquisar = new JButton("");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Hospede> hospedesPesquisados = new ArrayList<Hospede>();
+				for (Hospede hospede: getColecaoDeHospedes().getListaHospedes()){
+					if (hospede.getNome().contains(textFieldPesquisa.getText())){
+						hospedesPesquisados.add(hospede);
+					}
+				}
+				escreveTabela(hospedesPesquisados);
+			}
+		});
+		btnPesquisar.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/search.png")));
+		btnPesquisar.setToolTipText("Pesquisar");
+		
+		btnCancelaPesquisa = new JButton("");
+		btnCancelaPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				escreveTabela(getColecaoDeHospedes().getListaHospedes());
+			}
+		});
+		btnCancelaPesquisa.setToolTipText("Cancelar pesquisa( A tabela volta a ter todos os hóspedes).");
+		btnCancelaPesquisa.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/cross.png")));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -142,18 +176,30 @@ public class PainelClientes extends JInternalFrame {
 							.addComponent(btnVisualizar, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 							.addGap(114)
 							.addComponent(btnRemover)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
 							.addComponent(btnEditar)
 							.addGap(150)
-							.addComponent(btnNovo)))
+							.addComponent(btnNovo))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnCancelaPesquisa, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textFieldPesquisa, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(11)
-					.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-					.addGap(43)
+					.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnCancelaPesquisa, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textFieldPesquisa, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addGap(17)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnVisualizar)
 						.addComponent(btnNovo)
@@ -165,12 +211,12 @@ public class PainelClientes extends JInternalFrame {
 
 	}
 
-	public ColecaoDeHospedes getListaDeHospedes() {
+	public ColecaoDeHospedes getColecaoDeHospedes() {
 		return listaDeHospedes;
 	}
 
 	private void setHospedeSelecionado(int indice){
-		hospedeSelecionado = getListaDeHospedes().getListaHospedes().get(indice);
+		hospedeSelecionado = getColecaoDeHospedes().getListaHospedes().get(indice);
 	}
 	
 
@@ -186,11 +232,11 @@ public class PainelClientes extends JInternalFrame {
 		}
 	}
 
-	private void escreveTabela(){
-		Collections.sort(listaDeHospedes.getListaHospedes());
-		Object[][] designTabela = new Object[listaDeHospedes.getListaHospedeTamanho()][5];
-		for (int i = 0; i < listaDeHospedes.getListaHospedeTamanho(); i++){
-			Hospede hospedeAtual = listaDeHospedes.getIndice(i);
+	private void escreveTabela(List<Hospede> listaDeHospedes){
+		Collections.sort(listaDeHospedes);
+		Object[][] designTabela = new Object[listaDeHospedes.size()][5];
+		for (int i = 0; i < listaDeHospedes.size(); i++){
+			Hospede hospedeAtual = listaDeHospedes.get(i);
 			if (hospedeAtual.getNome() == null){
 				designTabela[i][0] = "Não especificado";
 			}else{
@@ -239,5 +285,4 @@ public class PainelClientes extends JInternalFrame {
 	public JDesktopPane getPainelPrincipal(){
 		return painelPrincipal;
 	}
-	
 }
