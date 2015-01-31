@@ -47,6 +47,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private DialogoDiarias dialogoDiarias;
 	private int diariasContrato;
 	private Contrato contrato;
+	private Hospede hospedeSelecionado;
 	private Hospede hospedePrincipal;
 	private JDesktopPane painelPrincipal;
 	private JTable tableHospedesSemContrato;
@@ -61,6 +62,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {
 				escreveTabelas();
+				escreveTabelaHospedesSemContrato();
 			}
 		});
 		setClosable(true);
@@ -152,6 +154,26 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		
 		tableHospedesSemContrato = new JTable();
 		scrollPane.setColumnHeaderView(tableHospedesSemContrato);
+		
+		tableHospedesSemContrato.setRowSelectionAllowed(true);
+		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
+		ListSelectionModel modeloSelecaoLinha = tableHospedesSemContrato.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+		
+		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+			//Necessita ser esse nome de método para funcionar
+			public void valueChanged(ListSelectionEvent e) {
+				int[] indiceSelecionado = tableHospedesSemContrato.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+				if (indiceSelecionado.length <= 0){
+					hospedeSelecionado = null;
+				}else{
+					tableHospedesSemContrato.clearSelection();
+				}atualizaBotoes();
+				
+			}
+		});
+		
+		scrollPane.setViewportView(tableHospedesSemContrato);
 		
 		tabelaQuartosLivres = new JTable();
 		scrollPane_2.setViewportView(tabelaQuartosLivres);

@@ -103,7 +103,9 @@ public class PainelServicos extends JInternalFrame {
 				else {
 					JOptionPane.showMessageDialog(null, "Selecione um contrato!");
 				}
-					
+				escreveTabelaServicos();
+				escreveTabelaContratos();
+				escreveTabelaQuartos();	
 				
 			}
 		});
@@ -136,8 +138,13 @@ public class PainelServicos extends JInternalFrame {
 				painelVisualizacao = new PainelVisualizacaoServico(servicoSelecionado);
 				adicionaNoPainel(painelVisualizacao);
 				painelVisualizacao.show();
+				escreveTabelaContratos();
+				escreveTabelaServicos();
+				escreveTabelaQuartos();
 			}
 		});
+		
+		
 		btnVisualizar.setEnabled(false);
 		
 		JLabel lblSelecionarContrato = new JLabel("Selecionar Contrato: ");
@@ -247,8 +254,6 @@ public class PainelServicos extends JInternalFrame {
 						
 					}
 				});
-		if(servicoSelecionado == null)
-			escreveTabelaServicos();
 				
 				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
@@ -285,7 +290,6 @@ public class PainelServicos extends JInternalFrame {
 							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 							setServicoSelecionado(indiceSelecionadoQuartos[0]);
 							tableServicos.clearSelection();
-							// O QUE É???
 						}atualizaBotoes();
 						
 					}
