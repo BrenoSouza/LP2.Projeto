@@ -180,4 +180,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 		Quarto outroQuarto = (Quarto) obj;
 		return (this.getNumero() == outroQuarto.getNumero());
 	}
+	public int compareToEstado(Quarto q){
+		return this.getEstado().compareTo(q.getEstado());
+	}
 }
