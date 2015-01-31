@@ -44,25 +44,25 @@ public class PainelClientes extends JInternalFrame {
 	private PainelVisualizacaoClientes painelVisualizacao;
 	private PainelEditarCliente painelEditar;
 	private Hospede hospedeSelecionado;
-	private ColecaoDeHospedes listaDeHospedes;
+	private ColecaoDeHospedes colecaoDeHospedes;
 	private JButton btnRemover;
 	private JTextField textFieldPesquisa;
 	private JButton btnCancelaPesquisa;
 	private JButton btnPesquisar;
-	private boolean pesquisaAtiva = false;
+	private List<Hospede> colecaoAtiva = new ArrayList<Hospede>();
 
 
 	public PainelClientes(ColecaoDeHospedes listaDeHospedes, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
-				if (pesquisaAtiva == false) {
-					escreveTabela(getColecaoDeHospedes().getListaHospedes());
-				}
+					escreveTabela();
 			}
 		});
 		this.painelPrincipal = painelPrincipal;
-		this.listaDeHospedes = listaDeHospedes;
+		this.colecaoDeHospedes = listaDeHospedes;
+		this.colecaoAtiva = getColecaoDeHospedes().getListaHospedes();
+		
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes");
@@ -70,7 +70,7 @@ public class PainelClientes extends JInternalFrame {
 		setBounds(0, 0, 752, 450);
 
 		tableHospedes = new JTable();
-		escreveTabela(getColecaoDeHospedes().getListaHospedes());
+		escreveTabela();
 
 		tableHospedes.setRowSelectionAllowed(true);
 		ListSelectionModel modeloSelecaoLinha = tableHospedes.getSelectionModel();
@@ -134,8 +134,9 @@ public class PainelClientes extends JInternalFrame {
 				int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja remover esse hóspede?", "Deletar hóspede" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 				if (escolha == JOptionPane.YES_OPTION){
 					getColecaoDeHospedes().removeHospede(hospedeSelecionado);
+					colecaoAtiva.remove(hospedeSelecionado);
+					escreveTabela();
 				}
-				escreveTabela(getColecaoDeHospedes().getListaHospedes());
 			}
 		});
 		btnRemover.setEnabled(false);
@@ -152,13 +153,13 @@ public class PainelClientes extends JInternalFrame {
 						hospedesPesquisados.add(hospede);
 					}
 				}
-				pesquisaAtiva = true;
+				colecaoAtiva = hospedesPesquisados;
 				if (hospedesPesquisados.size() == 0){
 					JOptionPane.showMessageDialog(null, "Sem resultados.");
-					escreveTabela(hospedesPesquisados);
+					escreveTabela();
 				}else{
 					JOptionPane.showMessageDialog(null, (hospedesPesquisados.size() >= 2) ? hospedesPesquisados.size() + " hóspedes encontrados." : hospedesPesquisados.size() + " hóspede encontrado.");
-					escreveTabela(hospedesPesquisados);
+					escreveTabela();
 				}
 				btnCancelaPesquisa.setEnabled(true);
 			}
@@ -170,8 +171,8 @@ public class PainelClientes extends JInternalFrame {
 		btnCancelaPesquisa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textFieldPesquisa.setText("");
-				pesquisaAtiva = false;
-				escreveTabela(getColecaoDeHospedes().getListaHospedes());
+				colecaoAtiva = getColecaoDeHospedes().getListaHospedes();
+				escreveTabela();
 				btnCancelaPesquisa.setEnabled(false);
 			}
 		});
@@ -228,7 +229,7 @@ public class PainelClientes extends JInternalFrame {
 	}
 
 	public ColecaoDeHospedes getColecaoDeHospedes() {
-		return listaDeHospedes;
+		return colecaoDeHospedes;
 	}
 
 	private void setHospedeSelecionado(int indice){
@@ -248,11 +249,11 @@ public class PainelClientes extends JInternalFrame {
 		}
 	}
 
-	private void escreveTabela(List<Hospede> listaDeHospedes){
-		Collections.sort(listaDeHospedes);
-		Object[][] designTabela = new Object[listaDeHospedes.size()][5];
-		for (int i = 0; i < listaDeHospedes.size(); i++){
-			Hospede hospedeAtual = listaDeHospedes.get(i);
+	private void escreveTabela(){
+		Collections.sort(colecaoAtiva);
+		Object[][] designTabela = new Object[colecaoAtiva.size()][5];
+		for (int i = 0; i < colecaoAtiva.size(); i++){
+			Hospede hospedeAtual = colecaoAtiva.get(i);
 			if (hospedeAtual.getNome() == null){
 				designTabela[i][0] = "Não especificado";
 			}else{
