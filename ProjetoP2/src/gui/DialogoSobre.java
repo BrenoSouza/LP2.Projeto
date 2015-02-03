@@ -28,7 +28,7 @@ public class DialogoSobre extends JDialog {
 		JLabel lblPrograma = new JLabel("Programa de administração do Hotel Riviera Campina");
 		lblPrograma.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		JLabel lblProjeto = new JLabel("Projeto da cadeira de Programação 2 do semestre 2014.2 da UFCG");
+		JLabel lblProjeto = new JLabel("Projeto da Disciplina de Programação 2 do período 2014.2 da UFCG");
 		lblProjeto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblMembros = new JLabel("<html>Membros do projeto:<br>\r\n- Gabriel Dantas (gabriel.dantas@ccc.ufcg.edu.br)<br>\r\n- Gabriel Morais (gabriel.araujo@ccc.ufcg.edu.br)<br>\r\n- Breno Souza (jose.souza@ccc.ufcg.edu.br)<br>\r\n</html>");
