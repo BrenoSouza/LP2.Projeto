@@ -107,7 +107,7 @@ public class PainelEditarCliente extends JInternalFrame {
 				textFieldAdress.setText(Adress);
 			}
 		});
-		setBounds(100, 100, 559, 353);
+		setBounds(100, 100, 559, 410);
 		this.painelPrincipal = painelPrincipal;
 		this.hospede = hospede;
 		
@@ -257,8 +257,7 @@ public class PainelEditarCliente extends JInternalFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(textFieldComment, GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-						.addComponent(lblComentrio, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textFieldComment, GroupLayout.PREFERRED_SIZE, 525, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblOpinio, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNota, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -275,27 +274,28 @@ public class PainelEditarCliente extends JInternalFrame {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblEndereo, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldAdress, GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE))
+							.addComponent(textFieldAdress, GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblCpf, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(formattedTextFieldCpf, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblDataDeNascimento, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblDataDeNascimento, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(formattedTextFieldData, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblIdade, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblAge, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblAge, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblNome, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldName, GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE))
+							.addComponent(textFieldName, GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnEditarInfo)
-							.addPreferredGap(ComponentPlacement.RELATED, 335, Short.MAX_VALUE)
-							.addComponent(btnCancelar)))
+							.addPreferredGap(ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
+							.addComponent(btnCancelar))
+						.addComponent(lblComentrio, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -325,9 +325,9 @@ public class PainelEditarCliente extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblDataDeNascimento)
-						.addComponent(formattedTextFieldData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblAge)
 						.addComponent(lblIdade)
-						.addComponent(lblAge))
+						.addComponent(formattedTextFieldData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblCpf)
@@ -340,7 +340,7 @@ public class PainelEditarCliente extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnEditarInfo)
 						.addComponent(btnCancelar))
-					.addContainerGap())
+					.addGap(7))
 		);
 		getContentPane().setLayout(groupLayout);
 
