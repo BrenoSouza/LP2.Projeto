@@ -107,7 +107,7 @@ public class PainelEditarCliente extends JInternalFrame {
 				textFieldAdress.setText(Adress);
 			}
 		});
-		setBounds(100, 100, 559, 410);
+		setBounds(100, 100, 559, 356);
 		this.painelPrincipal = painelPrincipal;
 		this.hospede = hospede;
 		
