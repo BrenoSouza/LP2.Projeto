@@ -3,6 +3,7 @@ package gui;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.GroupLayout;
@@ -22,8 +23,12 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import classes.Contrato;
+import classes.Hospede;
 import classes.Quarto;
 import colecoes.ColecaoDeHospedes;
+
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JTextField;
 
 public class PainelContratos extends JInternalFrame {
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
@@ -39,6 +44,10 @@ public class PainelContratos extends JInternalFrame {
 	private JDesktopPane painelPrincipal;
 	private PainelNovoContrato painelNovo;
 	private PainelEditarContrato painelEditar;
+	private JButton btnCancelaPesquisa;
+	private JTextField textFieldPesquisa;
+	private JButton btnPesquisar;
+	private List<Contrato> colecaoAtiva = new ArrayList<Contrato>();
 
 
 	/**
@@ -62,7 +71,7 @@ public class PainelContratos extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelContratos.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Contratos");
 		setClosable(true);
-		setBounds(0, 0, 752, 450);
+		setBounds(0, 0, 752, 470);
 		
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
@@ -93,6 +102,46 @@ public class PainelContratos extends JInternalFrame {
 				painelNovo.show();
 			}
 		});
+		
+		btnCancelaPesquisa = new JButton("");
+		btnCancelaPesquisa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textFieldPesquisa.setText("");
+				colecaoAtiva = PainelContratos.this.listaContratos;
+				escreveTabela();
+				btnCancelaPesquisa.setEnabled(false);
+			}
+		});
+		btnCancelaPesquisa.setEnabled(false);
+		btnCancelaPesquisa.setToolTipText("Cancelar pesquisa( A tabela volta a ter todos os contratos).");
+		btnCancelaPesquisa.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/cross.png")));
+		
+		
+		textFieldPesquisa = new JTextField();
+		textFieldPesquisa.setColumns(10);
+		
+		btnPesquisar = new JButton("");
+		btnPesquisar.setToolTipText("Pesquisar");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Contrato> contratosPesquisados = new ArrayList<Contrato>();
+				for (Contrato contrato: PainelContratos.this.listaContratos){
+					if (contrato.getHospedePrincipal() != null || contrato.getHospedePrincipal().getNome().contains(textFieldPesquisa.getText())){
+						contratosPesquisados.add(contrato);
+					}
+				}
+				colecaoAtiva = contratosPesquisados;
+				if (contratosPesquisados.size() == 0){
+					JOptionPane.showMessageDialog(null, "Sem resultados.");
+					escreveTabela();
+				}else{
+					JOptionPane.showMessageDialog(null, (contratosPesquisados.size() >= 2) ? contratosPesquisados.size() + " contratos encontrados." : contratosPesquisados.size() + " contrato encontrado.");
+					escreveTabela();
+				}
+				btnCancelaPesquisa.setEnabled(true);
+			}
+		});
+		btnPesquisar.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/search.png")));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -105,15 +154,27 @@ public class PainelContratos extends JInternalFrame {
 							.addGap(229)
 							.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
 							.addGap(220)
-							.addComponent(btnNovo, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)))
+							.addComponent(btnNovo, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnCancelaPesquisa)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textFieldPesquisa, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
-					.addGap(31)
+					.addComponent(scrollPanePrincipal, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(btnPesquisar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnCancelaPesquisa, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(textFieldPesquisa, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE, false)
 						.addComponent(btnVisualizar)
 						.addComponent(btnNovo)
@@ -182,9 +243,9 @@ public class PainelContratos extends JInternalFrame {
 	private void escreveTabela(){
 		// IN�CIO DE CONSTRUÇÃO DA TABELA
 				// designTabela = o conteúdo da tabela em si, preenchida através de um loop for.
-						Object[][] designTabela = new Object[listaContratos.size()][5];
-						for (int i = 0; i < listaContratos.size(); i++){
-							Contrato contratoAtual = listaContratos.get(i);
+						Object[][] designTabela = new Object[colecaoAtiva.size()][5];
+						for (int i = 0; i < colecaoAtiva.size(); i++){
+							Contrato contratoAtual = colecaoAtiva.get(i);
 							// Para preencher a primeira linha da tabela, com o nome do Hóspede Principal.
 							if (contratoAtual.getHospedePrincipal() == null){
 								designTabela[i][0] = "Não especificado";
