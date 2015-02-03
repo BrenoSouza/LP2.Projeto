@@ -67,11 +67,12 @@ public class PainelContratos extends JInternalFrame {
 		this.listaDeHospedes = listaDeHospedes;
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.listaContratos = listaContratos;
+		colecaoAtiva = listaContratos;
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelContratos.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Contratos");
 		setClosable(true);
-		setBounds(0, 0, 752, 470);
+		setBounds(0, 0, 770, 484);
 		
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
@@ -113,7 +114,7 @@ public class PainelContratos extends JInternalFrame {
 			}
 		});
 		btnCancelaPesquisa.setEnabled(false);
-		btnCancelaPesquisa.setToolTipText("Cancelar pesquisa( A tabela volta a ter todos os contratos).");
+		btnCancelaPesquisa.setToolTipText("Cancelar pesquisa(A tabela volta a ter todos os contratos).");
 		btnCancelaPesquisa.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/cross.png")));
 		
 		
@@ -121,12 +122,13 @@ public class PainelContratos extends JInternalFrame {
 		textFieldPesquisa.setColumns(10);
 		
 		btnPesquisar = new JButton("");
-		btnPesquisar.setToolTipText("Pesquisar");
+		btnPesquisar.setToolTipText("Pesquisar contratos a partir do hóspede principal deles");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (!(textFieldPesquisa.getText().isEmpty())){
 				List<Contrato> contratosPesquisados = new ArrayList<Contrato>();
 				for (Contrato contrato: PainelContratos.this.listaContratos){
-					if (contrato.getHospedePrincipal() != null || contrato.getHospedePrincipal().getNome().contains(textFieldPesquisa.getText())){
+					if (contrato.getHospedePrincipal() != null && contrato.getHospedePrincipal().getNome().toLowerCase().contains(textFieldPesquisa.getText().toLowerCase())){
 						contratosPesquisados.add(contrato);
 					}
 				}
@@ -140,6 +142,7 @@ public class PainelContratos extends JInternalFrame {
 				}
 				btnCancelaPesquisa.setEnabled(true);
 			}
+			}
 		});
 		btnPesquisar.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/search.png")));
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
@@ -148,38 +151,40 @@ public class PainelContratos extends JInternalFrame {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnVisualizar, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+							.addComponent(scrollPanePrincipal, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
+							.addContainerGap())
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnVisualizar, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
 							.addGap(229)
-							.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-							.addGap(220)
-							.addComponent(btnNovo, GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE))
+							.addComponent(btnEditar, GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+							.addGap(210)
+							.addComponent(btnNovo, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+							.addContainerGap())
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnCancelaPesquisa)
+							.addComponent(btnCancelaPesquisa, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldPesquisa, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+							.addComponent(textFieldPesquisa, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
+							.addComponent(btnPesquisar, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+							.addGap(505))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(scrollPanePrincipal, GroupLayout.PREFERRED_SIZE, 365, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(4)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(btnPesquisar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnCancelaPesquisa, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(textFieldPesquisa, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnPesquisar, 0, 0, Short.MAX_VALUE)
+						.addComponent(textFieldPesquisa, GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+						.addComponent(btnCancelaPesquisa, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE, false)
 						.addComponent(btnVisualizar)
-						.addComponent(btnNovo)
-						.addComponent(btnEditar))
-					.addContainerGap())
+						.addComponent(btnEditar)
+						.addComponent(btnNovo))
+					.addGap(5))
 		);
 
 		tableContratos = new JTable();
