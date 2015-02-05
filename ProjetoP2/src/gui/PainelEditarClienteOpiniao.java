@@ -48,7 +48,7 @@ public class PainelEditarClienteOpiniao extends JInternalFrame {
 		
 		textFieldComment = new JTextField();
 		String Comment = (hospede.getOpiniao() == null) ? "Sem coméntario." : hospede.getOpiniao().getComentario();
-		textFieldComment.setText(Comment);
+		textFieldComment.setText("Sem comentário.");
 		textFieldComment.setColumns(10);
 		
 		JLabel lblOpinio = new JLabel("Nota");
