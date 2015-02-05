@@ -24,7 +24,7 @@ public class Contrato {
 	 */
 	public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws Exception{
 		if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 
-//				|| listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0 Partes comentadas apenas para testes mais fáceis do PainelContrato
+				|| listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0
 				){
 			throw new Exception ("Dados inválidos. Tente novamente.");
 		}
@@ -32,6 +32,27 @@ public class Contrato {
 		this.listaHospedes.addAll(listaHospedes);
 		this.numeroDiarias = numeroDiarias;
 		this.dataCheckIn = Calendar.getInstance();
+		dataCheckOut.setTime(dataCheckIn.getTime());
+		dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
+	}
+	/**
+	 * Segundo construtor de Contrato, com uma data de check-in (para reservas)
+	 * @param dataCheckIn
+	 * Dia que se espera que haja o check-in
+	 * @param listaQuartosAlugados Um List<Quarto> com o(s) quarto(s) alugado(s).
+	 * @param listaHospedes Um List<Hospede> com o(s) hóspede(s) ligado(s) ao contrato.
+	 * @param numeroDiarias O número de diárias.
+	 */
+	public Contrato(Calendar dataCheckIn, List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws Exception{
+		if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 
+				|| listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0
+				){
+			throw new Exception ("Dados inválidos. Tente novamente.");
+		}
+		this.listaQuartosAlugados.addAll(listaQuartosAlugados);
+		this.listaHospedes.addAll(listaHospedes);
+		this.numeroDiarias = numeroDiarias;
+		this.dataCheckIn = dataCheckIn;
 		dataCheckOut.setTime(dataCheckIn.getTime());
 		dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
 	}
