@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -107,8 +108,13 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblHospedePrincipalVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblDataCheckIn = new JLabel("Data de Check-In:");
-		lblDataCheckIn.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
+		lblDataCheckIn.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		DateTime presente = new DateTime().withTimeAtStartOfDay();
+		DateTime checkIn = new DateTime(contrato.getDataCheckIn());
+		if (checkIn.compareTo(presente) > 0){
+			lblDataCheckIn.setText("Data marcada para Check-In:");
+		}
 		JLabel lblDataCheckInVariavel = new JLabel("New label");
 		try{
 			lblDataCheckInVariavel.setText(Main.converteParaString(contrato.getDataCheckIn()));
