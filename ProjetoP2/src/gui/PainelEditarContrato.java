@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -200,18 +201,36 @@ public class PainelEditarContrato extends JInternalFrame {
 		lblPrecoTotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		btnFinalizar = new JButton("Fazer check-out");
+		if (contrato.getStatus().equals("RESERVA")){
+			btnFinalizar.setText("Fazer check-in");
+		}
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja encerrar esse contrato?\nApós a operação, não será mais possível editar o contrato.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
-				if (escolha == JOptionPane.YES_OPTION){
-					for (Quarto quarto: listaQuartos){
-						quarto.setToLivre();
-						PainelEditarContrato.this.listaQuartosHotel.add(quarto);
-						
+				if (btnFinalizar.getText().equals("Fazer check-out")){
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja encerrar esse contrato?\nApós a operação, não será mais possível editar o contrato.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					if (escolha == JOptionPane.YES_OPTION){
+						for (Quarto quarto: listaQuartos){
+							quarto.setToLivre();
+							PainelEditarContrato.this.listaQuartosHotel.add(quarto);
+
+						}
+						getContrato().fechaContrato();
+						Collections.sort(PainelEditarContrato.this.listaQuartosHotel);
+						dispose();
 					}
-					getContrato().fechaContrato();
-					Collections.sort(PainelEditarContrato.this.listaQuartosHotel);
-					dispose();
+				}else{
+					DateTime presente = new DateTime().withTimeAtStartOfDay();
+					DateTime checkIn = new DateTime(PainelEditarContrato.this.contrato.getDataCheckIn()).withTimeAtStartOfDay();
+					if (checkIn.compareTo(presente) == 1){
+						int escolha = JOptionPane.showOptionDialog(null, "A data presente vem antes da data de CheckIn do contrato.\nAo fazer isso, a data de check-out será recalculada. Deseja realmente fazer a operação de check-in?", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+						if (escolha == JOptionPane.YES_OPTION){
+							PainelEditarContrato.this.contrato.fazCheckIn();
+							btnFinalizar.setText("Fazer check-out");
+						}
+					}else{
+						PainelEditarContrato.this.contrato.fazCheckIn();
+						btnFinalizar.setText("Fazer check-out");
+					}
 				}
 			}
 		});

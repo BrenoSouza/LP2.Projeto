@@ -55,6 +55,7 @@ public class Contrato {
 		this.dataCheckIn = dataCheckIn;
 		dataCheckOut.setTime(dataCheckIn.getTime());
 		dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
+		status = "RESERVA";
 	}
 	/**
 	 * Getter da lista de quartos alugados.
@@ -200,6 +201,12 @@ public class Contrato {
 		for(Hospede hospede: hospedes){
 			hospede.setContratoLigado(this);
 		}
+	}
+	public void fazCheckIn(){
+		status = "ABERTO";
+		dataCheckIn = Calendar.getInstance();
+		dataCheckOut.setTime(dataCheckIn.getTime());
+		dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
 	}
 	
 	@Override

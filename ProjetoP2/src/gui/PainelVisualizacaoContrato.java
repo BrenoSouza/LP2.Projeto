@@ -110,9 +110,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		JLabel lblDataCheckIn = new JLabel("Data de Check-In:");
 		
 		lblDataCheckIn.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		DateTime presente = new DateTime().withTimeAtStartOfDay();
-		DateTime checkIn = new DateTime(contrato.getDataCheckIn());
-		if (checkIn.compareTo(presente) > 0){
+		if (contrato.getStatus().equals("RESERVA")){
 			lblDataCheckIn.setText("Data marcada para Check-In:");
 		}
 		JLabel lblDataCheckInVariavel = new JLabel("New label");

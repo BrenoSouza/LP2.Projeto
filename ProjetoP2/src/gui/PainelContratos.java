@@ -235,7 +235,7 @@ public class PainelContratos extends JInternalFrame {
 			btnEditar.setEnabled(false);
 			btnVisualizar.setEnabled(false);
 		}else{
-			btnEditar.setEnabled(contratoSelecionado.getStatus().equals("ABERTO"));
+			btnEditar.setEnabled(contratoSelecionado.getStatus().equals("ABERTO") || contratoSelecionado.getStatus().equals("RESERVA"));
 			btnVisualizar.setEnabled(true);
 		}
 	}
