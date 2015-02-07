@@ -34,6 +34,7 @@ public class DialogoDiarias extends JDialog {
 
 
 	public DialogoDiarias() {
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setResizable(false);
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 		//		Essa linha acima garante que esse JDialog seja tratado como uma aplicação modal, ou seja: Quando ela for iniciada, a classe mãe (no caso PainelNovoContrato) PARA de ser processado e só volta quando essa classe for "disposed".
