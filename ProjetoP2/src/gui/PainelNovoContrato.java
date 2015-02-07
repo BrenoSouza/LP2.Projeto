@@ -31,6 +31,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
+import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -38,6 +39,7 @@ import org.joda.time.PeriodType;
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
+import classes.Reserva;
 import colecoes.ColecaoDeHospedes;
 
 import javax.swing.JRadioButton;
@@ -91,6 +93,7 @@ public class PainelNovoContrato extends JInternalFrame {
 	private boolean isReserva;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut = Calendar.getInstance();
+	private Reserva reserva;
 
 	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
 		setFrameIcon(new ImageIcon(PainelNovoContrato.class.getResource("/resources/contrato_icon.png")));
@@ -303,9 +306,14 @@ public class PainelNovoContrato extends JInternalFrame {
 //					//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 //					diariasContrato = dialogoDiarias.getDiarias();
 //				}
-				quartoVagoSelecionado.setToOcupado(diariasContrato);
-				listaQuartosDoContrato.add(quartoVagoSelecionado);
-				PainelNovoContrato.this.listaQuartosDisponiveis.remove(quartoVagoSelecionado);
+				if (quartoVagoSelecionado.isLivreParaReserva(new Reserva(dataCheckIn, dataCheckOut).getIntervalo())){
+					quartoVagoSelecionado.setToOcupado(diariasContrato);
+					listaQuartosDoContrato.add(quartoVagoSelecionado);
+					PainelNovoContrato.this.listaQuartosDisponiveis.remove(quartoVagoSelecionado);
+				}else{
+					JOptionPane.showMessageDialog(null, "O quarto disponível não está disponível durante o período do contrato.");
+				}
+				
 				escreveTabelas();
 			}
 		});
@@ -448,6 +456,12 @@ public class PainelNovoContrato extends JInternalFrame {
 					Contrato contrato;
 					if (isReserva){
 						contrato = new Contrato(dataCheckIn, listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
+						for (Quarto quarto: listaQuartosDoContrato){
+							quarto.setToLivre();
+							PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
+							Reserva reserva = new Reserva(contrato);
+							quarto.adicionaReserva(reserva);
+						}
 					}else{
 						contrato = new Contrato(listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
 					}
@@ -621,6 +635,9 @@ public class PainelNovoContrato extends JInternalFrame {
 				Quarto quartoAtual = listaQuartosDisponiveis.get(i);
 				//Para preencher a primeira coluna da linha: Descrição do quarto
 				designTabela[i][0] = quartoAtual.getTipo();
+				if (!(quartoAtual.isLivreParaReserva(new Reserva(dataCheckIn, dataCheckOut).getIntervalo()))){
+					designTabela[i][0] = designTabela[i][0] + " (RESERVADO DURANTE O PERÍODO SELECIONADO)";
+				}
 				//Para preencher a segunda coluna da linha: O preço da diária
 				designTabela[i][1] = "R$ " + quartoAtual.getPrecoDiaria();
 				//Para preencher a terceira coluna da linha: O número de pessoas que o quarto acomoda

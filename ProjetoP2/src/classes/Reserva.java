@@ -18,6 +18,11 @@ public class Reserva {
 		this.dataCheckOut = new DateTime(contrato.getDataCheckOut());
 		intervalo = new Interval(dataCheckIn, dataCheckOut);
 	}
+	public Reserva(Calendar dataCheckIn, Calendar dataCheckOut){
+		this.dataCheckIn = new DateTime(dataCheckIn);
+		this.dataCheckOut = new DateTime(dataCheckOut);
+		intervalo = new Interval(this.dataCheckIn, this.dataCheckOut);
+	}
 
 	public DateTime getDataCheckIn() {
 		return dataCheckIn;

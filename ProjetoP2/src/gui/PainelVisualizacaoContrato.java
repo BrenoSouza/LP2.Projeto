@@ -313,6 +313,8 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		JLabel lblQuartos = new JLabel("Quartos associados ao contrato:");
 		if (contrato.getStatus().equals("FECHADO")){
 			lblQuartos.setText("Quartos que foram associados ao contrato:");
+		}else if (contrato.getStatus().equals("RESERVA")){
+			lblQuartos.setText("Quartos que serão associados ao contrato:");
 		}
 		lblQuartos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
