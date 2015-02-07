@@ -158,6 +158,7 @@ public class PainelEditarContrato extends JInternalFrame {
 					if (escolha == JOptionPane.YES_OPTION){
 						listaQuartos.remove(objetoDinamico);
 						((Quarto) objetoDinamico).setToLivre();
+						((Quarto) objetoDinamico).retiraReserva(PainelEditarContrato.this.contrato);
 						PainelEditarContrato.this.listaQuartosHotel.add((Quarto) objetoDinamico);
 					}
 				}else if (objetoDinamico instanceof Servico){
