@@ -218,6 +218,7 @@ public class PainelEditarContrato extends JInternalFrame {
 						for (Quarto quarto: listaQuartos){
 							quarto.setToLivre();
 							PainelEditarContrato.this.listaQuartosHotel.add(quarto);
+							quarto.retiraReserva(PainelEditarContrato.this.contrato);
 						}
 						Collections.sort(PainelEditarContrato.this.listaQuartosHotel);
 						dispose();
@@ -230,10 +231,16 @@ public class PainelEditarContrato extends JInternalFrame {
 						if (escolha == JOptionPane.YES_OPTION){
 							PainelEditarContrato.this.contrato.fazCheckIn();
 							btnFinalizar.setText("Fazer check-out");
+							for (Quarto quarto: listaQuartos){
+								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
+							}
 						}
 					}else{
 						PainelEditarContrato.this.contrato.fazCheckIn();
 						btnFinalizar.setText("Fazer check-out");
+						for (Quarto quarto: listaQuartos){
+							quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
+						}
 					}
 				}
 			}
@@ -468,6 +475,9 @@ public class PainelEditarContrato extends JInternalFrame {
 					tabelaQuartos.setRowSelectionAllowed(true);
 					precoTotal = contrato.calculaPrecoFinal();
 					lblPrecoTotal.setText("Total a ser pago: R$ " + precoTotal);
+					if (contrato.getStatus().equals("RESERVA")){
+					lblPrecoTotal.setText("--RESERVA--");	
+					}
 	}
 	public void atualizaBotoes(){
 		if (objetoDinamico == null){

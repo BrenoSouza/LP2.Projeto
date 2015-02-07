@@ -140,6 +140,9 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		
 		lblTotalASerPagoVariavel = new JLabel("New label");
 		lblTotalASerPagoVariavel.setText(Double.toString(contrato.calculaPrecoFinal()));
+		if (contrato.getStatus().equals("RESERVA")){
+			lblTotalASerPagoVariavel.setText("--RESERVA--");
+		}
 		lblTotalASerPagoVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblHospedesRegistrados = new JLabel("H\u00F3spedes registrados:");
@@ -469,13 +472,13 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 			//Para preencher a segunda coluna da linha: O preço da diária
 			designTabela[j][1] = "R$ " + quartoAtualContrato.getPrecoDiaria();
 			//Para preencher a terceira coluna da linha: O número de diárias setadas
-			designTabela[j][2] = quartoAtualContrato.getDiarias();
+			designTabela[j][2] = contrato.getNumeroDiarias();
 			//Para preencher a quarta coluna da linha: O número de pessoas que o quarto acomoda
 			designTabela[j][3] = quartoAtualContrato.getNumeroHospedes();
 			//Para preencher a quinta coluna da linha: O número do quarto
 			designTabela[j][4] = quartoAtualContrato.getNumero();
 			//Para preencher a sexta coluna da linha: O preço a ser pago
-			designTabela[j][5] = "R$ " + quartoAtualContrato.getPrecoDiaria() * quartoAtualContrato.getDiarias();
+			designTabela[j][5] = "R$ " + quartoAtualContrato.getPrecoDiaria() * contrato.getNumeroDiarias();
 		}
 			//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 			@SuppressWarnings("serial")
