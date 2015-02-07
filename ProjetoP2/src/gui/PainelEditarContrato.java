@@ -38,6 +38,7 @@ import classes.Hospede;
 import classes.Quarto;
 import classes.Servico;
 import colecoes.ColecaoDeHospedes;
+import colecoes.ColecaoDeQuartos;
 
 public class PainelEditarContrato extends JInternalFrame {
 	private JLabel lblQuartos;
@@ -62,6 +63,7 @@ public class PainelEditarContrato extends JInternalFrame {
 	private double precoTotal;
 	private JLabel lblPrecoTotal;
 	private JButton btnFinalizar;
+	private ColecaoDeQuartos listaQuartosHotelColecao;
 	private List<Quarto> listaQuartosHotel;
 	private final static int SELECAO_HOSPEDE = 1;
 	private final static int SELECAO_SERVICO = 2;
@@ -69,7 +71,7 @@ public class PainelEditarContrato extends JInternalFrame {
 	private int selecaoRelativa = 0;
 	private ColecaoDeHospedes listaHospedesHotel;
 	
-	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaQuartosHotel, ColecaoDeHospedes listaHospedesHotel) {
+	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaQuartosHotelColecao, ColecaoDeHospedes listaHospedesHotel) {
 		setFrameIcon(new ImageIcon(PainelEditarContrato.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Editar contrato");
 		setClosable(true);
@@ -87,7 +89,7 @@ public class PainelEditarContrato extends JInternalFrame {
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();
 		this.listaHospedesHotel = listaHospedesHotel;
-		this.listaQuartosHotel = listaQuartosHotel;
+		this.listaQuartosHotel = listaQuartosHotelColecao.getListaQuartos();
 		lblHospedes = new JLabel("Hóspedes:");
 		lblHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane = new JScrollPane();
@@ -178,6 +180,10 @@ public class PainelEditarContrato extends JInternalFrame {
 					PainelEditarContratoAdicionarHospede painelAddHospede = new PainelEditarContratoAdicionarHospede(PainelEditarContrato.this.listaHospedesHotel, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal);
 					PainelEditarContrato.this.painelPrincipal.add(painelAddHospede);
 					painelAddHospede.show();
+				}else{
+					PainelAdicionaServico painelAdd = new PainelAdicionaServico(false, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotelColecao, PainelEditarContrato.this.listaHospedesHotel);
+					PainelEditarContrato.this.painelPrincipal.add(painelAdd);
+					painelAdd.show();
 				}
 				escreveTabelas();
 			}
@@ -192,6 +198,10 @@ public class PainelEditarContrato extends JInternalFrame {
 					PainelEditarCliente painelEditarHospede = new PainelEditarCliente((Hospede) objetoDinamico, PainelEditarContrato.this.painelPrincipal);
 					PainelEditarContrato.this.painelPrincipal.add(painelEditarHospede);
 					painelEditarHospede.show();
+				}else{
+					PainelAdicionaServico painelAdd = new PainelAdicionaServico(true, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotelColecao, PainelEditarContrato.this.listaHospedesHotel);
+					PainelEditarContrato.this.painelPrincipal.add(painelAdd);
+					painelAdd.show();
 				}
 				escreveTabelas();
 				}catch (Exception e5){

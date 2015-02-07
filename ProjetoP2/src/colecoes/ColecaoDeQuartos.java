@@ -62,6 +62,9 @@ public class ColecaoDeQuartos {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}
+	public List<Quarto> getListaQuartos() {
+		return listaQuartos;
+	}
 	/**
 	 * Método que retorna o número de quartos livres.
 	 * @return

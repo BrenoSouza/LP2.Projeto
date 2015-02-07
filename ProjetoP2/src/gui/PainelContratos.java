@@ -26,6 +26,7 @@ import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
 import colecoes.ColecaoDeHospedes;
+import colecoes.ColecaoDeQuartos;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
@@ -48,12 +49,13 @@ public class PainelContratos extends JInternalFrame {
 	private JTextField textFieldPesquisa;
 	private JButton btnPesquisar;
 	private List<Contrato> colecaoAtiva = new ArrayList<Contrato>();
+	private ColecaoDeQuartos colecaoDeQuartos;
 
 
 	/**
 	 * Create the frame.
 	 */
-	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis){
+	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos colecaoDeQuartos){
 		setNormalBounds(new Rectangle(0, 0, 1000, 1000));
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
@@ -65,7 +67,8 @@ public class PainelContratos extends JInternalFrame {
 			
 		this.painelPrincipal = painelPrincipal;
 		this.listaDeHospedes = listaDeHospedes;
-		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
+		this.colecaoDeQuartos = colecaoDeQuartos;
+		this.listaQuartosDisponiveis = colecaoDeQuartos.getListaQuartos();
 		this.listaContratos = listaContratos;
 		colecaoAtiva = listaContratos;
 		setResizable(true);
@@ -88,7 +91,7 @@ public class PainelContratos extends JInternalFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelEditar = new PainelEditarContrato(contratoSelecionado, getPainelPrincipal(), PainelContratos.this.listaQuartosDisponiveis, PainelContratos.this.listaDeHospedes);
+				painelEditar = new PainelEditarContrato(contratoSelecionado, getPainelPrincipal(), PainelContratos.this.colecaoDeQuartos, PainelContratos.this.listaDeHospedes);
 				adicionaNoPainel(painelEditar);
 				painelEditar.show();
 			}
