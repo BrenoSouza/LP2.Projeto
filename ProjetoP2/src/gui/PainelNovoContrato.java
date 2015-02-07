@@ -3,7 +3,6 @@ package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -42,7 +41,6 @@ import colecoes.ColecaoDeHospedes;
 
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFormattedTextField;
 
 public class PainelNovoContrato extends JInternalFrame {
@@ -88,10 +86,10 @@ public class PainelNovoContrato extends JInternalFrame {
 	private Hospede hospedePrincipal;
 	private JDesktopPane painelPrincipal;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JButton btnAlterarDiarias;
-	private JRadioButton rdbtnbotaoCheckInImediato;
+	private JRadioButton rdbtnbotaoNaoReserva;
 	private JRadioButton rdbtnbotaoReserva;
 	private JFormattedTextField campoData;
+	private JButton btnAlterarDiarias;
 
 	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
 		setFrameIcon(new ImageIcon(PainelNovoContrato.class.getResource("/resources/contrato_icon.png")));
@@ -189,64 +187,42 @@ public class PainelNovoContrato extends JInternalFrame {
 
 		lblHospedesNoContrato = new JLabel("Hóspedes no contrato:");
 		lblHospedesNoContrato.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		rdbtnbotaoCheckInImediato = new JRadioButton("Check-in imediato");
-		buttonGroup.add(rdbtnbotaoCheckInImediato);
-		
-		rdbtnbotaoReserva = new JRadioButton("Reserva");
-		buttonGroup.add(rdbtnbotaoReserva);
-		rdbtnbotaoReserva.setSelected(true);
-		
-		try {
-			campoData = new JFormattedTextField(new MaskFormatter("##/##/####"));
-		} catch (ParseException e3) {
-			JOptionPane.showMessageDialog(null, e3.getMessage());
-		}
 		GroupLayout gl_panelHospedes = new GroupLayout(panelHospedes);
 		gl_panelHospedes.setHorizontalGroup(
-			gl_panelHospedes.createParallelGroup(Alignment.LEADING)
+				gl_panelHospedes.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelHospedes.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelHospedes.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelHospedes.createSequentialGroup()
-							.addComponent(rdbtnbotaoCheckInImediato)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(rdbtnbotaoReserva, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(campoData, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-							.addGap(67)
-							.addComponent(btnRemoverDoContrato, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnCriarNovo, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnAdicionarNoContrato, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
-						.addComponent(lblHospedesSemContrato, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblHospedesNoContrato, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(gl_panelHospedes.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panelHospedes.createSequentialGroup()
+										.addComponent(btnRemoverDoContrato, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+										.addGap(170)
+										.addComponent(btnCriarNovo, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+										.addGap(163)
+										.addComponent(btnAdicionarNoContrato, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+										.addComponent(lblHospedesSemContrato, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblHospedesNoContrato, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+										.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
+										.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE))
+										.addContainerGap())
+				);
 		gl_panelHospedes.setVerticalGroup(
-			gl_panelHospedes.createParallelGroup(Alignment.TRAILING)
+				gl_panelHospedes.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelHospedes.createSequentialGroup()
-					.addContainerGap(18, Short.MAX_VALUE)
-					.addComponent(lblHospedesSemContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblHospedesNoContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-					.addGap(8)
-					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(gl_panelHospedes.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAdicionarNoContrato)
-						.addComponent(rdbtnbotaoCheckInImediato)
-						.addComponent(rdbtnbotaoReserva)
-						.addComponent(campoData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCriarNovo)
-						.addComponent(btnRemoverDoContrato))
-					.addContainerGap())
-		);
+						.addContainerGap(18, Short.MAX_VALUE)
+						.addComponent(lblHospedesSemContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(lblHospedesNoContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+						.addGap(8)
+						.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addGroup(gl_panelHospedes.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnAdicionarNoContrato)
+								.addComponent(btnRemoverDoContrato)
+								.addComponent(btnCriarNovo))
+								.addContainerGap())
+				);
 
 		tabelaHospedesNoContrato = new JTable();
 		tabelaHospedesNoContrato.setRowSelectionAllowed(true);
@@ -312,28 +288,16 @@ public class PainelNovoContrato extends JInternalFrame {
 		btnAdicionarNoContratoQuarto.setEnabled(false);
 		btnAdicionarNoContratoQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try{
-					if (rdbtnbotaoReserva.isSelected()){
-						Calendar dataCheckIn = Main.converteParaCalendar(campoData.getText());
-					}else{
-						Calendar dataCheckIn = Calendar.getInstance();
-					}
-					quartoVagoSelecionado.setToOcupado(diariasContrato);
-					listaQuartosDoContrato.add(quartoVagoSelecionado);
-					PainelNovoContrato.this.listaQuartosDisponiveis.remove(quartoVagoSelecionado);
-					escreveTabelas();
-					campoData.setEditable(false);
-				}catch (Exception e1){
-					JOptionPane.showMessageDialog(null, "Por favor, insira uma data de reserva ou marque o contrato como Check-In imediato");
-				}
-				
 //				if (diariasContrato == 0) {
 //					dialogoDiarias = new DialogoDiarias();
 //					dialogoDiarias.setVisible(true);
 //					//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 //					diariasContrato = dialogoDiarias.getDiarias();
 //				}
-				
+				quartoVagoSelecionado.setToOcupado(diariasContrato);
+				listaQuartosDoContrato.add(quartoVagoSelecionado);
+				PainelNovoContrato.this.listaQuartosDisponiveis.remove(quartoVagoSelecionado);
+				escreveTabelas();
 			}
 		});
 		btnAdicionarNoContratoQuarto.setEnabled(false);
@@ -487,40 +451,67 @@ public class PainelNovoContrato extends JInternalFrame {
 				}
 			}
 		});
+
+		rdbtnbotaoNaoReserva = new JRadioButton("Check-in imediato");
+		rdbtnbotaoNaoReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				campoData.setEnabled(false);
+			}
+		});
+		buttonGroup.add(rdbtnbotaoNaoReserva);
+
+		rdbtnbotaoReserva = new JRadioButton("Reserva");
+		rdbtnbotaoReserva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				campoData.setEnabled(true);
+			}
+		});
+		rdbtnbotaoReserva.setSelected(true);
+		buttonGroup.add(rdbtnbotaoReserva);
 		try{
+			campoData = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		}catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		GroupLayout gl_panelFinalizar = new GroupLayout(panelFinalizar);
 		gl_panelFinalizar.setHorizontalGroup(
-			gl_panelFinalizar.createParallelGroup(Alignment.LEADING)
+				gl_panelFinalizar.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelFinalizar.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelFinalizar.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane_5, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panelFinalizar.createSequentialGroup()
-							.addGap(651)
-							.addComponent(btnFinalizar, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)))
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(gl_panelFinalizar.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+								.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+								.addComponent(scrollPane_5, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_panelFinalizar.createSequentialGroup()
+										.addComponent(rdbtnbotaoNaoReserva)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(rdbtnbotaoReserva)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(campoData, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addGap(397)
+										.addComponent(btnFinalizar, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)))
+										.addContainerGap())
+				);
 		gl_panelFinalizar.setVerticalGroup(
-			gl_panelFinalizar.createParallelGroup(Alignment.TRAILING)
+				gl_panelFinalizar.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelFinalizar.createSequentialGroup()
-					.addContainerGap(18, Short.MAX_VALUE)
-					.addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-					.addGap(6)
-					.addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-					.addGap(8)
-					.addComponent(scrollPane_5, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnFinalizar)
-					.addContainerGap())
-		);
+						.addContainerGap(18, Short.MAX_VALUE)
+						.addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+						.addGap(6)
+						.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+						.addGap(6)
+						.addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+						.addGap(8)
+						.addComponent(scrollPane_5, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addGroup(gl_panelFinalizar.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnFinalizar)
+								.addComponent(rdbtnbotaoNaoReserva)
+								.addComponent(rdbtnbotaoReserva)
+								.addComponent(campoData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addContainerGap())
+				);
 
 		tabelaQuartosFinal = new JTable();
 		scrollPane_5.setViewportView(tabelaQuartosFinal);
