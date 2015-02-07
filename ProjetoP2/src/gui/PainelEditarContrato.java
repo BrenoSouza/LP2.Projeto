@@ -455,7 +455,7 @@ public class PainelEditarContrato extends JInternalFrame {
 					//Para preencher a quinta coluna da linha: O número do quarto
 					designTabela[j][4] = quartoAtualContrato.getNumero();
 					//Para preencher a sexta coluna da linha: O preço a ser pago
-					designTabela[j][5] = "R$ " + quartoAtualContrato.getDiarias() * quartoAtualContrato.getPrecoDiaria();
+					designTabela[j][5] = "R$ " + contrato.getNumeroDiarias() * quartoAtualContrato.getPrecoDiaria();
 				}
 					//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 					@SuppressWarnings("serial")
