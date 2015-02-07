@@ -3,6 +3,8 @@ package classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.Interval;
+
 public abstract class Quarto extends Servico implements Comparable<Quarto>{
 	private int numero, numeroHospedes;
 	private int diarias = 0;
@@ -178,6 +180,24 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 	}
 	public void adicionaReserva(Reserva reserva){
 		listaReservas.add(reserva);
+	}
+	public void adicionaReserva(Contrato contrato){
+		Reserva reserva = new Reserva(contrato);
+		listaReservas.add(reserva);
+	}
+	public void retiraReserva(Contrato contrato){
+		for (Reserva reserva: listaReservas){
+			if (reserva.getContrato().equals(contrato)){
+				listaReservas.remove(reserva);
+			}
+		}
+	}
+	public boolean isLivreParaReserva(Interval intervalo){
+		for (Reserva reserva: listaReservas){
+			if (reserva.getIntervaloSobrepoe(intervalo)){
+				return false;
+			}
+		}return true;
 	}
 	@Override
 	public boolean equals (Object obj){

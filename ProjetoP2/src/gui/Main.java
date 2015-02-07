@@ -94,7 +94,7 @@ public class Main extends JFrame {
 	 * @throws Exception
 	 * Se a string estiver em algum formato inválido
 	 */
-	public static Calendar converteParaCalendar(String data) throws Exception{
+	public static Calendar converteParaCalendar(String data) throws java.text.ParseException{
 		Calendar dataDeRetorno = Calendar.getInstance();
 		dataDeRetorno.setTime(FormatoData.parse(data));
 		return dataDeRetorno;

@@ -133,10 +133,16 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblDataMarcadaCheckOutVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblTotalASerPago = new JLabel("Total a ser pago:");
+		if (contrato.getStatus().equals("FECHADO")){
+			lblTotalASerPago.setText("Total que foi pago:");
+		}
 		lblTotalASerPago.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		lblTotalASerPagoVariavel = new JLabel("New label");
 		lblTotalASerPagoVariavel.setText(Double.toString(contrato.calculaPrecoFinal()));
+		if (contrato.getStatus().equals("RESERVA")){
+			lblTotalASerPagoVariavel.setText("--RESERVA--");
+		}
 		lblTotalASerPagoVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblHospedesRegistrados = new JLabel("H\u00F3spedes registrados:");
@@ -313,6 +319,8 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		JLabel lblQuartos = new JLabel("Quartos associados ao contrato:");
 		if (contrato.getStatus().equals("FECHADO")){
 			lblQuartos.setText("Quartos que foram associados ao contrato:");
+		}else if (contrato.getStatus().equals("RESERVA")){
+			lblQuartos.setText("Quartos que serão associados ao contrato:");
 		}
 		lblQuartos.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
@@ -464,13 +472,13 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 			//Para preencher a segunda coluna da linha: O preço da diária
 			designTabela[j][1] = "R$ " + quartoAtualContrato.getPrecoDiaria();
 			//Para preencher a terceira coluna da linha: O número de diárias setadas
-			designTabela[j][2] = quartoAtualContrato.getDiarias();
+			designTabela[j][2] = contrato.getNumeroDiarias();
 			//Para preencher a quarta coluna da linha: O número de pessoas que o quarto acomoda
 			designTabela[j][3] = quartoAtualContrato.getNumeroHospedes();
 			//Para preencher a quinta coluna da linha: O número do quarto
 			designTabela[j][4] = quartoAtualContrato.getNumero();
 			//Para preencher a sexta coluna da linha: O preço a ser pago
-			designTabela[j][5] = "R$ " + quartoAtualContrato.calculaPrecoTotal();
+			designTabela[j][5] = "R$ " + quartoAtualContrato.getPrecoDiaria() * contrato.getNumeroDiarias();
 		}
 			//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 			@SuppressWarnings("serial")
