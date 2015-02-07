@@ -10,6 +10,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	private boolean camaExtra = false;
 	private boolean isLivre = true;
+	private List<Reserva> listaReservas = new ArrayList<Reserva>();
 
 	/**
 	 * O construtor do quarto.
@@ -171,6 +172,12 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 	public void setToOcupado(int diarias){
 		setDiarias(diarias);
 		setLivre(false);
+	}
+	public List<Reserva> getListaReservas() {
+		return listaReservas;
+	}
+	public void adicionaReserva(Reserva reserva){
+		listaReservas.add(reserva);
 	}
 	@Override
 	public boolean equals (Object obj){
