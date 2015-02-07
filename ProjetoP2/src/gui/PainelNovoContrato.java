@@ -3,6 +3,7 @@ package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -86,10 +87,10 @@ public class PainelNovoContrato extends JInternalFrame {
 	private Hospede hospedePrincipal;
 	private JDesktopPane painelPrincipal;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JRadioButton rdbtnbotaoNaoReserva;
-	private JRadioButton rdbtnbotaoReserva;
-	private JFormattedTextField campoData;
 	private JButton btnAlterarDiarias;
+	private boolean isReserva;
+	private Calendar dataCheckIn;
+	private Calendar dataCheckOut = Calendar.getInstance();
 
 	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
 		setFrameIcon(new ImageIcon(PainelNovoContrato.class.getResource("/resources/contrato_icon.png")));
@@ -114,6 +115,14 @@ public class PainelNovoContrato extends JInternalFrame {
 		dialogoDiarias.setVisible(true);
 		//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 		diariasContrato = dialogoDiarias.getDiarias();
+		isReserva = dialogoDiarias.isReserva();
+		try {
+			dataCheckIn = dialogoDiarias.getDataCheckIn();
+		} catch (ParseException e3) {
+			JOptionPane.showMessageDialog(null, e3.getMessage());
+		}
+		dataCheckOut.setTime(dataCheckIn.getTime());
+		dataCheckOut.add(Calendar.DAY_OF_YEAR, diariasContrato);
 		String[] nomesHospedes = new String[listaHospedesSemContrato.size() + 1]; // Criando a lista com os nomes dos hóspedes para serem escolhidos.
 		nomesHospedes[0] = "-- SELECIONE UM HÓSPEDE --"; // Criando uma mensagem para ser a de primeiro índice.
 		for (int i = 0; i < listaHospedesSemContrato.size(); i++){
@@ -316,13 +325,21 @@ public class PainelNovoContrato extends JInternalFrame {
 			}
 		});
 		
-		btnAlterarDiarias = new JButton("Alterar diárias");
+		btnAlterarDiarias = new JButton("Alterar diárias e data de Check-in");
 		btnAlterarDiarias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				dialogoDiarias = new DialogoDiarias();
 				dialogoDiarias.setVisible(true);
 				//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 				diariasContrato = dialogoDiarias.getDiarias();
+				isReserva = dialogoDiarias.isReserva();
+				try {
+					dataCheckIn = dialogoDiarias.getDataCheckIn();
+				} catch (ParseException e3) {
+					JOptionPane.showMessageDialog(null, e3.getMessage());
+				}
+				dataCheckOut.setTime(dataCheckIn.getTime());
+				dataCheckOut.add(Calendar.DAY_OF_YEAR, diariasContrato);
 				for (Quarto quarto: listaQuartosDoContrato){
 					quarto.setDiarias(diariasContrato);
 				}
@@ -429,8 +446,7 @@ public class PainelNovoContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					Contrato contrato;
-					if (rdbtnbotaoReserva.isSelected()){
-						Calendar dataCheckIn = Main.converteParaCalendar(campoData.getText());
+					if (isReserva){
 						contrato = new Contrato(dataCheckIn, listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
 					}else{
 						contrato = new Contrato(listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
@@ -451,67 +467,40 @@ public class PainelNovoContrato extends JInternalFrame {
 				}
 			}
 		});
-
-		rdbtnbotaoNaoReserva = new JRadioButton("Check-in imediato");
-		rdbtnbotaoNaoReserva.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				campoData.setEnabled(false);
-			}
-		});
-		buttonGroup.add(rdbtnbotaoNaoReserva);
-
-		rdbtnbotaoReserva = new JRadioButton("Reserva");
-		rdbtnbotaoReserva.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				campoData.setEnabled(true);
-			}
-		});
-		rdbtnbotaoReserva.setSelected(true);
-		buttonGroup.add(rdbtnbotaoReserva);
 		try{
-			campoData = new JFormattedTextField(new MaskFormatter("##/##/####"));
 		}catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		GroupLayout gl_panelFinalizar = new GroupLayout(panelFinalizar);
 		gl_panelFinalizar.setHorizontalGroup(
-				gl_panelFinalizar.createParallelGroup(Alignment.LEADING)
+			gl_panelFinalizar.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelFinalizar.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_panelFinalizar.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-								.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-								.addComponent(scrollPane_5, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_panelFinalizar.createSequentialGroup()
-										.addComponent(rdbtnbotaoNaoReserva)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(rdbtnbotaoReserva)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(campoData, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addGap(397)
-										.addComponent(btnFinalizar, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)))
-										.addContainerGap())
-				);
+					.addContainerGap()
+					.addGroup(gl_panelFinalizar.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+						.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+						.addComponent(scrollPane_5, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelFinalizar.createSequentialGroup()
+							.addGap(651)
+							.addComponent(btnFinalizar, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
 		gl_panelFinalizar.setVerticalGroup(
-				gl_panelFinalizar.createParallelGroup(Alignment.TRAILING)
+			gl_panelFinalizar.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelFinalizar.createSequentialGroup()
-						.addContainerGap(18, Short.MAX_VALUE)
-						.addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addGap(6)
-						.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-						.addGap(6)
-						.addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addGap(8)
-						.addComponent(scrollPane_5, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addGroup(gl_panelFinalizar.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnFinalizar)
-								.addComponent(rdbtnbotaoNaoReserva)
-								.addComponent(rdbtnbotaoReserva)
-								.addComponent(campoData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addContainerGap())
-				);
+					.addContainerGap(18, Short.MAX_VALUE)
+					.addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+					.addGap(6)
+					.addComponent(scrollPane_4, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+					.addGap(6)
+					.addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+					.addGap(8)
+					.addComponent(scrollPane_5, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnFinalizar)
+					.addContainerGap())
+		);
 
 		tabelaQuartosFinal = new JTable();
 		scrollPane_5.setViewportView(tabelaQuartosFinal);
