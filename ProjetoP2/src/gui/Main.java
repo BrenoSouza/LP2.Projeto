@@ -43,6 +43,7 @@ import classes.QuartoLuxoSimples;
 import classes.QuartoLuxoTriplo;
 import classes.QuartoPresidencial;
 import colecoes.ColecaoDeHospedes;
+import colecoes.ColecaoDeQuartos;
 
 public class Main extends JFrame {
 
@@ -55,6 +56,7 @@ public class Main extends JFrame {
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
 	private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
+	private static ColecaoDeQuartos listaDeQuartos = new ColecaoDeQuartos();
 	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
 
 	public static SimpleDateFormat getFormatodata() {
@@ -63,6 +65,10 @@ public class Main extends JFrame {
 	
 	public static ColecaoDeHospedes getListaDeHospedes() {
 		return listaDeHospedes;
+	}
+	
+	public static ColecaoDeQuartos getListaDeQuartos() {
+		return listaDeQuartos;
 	}
 
 	public static void main(String[] args) {
@@ -144,6 +150,8 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1000, 700);
 
+		listaDeQuartos.criaQuartos();
+		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
@@ -239,7 +247,7 @@ public class Main extends JFrame {
 		btnServios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (painelServicos == null || painelServicos.isClosed()){
-					painelServicos = new PainelServicos(listaContratos, painelPrincipal, listaQuartosDisponiveis, listaDeHospedes);
+					painelServicos = new PainelServicos(listaContratos, painelPrincipal, listaDeQuartos, listaDeHospedes);
 					painelPrincipal.add(painelServicos);
 					painelServicos.show();
 				}
