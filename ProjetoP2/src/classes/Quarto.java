@@ -187,8 +187,9 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 	}
 	public void retiraReserva(Contrato contrato){
 		for (Reserva reserva: listaReservas){
-			if (reserva.getContrato().equals(contrato)){
+			if (reserva.getContrato() == contrato){
 				listaReservas.remove(reserva);
+				break;
 			}
 		}
 	}
