@@ -159,7 +159,6 @@ public class PainelEditarContrato extends JInternalFrame {
 						listaQuartos.remove(objetoDinamico);
 						((Quarto) objetoDinamico).setToLivre();
 						((Quarto) objetoDinamico).retiraReserva(PainelEditarContrato.this.contrato);
-						PainelEditarContrato.this.listaQuartosHotel.add((Quarto) objetoDinamico);
 					}
 				}else if (objetoDinamico instanceof Servico){
 					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse serviço do contrato?", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
@@ -217,7 +216,6 @@ public class PainelEditarContrato extends JInternalFrame {
 						getContrato().fechaContrato();
 						for (Quarto quarto: listaQuartos){
 							quarto.setToLivre();
-							PainelEditarContrato.this.listaQuartosHotel.add(quarto);
 							quarto.retiraReserva(PainelEditarContrato.this.contrato);
 						}
 						Collections.sort(PainelEditarContrato.this.listaQuartosHotel);
