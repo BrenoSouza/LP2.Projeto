@@ -88,11 +88,6 @@ public class PainelEditarContrato extends JInternalFrame {
 		listaServicos = contrato.getListaServicos();
 		this.listaHospedesHotel = listaHospedesHotel;
 		this.listaQuartosHotel = listaQuartosHotel;
-		try{
-			listaServicos.add(new AluguelCarro(1, true, true, true));
-		}catch (Exception e){
-			System.out.println(e.getMessage());
-		}
 		lblHospedes = new JLabel("Hóspedes:");
 		lblHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane = new JScrollPane();
@@ -191,8 +186,17 @@ public class PainelEditarContrato extends JInternalFrame {
 		btnEditarDinamico = new JButton("Editar");
 		btnEditarDinamico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO Falta codificar os paineis dessas partes.
+				try{
+				String texto = btnEditarDinamico.getText();
+				if (texto.equals("Editar hóspede")){
+					PainelEditarCliente painelEditarHospede = new PainelEditarCliente((Hospede) objetoDinamico, PainelEditarContrato.this.painelPrincipal);
+					PainelEditarContrato.this.painelPrincipal.add(painelEditarHospede);
+					painelEditarHospede.show();
+				}
 				escreveTabelas();
+				}catch (Exception e5){
+					JOptionPane.showMessageDialog(null, e5.getMessage());
+				}
 			}
 		});
 		atualizaBotoes();
@@ -209,12 +213,11 @@ public class PainelEditarContrato extends JInternalFrame {
 				if (btnFinalizar.getText().equals("Fazer check-out")){
 					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja encerrar esse contrato?\nApós a operação, não será mais possível editar o contrato.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION){
+						getContrato().fechaContrato();
 						for (Quarto quarto: listaQuartos){
 							quarto.setToLivre();
 							PainelEditarContrato.this.listaQuartosHotel.add(quarto);
-
 						}
-						getContrato().fechaContrato();
 						Collections.sort(PainelEditarContrato.this.listaQuartosHotel);
 						dispose();
 					}
@@ -444,7 +447,7 @@ public class PainelEditarContrato extends JInternalFrame {
 					//Para preencher a quinta coluna da linha: O número do quarto
 					designTabela[j][4] = quartoAtualContrato.getNumero();
 					//Para preencher a sexta coluna da linha: O preço a ser pago
-					designTabela[j][5] = "R$ " + quartoAtualContrato.calculaPrecoTotal();
+					designTabela[j][5] = "R$ " + quartoAtualContrato.getDiarias() * quartoAtualContrato.getPrecoDiaria();
 				}
 					//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 					@SuppressWarnings("serial")

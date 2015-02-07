@@ -133,6 +133,9 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblDataMarcadaCheckOutVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblTotalASerPago = new JLabel("Total a ser pago:");
+		if (contrato.getStatus().equals("FECHADO")){
+			lblTotalASerPago.setText("Total que foi pago:");
+		}
 		lblTotalASerPago.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		lblTotalASerPagoVariavel = new JLabel("New label");
@@ -472,7 +475,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 			//Para preencher a quinta coluna da linha: O número do quarto
 			designTabela[j][4] = quartoAtualContrato.getNumero();
 			//Para preencher a sexta coluna da linha: O preço a ser pago
-			designTabela[j][5] = "R$ " + quartoAtualContrato.calculaPrecoTotal();
+			designTabela[j][5] = "R$ " + quartoAtualContrato.getPrecoDiaria() * quartoAtualContrato.getDiarias();
 		}
 			//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 			@SuppressWarnings("serial")

@@ -16,6 +16,7 @@ public class Contrato {
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut = Calendar.getInstance();
 	private String status = "ABERTO";
+	private double precoQueFoiPago;
 	/**
 	 * Construtor da classe Contrato.
 	 * @param listaQuartosAlugados Um List<Quarto> com o(s) quarto(s) alugado(s).
@@ -104,14 +105,19 @@ public class Contrato {
 	 * @return O preço final a ser pago.
 	 */
 	public double calculaPrecoFinal(){
+		if (status.equals("FECHADO")){
+			return precoQueFoiPago;
+		}
 		return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos());
 	}
 	/**
 	 * Método para mudar o status do contrato de "ABERTO" para "FECHADO".
 	 */
 	public void fechaContrato(){
+		precoQueFoiPago = calculaPrecoFinal();
 		status = "FECHADO";
 		this.dataCheckOut = Calendar.getInstance();
+		
 	}
 	/**
 	 * Getter do Calendar com a data de check in.
