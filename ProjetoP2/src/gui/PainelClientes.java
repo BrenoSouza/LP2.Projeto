@@ -149,7 +149,7 @@ public class PainelClientes extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				List<Hospede> hospedesPesquisados = new ArrayList<Hospede>();
 				for (Hospede hospede: getColecaoDeHospedes().getListaHospedes()){
-					if (hospede.getNome().contains(textFieldPesquisa.getText())){
+					if (hospede.getNome().toLowerCase().contains(textFieldPesquisa.getText().toLowerCase())){
 						hospedesPesquisados.add(hospede);
 					}
 				}
