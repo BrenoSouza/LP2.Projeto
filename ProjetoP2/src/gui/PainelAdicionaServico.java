@@ -163,7 +163,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		disposeOnClosed();
 				    		break;
 				    	}
-				    	else {
+				    	else if (comp == panelRestaurante){
 				    		double preco = Double.parseDouble(txtfi_preco.getText());
 				    		try {
 								adicionaServico(new Restaurante(chckbxCobertura.isSelected(), preco));
