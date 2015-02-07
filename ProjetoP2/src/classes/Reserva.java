@@ -2,23 +2,25 @@ package classes;
 
 import java.util.Calendar;
 
+import org.joda.time.DateTime;
+
 public class Reserva {
 	
-	private Calendar dataCheckIn;
-	private Calendar dataCheckOut;
+	private DateTime dataCheckIn;
+	private DateTime dataCheckOut;
 	private Contrato contrato;
 	
 	public Reserva(Contrato contrato){
 		this.contrato = contrato;
-		this.dataCheckIn = contrato.getDataCheckIn();
-		this.dataCheckOut = contrato.getDataCheckOut();
+		this.dataCheckIn = new DateTime(contrato.getDataCheckIn());
+		this.dataCheckOut = new DateTime(contrato.getDataCheckOut());
 	}
 
-	public Calendar getDataCheckIn() {
+	public DateTime getDataCheckIn() {
 		return dataCheckIn;
 	}
 
-	public Calendar getDataCheckOut() {
+	public DateTime getDataCheckOut() {
 		return dataCheckOut;
 	}
 

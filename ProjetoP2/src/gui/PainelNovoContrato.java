@@ -89,6 +89,7 @@ public class PainelNovoContrato extends JInternalFrame {
 	private JRadioButton rdbtnbotaoNaoReserva;
 	private JRadioButton rdbtnbotaoReserva;
 	private JFormattedTextField campoData;
+	private JButton btnAlterarDiarias;
 
 	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
 		setFrameIcon(new ImageIcon(PainelNovoContrato.class.getResource("/resources/contrato_icon.png")));
@@ -109,6 +110,10 @@ public class PainelNovoContrato extends JInternalFrame {
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.listaContratos = listaContratos;
 		listaHospedesSemContrato = new ArrayList<Hospede>();
+		dialogoDiarias = new DialogoDiarias();
+		dialogoDiarias.setVisible(true);
+		//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
+		diariasContrato = dialogoDiarias.getDiarias();
 		String[] nomesHospedes = new String[listaHospedesSemContrato.size() + 1]; // Criando a lista com os nomes dos hóspedes para serem escolhidos.
 		nomesHospedes[0] = "-- SELECIONE UM HÓSPEDE --"; // Criando uma mensagem para ser a de primeiro índice.
 		for (int i = 0; i < listaHospedesSemContrato.size(); i++){
@@ -283,12 +288,12 @@ public class PainelNovoContrato extends JInternalFrame {
 		btnAdicionarNoContratoQuarto.setEnabled(false);
 		btnAdicionarNoContratoQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (diariasContrato == 0) {
-					dialogoDiarias = new DialogoDiarias();
-					dialogoDiarias.setVisible(true);
-					//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
-					diariasContrato = dialogoDiarias.getDiarias();
-				}
+//				if (diariasContrato == 0) {
+//					dialogoDiarias = new DialogoDiarias();
+//					dialogoDiarias.setVisible(true);
+//					//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
+//					diariasContrato = dialogoDiarias.getDiarias();
+//				}
 				quartoVagoSelecionado.setToOcupado(diariasContrato);
 				listaQuartosDoContrato.add(quartoVagoSelecionado);
 				PainelNovoContrato.this.listaQuartosDisponiveis.remove(quartoVagoSelecionado);
@@ -304,45 +309,62 @@ public class PainelNovoContrato extends JInternalFrame {
 				PainelNovoContrato.this.listaQuartosDisponiveis.add(quartoContratoSelecionado);
 				listaQuartosDoContrato.remove(quartoContratoSelecionado);
 				quartoContratoSelecionado.setToLivre();
-				if (listaQuartosDoContrato.size() == 0){ //Reiniciando o valor das diárias se for esvaziada a lista de quartos do contrato
-					diariasContrato = 0;
+//				if (listaQuartosDoContrato.size() == 0){ //Reiniciando o valor das diárias se for esvaziada a lista de quartos do contrato
+//					diariasContrato = 0;
+//				}
+				escreveTabelas();
+			}
+		});
+		
+		btnAlterarDiarias = new JButton("Alterar diárias");
+		btnAlterarDiarias.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dialogoDiarias = new DialogoDiarias();
+				dialogoDiarias.setVisible(true);
+				//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
+				diariasContrato = dialogoDiarias.getDiarias();
+				for (Quarto quarto: listaQuartosDoContrato){
+					quarto.setDiarias(diariasContrato);
 				}
 				escreveTabelas();
 			}
 		});
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
 		gl_panelQuartos.setHorizontalGroup(
-				gl_panelQuartos.createParallelGroup(Alignment.LEADING)
+			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelQuartos.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_panelQuartos.createSequentialGroup()
-										.addComponent(btnRemoverDoContratoQuarto, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-										.addGap(468)
-										.addComponent(btnAdicionarNoContratoQuarto, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
-										.addComponent(scrollPane_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
-										.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
-										.addComponent(lblQuartosLivres, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblQuartosNoContrato, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
-										.addContainerGap())
-				);
+					.addContainerGap()
+					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panelQuartos.createSequentialGroup()
+							.addComponent(btnRemoverDoContratoQuarto, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+							.addGap(175)
+							.addComponent(btnAlterarDiarias, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addGap(204)
+							.addComponent(btnAdicionarNoContratoQuarto, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
+						.addComponent(scrollPane_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
+						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
+						.addComponent(lblQuartosLivres, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblQuartosNoContrato, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
 		gl_panelQuartos.setVerticalGroup(
-				gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
+			gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelQuartos.createSequentialGroup()
-						.addGap(18)
-						.addComponent(lblQuartosLivres, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblQuartosNoContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addGap(8)
-						.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-						.addGap(18)
-						.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnRemoverDoContratoQuarto)
-								.addComponent(btnAdicionarNoContratoQuarto))
-								.addContainerGap())
-				);
+					.addGap(18)
+					.addComponent(lblQuartosLivres, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblQuartosNoContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+					.addGap(8)
+					.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+					.addGap(18)
+					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnRemoverDoContratoQuarto)
+						.addComponent(btnAdicionarNoContratoQuarto)
+						.addComponent(btnAlterarDiarias))
+					.addContainerGap())
+		);
 
 		tabelaQuartosLivres = new JTable();
 		scrollPane_2.setViewportView(tabelaQuartosLivres);
