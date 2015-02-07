@@ -241,14 +241,14 @@ public class PainelEditarContrato extends JInternalFrame {
 							btnFinalizar.setText("Fazer check-out");
 							for (Quarto quarto: listaQuartos){
 								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
-							}
+							}dispose();
 						}
 					}else{
 						PainelEditarContrato.this.contrato.fazCheckIn();
 						btnFinalizar.setText("Fazer check-out");
 						for (Quarto quarto: listaQuartos){
 							quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
-						}
+						}dispose();
 					}
 				}
 			}
@@ -457,7 +457,7 @@ public class PainelEditarContrato extends JInternalFrame {
 					//Para preencher a segunda coluna da linha: O preço da diária
 					designTabela[j][1] = "R$ " + quartoAtualContrato.getPrecoDiaria();
 					//Para preencher a terceira coluna da linha: O número de diárias setadas
-					designTabela[j][2] = quartoAtualContrato.getDiarias();
+					designTabela[j][2] = contrato.getNumeroDiarias();
 					//Para preencher a quarta coluna da linha: O número de pessoas que o quarto acomoda
 					designTabela[j][3] = quartoAtualContrato.getNumeroHospedes();
 					//Para preencher a quinta coluna da linha: O número do quarto
