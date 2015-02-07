@@ -174,7 +174,7 @@ public class Contrato {
 	public double CalculaPrecoQuartos() {
 		double quartosPreco = 0;
 		for(Quarto i: listaQuartosAlugados){
-			quartosPreco += i.calculaPrecoTotal();
+			quartosPreco += i.getPrecoDiaria() * getNumeroDiarias();
 		}
 		return quartosPreco;
 	}
