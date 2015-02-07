@@ -27,6 +27,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import colecoes.ColecaoDeHospedes;
+import colecoes.ColecaoDeQuartos;
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
@@ -45,8 +46,7 @@ public class PainelServicos extends JInternalFrame {
 	private Servico servicoSelecionado = null ;
 	private List<Contrato> listaContratos;
 	private ColecaoDeHospedes listaHospedes;
-	private List<Hospede> listaHospedes2 = new ArrayList();
-	private List<Quarto> listaQuartosDisponiveis;
+	private ColecaoDeQuartos listaDeQuartos;
 	private JDesktopPane painelPrincipal;
 	private PainelVisualizacaoServico painelVisualizacao;
 	private JButton btnAdicionar;
@@ -60,7 +60,7 @@ public class PainelServicos extends JInternalFrame {
 	 * Create the frame.
 	 */
 	
-	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, List<Quarto> listaQuartosDisponiveis, ColecaoDeHospedes listaHospedes) {
+	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
@@ -71,12 +71,9 @@ public class PainelServicos extends JInternalFrame {
 		});		
 		this.listaHospedes = listaHospedes;
 		this.painelPrincipal = painelPrincipal;
-		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
+		this.listaDeQuartos = listaDeQuartos;
 		try{
-			Calendar dataNascimento = Calendar.getInstance();
-			dataNascimento.set(Calendar.YEAR, 1990);
-			listaHospedes2.add(new Hospede("Cicrano de Tal","Casa do Fulano", "111111111-11", dataNascimento));
-			listaContratos.add(new Contrato(new ArrayList<Quarto>(), listaHospedes2, 5));
+
 		} catch (Exception e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
@@ -95,7 +92,7 @@ public class PainelServicos extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(contratoSelecionado != null) {
-					painelAdicionar = new PainelAdicionaServico(contratoSelecionado, getPainelPrincipal(), getListaQuartosDisponiveis(), getColecaoHospedes());
+					painelAdicionar = new PainelAdicionaServico(false, contratoSelecionado, getPainelPrincipal(), getColecaoDeQuartos(), getColecaoHospedes());
 					adicionaNoPainel(painelAdicionar);
 					painelAdicionar.show();
 				}
@@ -121,7 +118,7 @@ public class PainelServicos extends JInternalFrame {
 				else {
 					contratoSelecionado.getListaQuartosAlugados().remove(servicoSelecionado);
 					((Quarto) servicoSelecionado).setToLivre();
-					getListaQuartosDisponiveis().add((Quarto) servicoSelecionado);
+					getColecaoDeQuartos().getListaQuartosVagos().add((Quarto) servicoSelecionado);
 				}
 				escreveTabelaServicos();
 				escreveTabelaQuartos();
@@ -297,6 +294,10 @@ public class PainelServicos extends JInternalFrame {
 
 	}
 
+	public ColecaoDeQuartos getColecaoDeQuartos() {
+		return listaDeQuartos;
+	}
+	
 	private ColecaoDeHospedes getColecaoHospedes() {
 		return listaHospedes;
 	}
@@ -411,10 +412,10 @@ public class PainelServicos extends JInternalFrame {
 				if (servicoAtual.getTipo() == null){
 				designTabela[i][0] = "Não especificado";
 				}else{
-					designTabela[i][0] = servicoAtual.toString();
+					designTabela[i][0] = servicoAtual.getTipo();
 				}
-				designTabela[i][1] = "Teste";
-				designTabela[i][2] = 0;
+				designTabela[i][1] = servicoAtual.toString();
+				designTabela[i][2] = servicoAtual.calculaPrecoTotal();
 			}
 					
 		
@@ -470,10 +471,6 @@ public class PainelServicos extends JInternalFrame {
 	
 	public void adicionaNoPainel(JInternalFrame painel){
 		painelPrincipal.add(painel);
-	}
-	
-	public List<Quarto> getListaQuartosDisponiveis() {
-		return listaQuartosDisponiveis;
 	}
 	
 	public JDesktopPane getPainelPrincipal(){

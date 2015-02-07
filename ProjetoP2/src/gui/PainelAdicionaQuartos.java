@@ -33,15 +33,16 @@ import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
 import colecoes.ColecaoDeHospedes;
+import colecoes.ColecaoDeQuartos;
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
 
 public class PainelAdicionaQuartos extends JInternalFrame {
 	private ColecaoDeHospedes listaDeHospedes;
+	private ColecaoDeQuartos listaDeQuartos;
 	private List<Hospede> listaHospedesDoContrato;
 	private List<Hospede> listaHospedesSemContrato = new ArrayList<Hospede>();
-	private List<Quarto> listaQuartosDisponiveis;
 	private List<Quarto> listaQuartosDoContrato;
 	private Quarto quartoVagoSelecionado;
 	private Quarto quartoContratoSelecionado;
@@ -57,12 +58,14 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private Hospede hospedePrincipal;
 	private JDesktopPane painelPrincipal;
 	private JTable tableHospedesSemContrato;
+	private JTabbedPane tabbedPane_1;
+	private JScrollPane scrollPaneNoContrato;
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public PainelAdicionaQuartos(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, Contrato contrato, JDesktopPane painelPrincipal) {
+	public PainelAdicionaQuartos(ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos listaDeQuartos, Contrato contrato, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {
@@ -84,7 +87,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		
 		listaHospedesDoContrato = new ArrayList<Hospede>();
 		listaQuartosDoContrato = new ArrayList<Quarto>();
-		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
+		this.listaDeQuartos = listaDeQuartos;
 		this.contrato = contrato;
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -119,7 +122,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				}
 				quartoVagoSelecionado.setToOcupado(diariasContrato);
 				getContrato().getListaQuartosAlugados().add(quartoVagoSelecionado);
-				PainelAdicionaQuartos.this.listaQuartosDisponiveis.remove(quartoVagoSelecionado);
+				getListaDeQuartos().getListaQuartosVagos().remove(quartoVagoSelecionado);
 				
 				adicionaHospedesSelecionadosNoContrato(indiceHospedesSelecionados);
 				
@@ -130,43 +133,56 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		btnAdicionarNoContratoQuarto.setEnabled(false);
 		btnAdicionarNoContratoQuarto.setEnabled(false);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
-		
-		
 		gl_panelQuartos.setHorizontalGroup(
-			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
+			gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelQuartos.createSequentialGroup()
-					.addContainerGap()
 					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panelQuartos.createSequentialGroup()
-							.addGap(703)
-							.addComponent(btnAdicionarNoContratoQuarto, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
-						.addComponent(scrollPane_2, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE)
-						.addComponent(lblQuartosLivres, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 931, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelQuartos.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
+								.addComponent(tabbedPane_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE)
+								.addGroup(gl_panelQuartos.createSequentialGroup()
+									.addGap(703)
+									.addComponent(btnAdicionarNoContratoQuarto, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))))
+						.addGroup(gl_panelQuartos.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE)))
 					.addContainerGap())
+				.addGroup(gl_panelQuartos.createSequentialGroup()
+					.addContainerGap(417, Short.MAX_VALUE)
+					.addComponent(lblQuartosLivres, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+					.addGap(388))
 		);
 		gl_panelQuartos.setVerticalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelQuartos.createSequentialGroup()
-					.addGap(18)
+					.addContainerGap()
 					.addComponent(lblQuartosLivres, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-					.addGap(41)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(24)
+					.addComponent(tabbedPane_1, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
+					.addGap(13)
 					.addComponent(btnAdicionarNoContratoQuarto)
 					.addContainerGap())
 		);
 		
+		JScrollPane scrollPaneSemContrato = new JScrollPane();
+		tabbedPane_1.addTab("Hóspedes Sem Quarto", null, scrollPaneSemContrato, null);
+		
 		tableHospedesSemContrato = new JTable();
-		scrollPane.setColumnHeaderView(tableHospedesSemContrato);
+		scrollPaneSemContrato.setColumnHeaderView(tableHospedesSemContrato);
 		
 		tableHospedesSemContrato.setRowSelectionAllowed(true);
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
 		ListSelectionModel modeloSelecaoLinha = tableHospedesSemContrato.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+		
+		scrollPaneSemContrato.setViewportView(tableHospedesSemContrato);
+		
+		scrollPaneNoContrato = new JScrollPane();
+		tabbedPane_1.addTab("Hóspedes no Quarto", null, scrollPaneNoContrato, null);
 		
 		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
@@ -182,8 +198,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				
 			}
 		});
-		
-		scrollPane.setViewportView(tableHospedesSemContrato);
 		
 		tabelaQuartosLivres = new JTable();
 		scrollPane_2.setViewportView(tabelaQuartosLivres);
@@ -220,7 +234,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	}
 	
 	private void adicionaHospedesSemContratoNaLista() {
-		JOptionPane.showMessageDialog(null, listaDeHospedes.getListaHospedeTamanho());
 		for (int i = 0; i < listaDeHospedes.getListaHospedeTamanho(); i++) {
 			if (listaDeHospedes.getIndice(i).getContratoLigado() == null) {
 				listaHospedesSemContrato.add(listaDeHospedes.getIndice(i));
@@ -241,7 +254,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	}
 	
 	private void setQuartoVagoSelecionado (int i){
-		quartoVagoSelecionado = listaQuartosDisponiveis.get(i);
+		quartoVagoSelecionado = listaDeQuartos.getListaQuartosVagos().get(i);
 	}
 	
 	private void atualizaBotoes(){
@@ -255,11 +268,12 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 			// FIM DO PREENCHIMENTO DA TABELA DOS HÓSPEDES NO CONTRATO
 				
 			// PREENCHENDO TABELA DOS QUARTOS VAGOS NO HOTEL
-				Collections.sort(listaQuartosDisponiveis);
-				designTabela = new Object[listaQuartosDisponiveis.size()][4];
-				if (listaQuartosDisponiveis.size() > 0){
-				for (int i = 0; i < listaQuartosDisponiveis.size(); i++){
-					Quarto quartoAtual = listaQuartosDisponiveis.get(i);
+				listaDeQuartos.sortQuartosNumero();
+				JOptionPane.showMessageDialog(null, listaDeQuartos.getListaQuartosVagos().size());
+				designTabela = new Object[listaDeQuartos.getListaQuartosVagos().size()][4];
+				if (listaDeQuartos.getListaQuartosVagos().size() > 0){
+				for (int i = 0; i < listaDeQuartos.getListaQuartosVagos().size(); i++){
+					Quarto quartoAtual = listaDeQuartos.getListaQuartosVagos().get(i);
 					//Para preencher a primeira coluna da linha: Descrição do quarto
 					designTabela[i][0] = quartoAtual.getTipo();
 					//Para preencher a segunda coluna da linha: O preço da diária
@@ -325,4 +339,8 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				tableHospedesSemContrato.setModel(modeloTabela);
 				tableHospedesSemContrato.setRowSelectionAllowed(true);
 	}
+	
+	public ColecaoDeQuartos getListaDeQuartos() {
+		return listaDeQuartos;
 	}
+}
