@@ -47,7 +47,7 @@ public class Reserva {
 	 * True se os intervalos se sobrepoem
 	 */
 	public boolean getIntervaloSobrepoe (Interval outroIntervalo){
-		return intervalo.overlaps(outroIntervalo);
+		return (!(outroIntervalo.equals(intervalo)) && intervalo.overlaps(outroIntervalo));
 	}
 
 }
