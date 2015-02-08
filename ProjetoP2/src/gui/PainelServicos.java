@@ -92,7 +92,7 @@ public class PainelServicos extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(contratoSelecionado != null) {
-					painelAdicionar = new PainelAdicionaServico(false, contratoSelecionado, getPainelPrincipal(), getColecaoDeQuartos(), getColecaoHospedes());
+					painelAdicionar = new PainelAdicionaServico(null, contratoSelecionado, getPainelPrincipal(), getColecaoDeQuartos(), getColecaoHospedes());
 					adicionaNoPainel(painelAdicionar);
 					painelAdicionar.show();
 				}

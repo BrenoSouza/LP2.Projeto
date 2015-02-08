@@ -60,7 +60,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JCheckBox chckbxCamasExtras;
 	private JCheckBox chckbxCobertura;
 	private JTextField txtfi_preco;
-	private boolean editar;
+	private Servico servico;
 	private final String[] TIPOS_CARROS = {"Luxo", "Executivo"};
 	private final String[] TIPOS_QUARTOS = {"Presidencial", "Luxo Simples", "Luxo Duplo", "Luxo Triplo", "Executivo Simples",
 			"Executivo Duplo", "Executivo Triplo"};	
@@ -75,12 +75,12 @@ public class PainelAdicionaServico extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelAdicionaServico(boolean editar, Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
+	public PainelAdicionaServico(Object servico, Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
 		this.contrato = contrato;
 		this.painelPrincipal = painelPrincipal;
 		this.listaHospedes = listaHospedes;
 		this.listaDeQuartos = listaDeQuartos;
-		this.editar = editar;
+		this.servico = (Servico) servico;
 		
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
@@ -92,7 +92,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JButton btnQuartos = new JButton(imagemQuarto);
 		btnQuartos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!getEditar()) 
+				if (getServico() == null) 
 					layoutPainel.show(panelExterno, "quarto" );
 				else {
 					layoutPainel.show(panelExterno, "edita_quarto");
@@ -105,7 +105,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JButton btnAluguelCarros = new JButton(imagemCarro);
 		btnAluguelCarros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!getEditar()) 
+				if ((getServico() == null) ) 
 					layoutPainel.show(panelExterno, "carros" );
 				else {
 					layoutPainel.show(panelExterno, "edita_carro");
@@ -117,7 +117,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JButton btnBabysitter = new JButton(imagemBabysitter);
 		btnBabysitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!getEditar()) 
+				if ((getServico() == null) ) 
 					layoutPainel.show(panelExterno, "babysitter");
 				else {
 					layoutPainel.show(panelExterno, "edita_babysitter");
@@ -129,7 +129,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JButton btnRestaurante = new JButton(imagemRestaurante);
 		btnRestaurante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (!getEditar()) 
+				if ((getServico() == null) ) 
 					layoutPainel.show(panelExterno, "restaurante");
 				else {
 					layoutPainel.show(panelExterno, "edita_restaurante");
@@ -638,8 +638,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 		return listaDeQuartos;
 	}
 	
-	public boolean getEditar() {
-		return editar;
+	public Servico getServico() {
+		return servico;
 	}
 }
 
