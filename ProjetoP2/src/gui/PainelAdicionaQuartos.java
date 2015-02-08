@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -269,7 +268,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				
 			// PREENCHENDO TABELA DOS QUARTOS VAGOS NO HOTEL
 				listaDeQuartos.sortQuartosNumero();
-				JOptionPane.showMessageDialog(null, listaDeQuartos.getListaQuartosVagos().size());
 				designTabela = new Object[listaDeQuartos.getListaQuartosVagos().size()][4];
 				if (listaDeQuartos.getListaQuartosVagos().size() > 0){
 				for (int i = 0; i < listaDeQuartos.getListaQuartosVagos().size(); i++){
