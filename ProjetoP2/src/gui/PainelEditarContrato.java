@@ -236,28 +236,29 @@ public class PainelEditarContrato extends JInternalFrame {
 					DateTime presente = new DateTime().withTimeAtStartOfDay();
 					DateTime checkIn = new DateTime(PainelEditarContrato.this.contrato.getDataCheckIn()).withTimeAtStartOfDay();
 					if (checkIn.compareTo(presente) == 1){
-						int escolha = JOptionPane.showOptionDialog(null, "A data presente vem antes da data de CheckIn do contrato.\nAo fazer isso, a data de check-out será recalculada. Deseja realmente fazer a operação de check-in?", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
-						if (escolha == JOptionPane.YES_OPTION){
-							PainelEditarContrato.this.contrato.fazCheckIn();
-							btnFinalizar.setText("Fazer check-out");
-							for (Quarto quarto: listaQuartos){
-								if (quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo())){
-									quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
-									quarto.adicionaReserva(PainelEditarContrato.this.contrato);
-								}else{
-									JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
-								}
-							}dispose();
-						}
+						JOptionPane.showMessageDialog(null, "A data presente vem antes da data de CheckIn do contrato.");
+//						int escolha = JOptionPane.showOptionDialog(null, "A data presente vem antes da data de CheckIn do contrato.\nAo fazer isso, a data de check-out será recalculada. Deseja realmente fazer a operação de check-in?", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+//						if (escolha == JOptionPane.YES_OPTION){
+//							PainelEditarContrato.this.contrato.fazCheckIn();
+//							btnFinalizar.setText("Fazer check-out");
+//							for (Quarto quarto: listaQuartos){
+//								if (!(quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo()))){
+//									JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
+//								}else{
+//									quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
+//									quarto.adicionaReserva(PainelEditarContrato.this.contrato);
+//								}
+//							}dispose();
+//						}
 					}else{
 						PainelEditarContrato.this.contrato.fazCheckIn();
 						btnFinalizar.setText("Fazer check-out");
 						for (Quarto quarto: listaQuartos){
-							if (quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo())){
-								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
-								quarto.adicionaReserva(PainelEditarContrato.this.contrato);
-							}else{
+							if (!(quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo()))){
 								JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
+							}else{
+								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
+//								quarto.adicionaReserva(PainelEditarContrato.this.contrato);
 							}
 						}dispose();
 					}
