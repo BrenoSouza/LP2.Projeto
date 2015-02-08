@@ -23,14 +23,14 @@ public class TestaOpiniao {
 					+ "Muito, Muito, Muito, Muito, Muito, Muito, Muito, Muito bom!", 5);
 			Assert.fail("Esperava exceção, pois o comentário tem mais de 140 caracteres");
 		} catch (Exception e) {
-			Assert.assertEquals("Mensagem errada", "O comentario não pode ser vazio e deve possuir no maximo 140 caracteres.", e.getMessage());
+			Assert.assertEquals("Mensagem errada", "O comentário não pode ser vazio e deve possuir no máximo 140 caracteres.", e.getMessage());
 		}
 		
 		try {
 			new Opiniao("", 5);
 			Assert.fail("Esperava exceção, pois o comentário está vazio.");
 		} catch (Exception e) {
-			Assert.assertEquals("Mensagem errada", "O comentario não pode ser vazio e deve possuir no maximo 140 caracteres.", e.getMessage());
+			Assert.assertEquals("Mensagem errada", "O comentário não pode ser vazio e deve possuir no máximo 140 caracteres.", e.getMessage());
 		}
 		
 		try {

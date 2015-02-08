@@ -86,9 +86,9 @@ public class Babysitter extends Servico {
 	public String toString(){
 		horasTrabalhadas();
 		return "Serviço --- Babysitter ---" +
-				"\nInício -> " + this.getInicioServico() + " Hora de entrada ->" + this.getHoraEntrada() +
-				"\nFim -> " + this.getFim() + " Hora de saída ->" + this.getHoraSaida() +
-				"\nHoras ->" + this.getHorasPrecoNormal() + ", preço normal | " + this.getHorasPrecoExtra() + ", preço dobrado" +
+				"\nInício -> " + this.getInicioServico() + " Hora de entrada -> " + this.getHoraEntrada() +
+				"\nFim -> " + this.getFim() + " Hora de saída -> " + this.getHoraSaida() +
+				"\nHoras -> " + this.getHorasPrecoNormal() + ", preço normal | " + this.getHorasPrecoExtra() + ", preço dobrado" +
 				"\nCusto final: " + this.calculaPrecoTotal();
 	}
 	@Override

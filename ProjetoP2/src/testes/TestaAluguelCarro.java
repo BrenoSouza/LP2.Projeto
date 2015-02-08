@@ -32,7 +32,7 @@ public class TestaAluguelCarro {
 	         Assert.fail("Esperava excecao o número de diárias informado é menor que 1!");
 	      } catch (Exception e) {
 	         Assert.assertEquals("Mensagem errada",
-	               "O número de diárias nao pode ser menor que um.", e.getMessage());
+	               "Parametros inválidos!", e.getMessage());
 	      }
 	}
 	

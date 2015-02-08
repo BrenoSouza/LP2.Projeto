@@ -24,7 +24,7 @@ public class TestaRestaurante {
 	         Assert.fail("Esperava excecao preco informado é negativo!");
 	      } catch (Exception e) {
 	         Assert.assertEquals("Mensagem errada",
-	               "O preco da conta nao pode ser menor que zero.", e.getMessage());
+	               "O preço da conta nao pode ser menor que zero.", e.getMessage());
 	      }
 	}
 	

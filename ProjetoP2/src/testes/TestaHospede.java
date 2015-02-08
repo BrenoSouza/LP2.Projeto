@@ -55,24 +55,8 @@ public class TestaHospede {
 	      }
 		
 		try {
-	         new Hospede("Joao", "Brazil", "11111111111", dataNascimento);
-	         Assert.fail("Esperava excecao, o Cpf é inválido!");
-	      } catch (Exception e) {
-	         Assert.assertEquals("Mensagem errada",
-	               "Dados inválidos. Tente novamente", e.getMessage());
-	      }
-
-		try {
-	         new Hospede("Joao", "Brazil", "", dataNascimento);
+	         new Hospede("Joao", "Brazil", "   .   .   -  ", dataNascimento);
 	         Assert.fail("Esperava excecao, o Cpf é vazio!");
-	      } catch (Exception e) {
-	         Assert.assertEquals("Mensagem errada",
-	               "Dados inválidos. Tente novamente", e.getMessage());
-	      }   
-		
-		try {
-	         new Hospede("Joao", "Brazil", "11111111-11", dataNascimento);
-	         Assert.fail("Esperava excecao, o Cpf é inválido!");
 	      } catch (Exception e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
@@ -93,18 +77,7 @@ public class TestaHospede {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
 	      }
-	
-		try {
-	         new Hospede("Joao", "Brazil", "1111c1111-11", dataNascimento);
-	         Assert.fail("Esperava excecao, o CPF é um valor inválido!");
-	      } catch (Exception e) {
-	         Assert.assertEquals("Mensagem errada",
-	               "Dados inválidos. Tente novamente", e.getMessage());
-	      }
 		
 	}
-		
-	
-
 }
 
