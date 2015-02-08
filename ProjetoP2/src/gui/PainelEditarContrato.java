@@ -36,6 +36,7 @@ import classes.AluguelCarro;
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
+import classes.Reserva;
 import classes.Servico;
 import colecoes.ColecaoDeHospedes;
 import colecoes.ColecaoDeQuartos;
@@ -240,14 +241,24 @@ public class PainelEditarContrato extends JInternalFrame {
 							PainelEditarContrato.this.contrato.fazCheckIn();
 							btnFinalizar.setText("Fazer check-out");
 							for (Quarto quarto: listaQuartos){
-								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
+								if (quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo())){
+									quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
+									quarto.adicionaReserva(PainelEditarContrato.this.contrato);
+								}else{
+									JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
+								}
 							}dispose();
 						}
 					}else{
 						PainelEditarContrato.this.contrato.fazCheckIn();
 						btnFinalizar.setText("Fazer check-out");
 						for (Quarto quarto: listaQuartos){
-							quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
+							if (quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo())){
+								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
+								quarto.adicionaReserva(PainelEditarContrato.this.contrato);
+							}else{
+								JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
+							}
 						}dispose();
 					}
 				}
