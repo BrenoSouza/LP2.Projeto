@@ -107,6 +107,14 @@ public class PainelServicos extends JInternalFrame {
 		});
 		
 		btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				painelAdicionar = new PainelAdicionaServico(servicoSelecionado, contratoSelecionado, getPainelPrincipal(), getColecaoDeQuartos(), getColecaoHospedes());
+				adicionaNoPainel(painelAdicionar);
+				painelAdicionar.show();
+				
+			}
+		});
 		btnAtualizar.setEnabled(false);
 		
 		btnRemover = new JButton("Remover");

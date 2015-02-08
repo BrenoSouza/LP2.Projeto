@@ -51,9 +51,17 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JPanel panelBabysitter = new JPanel();
 	private JPanel panelCarros = new JPanel();
 	private JPanel panelRestaurante = new JPanel();
+	private JPanel panelEditaRestaurante;
+	private JPanel panelEditaQuarto;
+	private JPanel panelEditaBabysitter;
+	private JPanel panelEditaCarro;
 	private JComboBox cBoxTipoCarro;
 	private JCheckBox chckbxSeguro;
 	private JCheckBox chckbxTanqueCheio;
+	private JButton btnQuartos;
+	private JButton btnBabysitter;
+	private JButton btnRestaurante;
+	private JButton btnAluguelCarros;
 	private JSpinner spinnerDiariasCarro;
 	private JComboBox cBoxTipoQuarto;
 	private JSpinner spinnerDiarias;
@@ -64,7 +72,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private final String[] TIPOS_CARROS = {"Luxo", "Executivo"};
 	private final String[] TIPOS_QUARTOS = {"Presidencial", "Luxo Simples", "Luxo Duplo", "Luxo Triplo", "Executivo Simples",
 			"Executivo Duplo", "Executivo Triplo"};	
-	private JTextField textField;
+	private JTextField txtFldPrecoRestaurante;
 	private JTextField textField_1;
 	private JTextField textField_horaSaida;
 	private JTextField textField_horasSolicitadas;
@@ -75,7 +83,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelAdicionaServico(Object servico, Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
+	public PainelAdicionaServico(Servico servico, Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
 		this.contrato = contrato;
 		this.painelPrincipal = painelPrincipal;
 		this.listaHospedes = listaHospedes;
@@ -88,8 +96,31 @@ public class PainelAdicionaServico extends JInternalFrame {
 		setClosable(true);
 		setBounds(100, 100, 800, 400);
 		
+		if (servico == null) {
+			if (servico instanceof Quarto) {
+				btnBabysitter.setVisible(false);
+				btnAluguelCarros.setVisible(false);
+				btnRestaurante.setVisible(false);
+			}
+			else if (servico instanceof Restaurante) {
+				btnBabysitter.setVisible(false);
+				btnAluguelCarros.setVisible(false);
+				btnQuartos.setVisible(false);
+			}
+			else if (servico instanceof Babysitter) {
+				btnQuartos.setVisible(false);
+				btnAluguelCarros.setVisible(false);
+				btnRestaurante.setVisible(false);
+			}
+			else if (servico instanceof AluguelCarro) {
+				btnBabysitter.setVisible(false);
+				btnQuartos.setVisible(false);
+				btnRestaurante.setVisible(false);
+			}
+ 		}
+		
 		Icon imagemQuarto = new ImageIcon(PainelServicos.class.getResource("/resources/quarto.png"));
-		JButton btnQuartos = new JButton(imagemQuarto);
+		btnQuartos = new JButton(imagemQuarto);
 		btnQuartos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (getServico() == null) 
@@ -102,7 +133,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		});
 		
 		Icon imagemCarro = new ImageIcon(PainelServicos.class.getResource("/resources/carro.png"));
-		JButton btnAluguelCarros = new JButton(imagemCarro);
+		btnAluguelCarros = new JButton(imagemCarro);
 		btnAluguelCarros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ((getServico() == null) ) 
@@ -114,7 +145,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		});
 		
 		Icon imagemBabysitter = new ImageIcon(PainelServicos.class.getResource("/resources/babysitter.png"));
-		JButton btnBabysitter = new JButton(imagemBabysitter);
+		btnBabysitter = new JButton(imagemBabysitter);
 		btnBabysitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ((getServico() == null) ) 
@@ -126,7 +157,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		});
 		
 		Icon imagemRestaurante = new ImageIcon(PainelServicos.class.getResource("/resources/restaurante.png"));
-		JButton btnRestaurante = new JButton(imagemRestaurante);
+		btnRestaurante = new JButton(imagemRestaurante);
 		btnRestaurante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ((getServico() == null) ) 
@@ -138,6 +169,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		});
 		
 		JButton btnAdicionar = new JButton("Adicionar");
+		
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				for (Component comp : panelExterno.getComponents()) {
@@ -179,7 +211,28 @@ public class PainelAdicionaServico extends JInternalFrame {
 							}
 				    		break;
 				    	}
+				    	else if(comp == panelEditaQuarto) {
+				    		
+				    		disposeOnClosed();
+				    		break;
+				    	}
+				    	else if(comp == panelEditaRestaurante) {
+				    		
+				    		disposeOnClosed();
+				    		break;
+				    	}
+				    	else if(comp == panelEditaBabysitter) {
+				    		
+				    		disposeOnClosed();
+				    		break;
+				    	}
+				    	else if(comp == panelEditaCarro) {
+				    		
+				    		disposeOnClosed();
+				    		break;
+				    	}
 				    }			
+					
 				}
 			}
 
@@ -197,16 +250,18 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		panelExterno.setLayout(layoutPainel);
 		
-		JPanel panelEditaRestaurante = new JPanel();
+		panelEditaRestaurante = new JPanel();
+		
 		panelEditaRestaurante.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelExterno.add(panelEditaRestaurante, "edita_restaurante");
 		
 		JLabel lblAlterarPreo = new JLabel("Alterar Preço:");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtFldPrecoRestaurante = new JTextField();
+		txtFldPrecoRestaurante.setColumns(10);
 		
-		JCheckBox checkBox_3 = new JCheckBox("Cobertura");
+		
+		JCheckBox checkBox_IsCobertura = new JCheckBox("Cobertura");
 		GroupLayout gl_panelEditaRestaurante = new GroupLayout(panelEditaRestaurante);
 		gl_panelEditaRestaurante.setHorizontalGroup(
 			gl_panelEditaRestaurante.createParallelGroup(Alignment.LEADING)
@@ -215,9 +270,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addContainerGap()
 					.addComponent(lblAlterarPreo)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtFldPrecoRestaurante, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 					.addGap(74)
-					.addComponent(checkBox_3)
+					.addComponent(checkBox_IsCobertura)
 					.addGap(434))
 		);
 		gl_panelEditaRestaurante.setVerticalGroup(
@@ -227,13 +282,14 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(gl_panelEditaRestaurante.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblAlterarPreo)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-						.addComponent(checkBox_3))
+						.addComponent(txtFldPrecoRestaurante, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+						.addComponent(checkBox_IsCobertura))
 					.addContainerGap(129, Short.MAX_VALUE))
 		);
 		panelEditaRestaurante.setLayout(gl_panelEditaRestaurante);
 		
-		JPanel panelEditaCarro = new JPanel();
+		panelEditaCarro = new JPanel();
+		
 		panelEditaCarro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelExterno.add(panelEditaCarro, "edita_carro");
 		
@@ -282,7 +338,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 		);
 		panelEditaCarro.setLayout(gl_panelEditaCarro);
 		
-		JPanel panelEditaBabysitter = new JPanel();
+		panelEditaBabysitter = new JPanel();
+		
 		panelEditaBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelExterno.add(panelEditaBabysitter, "edita_babysitter");
 		
