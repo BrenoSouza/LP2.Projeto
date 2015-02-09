@@ -71,7 +71,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		});
 		setClosable(true);
 		this.painelPrincipal = painelPrincipal;
-		setBounds(0, 50, 851, 400);
+		setBounds(0, 50, 851, 420);
 		this.contrato = contrato;
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();

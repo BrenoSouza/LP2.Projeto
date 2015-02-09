@@ -89,8 +89,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 		this.listaHospedes = listaHospedes;
 		this.listaDeQuartos = listaDeQuartos;
 		this.servico = (Servico) servico;
-		
-		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);
