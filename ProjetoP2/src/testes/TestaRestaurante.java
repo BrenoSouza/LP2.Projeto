@@ -1,5 +1,7 @@
 package testes;
 
+import java.util.Calendar;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +38,6 @@ public class TestaRestaurante {
 	
 	@Test
 	public void TesteToString() {
-		Assert.assertEquals("Serviço --- Restaurante ---\nHora -> 3\nCobertura? Sim\nCusto final: 100.0", servicoRestaurante1.toString());
+		Assert.assertEquals("Serviço --- Restaurante ---\nHora -> " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + "\nCobertura? Sim\nCusto final: 100.0", servicoRestaurante1.toString());
 	}
 }
