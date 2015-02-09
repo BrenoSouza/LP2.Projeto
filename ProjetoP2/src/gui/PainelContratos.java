@@ -15,6 +15,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -23,15 +25,13 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import classes.Contrato;
-import classes.Hospede;
 import classes.Quarto;
 import colecoes.ColecaoDeHospedes;
 import colecoes.ColecaoDeQuartos;
 
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextField;
-
 public class PainelContratos extends JInternalFrame {
+	
+	private static final long serialVersionUID = 1L;
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableContratos;
 	private List<Contrato> listaContratos;
@@ -51,10 +51,6 @@ public class PainelContratos extends JInternalFrame {
 	private List<Contrato> colecaoAtiva = new ArrayList<Contrato>();
 	private ColecaoDeQuartos colecaoDeQuartos;
 
-
-	/**
-	 * Create the frame.
-	 */
 	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos colecaoDeQuartos){
 		setNormalBounds(new Rectangle(0, 0, 1000, 1000));
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -75,7 +71,7 @@ public class PainelContratos extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelContratos.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Contratos");
 		setClosable(true);
-		setBounds(0, 0, 770, 484);
+		setBounds(0, 0, 770, 493);
 		
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {

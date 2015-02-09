@@ -15,6 +15,7 @@ public class Babysitter extends Servico {
 	 */
 	public Babysitter() {
 		super();
+		horaSaida = Calendar.getInstance();
 		
 	}
 	/**

@@ -27,7 +27,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -71,7 +70,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		});
 		setClosable(true);
 		this.painelPrincipal = painelPrincipal;
-		setBounds(0, 50, 851, 400);
+		setBounds(0, 50, 851, 420);
 		this.contrato = contrato;
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();
