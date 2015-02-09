@@ -100,7 +100,7 @@ public class PainelNovoContrato extends JInternalFrame {
 		});
 		setClosable(true);
 		setResizable(true);
-		setBounds(0, 0, 970, 400);
+		setBounds(0, 0, 1060, 400);
 		this.painelPrincipal = painelPrincipal;
 		this.listaDeHospedes = listaDeHospedes;
 		listaHospedesDoContrato = new ArrayList<Hospede>();
