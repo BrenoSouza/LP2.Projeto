@@ -75,7 +75,7 @@ public class TestaAluguelCarro {
 	@Test
 	public void TesteEquals() {
 		Assert.assertFalse(aluguelCarroLuxo.equals(aluguelCarroLuxoTanqueCheio));
-		//Assert.assertTrue(aluguelCarroLuxo.equals(outroCarroLuxo));
+		Assert.assertTrue(aluguelCarroLuxo.equals(outroCarroLuxo));
 	}
 	
 	

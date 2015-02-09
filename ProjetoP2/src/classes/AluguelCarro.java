@@ -15,6 +15,7 @@ public class AluguelCarro extends Servico {
 	private final double PRECO_TANQUE_CHEIO = 150.00;
 	private final double PRECO_SEGURO = 100.00;
 	private double preco;	
+	private Calendar diaFim = Calendar.getInstance();
 	
 	/**
 	 * Construtor do Serviço de Alguel de Carros.
@@ -30,7 +31,9 @@ public class AluguelCarro extends Servico {
 		if (diarias < 1) {
 			throw new Exception("Parametros inválidos!");
 		}
-		
+		Calendar diaInicio = super.getData();
+		diaFim.setTime(diaInicio.getTime());
+		diaFim.add(Calendar.DAY_OF_YEAR, diarias);
 		this.isLuxo = isLuxo;
 		this.isSegurado = isSegurado;
 		this.isTanqueCheio = isTanqueCheio;
@@ -85,9 +88,6 @@ public class AluguelCarro extends Servico {
 	 */
 	
 	public String getFim() {
-		int diaInicio = super.getData().get(Calendar.DAY_OF_MONTH);
-		Calendar diaFim = super.getData();
-		diaFim.set(Calendar.DAY_OF_MONTH, diaInicio + getDiarias());
 		return Main.converteParaString(diaFim);
 	}
 	@Override
