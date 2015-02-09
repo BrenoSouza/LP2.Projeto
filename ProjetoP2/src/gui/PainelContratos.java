@@ -23,7 +23,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import classes.Contrato;
-import classes.Hospede;
 import classes.Quarto;
 import colecoes.ColecaoDeHospedes;
 import colecoes.ColecaoDeQuartos;
@@ -32,6 +31,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 
 public class PainelContratos extends JInternalFrame {
+	
+	private static final long serialVersionUID = 1L;
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableContratos;
 	private List<Contrato> listaContratos;
@@ -51,10 +52,6 @@ public class PainelContratos extends JInternalFrame {
 	private List<Contrato> colecaoAtiva = new ArrayList<Contrato>();
 	private ColecaoDeQuartos colecaoDeQuartos;
 
-
-	/**
-	 * Create the frame.
-	 */
 	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos colecaoDeQuartos){
 		setNormalBounds(new Rectangle(0, 0, 1000, 1000));
 		addInternalFrameListener(new InternalFrameAdapter() {
