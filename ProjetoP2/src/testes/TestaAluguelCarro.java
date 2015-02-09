@@ -12,7 +12,7 @@ import classes.AluguelCarro;
 
 public class TestaAluguelCarro {
 
-	private AluguelCarro aluguelCarroLuxo;
+	private AluguelCarro aluguelCarroLuxo, outroCarroLuxo;
 	private AluguelCarro aluguelCarroLuxoTanqueCheio;
 	private AluguelCarro aluguelCarroLuxoComSeguro;	
 	private AluguelCarro aluguelCarroExecutivo;
@@ -23,6 +23,7 @@ public class TestaAluguelCarro {
 	@Before
 	public void criaServicoAluguel() throws Exception {
 		aluguelCarroLuxo = new AluguelCarro(1, true, false, false);
+		outroCarroLuxo = new AluguelCarro(1, true, false, false);
 		aluguelCarroLuxoTanqueCheio = new AluguelCarro(1, true, true, false);
 		aluguelCarroLuxoComSeguro = new AluguelCarro(1, true, false, true);
 		aluguelCarroExecutivo = new AluguelCarro(1, false, false, false);
@@ -69,6 +70,12 @@ public class TestaAluguelCarro {
 				"\nFim -> " + Main.converteParaString(dataFim) +
 				"\nExtras -> Tanque cheio? Não\n          Segurado? Não\n          Luxo? Sim" +
 				"\nCusto final: 100.0" , aluguelCarroLuxo.toString());
+	}
+	
+	@Test
+	public void TesteEquals() {
+		Assert.assertFalse(aluguelCarroLuxo.equals(aluguelCarroLuxoTanqueCheio));
+		//Assert.assertTrue(aluguelCarroLuxo.equals(outroCarroLuxo));
 	}
 	
 	

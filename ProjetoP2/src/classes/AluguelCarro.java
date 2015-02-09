@@ -80,8 +80,8 @@ public class AluguelCarro extends Servico {
 	}
 	
 	/**
-	 * Calcula o preço total do servico.
-	 * @return O preço final.
+	 * Informa a data do fim do serviço do carro.
+	 * @return Uma string com a data.
 	 */
 	
 	public String getFim() {
@@ -119,6 +119,14 @@ public class AluguelCarro extends Servico {
 	@Override
 	public String getTipo() {
 		return "Aluguel de carro" + (isTanqueCheio() ? ", tanque cheio" : "") + (isLuxo() ? ", luxo" : "") + (isSegurado() ? ", segurado" : "");
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof AluguelCarro)){
+			return false;
+		}AluguelCarro outroCarro = (AluguelCarro) obj;
+		return toString().equals(outroCarro.toString());
 	}
 	
 }

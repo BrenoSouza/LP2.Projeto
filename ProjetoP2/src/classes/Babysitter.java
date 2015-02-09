@@ -95,5 +95,13 @@ public class Babysitter extends Servico {
 	public String getTipo() {
 		return "Babysitter, " + (getHorasPrecoNormal() + getHorasPrecoExtra()) + " horas"; 
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Babysitter)){
+			return false;
+		}Babysitter outraBabysitter = (Babysitter) obj;
+		return toString().equals(outraBabysitter.toString());
+	}
 
 }
