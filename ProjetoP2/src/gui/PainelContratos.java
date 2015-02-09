@@ -72,7 +72,7 @@ public class PainelContratos extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelContratos.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Contratos");
 		setClosable(true);
-		setBounds(0, 0, 770, 484);
+		setBounds(0, 0, 770, 493);
 		
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
