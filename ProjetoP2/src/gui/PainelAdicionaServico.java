@@ -4,9 +4,8 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
+//import java.awt.event.MouseAdapter;
+//import java.awt.event.MouseEvent;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -20,7 +19,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
+//import javax.swing.JPopupMenu;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -38,12 +37,11 @@ import colecoes.ColecaoDeQuartos;
 
 public class PainelAdicionaServico extends JInternalFrame {
 
+	private static final long serialVersionUID = -2800935829318426745L;
 	private Contrato contrato;
 	private JDesktopPane painelPrincipal;
 	private ColecaoDeQuartos listaDeQuartos;
-	private List<Quarto> listaQuartosDoContrato;
 	private ColecaoDeHospedes listaHospedes;
-	private Servico servicoParaAdicionar;
 	private JPanel panelExterno = new JPanel();  
 	private CardLayout layoutPainel = new CardLayout();  
 	private JPanel panelQuartos = new JPanel();
@@ -54,6 +52,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JPanel panelEditaQuarto;
 	private JPanel panelEditaBabysitter;
 	private JPanel panelEditaCarro;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cBoxTipoCarro;
 	private JCheckBox chckbxSeguro;
 	private JCheckBox chckbxTanqueCheio;
@@ -62,6 +61,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JButton btnRestaurante;
 	private JButton btnAluguelCarros;
 	private JSpinner spinnerDiariasCarro;
+	@SuppressWarnings("rawtypes")
 	private JComboBox cBoxTipoQuarto;
 	private JSpinner spinnerDiarias;
 	private JCheckBox chckbxCamasExtras;
@@ -82,6 +82,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public PainelAdicionaServico(Servico servico, Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
 		this.contrato = contrato;
 		this.painelPrincipal = painelPrincipal;
@@ -666,23 +667,23 @@ public class PainelAdicionaServico extends JInternalFrame {
 		return painelPrincipal;
 	}
 	
-	private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
-	}
+//	private static void addPopup(Component component, final JPopupMenu popup) {
+//		component.addMouseListener(new MouseAdapter() {
+//			public void mousePressed(MouseEvent e) {
+//				if (e.isPopupTrigger()) {
+//					showMenu(e);
+//				}
+//			}
+//			public void mouseReleased(MouseEvent e) {
+//				if (e.isPopupTrigger()) {
+//					showMenu(e);
+//				}
+//			}
+//			private void showMenu(MouseEvent e) {
+//				popup.show(e.getComponent(), e.getX(), e.getY());
+//			}
+//		});
+//	}
 	
 	public void adicionaNoPainel(JInternalFrame painel){
 		painelPrincipal.add(painel);

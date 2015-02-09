@@ -13,9 +13,8 @@ import classes.Servico;
 public class PainelVisualizacaoServico extends JInternalFrame {
 
 
-	/**
-	 * Create the frame.
-	 */
+	private static final long serialVersionUID = -4445439437546052993L;
+
 	public PainelVisualizacaoServico(Servico servico) {
 		setClosable(true);
 		setBounds(100, 100, 541, 350);

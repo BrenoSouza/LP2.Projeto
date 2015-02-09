@@ -77,7 +77,6 @@ public class PainelContratos extends JInternalFrame {
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PainelVisualizacaoContrato painelVisualizacao = new PainelVisualizacaoContrato(contratoSelecionado, getPainelPrincipal());
-				//Não posso chamar o painel principal dentro de um construtor, por ele não ser final. Então fiz esse método que o retorna.
 				adicionaNoPainel(painelVisualizacao);
 				painelVisualizacao.show();
 			}
@@ -189,19 +188,17 @@ public class PainelContratos extends JInternalFrame {
 		tableContratos = new JTable();
 		escreveTabela();
 		
-		tableContratos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
+		tableContratos.setRowSelectionAllowed(true); 
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinha = tableContratos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				ListSelectionModel modeloSelecaoLinha = tableContratos.getSelectionModel();
 				
 				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-					//Necessita ser esse nome de método para funcionar
 					public void valueChanged(ListSelectionEvent e) {
-						int[] indiceSelecionado = tableContratos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+						int[] indiceSelecionado = tableContratos.getSelectedRows(); 
 						if (indiceSelecionado.length <= 0){
 							contratoSelecionado = null;
 						}else{
-							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 							setContratoSelecionado(indiceSelecionado[0]);
 						}atualizaBotoes();
 						
@@ -226,8 +223,7 @@ public class PainelContratos extends JInternalFrame {
 		return listaQuartosDisponiveis;
 	}
 	private void setContratoSelecionado(int indice){
-		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
-		contratoSelecionado = listaContratos.get(indice); // Lembrando que a tabela está na mesma ordem que a listaContratos, então os índices são os mesmos.
+		contratoSelecionado = listaContratos.get(indice); 
 	}
 	private void atualizaBotoes(){
 		if (contratoSelecionado == null){
@@ -245,8 +241,7 @@ public class PainelContratos extends JInternalFrame {
 		return painelPrincipal;
 	}
 	private void escreveTabela(){
-		// IN�CIO DE CONSTRUÇÃO DA TABELA
-				// designTabela = o conteúdo da tabela em si, preenchida através de um loop for.
+		// INÍCIO DE CONSTRUÇÃO DA TABELA
 						Object[][] designTabela = new Object[colecaoAtiva.size()][5];
 						for (int i = 0; i < colecaoAtiva.size(); i++){
 							Contrato contratoAtual = colecaoAtiva.get(i);
@@ -282,7 +277,6 @@ public class PainelContratos extends JInternalFrame {
 					// FIM DE CONSTRUÇÃO DE TABELA.
 					
 				}
-						//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 						@SuppressWarnings("serial")
 						DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 								"Hóspede principal", "Data de Check-In", "Data de Check-Out", "Despesas Atuais", "Status"
@@ -290,12 +284,11 @@ public class PainelContratos extends JInternalFrame {
 
 							@Override
 						    public boolean isCellEditable(int row, int column) {
-						        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 						        return false;
 						    }
 						};
 
 			
-				tableContratos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
+				tableContratos.setModel(modeloTabela);
 	}
 }

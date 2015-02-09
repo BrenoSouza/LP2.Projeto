@@ -28,10 +28,8 @@ import classes.Hospede;
 import colecoes.ColecaoDeHospedes;
 
 public class PainelClientes extends JInternalFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 1801359681375083303L;
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableHospedes;
 	private JTable table;

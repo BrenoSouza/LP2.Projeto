@@ -32,6 +32,7 @@ import colecoes.ColecaoDeQuartos;
 
 public class PainelServicos extends JInternalFrame {
 	
+	private static final long serialVersionUID = 5210861302996214641L;
 	private final JScrollPane scrollPaneServicos = new JScrollPane();
 	private JScrollPane scrollPaneContratos = new JScrollPane();
 	private JScrollPane scrollPaneQuartos = new JScrollPane();
@@ -53,9 +54,6 @@ public class PainelServicos extends JInternalFrame {
 	private PainelAdicionaServico painelAdicionar;
 	private ListSelectionModel modeloSelecaoLinhaContrato;
 	
-	/**
-	 * Create the frame.
-	 */
 	
 	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -209,9 +207,9 @@ public class PainelServicos extends JInternalFrame {
 		
 		tableServicos = new JTable();
 		
-		tableServicos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
+		tableServicos.setRowSelectionAllowed(true); 
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinha = tableServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				ListSelectionModel modeloSelecaoLinha = tableServicos.getSelectionModel(); 
 				
 				tabbedPane.addTab("Quartos", null, scrollPaneQuartos, null);
 				
@@ -231,22 +229,20 @@ public class PainelServicos extends JInternalFrame {
 		scrollPaneContratos.setViewportView(tableContratos);
 		scrollPaneContratos.setRowHeaderView(table);
 		
-		tableContratos.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
+		tableContratos.setRowSelectionAllowed(true); 
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-				modeloSelecaoLinhaContrato = tableContratos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				modeloSelecaoLinhaContrato = tableContratos.getSelectionModel();
 				
 				modeloSelecaoLinhaContrato.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinhaContrato.addListSelectionListener(new ListSelectionListener() {
-					//Necessita ser esse nome de método para funcionar
 					public void valueChanged(ListSelectionEvent e) {
-						int[] indiceSelecionadoContrato = tableContratos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá um elemento essa array.
+						int[] indiceSelecionadoContrato = tableContratos.getSelectedRows(); 
 						if (indiceSelecionadoContrato.length <= 0){
 							contratoSelecionado = null;
 							servicoSelecionado = null;
 							escreveTabelaServicos();
 							escreveTabelaQuartos();
 						}else{
-							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaServicos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setServicoSelecionado, que consegue usar as variáveis sem problemas.
 							setContratoSelecionado(indiceSelecionadoContrato[0]);
 							escreveTabelaServicos();
 							escreveTabelaQuartos();
@@ -258,13 +254,11 @@ public class PainelServicos extends JInternalFrame {
 				
 				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-					//Necessita ser esse nome de método para funcionar
 					public void valueChanged(ListSelectionEvent e) {
-						int[] indiceSelecionado = tableServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá um elemento essa array.
+						int[] indiceSelecionado = tableServicos.getSelectedRows(); 
 						if (indiceSelecionado.length <= 0 || contratoSelecionado == null){
 							servicoSelecionado = null;
 						}else{
-							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaServicos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setServicoSelecionado, que consegue usar as variáveis sem problemas.
 							setServicoSelecionado(indiceSelecionado[0]);
 							tableQuartos.clearSelection();
 						}atualizaBotoes();
@@ -278,17 +272,14 @@ public class PainelServicos extends JInternalFrame {
 		escreveTabelaQuartos();
 		scrollPaneQuartos.setViewportView(tableQuartos);
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinhaQuartos = tableQuartos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
-			
+				ListSelectionModel modeloSelecaoLinhaQuartos = tableQuartos.getSelectionModel(); 			
 				modeloSelecaoLinhaQuartos.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinhaQuartos.addListSelectionListener(new ListSelectionListener() {
-					//Necessita ser esse nome de método para funcionar
 					public void valueChanged(ListSelectionEvent e) {
-						int[] indiceSelecionadoQuartos = tableQuartos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+						int[] indiceSelecionadoQuartos = tableQuartos.getSelectedRows(); 
 						if (indiceSelecionadoQuartos.length <= 0){
 							servicoSelecionado = null;
 						}else{
-							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 							setServicoSelecionado(indiceSelecionadoQuartos[0]);
 							tableServicos.clearSelection();
 						}atualizaBotoes();
@@ -336,7 +327,6 @@ public class PainelServicos extends JInternalFrame {
 			
 			}
 		}
-			//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 			@SuppressWarnings("serial")
 			DefaultTableModel modeloTabelaQuartos = new DefaultTableModel(designTabela, new String[] {
 					"Descrição", "Preço da diária", "Num. de diárias", "Num. máximo de hóspedes (sem cama extra)", "Número", "Preço"
@@ -344,7 +334,6 @@ public class PainelServicos extends JInternalFrame {
 	
 				@Override
 			    public boolean isCellEditable(int row, int column) {
-			        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 			        return false;
 			    }
 			};
@@ -387,7 +376,6 @@ public class PainelServicos extends JInternalFrame {
 	// FIM DE CONSTRUÇÃO DE TABELA.
 	
 }
-		//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 				"Hóspede principal", "Data de Check-In", "Data de Check-Out", "Despesas Atuais", "Status"
@@ -395,12 +383,11 @@ public class PainelServicos extends JInternalFrame {
 
 			@Override
 		    public boolean isCellEditable(int row, int column) {
-		        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 		        return false;
 		    }
 		};
 
-		tableContratos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
+		tableContratos.setModel(modeloTabela);
 }
 
 	private void escreveTabelaServicos() {
@@ -426,23 +413,20 @@ public class PainelServicos extends JInternalFrame {
 		
 		}
 		
-		//GAMBIARRA
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 				"Serviços", "Descrição", "Preço" })     {
 
 			@Override
 		    public boolean isCellEditable(int row, int column) {
-		        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 		        return false;
 		    }
 		};
 		
-		tableServicos.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
+		tableServicos.setModel(modeloTabela); 
 	}
 	
 	public void setServicoSelecionado(int indice){
-		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
 		if (contratoSelecionado != null) {
 			if (tableServicos != null) {
 				if(tableServicos.isRowSelected(indice)){
@@ -458,9 +442,7 @@ public class PainelServicos extends JInternalFrame {
 	}
 	
 	public void setContratoSelecionado(int indice){
-		// Fim da gambiarra. Como estou em outro método, posso usar variáveis não finais a vontade sem problema.
-		contratoSelecionado = listaContratos.get(indice); // Lembrando que a tabela está na mesma ordem que a listaContratos, então os índices são os mesmos.
-	}
+		contratoSelecionado = listaContratos.get(indice); 	}
 	
 	public void atualizaBotoes(){
 		if (contratoSelecionado != null && servicoSelecionado != null){

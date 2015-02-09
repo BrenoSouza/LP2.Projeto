@@ -23,10 +23,8 @@ import colecoes.ColecaoDeHospedes;
 
 
 public class PainelCadastroClientes extends JInternalFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -2531950665214378273L;
 	private JTextField campoNome;
 	private JTextField campoEndereco;
 	private final MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
@@ -35,9 +33,6 @@ public class PainelCadastroClientes extends JInternalFrame {
 	private JFormattedTextField campoData;
 	private ColecaoDeHospedes listaDeHospedes;
 
-	/**
-	 * Create the frame.
-	 */
 	public PainelCadastroClientes(ColecaoDeHospedes colecao) throws Exception{
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));

@@ -30,10 +30,8 @@ import classes.Hospede;
 import classes.Opiniao;
 
 public class PainelEditarCliente extends JInternalFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 4577892115601008126L;
 	private final MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
 	private final MaskFormatter mascaraData = new MaskFormatter("##/##/####");
 	private JDesktopPane painelPrincipal;

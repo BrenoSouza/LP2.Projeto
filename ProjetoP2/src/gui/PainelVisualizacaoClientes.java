@@ -19,20 +19,15 @@ import classes.Contrato;
 import classes.Hospede;
 
 public class PainelVisualizacaoClientes extends JInternalFrame {
+	
+	private static final long serialVersionUID = -1825398526147468296L;
 	private PainelVisualizacaoContrato painelContrato;
 	private JButton btnVisualizarContrato;
 	private JDesktopPane painelPrincipal;
 	private Contrato contrato;
 	private Hospede hospede;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Create the frame.
-	 */
 	public PainelVisualizacaoClientes(Hospede hospede, JDesktopPane painelPrincipal) {
 		setFrameIcon(new ImageIcon(PainelVisualizacaoClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Cliente - Informações");

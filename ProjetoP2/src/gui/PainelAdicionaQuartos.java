@@ -38,13 +38,12 @@ import colecoes.ColecaoDeHospedes;
 import colecoes.ColecaoDeQuartos;
 
 public class PainelAdicionaQuartos extends JInternalFrame {
+
+	private static final long serialVersionUID = -1825431196943966386L;
 	private ColecaoDeHospedes listaDeHospedes;
 	private ColecaoDeQuartos listaDeQuartos;
-	private List<Hospede> listaHospedesDoContrato;
 	private List<Hospede> listaHospedesSemContrato = new ArrayList<Hospede>();
-	private List<Quarto> listaQuartosDoContrato;
 	private Quarto quartoVagoSelecionado;
-	private Quarto quartoContratoSelecionado;
 	private JPanel panelQuartos;
 	private JScrollPane scrollPane_2;
 	private JButton btnAdicionarNoContratoQuarto;
@@ -54,7 +53,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private int diariasContrato;
 	private Contrato contrato;
 	private int[] indiceHospedesSelecionados;
-	private Hospede hospedePrincipal;
 	private JDesktopPane painelPrincipal;
 	private JTable tableHospedesSemContrato;
 	private JTabbedPane tabbedPane_1;
@@ -84,8 +82,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		
 		adicionaHospedesSemContratoNaLista();
 		
-		listaHospedesDoContrato = new ArrayList<Hospede>();
-		listaQuartosDoContrato = new ArrayList<Quarto>();
 		this.listaDeQuartos = listaDeQuartos;
 		this.contrato = contrato;
 		
@@ -176,7 +172,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		
 		tableHospedesSemContrato.setRowSelectionAllowed(true);
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-		ListSelectionModel modeloSelecaoLinha = tableHospedesSemContrato.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+		ListSelectionModel modeloSelecaoLinha = tableHospedesSemContrato.getSelectionModel();
 		
 		scrollPaneSemContrato.setViewportView(tableHospedesSemContrato);
 		
@@ -186,9 +182,8 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-			//Necessita ser esse nome de método para funcionar
 			public void valueChanged(ListSelectionEvent e) {
-				indiceHospedesSelecionados = tableHospedesSemContrato.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+				indiceHospedesSelecionados = tableHospedesSemContrato.getSelectedRows(); 
 				if (indiceHospedesSelecionados.length <= 0){
 					indiceHospedesSelecionados = null;
 				}else{
@@ -201,17 +196,15 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		tabelaQuartosLivres = new JTable();
 		scrollPane_2.setViewportView(tabelaQuartosLivres);
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-		ListSelectionModel modeloSelecaoLinha4 = tabelaQuartosLivres.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+		ListSelectionModel modeloSelecaoLinha4 = tabelaQuartosLivres.getSelectionModel();
 		
 		modeloSelecaoLinha4.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		modeloSelecaoLinha4.addListSelectionListener(new ListSelectionListener() {
-			//Necessita ser esse nome de método para funcionar
 			public void valueChanged(ListSelectionEvent e) {
-				int[] indiceSelecionado = tabelaQuartosLivres.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+				int[] indiceSelecionado = tabelaQuartosLivres.getSelectedRows(); 
 				if (indiceSelecionado.length <= 0){
 					quartoVagoSelecionado = null;
 				}else{
-					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 					setQuartoVagoSelecionado(indiceSelecionado[0]);
 				}atualizaBotoes();
 				
@@ -263,9 +256,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private void escreveTabelas(){
 		Object[][] designTabela;
 		escreveTabelaHospedesSemContrato();
-				
-			// FIM DO PREENCHIMENTO DA TABELA DOS HÓSPEDES NO CONTRATO
-				
+								
 			// PREENCHENDO TABELA DOS QUARTOS VAGOS NO HOTEL
 				listaDeQuartos.sortQuartosNumero();
 				designTabela = new Object[listaDeQuartos.getListaQuartosVagos().size()][4];
@@ -281,7 +272,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 					//Para preencher a quarta coluna da linha: O número do quarto
 					designTabela[i][3] = quartoAtual.getNumero();
 				}
-					//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 					@SuppressWarnings("serial")
 					DefaultTableModel modeloTabela3 = new DefaultTableModel(designTabela, new String[] {
 							"Descrição", "Preço da diária", "Num. máximo de hóspedes (sem cama extra)", "Número"
@@ -289,7 +279,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 			
 						@Override
 					    public boolean isCellEditable(int row, int column) {
-					        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 					        return false;
 					    }
 					};
@@ -320,7 +309,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 					Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
 					designTabela[i][2] = periodoDeTempo.getYears();
 				}
-				//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 						"Nome", "CPF", "Idade"
@@ -328,7 +316,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		
 					@Override
 				    public boolean isCellEditable(int row, int column) {
-				        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 				        return false;
 				    }
 				};

@@ -34,6 +34,8 @@ import classes.Hospede;
 import colecoes.ColecaoDeHospedes;
 
 public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
+
+	private static final long serialVersionUID = 4369742768015429682L;
 	private JScrollPane scrollPane_1;
 	private JScrollPane scrollPane;
 	private JButton btnRemoverDoContrato;
@@ -162,17 +164,15 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 		tabelaHospedesNoContrato = new JTable();
 		tabelaHospedesNoContrato.setRowSelectionAllowed(true);
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-		ListSelectionModel modeloSelecaoLinha2 = tabelaHospedesNoContrato.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+		ListSelectionModel modeloSelecaoLinha2 = tabelaHospedesNoContrato.getSelectionModel(); 
 
 		modeloSelecaoLinha2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		modeloSelecaoLinha2.addListSelectionListener(new ListSelectionListener() {
-			//Necessita ser esse nome de método para funcionar
 			public void valueChanged(ListSelectionEvent e) {
-				int[] indiceSelecionado = tabelaHospedesNoContrato.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+				int[] indiceSelecionado = tabelaHospedesNoContrato.getSelectedRows(); 
 				if (indiceSelecionado.length <= 0){
 					hospedeSelecionado2 = null;
 				}else{
-					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 					setHospedeSelecionado2(indiceSelecionado[0]);
 					tabelaHospedesSemContrato.clearSelection();
 				}atualizaBotoes();
@@ -184,17 +184,15 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 
 		tabelaHospedesSemContrato = new JTable();
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-		ListSelectionModel modeloSelecaoLinha = tabelaHospedesSemContrato.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+		ListSelectionModel modeloSelecaoLinha = tabelaHospedesSemContrato.getSelectionModel(); 
 
 		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-			//Necessita ser esse nome de método para funcionar
 			public void valueChanged(ListSelectionEvent e) {
-				int[] indiceSelecionado = tabelaHospedesSemContrato.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+				int[] indiceSelecionado = tabelaHospedesSemContrato.getSelectedRows(); 
 				if (indiceSelecionado.length <= 0){
 					hospedeSelecionado = null;
 				}else{
-					// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 					setHospedeSelecionado(indiceSelecionado[0]);
 					tabelaHospedesNoContrato.clearSelection();
 				}atualizaBotoes();
@@ -229,7 +227,6 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 			Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
 			designTabela[i][2] = periodoDeTempo.getYears();
 		}
-		//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 				"Nome", "CPF", "Idade"
@@ -237,7 +234,6 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				//Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 				return false;
 			}
 		};
@@ -260,7 +256,6 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 			Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
 			designTabela[i][2] = periodoDeTempo.getYears();
 		}
-		//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela2 = new DefaultTableModel(designTabela, new String[] {
 				"Nome", "CPF", "Idade"
@@ -268,7 +263,6 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 
 			@Override
 			public boolean isCellEditable(int row, int column) {
-				//Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 				return false;
 			}
 		};

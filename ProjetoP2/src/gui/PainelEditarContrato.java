@@ -41,6 +41,8 @@ import colecoes.ColecaoDeHospedes;
 import colecoes.ColecaoDeQuartos;
 
 public class PainelEditarContrato extends JInternalFrame {
+
+	private static final long serialVersionUID = 2678439180208101446L;
 	private JLabel lblQuartos;
 	private JLabel lblHospedes;
 	private JScrollPane scrollPane_1;
@@ -95,13 +97,7 @@ public class PainelEditarContrato extends JInternalFrame {
 		scrollPane = new JScrollPane();
 		scrollPane.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {/*Evento mouse clicked, acontece quando o elemento é clicado com o mouse, obviamente
-				* Eu prefiro colocar esse evento no scrollPane, mas eu suponho que colocar no próprio JTable não mude muita coisa
-				* Antes disso, os botões só ativavam se você selecionasse uma opção da tabela, mas e se a tabela estivesse vazia?
-				* Agora, se você clicar em qualquer canto dentro da tabela, o botão Adicionar, que não precisa de seleção, será ativo
-				* Também, desativa as seleções das outras tabelas, com o clearSelection().
-				* Sem isso, por exemplo, se alguém selecionasse um quarto, mas depois clicasse na tabela serviços, o botão se tornaria "Adiciona serviço",
-				* mas os outros botões ainda seriam "Editar quarto" e "Remover quarto", o que não faz sentido. Melhor deselecionar o que estava selecionado.*/
+			public void mouseClicked(MouseEvent e) {
 				tabelaQuartos.clearSelection();
 				tabelaServicos.clearSelection();
 				setSelecaoRelativa(SELECAO_HOSPEDE);
@@ -112,13 +108,7 @@ public class PainelEditarContrato extends JInternalFrame {
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) { /*Evento mouse clicked, acontece quando o elemento é clicado com o mouse, obviamente
-				* Eu prefiro colocar esse evento no scrollPane, mas eu suponho que colocar no próprio JTable não mude muita coisa
-				* Antes disso, os botões só ativavam se você selecionasse uma opção da tabela, mas e se a tabela estivesse vazia?
-				* Agora, se você clicar em qualquer canto dentro da tabela, o botão Adicionar, que não precisa de seleção, será ativo
-				* Também, desativa as seleções das outras tabelas, com o clearSelection().
-				* Sem isso, por exemplo, se alguém selecionasse um quarto, mas depois clicasse na tabela serviços, o botão se tornaria "Adiciona serviço",
-				* mas os outros botões ainda seriam "Editar quarto" e "Remover quarto", o que não faz sentido. Melhor deselecionar o que estava selecionado.*/
+			public void mouseClicked(MouseEvent e) { 
 				tabelaHospedes.clearSelection();
 				tabelaServicos.clearSelection();
 				setSelecaoRelativa(SELECAO_QUARTO);
@@ -128,13 +118,7 @@ public class PainelEditarContrato extends JInternalFrame {
 		scrollPane_2 = new JScrollPane();
 		scrollPane_2.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {/*Evento mouse clicked, acontece quando o elemento é clicado com o mouse, obviamente
-				* Eu prefiro colocar esse evento no scrollPane, mas eu suponho que colocar no próprio JTable não mude muita coisa
-				* Antes disso, os botões só ativavam se você selecionasse uma opção da tabela, mas e se a tabela estivesse vazia?
-				* Agora, se você clicar em qualquer canto dentro da tabela, o botão Adicionar, que não precisa de seleção, será ativo
-				* Também, desativa as seleções das outras tabelas, com o clearSelection().
-				* Sem isso, por exemplo, se alguém selecionasse um quarto, mas depois clicasse na tabela serviços, o botão se tornaria "Adiciona serviço",
-				* mas os outros botões ainda seriam "Editar quarto" e "Remover quarto", o que não faz sentido. Melhor deselecionar o que estava selecionado.*/
+			public void mouseClicked(MouseEvent e) {
 				tabelaHospedes.clearSelection();
 				tabelaQuartos.clearSelection();
 				setSelecaoRelativa(SELECAO_SERVICO);
@@ -156,14 +140,14 @@ public class PainelEditarContrato extends JInternalFrame {
 						}
 					}
 				}else if (objetoDinamico instanceof Quarto){
-					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse quarto do contrato?", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse quarto do contrato?", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION){
 						listaQuartos.remove(objetoDinamico);
 						((Quarto) objetoDinamico).setToLivre();
 						((Quarto) objetoDinamico).retiraReserva(PainelEditarContrato.this.contrato);
 					}
 				}else if (objetoDinamico instanceof Servico){
-					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse serviço do contrato?", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse serviço do contrato?", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION){
 						listaServicos.remove(objetoDinamico);
 					}
@@ -325,19 +309,17 @@ public class PainelEditarContrato extends JInternalFrame {
 		tabelaServicos = new JTable();
 		scrollPane_2.setViewportView(tabelaServicos);
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinha = tabelaServicos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				ListSelectionModel modeloSelecaoLinha = tabelaServicos.getSelectionModel();
 				
 				modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
-					//Necessita ser esse nome de método para funcionar
 					public void valueChanged(ListSelectionEvent e) {
-						int[] indiceSelecionado = tabelaServicos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+						int[] indiceSelecionado = tabelaServicos.getSelectedRows(); 
 						if (indiceSelecionado.length <= 0){
 							objetoDinamico = null;
 						}else{
 							tabelaHospedes.clearSelection();
 							tabelaQuartos.clearSelection();
-							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 							setObjetoDinamico(indiceSelecionado[0], listaServicos);
 						}atualizaBotoes();
 						
@@ -348,19 +330,17 @@ public class PainelEditarContrato extends JInternalFrame {
 		tabelaQuartos = new JTable();
 		scrollPane_1.setViewportView(tabelaQuartos);
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinha2 = tabelaQuartos.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				ListSelectionModel modeloSelecaoLinha2 = tabelaQuartos.getSelectionModel(); 
 				
 				modeloSelecaoLinha2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha2.addListSelectionListener(new ListSelectionListener() {
-					//Necessita ser esse nome de método para funcionar
 					public void valueChanged(ListSelectionEvent e) {
-						int[] indiceSelecionado = tabelaQuartos.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+						int[] indiceSelecionado = tabelaQuartos.getSelectedRows(); 
 						if (indiceSelecionado.length <= 0){
 							objetoDinamico = null;
 						}else{
 							tabelaHospedes.clearSelection();
 							tabelaServicos.clearSelection();
-							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 							setObjetoDinamico(indiceSelecionado[0], listaQuartos);
 						}atualizaBotoes();
 						
@@ -371,19 +351,17 @@ public class PainelEditarContrato extends JInternalFrame {
 		tabelaHospedes = new JTable();
 		scrollPane.setViewportView(tabelaHospedes);
 		//CRIANDO UMA AÇÃO PRA QUANDO UMA LINHA FOR SELECIONADA
-				ListSelectionModel modeloSelecaoLinha3 = tabelaHospedes.getSelectionModel(); // SINGLE_SELECTION = Selecionar só uma opção de vez
+				ListSelectionModel modeloSelecaoLinha3 = tabelaHospedes.getSelectionModel(); 
 				
 				modeloSelecaoLinha3.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				modeloSelecaoLinha3.addListSelectionListener(new ListSelectionListener() {
-					//Necessita ser esse nome de método para funcionar
 					public void valueChanged(ListSelectionEvent e) {
-						int[] indiceSelecionado = tabelaHospedes.getSelectedRows(); // getSelectedRows() retorna uma array de int com os índices da lista dos objetos selecionados. Como nessa tabela só se seleciona uma opção de cada vez, sempre terá só um elemento essa array.
+						int[] indiceSelecionado = tabelaHospedes.getSelectedRows(); 
 						if (indiceSelecionado.length <= 0){
 							objetoDinamico = null;
 						}else{
 							tabelaServicos.clearSelection();
 							tabelaQuartos.clearSelection();
-							// Aqui é uma gambiarra mais complicada: java não permite que eu use o listaContratos (ou qualquer outra variável não final) dentro de um método do construtor, como é esse. Para solucionar isso, optei pela gambiarra de só usar esse índice em um método fora do construtor, setContratoSelecionado, que consegue usar as variáveis sem problemas.
 							setObjetoDinamico(indiceSelecionado[0], listaHospedes);
 						}atualizaBotoes();
 						
@@ -397,7 +375,6 @@ public class PainelEditarContrato extends JInternalFrame {
 
 	public void escreveTabelas(){
 		// INÍCIO DE CONSTRUÇÃO DA TABELA
-				// designTabela = o conteúdo da tabela em si, preenchida através de um loop for
 						Object[][] designTabela = new Object[listaHospedes.size()][3];
 						LocalDate presente = LocalDate.now();
 						for (int i = 0; i < listaHospedes.size(); i++){
@@ -415,7 +392,6 @@ public class PainelEditarContrato extends JInternalFrame {
 					// FIM DE CONSTRUÇÃO DE TABELA.
 					
 				}
-						//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 						@SuppressWarnings("serial")
 						DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 								"Nome", "CPF", "Idade"
@@ -423,16 +399,15 @@ public class PainelEditarContrato extends JInternalFrame {
 
 							@Override
 						    public boolean isCellEditable(int row, int column) {
-						        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 						        return false;
 						    }
 						};
 
 			
-				tabelaHospedes.setModel(modeloTabela); // USANDO O MODELO ALTERADO PELA 'GAMBIARRA'
+				tabelaHospedes.setModel(modeloTabela); 
 				tabelaHospedes.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
 				
-				//INICIO DA CONSTRU��O DE TABELA
+				//INICIO DA CONSTRUÇÃO DE TABELA
 				Object [][] tabelaServicosDesign = new Object [listaServicos.size()][4];
 				for (int i = 0; i < contrato.getListaServicos().size(); i++){
 					Servico servicoAtual = contrato.getListaServicos().get(i);
@@ -445,7 +420,6 @@ public class PainelEditarContrato extends JInternalFrame {
 					//Quarta célula da linha: o preço total do serviço
 					tabelaServicosDesign[i][3] = "R$ " + servicoAtual.calculaPrecoTotal();
 				}
-				//GAMBIARRA PARA QUE O USU�RIO NÃO POSSA EDITAR OS DADOS DA TABELA
 				@SuppressWarnings("serial")
 				DefaultTableModel modeloTabelaServicos = new DefaultTableModel(tabelaServicosDesign, new String[] {
 						"Serviço", "Data", "Hora", "Preço"
@@ -453,7 +427,6 @@ public class PainelEditarContrato extends JInternalFrame {
 
 					@Override
 				    public boolean isCellEditable(int row, int column) {
-				        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 				        return false;
 				    }
 				};
@@ -476,7 +449,6 @@ public class PainelEditarContrato extends JInternalFrame {
 					//Para preencher a sexta coluna da linha: O preço a ser pago
 					designTabela[j][5] = "R$ " + contrato.getNumeroDiarias() * quartoAtualContrato.getPrecoDiaria();
 				}
-					//GAMBIARRA PARA QUE O USUÁRIO NÃO POSSA EDITAR OS DADOS DA TABELA
 					@SuppressWarnings("serial")
 					DefaultTableModel modeloTabela4 = new DefaultTableModel(designTabela, new String[] {
 							"Descrição", "Preço da diária", "Num. de diárias", "Num. máximo de hóspedes (sem cama extra)", "Número", "Preço"
@@ -484,7 +456,6 @@ public class PainelEditarContrato extends JInternalFrame {
 			
 						@Override
 					    public boolean isCellEditable(int row, int column) {
-					        //Esse método pegaria um índice para ver se o usuário pode editar certa parte da tabela. Como não é necessário no nosso uso, ele sempre vai retornar false
 					        return false;
 					    }
 					};
