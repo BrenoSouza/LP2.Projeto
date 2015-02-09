@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 public class DialogoSobre extends JDialog {
 
+	private static final long serialVersionUID = -7561965211179591248L;
 	private final JPanel contentPanel = new JPanel();
 
 	public DialogoSobre() {

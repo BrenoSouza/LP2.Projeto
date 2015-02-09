@@ -23,7 +23,6 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -34,14 +33,6 @@ import javax.swing.border.LineBorder;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import classes.Contrato;
-import classes.Quarto;
-import classes.QuartoExecutivoDuplo;
-import classes.QuartoExecutivoSimples;
-import classes.QuartoExecutivoTriplo;
-import classes.QuartoLuxoDuplo;
-import classes.QuartoLuxoSimples;
-import classes.QuartoLuxoTriplo;
-import classes.QuartoPresidencial;
 import colecoes.ColecaoDeHospedes;
 import colecoes.ColecaoDeQuartos;
 
@@ -54,7 +45,6 @@ public class Main extends JFrame {
 	private PainelServicos painelServicos;
 	private PainelContratos painelContratos;
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
-	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
 	private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
 	private static ColecaoDeQuartos listaDeQuartos = new ColecaoDeQuartos();
 	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
@@ -100,44 +90,13 @@ public class Main extends JFrame {
 		return dataDeRetorno;
 		
 	}
-	public void criaQuartos(){
-		Quarto quartoParaAdicionar;
-		int numeroQuarto = 1;
-		try{
-			for (int i = 0; i < 5; i++){
-				quartoParaAdicionar = new QuartoPresidencial(numeroQuarto);
-				listaQuartosDisponiveis.add(quartoParaAdicionar);
-				numeroQuarto++;
-			}for (int i = 0; i < 5; i++){
-				quartoParaAdicionar = new QuartoLuxoSimples(numeroQuarto);
-				listaQuartosDisponiveis.add(quartoParaAdicionar);
-				numeroQuarto++;
-			}for (int i = 0; i < 15; i++){
-				quartoParaAdicionar = new QuartoLuxoDuplo(numeroQuarto);
-				listaQuartosDisponiveis.add(quartoParaAdicionar);
-				numeroQuarto++;
-			}for (int i = 0; i < 20; i++){
-				quartoParaAdicionar = new QuartoLuxoTriplo(numeroQuarto);
-				listaQuartosDisponiveis.add(quartoParaAdicionar);
-				numeroQuarto++;
-			}for (int i = 0; i < 5; i++){
-				quartoParaAdicionar = new QuartoExecutivoSimples(numeroQuarto);
-				listaQuartosDisponiveis.add(quartoParaAdicionar);
-				numeroQuarto++;
-			}for (int i = 0; i < 15; i++){
-				quartoParaAdicionar = new QuartoExecutivoDuplo(numeroQuarto);
-				listaQuartosDisponiveis.add(quartoParaAdicionar);
-				numeroQuarto++;
-			}for (int i = 0; i < 20; i++){
-				quartoParaAdicionar = new QuartoExecutivoTriplo(numeroQuarto);
-				listaQuartosDisponiveis.add(quartoParaAdicionar);
-				numeroQuarto++;
-			}
-
-		}catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
-	}
+	/**
+	 * Método de conversão de um Calendar para uma string
+	 * @param data
+	 * O objeto Calendar
+	 * @return
+	 * Uma string com a data formatada do Calendar no formato dd/mm/aaaa
+	 */
 	public static String converteParaString (Calendar data) {
 		String dataFormatada = FormatoData.format(data.getTime());
 		return dataFormatada;
@@ -146,7 +105,6 @@ public class Main extends JFrame {
 	public Main() throws Exception{
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/resources/hotel39.png")));
 		setTitle("Hotel Riviera Campina - Administra\u00E7\u00E3o");
-		criaQuartos();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1366, 700);
 
@@ -179,9 +137,6 @@ public class Main extends JFrame {
 
 		JMenu mnOpo_1 = new JMenu("Sobre");
 		menuBar.add(mnOpo_1);
-
-		JMenuItem mntmOpo_2 = new JMenuItem("Op\u00E7\u00E3o 2.1");
-		mnOpo_1.add(mntmOpo_2);
 
 		JMenuItem mntmOpo_3 = new JMenuItem("Sobre o programa");
 		mntmOpo_3.addActionListener(new ActionListener() {
@@ -272,7 +227,7 @@ public class Main extends JFrame {
 		btnContratos.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnContratos);
 		contentPane.setLayout(gl_contentPane);
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuBar, mnOpo, mntmOpo, mntmOpo_1, mnOpo_1, mntmOpo_2, mntmOpo_3, contentPane, toolBar, btnClientes, btnServios, btnContratos, painelPrincipal}));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuBar, mnOpo, mntmOpo, mntmOpo_1, mnOpo_1, mntmOpo_3, contentPane, toolBar, btnClientes, btnServios, btnContratos, painelPrincipal}));
 	}
 
 }

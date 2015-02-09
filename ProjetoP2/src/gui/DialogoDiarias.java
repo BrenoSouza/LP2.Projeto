@@ -25,6 +25,7 @@ import javax.swing.text.MaskFormatter;
 
 public class DialogoDiarias extends JDialog {
 
+	private static final long serialVersionUID = -3829925346915459261L;
 	private final JPanel contentPanel = new JPanel();
 	private JSpinner spinnerDiarias;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
