@@ -33,4 +33,9 @@ public class TestaRestaurante {
 		Assert.assertTrue(servicoRestaurante1.calculaPrecoTotal() == 100.00);
 		Assert.assertTrue(servicoRestaurante2.calculaPrecoTotal() == 200.00);	
 	}
+	
+	@Test
+	public void TesteToString() {
+		Assert.assertEquals("Serviço --- Restaurante ---\nHora -> 3\nCobertura? Sim\nCusto final: 100.0", servicoRestaurante1.toString());
+	}
 }

@@ -12,7 +12,7 @@ public class TestaOpiniao {
 	
 	@Before
 	public void criaOpiniao() throws Exception {
-		opiniao = new Opiniao("Muito bom!", 5);
+		opiniao = new Opiniao("Muito bom!!", 5);
 	}
 	
 	@Test
@@ -48,6 +48,11 @@ public class TestaOpiniao {
 		}
 		
 		
+	}
+	
+	@Test
+	public void TesteToString() {
+		Assert.assertEquals("Comentario: Muito bom!!" + "\nNota: 5", opiniao.toString());
 	}
 	
 	
