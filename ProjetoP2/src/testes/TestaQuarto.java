@@ -11,7 +11,11 @@ import org.joda.time.Interval;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.*;
+import classes.Quarto;
+import classes.QuartoExecutivoTriplo;
+import classes.QuartoLuxoTriplo;
+import classes.QuartoPresidencial;
+import classes.Reserva;
 
 
 @SuppressWarnings("deprecation")

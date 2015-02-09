@@ -32,7 +32,6 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
-import classes.AluguelCarro;
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;

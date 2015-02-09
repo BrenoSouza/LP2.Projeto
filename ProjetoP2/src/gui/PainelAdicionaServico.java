@@ -27,15 +27,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 
-import colecoes.ColecaoDeHospedes;
-import colecoes.ColecaoDeQuartos;
 import classes.AluguelCarro;
 import classes.Babysitter;
 import classes.Contrato;
-import classes.Hospede;
 import classes.Quarto;
 import classes.Restaurante;
 import classes.Servico;
+import colecoes.ColecaoDeHospedes;
+import colecoes.ColecaoDeQuartos;
 
 public class PainelAdicionaServico extends JInternalFrame {
 
@@ -89,8 +88,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 		this.listaHospedes = listaHospedes;
 		this.listaDeQuartos = listaDeQuartos;
 		this.servico = (Servico) servico;
-		
-		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);

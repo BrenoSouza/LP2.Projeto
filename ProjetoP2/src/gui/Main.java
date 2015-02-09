@@ -47,12 +47,12 @@ import colecoes.ColecaoDeQuartos;
 
 public class Main extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JDesktopPane painelPrincipal = new JDesktopPane();
 	private PainelClientes painelClientes;
 	private PainelServicos painelServicos;
 	private PainelContratos painelContratos;
-	private PainelCadastroClientes painelCadastro;
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	private List<Quarto> listaQuartosDisponiveis = new ArrayList<Quarto>();
 	private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
@@ -148,7 +148,7 @@ public class Main extends JFrame {
 		setTitle("Hotel Riviera Campina - Administra\u00E7\u00E3o");
 		criaQuartos();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(0, 0, 1000, 700);
+		setBounds(0, 0, 1366, 700);
 
 		listaDeQuartos.criaQuartos();
 		

@@ -80,10 +80,10 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblInformaes, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblToStringHospede, GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+						.addComponent(lblToStringHospede, GroupLayout.DEFAULT_SIZE, 416, Short.MAX_VALUE)
 						.addComponent(lblContrato)
-						.addComponent(lblContratoCliente, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnVisualizarContrato))
+						.addComponent(btnVisualizarContrato)
+						.addComponent(lblContratoCliente, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -93,7 +93,7 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 					.addComponent(lblInformaes)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblToStringHospede)
-					.addPreferredGap(ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
 					.addComponent(lblContrato)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblContratoCliente)

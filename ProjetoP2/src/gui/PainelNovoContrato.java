@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-import javax.naming.ldap.Rdn;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -29,9 +29,7 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.MaskFormatter;
 
-import org.joda.time.Interval;
 import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
@@ -41,10 +39,6 @@ import classes.Hospede;
 import classes.Quarto;
 import classes.Reserva;
 import colecoes.ColecaoDeHospedes;
-
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JFormattedTextField;
 
 public class PainelNovoContrato extends JInternalFrame {
 	public ColecaoDeHospedes getListaDeHospedes() {
@@ -106,7 +100,7 @@ public class PainelNovoContrato extends JInternalFrame {
 		});
 		setClosable(true);
 		setResizable(true);
-		setBounds(0, 0, 970, 400);
+		setBounds(0, 0, 1060, 400);
 		this.painelPrincipal = painelPrincipal;
 		this.listaDeHospedes = listaDeHospedes;
 		listaHospedesDoContrato = new ArrayList<Hospede>();
