@@ -49,5 +49,13 @@ public class Reserva {
 	public boolean getIntervaloSobrepoe (Interval outroIntervalo){
 		return (!(outroIntervalo.equals(intervalo)) && intervalo.overlaps(outroIntervalo));
 	}
+	@Override
+	public boolean equals(Object obj){
+		if (!(obj instanceof Reserva)){
+			return false;
+		}
+		Reserva outraReserva = (Reserva) obj;
+		return this.getIntervalo().equals(outraReserva.getIntervalo());
+	}
 
 }
