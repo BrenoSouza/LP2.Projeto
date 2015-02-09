@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,12 +24,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import colecoes.ColecaoDeHospedes;
-import colecoes.ColecaoDeQuartos;
 import classes.Contrato;
-import classes.Hospede;
 import classes.Quarto;
 import classes.Servico;
+import colecoes.ColecaoDeHospedes;
+import colecoes.ColecaoDeQuartos;
 
 public class PainelServicos extends JInternalFrame {
 	

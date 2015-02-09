@@ -7,21 +7,21 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.Calendar;
 
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JRadioButton;
-import javax.swing.JFormattedTextField;
-import javax.swing.ButtonGroup;
 
 public class DialogoDiarias extends JDialog {
 

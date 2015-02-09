@@ -15,6 +15,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -26,9 +28,6 @@ import classes.Contrato;
 import classes.Quarto;
 import colecoes.ColecaoDeHospedes;
 import colecoes.ColecaoDeQuartos;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextField;
 
 public class PainelContratos extends JInternalFrame {
 	

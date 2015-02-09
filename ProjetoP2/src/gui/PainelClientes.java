@@ -15,6 +15,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.InternalFrameAdapter;
@@ -25,8 +26,6 @@ import javax.swing.table.DefaultTableModel;
 
 import classes.Hospede;
 import colecoes.ColecaoDeHospedes;
-
-import javax.swing.JTextField;
 
 public class PainelClientes extends JInternalFrame {
 	/**
