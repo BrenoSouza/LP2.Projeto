@@ -143,5 +143,12 @@ public class Hospede implements Comparable<Hospede>{
 	public int compareTo(Hospede h) {
 		return (this.getNome().compareTo(h.getNome()));
 	}
+	@Override
+	public boolean equals(Object obj){
+		if (!(obj instanceof Hospede)){
+			return false;
+		}Hospede outroHospede = (Hospede) obj;
+		return toString().equals(outroHospede.toString());
+	}
 
 }
