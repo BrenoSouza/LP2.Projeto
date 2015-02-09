@@ -38,4 +38,11 @@ public class Opiniao {
 	public String toString() {
 		return "Comentario: " + getComentario() + "\nNota: " + getNota();
 	}
+	@Override
+	public boolean equals(Object obj){
+		if (!(obj instanceof Opiniao)){
+			return false;
+		}Opiniao outraOpiniao = (Opiniao) obj;
+		return toString().equals(outraOpiniao.toString());
+	}
 }
