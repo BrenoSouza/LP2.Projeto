@@ -330,10 +330,10 @@ public class PainelNovoContrato extends JInternalFrame {
 			}
 		});
 		
-		btnAlterarDiarias = new JButton("Alterar diárias e data de Check-in");
+		btnAlterarDiarias = new JButton("Alterar diárias, data de Check-in ou Cartão de crédito");
 		btnAlterarDiarias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dialogoDiarias = new DialogoDiarias();
+				dialogoDiarias = new DialogoDiarias(cartaoDeCredito);
 				dialogoDiarias.setVisible(true);
 				//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 				diariasContrato = dialogoDiarias.getDiarias();
