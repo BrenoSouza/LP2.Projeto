@@ -45,6 +45,8 @@ public class TestaBabysitter {
 		Assert.assertFalse(babySitter.equals(outraBabysitter));
 		outraBabysitter.setHoraSaida(3);
 		Assert.assertTrue(babySitter.equals(outraBabysitter));
+		outraBabysitter.setHoraSaida(6);
+		Assert.assertFalse(babySitter.equals(outraBabysitter));
 	}
 	
 }
