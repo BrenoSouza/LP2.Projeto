@@ -59,6 +59,7 @@ public class Babysitter extends Servico {
 	 * @param horaSaida A hora de saída.
 	 */
 	public void setHoraSaida(int horaSaida) {
+		this.horaSaida = Calendar.getInstance();
 		this.horaSaida.add(Calendar.HOUR_OF_DAY, horaSaida);
 	}
 	/**
