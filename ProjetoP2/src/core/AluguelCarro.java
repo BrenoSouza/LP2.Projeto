@@ -86,7 +86,6 @@ public class AluguelCarro extends Servico {
 	 * Informa a data do fim do serviço do carro.
 	 * @return Uma string com a data.
 	 */
-	
 	public String getFim() {
 		return Main.converteParaString(diaFim);
 	}

@@ -87,11 +87,17 @@ public class Contrato {
 	public int getNumeroDiarias() {
 		return numeroDiarias;
 	}
-	
+	/**
+	 * Informa o numero do cartao de credito usado no contrato
+	 * @return O numero do cartao
+	 */
 	public String getCartaoDeCredito() {
 		return cartaoDeCredito;
 	}
-	
+	/**
+	 * Modifica o numero do cartao de credito usado no contrato
+	 * @param cartao Uma string com o numero do cartao
+	 */
 	public void setCartaoDeCredito (String cartao){
 		this.cartaoDeCredito = cartao;
 	}
@@ -211,12 +217,18 @@ public class Contrato {
 		}
 		return quartosToString;
 	}
-	
+	/**
+	 * Faz com que determinados hospedes estejam ligados ao contrato
+	 * @param hospedes Uma List<Hospedes> com os hospedes a serem ligados ao contrato
+	 */
 	public void setContratoEmHospede(List<Hospede> hospedes) {
 		for(Hospede hospede: hospedes){
 			hospede.setContratoLigado(this);
 		}
 	}
+	/**
+	 * Inicia o contrato e calcula a data de checkOut com base nas diarias do contrato
+	 */
 	public void fazCheckIn(){
 		status = "ABERTO";
 		dataCheckIn = Calendar.getInstance();
