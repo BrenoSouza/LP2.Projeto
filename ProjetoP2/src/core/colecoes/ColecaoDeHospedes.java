@@ -7,33 +7,56 @@ import core.Hospede;
 
 public class ColecaoDeHospedes {
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
-	
+	/**
+	 * Retorna a lista de hospede da colecao
+	 * @return Um List<hospede>
+	 */
 	public List<Hospede> getListaHospedes() {
 		return listaHospedes;
 	}
-	
+	/**
+	 * Informa o tamanho da lista da colecao/numero de hospedes
+	 * @return Um int com o tamanho da lista
+	 */
 	public int getListaHospedeTamanho() {
 		return this.getListaHospedes().size();
 	}
-	
+	/**
+	 * Adiciona um hospede na colecao
+	 * @param hospede O hospede a ser adicionado
+	 * @throws Exception Caso atinga as exceções da classe hospede
+	 */
 	public void adicionaHospede(Hospede hospede) throws Exception{
 		if (hospede == null || listaHospedes.contains(hospede)){
 			throw new Exception("O hospede não foi adicionado.");
 		}
 		listaHospedes.add(hospede);
 	}
-	
+	/**
+	 * Adiciona uma lista de hospedes a colecao
+	 * @param hospedes Um List<hospede>
+	 * @throws Exception Caso atinga as exceções da classe hospede
+	 */
 	public void adicionaListaHospedes(List<Hospede> hospedes) throws Exception{
 		if (hospedes == null || hospedes.contains(null) || listaHospedes.containsAll(hospedes)){
 			throw new Exception("Os hospedes não foram adicionados.");
 		}
 		listaHospedes.addAll(hospedes);
 	}
-	
+	/**
+	 * Remove um hospede da colecao
+	 * @param hospede O hospede a ser removido
+	 * @return True - se foi removido / False - se houve algum problema
+	 */
 	public boolean removeHospede(Hospede hospede){
 		return listaHospedes.remove(hospede);
 	}
-	
+	/**
+	 * Remove uma lista de hospedes da colecao
+	 * @param hospedes Um List<hospede>
+	 * @return True - se removeu algum hospede da colecao / False - se não removeu nenhum hospede
+	 * @throws Exception Caso atinga as exceções da classe hospede
+	 */
 	public boolean removeHospedes(List<Hospede> hospedes) throws Exception{
 		boolean removeu = false;
 		for (Hospede hospede: hospedes){
@@ -44,10 +67,19 @@ public class ColecaoDeHospedes {
 		}
 		return removeu;
 	}
+	/**
+	 * Informa o hospede localizado em certo indice da colecao
+	 * @param i Um inteiro informando o indice
+	 * @return Um hospede indice i da colecao
+	 */
 	public Hospede getIndice(int i){
 		return listaHospedes.get(i);
 	}
-	
+	/**
+	 * Pesquisa hospedes na colecao
+	 * @param cpf O cpf para localizar o hospede
+	 * @return O hospede encontrado ou null se nada for encontrado
+	 */
 	public Hospede pesquisar(String cpf) {
 		for (Hospede hospede: getListaHospedes()){
 			if(hospede.getCpf() == cpf){
