@@ -79,6 +79,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JTextField textField_horasSolicitadas;
 	private JTextField textField_horasDobradas;
 	private JTextField textField_tipoQuarto;
+	private JTextField textField_quantidadeHorasBaby;
 	
 	
 	/**
@@ -195,7 +196,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 				    		break;
 				    	}
 				    	else if(comp == panelBabysitter) {
-				    		adicionaServico(new Babysitter());
+				    		Babysitter babysitter = new Babysitter();
+				    		if (!(textField_quantidadeHorasBaby.getText().isEmpty())) {
+				    			int horaSaida = Integer.valueOf(textField_quantidadeHorasBaby.getText());
+				    			babysitter.setHoraSaida(horaSaida);
+				    		}
+				    		adicionaServico(babysitter);
+				    		
 				    		JOptionPane.showMessageDialog(null, "Adicionado!");
 				    		disposeOnClosed();
 				    		break;
@@ -476,14 +483,29 @@ public class PainelAdicionaServico extends JInternalFrame {
 		panelBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		panelExterno.add(panelBabysitter, "babysitter");
+		
+		JLabel lblQuantidadeHoras = new JLabel("Quantidade de Horas:");
+		
+		textField_quantidadeHorasBaby = new JTextField();
+		textField_quantidadeHorasBaby.setColumns(10);
 		GroupLayout gl_panelBabysitter = new GroupLayout(panelBabysitter);
 		gl_panelBabysitter.setHorizontalGroup(
 			gl_panelBabysitter.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 763, Short.MAX_VALUE)
+				.addGroup(gl_panelBabysitter.createSequentialGroup()
+					.addGap(34)
+					.addComponent(lblQuantidadeHoras)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textField_quantidadeHorasBaby, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(498, Short.MAX_VALUE))
 		);
 		gl_panelBabysitter.setVerticalGroup(
 			gl_panelBabysitter.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 163, Short.MAX_VALUE)
+				.addGroup(gl_panelBabysitter.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelBabysitter.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblQuantidadeHoras)
+						.addComponent(textField_quantidadeHorasBaby, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(136, Short.MAX_VALUE))
 		);
 		panelBabysitter.setLayout(gl_panelBabysitter);
 		

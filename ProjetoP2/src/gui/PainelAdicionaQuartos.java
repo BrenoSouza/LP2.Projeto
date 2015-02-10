@@ -35,6 +35,7 @@ import org.joda.time.PeriodType;
 import classes.Contrato;
 import classes.Hospede;
 import classes.Quarto;
+import classes.Reserva;
 import colecoes.ColecaoDeHospedes;
 import colecoes.ColecaoDeQuartos;
 
@@ -60,7 +61,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private JScrollPane scrollPaneNoContrato;
 	private JButton button;
 	private JTable tableHospedesNoQuarto;
-	
+	private Reserva reserva;
 
 	/**
 	 * Create the frame.
