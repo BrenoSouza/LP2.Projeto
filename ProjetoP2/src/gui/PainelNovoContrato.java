@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
+
+
 //import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -34,11 +36,11 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
-import classes.Contrato;
-import classes.Hospede;
-import classes.Quarto;
-import classes.Reserva;
-import colecoes.ColecaoDeHospedes;
+import core.Contrato;
+import core.Hospede;
+import core.Quarto;
+import core.Reserva;
+import core.colecoes.ColecaoDeHospedes;
 
 public class PainelNovoContrato extends JInternalFrame {
 
@@ -201,40 +203,40 @@ public class PainelNovoContrato extends JInternalFrame {
 		lblHospedesNoContrato.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout gl_panelHospedes = new GroupLayout(panelHospedes);
 		gl_panelHospedes.setHorizontalGroup(
-				gl_panelHospedes.createParallelGroup(Alignment.LEADING)
+			gl_panelHospedes.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelHospedes.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_panelHospedes.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelHospedes.createSequentialGroup()
-										.addComponent(btnRemoverDoContrato, GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-										.addGap(170)
-										.addComponent(btnCriarNovo, GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-										.addGap(163)
-										.addComponent(btnAdicionarNoContrato, GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
-										.addComponent(lblHospedesSemContrato, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblHospedesNoContrato, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-										.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
-										.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE))
-										.addContainerGap())
-				);
+					.addContainerGap()
+					.addGroup(gl_panelHospedes.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelHospedes.createSequentialGroup()
+							.addComponent(btnRemoverDoContrato, GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
+							.addGap(170)
+							.addComponent(btnCriarNovo, GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+							.addGap(163)
+							.addComponent(btnAdicionarNoContrato, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+						.addComponent(lblHospedesSemContrato, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblHospedesNoContrato, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
 		gl_panelHospedes.setVerticalGroup(
-				gl_panelHospedes.createParallelGroup(Alignment.TRAILING)
+			gl_panelHospedes.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelHospedes.createSequentialGroup()
-						.addContainerGap(18, Short.MAX_VALUE)
-						.addComponent(lblHospedesSemContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblHospedesNoContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-						.addGap(8)
-						.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addGroup(gl_panelHospedes.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnAdicionarNoContrato)
-								.addComponent(btnRemoverDoContrato)
-								.addComponent(btnCriarNovo))
-								.addContainerGap())
-				);
+					.addContainerGap(13, Short.MAX_VALUE)
+					.addComponent(lblHospedesSemContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblHospedesNoContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+					.addGap(8)
+					.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(gl_panelHospedes.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAdicionarNoContrato)
+						.addComponent(btnRemoverDoContrato)
+						.addComponent(btnCriarNovo))
+					.addContainerGap())
+		);
 
 		tabelaHospedesNoContrato = new JTable();
 		tabelaHospedesNoContrato.setRowSelectionAllowed(true);
@@ -357,15 +359,15 @@ public class PainelNovoContrato extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelQuartos.createSequentialGroup()
-							.addComponent(btnRemoverDoContratoQuarto, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+							.addComponent(btnRemoverDoContratoQuarto, GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
 							.addGap(175)
 							.addComponent(btnAlterarDiarias, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addGap(204)
-							.addComponent(btnAdicionarNoContratoQuarto, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE))
-						.addComponent(scrollPane_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
-						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
+							.addComponent(btnAdicionarNoContratoQuarto, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(scrollPane_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
 						.addComponent(lblQuartosLivres, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblQuartosNoContrato, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblQuartosNoContrato, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		gl_panelQuartos.setVerticalGroup(
@@ -374,11 +376,11 @@ public class PainelNovoContrato extends JInternalFrame {
 					.addGap(18)
 					.addComponent(lblQuartosLivres, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
+					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblQuartosNoContrato, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
 					.addGap(8)
-					.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+					.addComponent(scrollPane_3, GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
 					.addGap(18)
 					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnRemoverDoContratoQuarto)

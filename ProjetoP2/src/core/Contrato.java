@@ -1,4 +1,4 @@
-package classes;
+package core;
 
 import gui.Main;
 
@@ -86,6 +86,14 @@ public class Contrato {
 	 */
 	public int getNumeroDiarias() {
 		return numeroDiarias;
+	}
+	
+	public String getCartaoDeCredito() {
+		return cartaoDeCredito;
+	}
+	
+	public void setCartaoDeCredito (String cartao){
+		this.cartaoDeCredito = cartao;
 	}
 	/**
 	 * Setter do objeto referente ao hóspede principal do contrato.
@@ -214,9 +222,6 @@ public class Contrato {
 		dataCheckIn = Calendar.getInstance();
 		dataCheckOut.setTime(dataCheckIn.getTime());
 		dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
-	}
-	public void setCartaoDeCredito (String cartao){
-		this.cartaoDeCredito = cartao;
 	}
 	
 	@Override

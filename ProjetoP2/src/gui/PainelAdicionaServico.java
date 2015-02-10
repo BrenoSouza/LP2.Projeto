@@ -28,14 +28,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 
-import classes.AluguelCarro;
-import classes.Babysitter;
-import classes.Contrato;
-import classes.Quarto;
-import classes.Restaurante;
-import classes.Servico;
-import colecoes.ColecaoDeHospedes;
-//import colecoes.ColecaoDeQuartos;
+import core.AluguelCarro;
+import core.Babysitter;
+import core.Contrato;
+import core.Quarto;
+import core.Restaurante;
+import core.Servico;
+import core.colecoes.ColecaoDeHospedes;
 
 public class PainelAdicionaServico extends JInternalFrame {
 

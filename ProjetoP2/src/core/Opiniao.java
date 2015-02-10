@@ -1,4 +1,4 @@
-package classes;
+package core;
 
 public class Opiniao {
 	private String comentario = "";

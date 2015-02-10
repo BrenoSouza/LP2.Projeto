@@ -1,19 +1,19 @@
-package classes;
+package core;
 
-public class QuartoLuxoSimples extends Quarto {
+public class QuartoExecutivoDuplo extends Quarto {
 	/**
-	 * Construtor de um quarto do tipo Luxo Simples.
+	 * Construtor de um quarto do tipo Executivo Duplo.
 	 * @param numero Número do quarto.
 	 * @param diarias Diárias no hotel.
 	 * @throws Exception Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
-	public QuartoLuxoSimples(int numero) throws Exception {
-		super(numero, 3, 520.0);
+	public QuartoExecutivoDuplo(int numero) throws Exception {
+		super(numero, 3, 385.0);
 	}
 	
 	@Override
 	public String toString() {
-		return "Serviço --- Quarto Luxo Simples ---" +
+		return "Serviço --- Quarto Executivo Duplo ---" +
 				super.toString() +
 				"\nPreço da diária -> " + this.getPrecoDiaria() +
 				"\nCusto final -> " + this.calculaPrecoTotal();
@@ -21,7 +21,7 @@ public class QuartoLuxoSimples extends Quarto {
 
 	@Override
 	public String getTipo() {
-		return "Quarto Luxo Simples" + (getDiarias() != 0 ? (", " + getDiarias() + " diária(s)") : "");
+		return "Quarto Executivo Duplo" + (getDiarias() != 0 ? (", " + getDiarias() + " diária(s)") : "");
 	}
 
 }

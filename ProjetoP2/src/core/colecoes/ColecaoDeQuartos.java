@@ -1,4 +1,4 @@
-package colecoes;
+package core.colecoes;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,14 +6,14 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import classes.Quarto;
-import classes.QuartoExecutivoDuplo;
-import classes.QuartoExecutivoSimples;
-import classes.QuartoExecutivoTriplo;
-import classes.QuartoLuxoDuplo;
-import classes.QuartoLuxoSimples;
-import classes.QuartoLuxoTriplo;
-import classes.QuartoPresidencial;
+import core.Quarto;
+import core.QuartoExecutivoDuplo;
+import core.QuartoExecutivoSimples;
+import core.QuartoExecutivoTriplo;
+import core.QuartoLuxoDuplo;
+import core.QuartoLuxoSimples;
+import core.QuartoLuxoTriplo;
+import core.QuartoPresidencial;
 
 public class ColecaoDeQuartos {
 	@SuppressWarnings("unused")

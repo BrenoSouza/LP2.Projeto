@@ -1,4 +1,4 @@
-package testes;
+package core;
 
 import gui.Main;
 
@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.AluguelCarro;
+import core.AluguelCarro;
 
 public class TestaAluguelCarro {
 

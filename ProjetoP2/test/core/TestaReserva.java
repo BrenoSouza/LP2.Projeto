@@ -1,4 +1,4 @@
-package testes;
+package core;
 
 import java.util.Calendar;
 
@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.Reserva;
+import core.Reserva;
 
 public class TestaReserva {
 	Calendar dataCheckIn;

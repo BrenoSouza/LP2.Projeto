@@ -17,8 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.text.MaskFormatter;
 
-import classes.Hospede;
-import colecoes.ColecaoDeHospedes;
+import core.Hospede;
+import core.colecoes.ColecaoDeHospedes;
 
 
 
@@ -100,11 +100,11 @@ public class PainelCadastroClientes extends JInternalFrame {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(campoNome, GroupLayout.PREFERRED_SIZE, 397, GroupLayout.PREFERRED_SIZE)
-								.addComponent(campoCPF, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
 								.addComponent(campoData, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-								.addComponent(campoEndereco, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(campoEndereco, GroupLayout.PREFERRED_SIZE, 438, GroupLayout.PREFERRED_SIZE)
+								.addComponent(campoCPF, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(btnCriarHspede))
-					.addContainerGap(44, Short.MAX_VALUE))
+					.addContainerGap(23, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -125,7 +125,7 @@ public class PainelCadastroClientes extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(campoData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDataDeNascimento))
-					.addPreferredGap(ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
 					.addComponent(btnCriarHspede)
 					.addContainerGap())
 		);

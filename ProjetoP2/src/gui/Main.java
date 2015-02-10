@@ -32,9 +32,9 @@ import javax.swing.border.LineBorder;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
-import classes.Contrato;
-import colecoes.ColecaoDeHospedes;
-import colecoes.ColecaoDeQuartos;
+import core.Contrato;
+import core.colecoes.ColecaoDeHospedes;
+import core.colecoes.ColecaoDeQuartos;
 
 public class Main extends JFrame {
 

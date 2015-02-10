@@ -24,8 +24,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import classes.Hospede;
-import colecoes.ColecaoDeHospedes;
+import core.Hospede;
+import core.colecoes.ColecaoDeHospedes;
 
 public class PainelClientes extends JInternalFrame {
 

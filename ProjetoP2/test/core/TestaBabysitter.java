@@ -1,4 +1,4 @@
-package testes;
+package core;
 
 import java.util.Calendar;
 
@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.Babysitter;
+import core.Babysitter;
 
 public class TestaBabysitter {
 	private Calendar data;

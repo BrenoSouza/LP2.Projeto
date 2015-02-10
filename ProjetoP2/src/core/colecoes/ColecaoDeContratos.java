@@ -1,9 +1,9 @@
-package colecoes;
+package core.colecoes;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import classes.Contrato;
+import core.Contrato;
 
 public class ColecaoDeContratos {
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();

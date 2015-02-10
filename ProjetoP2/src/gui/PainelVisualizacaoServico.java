@@ -8,7 +8,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import classes.Servico;
+import core.Servico;
 
 public class PainelVisualizacaoServico extends JInternalFrame {
 

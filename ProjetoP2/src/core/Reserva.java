@@ -1,4 +1,4 @@
-package classes;
+package core;
 
 import java.util.Calendar;
 

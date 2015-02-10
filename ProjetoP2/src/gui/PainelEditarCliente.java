@@ -26,8 +26,8 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
-import classes.Hospede;
-import classes.Opiniao;
+import core.Hospede;
+import core.Opiniao;
 
 public class PainelEditarCliente extends JInternalFrame {
 

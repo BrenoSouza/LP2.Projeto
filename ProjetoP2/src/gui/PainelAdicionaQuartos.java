@@ -32,12 +32,12 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
-import classes.Contrato;
-import classes.Hospede;
-import classes.Quarto;
-import classes.Reserva;
-import colecoes.ColecaoDeHospedes;
-import colecoes.ColecaoDeQuartos;
+import core.Contrato;
+import core.Hospede;
+import core.Quarto;
+import core.Reserva;
+import core.colecoes.ColecaoDeHospedes;
+import core.colecoes.ColecaoDeQuartos;
 
 public class PainelAdicionaQuartos extends JInternalFrame {
 

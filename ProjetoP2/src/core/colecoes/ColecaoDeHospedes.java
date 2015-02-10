@@ -1,9 +1,9 @@
-package colecoes;
+package core.colecoes;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import classes.Hospede;
+import core.Hospede;
 
 public class ColecaoDeHospedes {
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();

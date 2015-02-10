@@ -1,4 +1,4 @@
-package testes;
+package core;
 
 import java.util.Calendar;
 
@@ -6,8 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.Hospede;
-import classes.Opiniao;
+import core.Hospede;
+import core.Opiniao;
 
 public class TestaHospede {
 

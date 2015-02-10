@@ -1,4 +1,4 @@
-package testes;
+package core;
 
 //import java.time.Period;
 import java.util.ArrayList;
@@ -11,11 +11,11 @@ import org.joda.time.Interval;
 import org.junit.Before;
 import org.junit.Test;
 
-import classes.Quarto;
-import classes.QuartoExecutivoTriplo;
-import classes.QuartoLuxoTriplo;
-import classes.QuartoPresidencial;
-import classes.Reserva;
+import core.Quarto;
+import core.QuartoExecutivoTriplo;
+import core.QuartoLuxoTriplo;
+import core.QuartoPresidencial;
+import core.Reserva;
 
 
 @SuppressWarnings("deprecation")

@@ -31,10 +31,10 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
-import classes.Contrato;
-import classes.Hospede;
-import classes.Quarto;
-import classes.Servico;
+import core.Contrato;
+import core.Hospede;
+import core.Quarto;
+import core.Servico;
 
 public class PainelVisualizacaoContrato extends JInternalFrame {
 
@@ -58,6 +58,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JTable tabelaQuartos;
 	private JButton btnVisualizarQuarto;
 	private JButton btnVisualizarHospede;
+	private JLabel lblCartao;
 	
 
 
@@ -178,11 +179,17 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 			}
 		});
 		btnVisualizarHospede.setEnabled(false);
+		
+		JLabel lblCarto = new JLabel("Cartão:");
+		lblCarto.setFont(new Font("Dialog", Font.PLAIN, 15));
+		
+		lblCartao = new JLabel(contrato.getCartaoDeCredito());
+		lblCartao.setFont(new Font("Dialog", Font.PLAIN, 14));
 		GroupLayout gl_panelDetalhes = new GroupLayout(panelDetalhes);
 		gl_panelDetalhes.setHorizontalGroup(
 			gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelDetalhes.createSequentialGroup()
-					.addGroup(gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_panelDetalhes.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panelDetalhes.createSequentialGroup()
 							.addGap(10)
 							.addGroup(gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
@@ -190,7 +197,11 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 								.addGroup(gl_panelDetalhes.createSequentialGroup()
 									.addComponent(lblHospedePrincipal)
 									.addGap(10)
-									.addComponent(lblHospedePrincipalVariavel))
+									.addComponent(lblHospedePrincipalVariavel)
+									.addGap(151)
+									.addComponent(lblCarto)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblCartao))
 								.addGroup(gl_panelDetalhes.createSequentialGroup()
 									.addComponent(lblDataCheckIn)
 									.addGap(6)
@@ -204,8 +215,8 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 									.addGap(10)
 									.addComponent(lblTotalASerPagoVariavel))
 								.addComponent(lblHospedesRegistrados)))
-						.addGroup(Alignment.TRAILING, gl_panelDetalhes.createSequentialGroup()
-							.addContainerGap(723, Short.MAX_VALUE)
+						.addGroup(gl_panelDetalhes.createSequentialGroup()
+							.addContainerGap(696, Short.MAX_VALUE)
 							.addComponent(btnVisualizarHospede)))
 					.addContainerGap())
 		);
@@ -217,7 +228,10 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 						.addComponent(lblHospedePrincipal)
 						.addGroup(gl_panelDetalhes.createSequentialGroup()
 							.addGap(1)
-							.addComponent(lblHospedePrincipalVariavel)))
+							.addGroup(gl_panelDetalhes.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblHospedePrincipalVariavel)
+								.addComponent(lblCarto)
+								.addComponent(lblCartao))))
 					.addGap(6)
 					.addGroup(gl_panelDetalhes.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblDataCheckIn)

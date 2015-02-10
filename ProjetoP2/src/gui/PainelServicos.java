@@ -24,11 +24,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import classes.Contrato;
-import classes.Quarto;
-import classes.Servico;
-import colecoes.ColecaoDeHospedes;
-import colecoes.ColecaoDeQuartos;
+import core.Contrato;
+import core.Quarto;
+import core.Servico;
+import core.colecoes.ColecaoDeHospedes;
+import core.colecoes.ColecaoDeQuartos;
 
 public class PainelServicos extends JInternalFrame {
 	

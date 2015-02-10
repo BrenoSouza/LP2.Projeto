@@ -29,9 +29,9 @@ import org.joda.time.LocalDate;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
-import classes.Contrato;
-import classes.Hospede;
-import colecoes.ColecaoDeHospedes;
+import core.Contrato;
+import core.Hospede;
+import core.colecoes.ColecaoDeHospedes;
 
 public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 

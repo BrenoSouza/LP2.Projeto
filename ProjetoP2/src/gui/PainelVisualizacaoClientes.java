@@ -15,8 +15,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 
-import classes.Contrato;
-import classes.Hospede;
+import core.Contrato;
+import core.Hospede;
 
 public class PainelVisualizacaoClientes extends JInternalFrame {
 	
