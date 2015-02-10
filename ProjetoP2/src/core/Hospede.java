@@ -60,7 +60,10 @@ public class Hospede implements Comparable<Hospede>{
 	public String getCpf() {
 		return cpf;
 	}
-
+	/**
+	 * Modifica o atributo de cpf do hospede
+	 * @param cpf O novo cpf do hospede
+	 */
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
@@ -89,7 +92,10 @@ public class Hospede implements Comparable<Hospede>{
 	public Calendar getDataNascimento() {
 		return dataNascimento;
 	}
-
+	/**
+	 * Modifica a data de nascimento do hospede
+	 * @param dataNascimento Uma Calendar com a nova data de nascimento
+	 */
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
@@ -101,7 +107,6 @@ public class Hospede implements Comparable<Hospede>{
 	public void setOpiniao(Opiniao opiniao){
 		this.opiniao = opiniao;
 	}
-
 	/**
 	 * O getter do parâmetro opinião do hóspede.
 	 * @return
@@ -110,17 +115,14 @@ public class Hospede implements Comparable<Hospede>{
 	public Opiniao getOpiniao() {
 		return opiniao;
 	}
-
 	/**
 	 * O setter do endereço do hóspede.
 	 * @param endereco
 	 * Uma String contendo o endereço do hóspede.
 	 */
-
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-
 	/**
 	 * Getter o endereço do hóspede.
 	 * @return
