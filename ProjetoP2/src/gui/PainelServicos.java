@@ -44,7 +44,7 @@ public class PainelServicos extends JInternalFrame {
 	private Servico servicoSelecionado = null ;
 	private List<Contrato> listaContratos;
 	private ColecaoDeHospedes listaHospedes;
-	private ColecaoDeQuartos listaDeQuartos;
+	private List<Quarto> listaDeQuartos;
 	private JDesktopPane painelPrincipal;
 	private PainelVisualizacaoServico painelVisualizacao;
 	private JButton btnAdicionar;
@@ -66,7 +66,7 @@ public class PainelServicos extends JInternalFrame {
 		});		
 		this.listaHospedes = listaHospedes;
 		this.painelPrincipal = painelPrincipal;
-		this.listaDeQuartos = listaDeQuartos;
+		this.listaDeQuartos = listaDeQuartos.getListaQuartosVagos();
 		try{
 
 		} catch (Exception e){
@@ -123,7 +123,7 @@ public class PainelServicos extends JInternalFrame {
 				//	((Quarto) servicoSelecionado).setToLivre();
 				//	getColecaoDeQuartos().getListaQuartosVagos().add((Quarto) servicoSelecionado);
 					servicoSelecionado = (Quarto) servicoSelecionado;
-					PainelServicos.this.listaDeQuartos.getListaQuartosVagos().add((Quarto)servicoSelecionado);
+					PainelServicos.this.listaDeQuartos.add((Quarto)servicoSelecionado);
 					contratoSelecionado.getListaQuartosAlugados().remove((Quarto)servicoSelecionado);
 					((Quarto)servicoSelecionado).setToLivre();
 				}
@@ -294,7 +294,7 @@ public class PainelServicos extends JInternalFrame {
 
 	}
 
-	public ColecaoDeQuartos getColecaoDeQuartos() {
+	public List<Quarto> getColecaoDeQuartos() {
 		return listaDeQuartos;
 	}
 	

@@ -42,7 +42,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 
 	private static final long serialVersionUID = -1825431196943966386L;
 	private ColecaoDeHospedes listaDeHospedes;
-	private ColecaoDeQuartos listaDeQuartos;
+	private List<Quarto> listaDeQuartos;
 	private List<Hospede> listaHospedesSemContrato = new ArrayList<Hospede>();
 	private Quarto quartoVagoSelecionado;
 	private JPanel panelQuartos;
@@ -64,9 +64,10 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PainelAdicionaQuartos(ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos listaDeQuartos, Contrato contrato, JDesktopPane painelPrincipal) {
+	public PainelAdicionaQuartos(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaDeQuartos, Contrato contrato, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
+			
 			public void internalFrameActivated(InternalFrameEvent e) {
 				escreveTabelas();
 				escreveTabelaHospedesSemContrato();
@@ -120,7 +121,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				
 					quartoVagoSelecionado.setToOcupado(diariasContrato);
 					getContrato().getListaQuartosAlugados().add(quartoVagoSelecionado);
-					getListaDeQuartos().getListaQuartosVagos().remove(quartoVagoSelecionado);
+					getListaDeQuartos().remove(quartoVagoSelecionado);
 				
 					JOptionPane.showMessageDialog(null, "Quarto Adicionado!");
 						
@@ -136,9 +137,9 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		button = new JButton("Adicionar Hospede no Quarto");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				adicionaHospedesSelecionadosNoContrato(indiceHospedesSelecionados);
-
+				if (quartoVagoSelecionado.getNumeroHospedes() > quartoVagoSelecionado.getListaHospedes().size()); {
+					adicionaHospedesSelecionadosNoContrato(indiceHospedesSelecionados);
+				}
 			}
 		});
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
@@ -260,7 +261,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	}
 	
 	private void setQuartoVagoSelecionado (int i){
-		quartoVagoSelecionado = listaDeQuartos.getListaQuartosVagos().get(i);
+		quartoVagoSelecionado = listaDeQuartos.get(i);
 	}
 	
 	private void atualizaBotoes(){
@@ -272,11 +273,10 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		escreveTabelaHospedesSemContrato();
 								
 			// PREENCHENDO TABELA DOS QUARTOS VAGOS NO HOTEL
-				listaDeQuartos.sortQuartosNumero();
-				designTabela = new Object[listaDeQuartos.getListaQuartosVagos().size()][4];
-				if (listaDeQuartos.getListaQuartosVagos().size() > 0){
-				for (int i = 0; i < listaDeQuartos.getListaQuartosVagos().size(); i++){
-					Quarto quartoAtual = listaDeQuartos.getListaQuartosVagos().get(i);
+				designTabela = new Object[listaDeQuartos.size()][4];
+				if (listaDeQuartos.size() > 0){
+				for (int i = 0; i < listaDeQuartos.size(); i++){
+					Quarto quartoAtual = listaDeQuartos.get(i);
 					//Para preencher a primeira coluna da linha: Descrição do quarto
 					designTabela[i][0] = quartoAtual.getTipo();
 					//Para preencher a segunda coluna da linha: O preço da diária
@@ -339,7 +339,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				tableHospedesSemContrato.setRowSelectionAllowed(true);
 	}
 	
-	public ColecaoDeQuartos getListaDeQuartos() {
+	public List<Quarto> getListaDeQuartos() {
 		return listaDeQuartos;
 	}
 }

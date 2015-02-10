@@ -7,6 +7,8 @@ import java.awt.event.ActionListener;
 //import java.awt.event.MouseAdapter;
 //import java.awt.event.MouseEvent;
 
+import java.util.List;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.Icon;
@@ -40,7 +42,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private static final long serialVersionUID = -2800935829318426745L;
 	private Contrato contrato;
 	private JDesktopPane painelPrincipal;
-	private ColecaoDeQuartos listaDeQuartos;
+	private List<Quarto> listaDeQuartos;
 	private ColecaoDeHospedes listaHospedes;
 	private JPanel panelExterno = new JPanel();  
 	private CardLayout layoutPainel = new CardLayout();  
@@ -83,7 +85,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	 * Create the frame.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public PainelAdicionaServico(Servico servico, Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
+	public PainelAdicionaServico(Servico servico, Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaDeQuartos, ColecaoDeHospedes listaHospedes) {
 		this.contrato = contrato;
 		this.painelPrincipal = painelPrincipal;
 		this.listaHospedes = listaHospedes;
@@ -689,7 +691,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		painelPrincipal.add(painel);
 	}
 
-	private ColecaoDeQuartos getListaDeQuartos() {
+	private List<Quarto> getListaDeQuartos() {
 		return listaDeQuartos;
 	}
 	
