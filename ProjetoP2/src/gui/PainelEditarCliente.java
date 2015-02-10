@@ -168,31 +168,32 @@ public class PainelEditarCliente extends JInternalFrame {
 		btnEditarInfo = new JButton("Salvar mudanças");
 		btnEditarInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String Name = textFieldName.getText();
+				getHospede().setNome(Name);
+				String Adress = textFieldAdress.getText();
+				getHospede().setEndereco(Adress);
+				String Cpf = formattedTextFieldCpf.getText();
+				getHospede().setCpf(Cpf);
+				String Data = formattedTextFieldData.getText();
+				try {
+				getHospede().setDataNascimento(Main.converteParaCalendar(Data));
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, e1.getMessage());
+				}
 				String comment = textFieldComment.getText();
-				if (!comment.isEmpty() && comment.length() > 10 && getNota() > 0) {
+				if (comment.isEmpty() && getNota() == 0) {
+					JOptionPane.showMessageDialog(null, "Mudanças salvas.");
+					dispose();
+				}else{
 					Opiniao opiniao;
 					try {
 						opiniao = new Opiniao(comment, getNota());
 						getHospede().setOpiniao(opiniao);
+						JOptionPane.showMessageDialog(null, "Mudanças salvas.");
+						dispose();
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
-					String Name = textFieldName.getText();
-					getHospede().setNome(Name);
-					String Adress = textFieldAdress.getText();
-					getHospede().setEndereco(Adress);
-					String Cpf = formattedTextFieldCpf.getText();
-					getHospede().setCpf(Cpf);
-					String Data = formattedTextFieldData.getText();
-					try {
-						getHospede().setDataNascimento(Main.converteParaCalendar(Data));
-					} catch (Exception e1) {
-						JOptionPane.showMessageDialog(null, e1.getMessage());
-					}
-					JOptionPane.showMessageDialog(null, "Mudanças salvas.");
-					dispose();
-				}else{
-					JOptionPane.showMessageDialog(null, "A opinião do hóspede não foi editada corretamente.");
 				}
 			}
 		});
