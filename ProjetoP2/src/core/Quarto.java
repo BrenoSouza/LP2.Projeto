@@ -175,16 +175,32 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 		setDiarias(diarias);
 		setLivre(false);
 	}
+	/**
+	 * Retorna uma List<Reserva> de quarto
+	 * @return Uma List<Reserva>
+	 */
 	public List<Reserva> getListaReservas() {
 		return listaReservas;
 	}
+	/**
+	 * Adiciona uma reserva a lista de reservas
+	 * @param reserva A reserva
+	 */
 	public void adicionaReserva(Reserva reserva){
 		listaReservas.add(reserva);
 	}
+	/**
+	 * Cria uma nova reserva e depois adiciona a lista de reservas.
+	 * @param contrato Um contrato para criação de uma nova reserva.
+	 */
 	public void adicionaReserva(Contrato contrato){
 		Reserva reserva = new Reserva(contrato);
 		listaReservas.add(reserva);
 	}
+	/**
+	 * Retira uma reserva da lista de reserva
+	 * @param contrato O contrato ligado a reserva a ser removida
+	 */
 	public void retiraReserva(Contrato contrato){
 		for (Reserva reserva: listaReservas){
 			if (reserva.getContrato() == contrato){
@@ -193,6 +209,11 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>{
 			}
 		}
 	}
+	/**
+	 * Checa se o quarto está livre para reserva ou não
+	 * @param intervalo O intervalo de tempo que o quarto será utilizado
+	 * @return True - se está livre para reserva / False - se está ocupado/reservado
+	 */
 	public boolean isLivreParaReserva(Interval intervalo){
 		for (Reserva reserva: listaReservas){
 			if (reserva.getIntervaloSobrepoe(intervalo)){
