@@ -119,9 +119,13 @@ public class PainelServicos extends JInternalFrame {
 					contratoSelecionado.getListaServicos().remove(servicoSelecionado);
 				}
 				else {
-					contratoSelecionado.getListaQuartosAlugados().remove(servicoSelecionado);
-					((Quarto) servicoSelecionado).setToLivre();
-					getColecaoDeQuartos().getListaQuartosVagos().add((Quarto) servicoSelecionado);
+				//	contratoSelecionado.getListaQuartosAlugados().remove(servicoSelecionado);
+				//	((Quarto) servicoSelecionado).setToLivre();
+				//	getColecaoDeQuartos().getListaQuartosVagos().add((Quarto) servicoSelecionado);
+					servicoSelecionado = (Quarto) servicoSelecionado;
+					PainelServicos.this.listaDeQuartos.getListaQuartosVagos().add((Quarto)servicoSelecionado);
+					contratoSelecionado.getListaQuartosAlugados().remove((Quarto)servicoSelecionado);
+					((Quarto)servicoSelecionado).setToLivre();
 				}
 				escreveTabelaServicos();
 				escreveTabelaQuartos();

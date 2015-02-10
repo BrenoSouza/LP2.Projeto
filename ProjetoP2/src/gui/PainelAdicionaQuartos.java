@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -57,6 +58,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private JTable tableHospedesSemContrato;
 	private JTabbedPane tabbedPane_1;
 	private JScrollPane scrollPaneNoContrato;
+	private JButton button;
 	
 
 	/**
@@ -115,12 +117,15 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 					//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 					diariasContrato = dialogoDiarias.getDiarias();
 				}
-				quartoVagoSelecionado.setToOcupado(diariasContrato);
-				getContrato().getListaQuartosAlugados().add(quartoVagoSelecionado);
-				getListaDeQuartos().getListaQuartosVagos().remove(quartoVagoSelecionado);
 				
-				adicionaHospedesSelecionadosNoContrato(indiceHospedesSelecionados);
+					quartoVagoSelecionado.setToOcupado(diariasContrato);
+					getContrato().getListaQuartosAlugados().add(quartoVagoSelecionado);
+					getListaDeQuartos().getListaQuartosVagos().remove(quartoVagoSelecionado);
 				
+					JOptionPane.showMessageDialog(null, "Quarto Adicionado!");
+					
+					adicionaHospedesSelecionadosNoContrato(indiceHospedesSelecionados);
+	
 				escreveTabelas();
 				disposeOnClosed();
 			}
@@ -129,26 +134,28 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		btnAdicionarNoContratoQuarto.setEnabled(false);
 		
 		tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
+		
+		button = new JButton("Adicionar Hospede no Quarto");
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
 		gl_panelQuartos.setHorizontalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panelQuartos.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panelQuartos.createSequentialGroup()
-							.addContainerGap()
-							.addGroup(gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
-								.addComponent(tabbedPane_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE)
-								.addGroup(gl_panelQuartos.createSequentialGroup()
-									.addGap(703)
-									.addComponent(btnAdicionarNoContratoQuarto, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))))
+							.addGroup(gl_panelQuartos.createParallelGroup(Alignment.LEADING)
+								.addComponent(tabbedPane_1, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE)
+								.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))
+							.addContainerGap())
 						.addGroup(gl_panelQuartos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE)))
-					.addContainerGap())
-				.addGroup(gl_panelQuartos.createSequentialGroup()
-					.addContainerGap(417, Short.MAX_VALUE)
-					.addComponent(lblQuartosLivres, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-					.addGap(388))
+							.addComponent(lblQuartosLivres, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+							.addGap(388))
+						.addGroup(gl_panelQuartos.createSequentialGroup()
+							.addGap(117)
+							.addComponent(button, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+							.addComponent(btnAdicionarNoContratoQuarto, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
+							.addGap(134))))
 		);
 		gl_panelQuartos.setVerticalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
@@ -160,7 +167,9 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 					.addGap(24)
 					.addComponent(tabbedPane_1, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
 					.addGap(13)
-					.addComponent(btnAdicionarNoContratoQuarto)
+					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
+						.addComponent(button)
+						.addComponent(btnAdicionarNoContratoQuarto))
 					.addContainerGap())
 		);
 		
