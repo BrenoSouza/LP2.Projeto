@@ -86,11 +86,12 @@ public class DialogoDiarias extends JDialog {
 				campoData.setEnabled(true);
 			}
 		});
-		rdbtnReserva.setSelected(true);
+		rdbtnCheckInImediato.setSelected(true);
 		buttonGroup.add(rdbtnReserva);
 
 		try {
 			campoData = new JFormattedTextField(new MaskFormatter("##/##/####"));
+			campoData.setEnabled(false);
 		} catch (ParseException e1) {
 			System.out.println(e1.getMessage());;
 		}
@@ -163,6 +164,10 @@ public class DialogoDiarias extends JDialog {
 					.addComponent(btnNewButton))
 		);
 		contentPanel.setLayout(gl_contentPanel);
+	}
+	public DialogoDiarias(String cartaoDeCredito){
+		this();
+		formattedTextFieldCartaoDeCredito.setText(cartaoDeCredito);
 	}
 	public int getDiarias(){
 		return (Integer) spinnerDiarias.getValue();
