@@ -61,8 +61,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JButton btnRestaurante;
 	private JButton btnAluguelCarros;
 	private JSpinner spinnerDiariasCarro;
-	@SuppressWarnings("rawtypes")
-	private JComboBox cBoxTipoQuarto;
 	private JSpinner spinnerDiarias;
 	private JCheckBox chckbxCamasExtras;
 	private JCheckBox chckbxCobertura;
@@ -73,7 +71,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 			"Executivo Duplo", "Executivo Triplo"};	
 	private JTextField txtFldPrecoRestaurante;
 	private JTextField textField_horaSaida;
-	private JTextField textField_tipoQuarto;
 	private JTextField textField_quantidadeHorasBaby;
 	private JPanel panelEditaQuarto_1;
 	
@@ -160,10 +157,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		panelExterno.add(panelQuartos, "quarto");
 		
-		JLabel lblTipoDeQuarto = new JLabel("Tipo de Quarto:");
-		
-		cBoxTipoQuarto = new JComboBox(TIPOS_QUARTOS);
-		
 		JLabel lblDiarias = new JLabel("Diárias:");
 		
 		spinnerDiarias = new JSpinner();
@@ -175,17 +168,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 		gl_panelQuartos.setHorizontalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelQuartos.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblTipoDeQuarto)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(cBoxTipoQuarto, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-					.addGap(96)
+					.addGap(139)
 					.addComponent(lblDiarias)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+					.addGap(76)
 					.addComponent(chckbxCamasExtras)
-					.addGap(63))
+					.addContainerGap(308, Short.MAX_VALUE))
 		);
 		gl_panelQuartos.setVerticalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
@@ -195,9 +184,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 						.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblDiarias)
 							.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
-							.addComponent(cBoxTipoQuarto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblTipoDeQuarto))
 						.addComponent(chckbxCamasExtras))
 					.addContainerGap(127, Short.MAX_VALUE))
 		);
@@ -208,34 +194,21 @@ public class PainelAdicionaServico extends JInternalFrame {
 		panelEditaQuarto_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelExterno.add(panelEditaQuarto_1, "edita_quarto");
 		
-		JLabel label = new JLabel("Tipo de Quarto:");
-		
 		JCheckBox checkBox = new JCheckBox("Camas Extras");
-		
-		textField_tipoQuarto = new JTextField();
-		textField_tipoQuarto.setColumns(10);
 		GroupLayout gl_panelEditaQuarto_1 = new GroupLayout(panelEditaQuarto_1);
 		gl_panelEditaQuarto_1.setHorizontalGroup(
 			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(label)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField_tipoQuarto, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
+					.addGap(68)
 					.addComponent(checkBox)
-					.addGap(63))
+					.addContainerGap(575, Short.MAX_VALUE))
 		);
 		gl_panelEditaQuarto_1.setVerticalGroup(
 			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelEditaQuarto_1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(label)
-							.addComponent(textField_tipoQuarto, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addComponent(checkBox))
-					.addContainerGap(128, Short.MAX_VALUE))
+					.addComponent(checkBox)
+					.addContainerGap(132, Short.MAX_VALUE))
 		);
 		panelEditaQuarto_1.setLayout(gl_panelEditaQuarto_1);
 		
@@ -428,9 +401,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 		gl_panelRestaurante.setHorizontalGroup(
 			gl_panelRestaurante.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelRestaurante.createSequentialGroup()
-					.addGap(36)
+					.addContainerGap()
 					.addComponent(lblPreo)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(36)
 					.addComponent(txtfi_preco, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
 					.addGap(50)
 					.addComponent(chckbxCobertura)
@@ -442,8 +415,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(gl_panelRestaurante.createParallelGroup(Alignment.BASELINE)
 						.addComponent(chckbxCobertura)
-						.addComponent(txtfi_preco, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblPreo))
+						.addComponent(lblPreo)
+						.addComponent(txtfi_preco, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(124, Short.MAX_VALUE))
 		);
 		panelRestaurante.setLayout(gl_panelRestaurante);
