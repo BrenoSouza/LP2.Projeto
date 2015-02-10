@@ -123,9 +123,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 					getListaDeQuartos().getListaQuartosVagos().remove(quartoVagoSelecionado);
 				
 					JOptionPane.showMessageDialog(null, "Quarto Adicionado!");
-					
-					adicionaHospedesSelecionadosNoContrato(indiceHospedesSelecionados);
-	
+						
 				escreveTabelas();
 				disposeOnClosed();
 			}
@@ -136,6 +134,13 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 		
 		button = new JButton("Adicionar Hospede no Quarto");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				adicionaHospedesSelecionadosNoContrato(indiceHospedesSelecionados);
+
+			}
+		});
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
 		gl_panelQuartos.setHorizontalGroup(
 			gl_panelQuartos.createParallelGroup(Alignment.TRAILING)
