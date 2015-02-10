@@ -91,6 +91,7 @@ public class PainelNovoContrato extends JInternalFrame {
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut = Calendar.getInstance();
 //	private Reserva reserva;
+	private String cartaoDeCredito;
 
 	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal) {
 		setFrameIcon(new ImageIcon(PainelNovoContrato.class.getResource("/resources/contrato_icon.png")));
@@ -118,6 +119,8 @@ public class PainelNovoContrato extends JInternalFrame {
 		isReserva = dialogoDiarias.isReserva();
 		try {
 			dataCheckIn = dialogoDiarias.getDataCheckIn();
+			cartaoDeCredito = dialogoDiarias.getCartaoDeCredito();
+
 		} catch (ParseException e3) {
 			JOptionPane.showMessageDialog(null, e3.getMessage());
 		}
@@ -332,6 +335,7 @@ public class PainelNovoContrato extends JInternalFrame {
 				dialogoDiarias.setVisible(true);
 				//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 				diariasContrato = dialogoDiarias.getDiarias();
+				cartaoDeCredito = dialogoDiarias.getCartaoDeCredito();
 				isReserva = dialogoDiarias.isReserva();
 				try {
 					dataCheckIn = dialogoDiarias.getDataCheckIn();
@@ -451,7 +455,7 @@ public class PainelNovoContrato extends JInternalFrame {
 						}
 					}else{
 						contrato = new Contrato(listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
-					}
+					}contrato.setCartaoDeCredito(cartaoDeCredito);
 					for (Hospede hospede: listaHospedesDoContrato){
 						hospede.setContratoLigado(contrato);
 					}

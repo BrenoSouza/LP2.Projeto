@@ -17,6 +17,7 @@ public class Contrato {
 	private Calendar dataCheckOut = Calendar.getInstance();
 	private String status = "ABERTO";
 	private double precoQueFoiPago;
+	private String cartaoDeCredito;
 	/**
 	 * Construtor da classe Contrato.
 	 * @param listaQuartosAlugados Um List<Quarto> com o(s) quarto(s) alugado(s).
@@ -213,6 +214,9 @@ public class Contrato {
 		dataCheckIn = Calendar.getInstance();
 		dataCheckOut.setTime(dataCheckIn.getTime());
 		dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
+	}
+	public void setCartaoDeCredito (String cartao){
+		this.cartaoDeCredito = cartao;
 	}
 	
 	@Override
