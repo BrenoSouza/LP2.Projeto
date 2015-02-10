@@ -165,7 +165,7 @@ public class PainelEditarContrato extends JInternalFrame {
 					PainelEditarContrato.this.painelPrincipal.add(painelAddHospede);
 					painelAddHospede.show();
 				}else{
-					PainelAdicionaServico painelAdd = new PainelAdicionaServico(null, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotelColecao.getListaQuartosVagos(), PainelEditarContrato.this.listaHospedesHotel);
+					PainelAdicionaServico painelAdd = new PainelAdicionaServico(null, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotel, PainelEditarContrato.this.listaHospedesHotel);
 					PainelEditarContrato.this.painelPrincipal.add(painelAdd);
 					painelAdd.show();
 				}
@@ -182,14 +182,14 @@ public class PainelEditarContrato extends JInternalFrame {
 					PainelEditarCliente painelEditarHospede = new PainelEditarCliente((Hospede) objetoDinamico, PainelEditarContrato.this.painelPrincipal);
 					PainelEditarContrato.this.painelPrincipal.add(painelEditarHospede);
 					painelEditarHospede.show();
-				}else{
-					PainelAdicionaServico painelAdd = new PainelAdicionaServico((Servico) objetoDinamico, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotelColecao.getListaQuartosVagos(), PainelEditarContrato.this.listaHospedesHotel);
+				}else if (texto.equals("Editar serviço") || texto.equals("Editar quarto")){
+					PainelAdicionaServico painelAdd = new PainelAdicionaServico((Servico) objetoDinamico, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotel, PainelEditarContrato.this.listaHospedesHotel);
 					PainelEditarContrato.this.painelPrincipal.add(painelAdd);
 					painelAdd.show();
 				}
 				escreveTabelas();
 				}catch (Exception e5){
-					JOptionPane.showMessageDialog(null, e5.getMessage());
+					JOptionPane.showMessageDialog(null, "Erro!");
 				}
 			}
 		});
