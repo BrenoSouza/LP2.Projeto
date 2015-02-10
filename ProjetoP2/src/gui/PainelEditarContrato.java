@@ -189,7 +189,7 @@ public class PainelEditarContrato extends JInternalFrame {
 				}
 				escreveTabelas();
 				}catch (Exception e5){
-					e5.printStackTrace();
+						JOptionPane.showMessageDialog(null, e5.getMessage());
 				}
 			}
 		});

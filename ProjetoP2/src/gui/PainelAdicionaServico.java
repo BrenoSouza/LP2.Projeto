@@ -74,8 +74,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JTextField txtFldPrecoRestaurante;
 	private JTextField textField_1;
 	private JTextField textField_horaSaida;
-	private JTextField textField_horasSolicitadas;
-	private JTextField textField_horasDobradas;
 	private JTextField textField_tipoQuarto;
 	private JTextField textField_quantidadeHorasBaby;
 	private JPanel panelEditaQuarto_1;
@@ -153,7 +151,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				disposeOnClosed();
+				dispose();
 				
 			}
 		});
@@ -253,20 +251,10 @@ public class PainelAdicionaServico extends JInternalFrame {
 		panelEditaBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelExterno.add(panelEditaBabysitter, "edita_babysitter");
 		
-		JLabel lblDataSaida = new JLabel("Hora da Saida:");
+		JLabel lblNovaSaida = new JLabel("Alterar quantidade de horas:");
 		
 		textField_horaSaida = new JTextField();
 		textField_horaSaida.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Horas Solicitadas:");
-		
-		JLabel lblHorasDobradas = new JLabel("Horas Dobradas:");
-		
-		textField_horasSolicitadas = new JTextField();
-		textField_horasSolicitadas.setColumns(10);
-		
-		textField_horasDobradas = new JTextField();
-		textField_horasDobradas.setColumns(10);
 		
 		
 		GroupLayout gl_panelEditaBabysitter = new GroupLayout(panelEditaBabysitter);
@@ -274,30 +262,18 @@ public class PainelAdicionaServico extends JInternalFrame {
 			gl_panelEditaBabysitter.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelEditaBabysitter.createSequentialGroup()
 					.addGap(27)
-					.addComponent(lblDataSaida)
+					.addComponent(lblNovaSaida)
 					.addGap(4)
 					.addComponent(textField_horaSaida, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-					.addGap(27)
-					.addComponent(lblNewLabel)
-					.addGap(2)
-					.addComponent(textField_horasSolicitadas, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-					.addComponent(lblHorasDobradas)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField_horasDobradas, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-					.addGap(24))
+					.addContainerGap(537, Short.MAX_VALUE))
 		);
 		gl_panelEditaBabysitter.setVerticalGroup(
 			gl_panelEditaBabysitter.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelEditaBabysitter.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelEditaBabysitter.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDataSaida)
-						.addComponent(textField_horaSaida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel)
-						.addComponent(lblHorasDobradas)
-						.addComponent(textField_horasSolicitadas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_horasDobradas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblNovaSaida)
+						.addComponent(textField_horaSaida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(132, Short.MAX_VALUE))
 		);
 		panelEditaBabysitter.setLayout(gl_panelEditaBabysitter);
@@ -627,7 +603,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    			Servico servico = new AluguelCarro(diarias, tipoCarro, chckbxTanqueCheio.isSelected(), chckbxSeguro.isSelected());
 							adicionaServico(servico);
 				    		JOptionPane.showMessageDialog(null, "Adicionado!");
-				    		disposeOnClosed();
+				    		dispose();
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						}
@@ -637,7 +613,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(getColecaoHospedes(), getListaDeQuartos(), getContrato(), getPainelPrincipal());				    			
 			    		adicionaNoPainel(painelAddQuarto);
 			    		painelAddQuarto.show();
-			    		disposeOnClosed();
+			    		dispose();
 			    		break;
 			    	}
 			    	else if(comp == panelBabysitter) {
@@ -649,7 +625,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		adicionaServico(babysitter);
 			    		
 			    		JOptionPane.showMessageDialog(null, "Adicionado!");
-			    		disposeOnClosed();
+			    		dispose();
 			    		break;
 			    	}
 			    	else if (comp == panelRestaurante){
@@ -657,34 +633,34 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		try {
 							adicionaServico(new Restaurante(chckbxCobertura.isSelected(), preco));
 							JOptionPane.showMessageDialog(null, "Adicionado!");
-							disposeOnClosed();
+							dispose();
 						} catch (Exception e1) {
 							e1.printStackTrace();
 						}
 			    		break;
 			    	}
 			    	else if(comp == panelEditaQuarto_1) {
-			    		disposeOnClosed();
+			    		dispose();
 			    		break;
 			    	}
 			    	else if(comp == panelEditaRestaurante) {
 			    		Restaurante restaurante = (Restaurante) getServico();
-			    		if (!(txtfi_preco.getText().isEmpty())) {
-			    			double preco = Integer.valueOf(txtfi_preco.getText());
-			    		
-			    		restaurante.setPreco(preco);
-			    		disposeOnClosed();
-			    		break;
+			    		double preco;
+			    		if (!(txtFldPrecoRestaurante.getText().isEmpty())) {
+			    			preco = Double.valueOf(txtFldPrecoRestaurante.getText());
+			    			restaurante.setPreco(preco);
+			    			dispose();
+			    			break;
 			    		}
 			    	}
 			    	else if(comp == panelEditaBabysitter) {
 			    		
-			    		disposeOnClosed();
+			    		dispose();
 			    		break;
 			    	}
 			    	else if(comp == panelEditaCarro) {
 			    		
-			    		disposeOnClosed();
+			    		dispose();
 			    		break;
 			    	}
 			    }			
@@ -704,10 +680,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private void adicionaServico(Servico servico) {
 		contrato.getListaServicos().add(servico); 
 	}
-	
-	private void disposeOnClosed() {  
-	    this.dispose();  
-	}    
 	
 	private Contrato getContrato() {
 		return contrato;
