@@ -18,14 +18,14 @@ public class TestaBabysitter {
 		this.data = Calendar.getInstance();
 		babySitter = new Babysitter();
 		outraBabysitter = new Babysitter();
-		babySitter.setHoraSaida(data.get(Calendar.HOUR_OF_DAY) + 3);
-		outraBabysitter.setHoraSaida(data.get(Calendar.HOUR_OF_DAY) + 6);
+		babySitter.setHoraSaida(3);
+		outraBabysitter.setHoraSaida(6);
 	}
 	
 	@Test
 	public void testMetodosBabySitter() {
 		Assert.assertEquals(data.get(Calendar.HOUR_OF_DAY), babySitter.getHoraEntrada());
-		Assert.assertEquals((data.get(Calendar.HOUR_OF_DAY) + 3), babySitter.getHoraSaida());
+		Assert.assertEquals(data.get(Calendar.HOUR_OF_DAY) + 3, babySitter.getHoraSaida());
 		babySitter.horasTrabalhadas();
 		Assert.assertEquals((babySitter.getHorasPrecoNormal() * 25) + (babySitter.getHorasPrecoExtra() * 50), babySitter.calculaPrecoTotal(), 0.001);
 	}
@@ -43,7 +43,7 @@ public class TestaBabysitter {
 	@Test
 	public void TesteEquals() {
 		Assert.assertFalse(babySitter.equals(outraBabysitter));
-		outraBabysitter.setHoraSaida(data.get(Calendar.HOUR_OF_DAY) + 3);
+		outraBabysitter.setHoraSaida(3);
 		Assert.assertTrue(babySitter.equals(outraBabysitter));
 	}
 	
