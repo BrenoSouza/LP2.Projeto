@@ -71,7 +71,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 			
 			public void internalFrameActivated(InternalFrameEvent e) {
 				escreveTabelas();
-				escreveTabelaHospedesSemContrato();
+				//escreveTabelaHospedesSemContrato();
 			}
 		});
 		
@@ -276,7 +276,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	
 	private void escreveTabelas(){
 		Object[][] designTabela;
-		escreveTabelaHospedesSemContrato();
+		//escreveTabelaHospedesSemContrato();
 								
 			// PREENCHENDO TABELA DOS QUARTOS VAGOS NO HOTEL
 				designTabela = new Object[listaDeQuartos.size()][4];
