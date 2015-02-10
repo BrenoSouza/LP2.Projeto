@@ -50,7 +50,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JPanel panelCarros = new JPanel();
 	private JPanel panelRestaurante = new JPanel();
 	private JPanel panelEditaRestaurante;
-	private JPanel panelEditaQuarto;
 	private JPanel panelEditaBabysitter;
 	private JPanel panelEditaCarro;
 	@SuppressWarnings("rawtypes")
@@ -79,6 +78,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JTextField textField_horasDobradas;
 	private JTextField textField_tipoQuarto;
 	private JTextField textField_quantidadeHorasBaby;
+	private JPanel panelEditaQuarto_1;
 	
 	
 	/**
@@ -90,34 +90,12 @@ public class PainelAdicionaServico extends JInternalFrame {
 		this.painelPrincipal = painelPrincipal;
 		this.listaHospedes = listaHospedes;
 		this.listaDeQuartos = listaDeQuartos;
-		this.servico = (Servico) servico;
+		this.servico = servico;
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);
 		setBounds(100, 100, 800, 400);
 		
-		if (servico == null) {
-			if (servico instanceof Quarto) {
-				btnBabysitter.setVisible(false);
-				btnAluguelCarros.setVisible(false);
-				btnRestaurante.setVisible(false);
-			}
-			else if (servico instanceof Restaurante) {
-				btnBabysitter.setVisible(false);
-				btnAluguelCarros.setVisible(false);
-				btnQuartos.setVisible(false);
-			}
-			else if (servico instanceof Babysitter) {
-				btnQuartos.setVisible(false);
-				btnAluguelCarros.setVisible(false);
-				btnRestaurante.setVisible(false);
-			}
-			else if (servico instanceof AluguelCarro) {
-				btnBabysitter.setVisible(false);
-				btnQuartos.setVisible(false);
-				btnRestaurante.setVisible(false);
-			}
- 		}
 		
 		Icon imagemQuarto = new ImageIcon(PainelServicos.class.getResource("/resources/quarto.png"));
 		btnQuartos = new JButton(imagemQuarto);
@@ -170,80 +148,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		JButton btnAdicionar = new JButton("Adicionar");
 		
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for (Component comp : panelExterno.getComponents()) {
-					if (comp.isVisible() == true) {
-						if(comp == panelCarros) {
-				    		int diarias = (Integer) spinnerDiariasCarro.getValue();
-				    		boolean tipoCarro = cBoxTipoCarro.getSelectedIndex() == 0 ? true : false;
-				    		try {
-				    			Servico servico = new AluguelCarro(diarias, tipoCarro, chckbxTanqueCheio.isSelected(), chckbxSeguro.isSelected());
-								adicionaServico(servico);
-					    		JOptionPane.showMessageDialog(null, "Adicionado!");
-					    		disposeOnClosed();
-							} catch (Exception e1) {
-								e1.printStackTrace();
-							}
-				    		break;
-				    	}
-				    	else if(comp == panelQuartos) {
-				    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(getColecaoHospedes(), getListaDeQuartos(), getContrato(), getPainelPrincipal());				    			
-				    		adicionaNoPainel(painelAddQuarto);
-				    		painelAddQuarto.show();
-				    		disposeOnClosed();
-				    		break;
-				    	}
-				    	else if(comp == panelBabysitter) {
-				    		Babysitter babysitter = new Babysitter();
-				    		if (!(textField_quantidadeHorasBaby.getText().isEmpty())) {
-				    			int horaSaida = Integer.valueOf(textField_quantidadeHorasBaby.getText());
-				    			babysitter.setHoraSaida(horaSaida);
-				    		}
-				    		adicionaServico(babysitter);
-				    		
-				    		JOptionPane.showMessageDialog(null, "Adicionado!");
-				    		disposeOnClosed();
-				    		break;
-				    	}
-				    	else if (comp == panelRestaurante){
-				    		double preco = Double.parseDouble(txtfi_preco.getText());
-				    		try {
-								adicionaServico(new Restaurante(chckbxCobertura.isSelected(), preco));
-								JOptionPane.showMessageDialog(null, "Adicionado!");
-								disposeOnClosed();
-							} catch (Exception e1) {
-								e1.printStackTrace();
-							}
-				    		break;
-				    	}
-				    	else if(comp == panelEditaQuarto) {
-				    		
-				    		disposeOnClosed();
-				    		break;
-				    	}
-				    	else if(comp == panelEditaRestaurante) {
-				    		
-				    		disposeOnClosed();
-				    		break;
-				    	}
-				    	else if(comp == panelEditaBabysitter) {
-				    		
-				    		disposeOnClosed();
-				    		break;
-				    	}
-				    	else if(comp == panelEditaCarro) {
-				    		
-				    		disposeOnClosed();
-				    		break;
-				    	}
-				    }			
-					
-				}
-			}
-
-		}
-		);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
@@ -398,9 +302,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 		);
 		panelEditaBabysitter.setLayout(gl_panelEditaBabysitter);
 		
-		JPanel panelEditaQuarto = new JPanel();
-		panelEditaQuarto.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelExterno.add(panelEditaQuarto, "edita_quarto");
+		panelEditaQuarto_1 = new JPanel();
+		panelEditaQuarto_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panelExterno.add(panelEditaQuarto_1, "edita_quarto");
 		
 		JLabel label = new JLabel("Tipo de Quarto:");
 		
@@ -408,10 +312,10 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		textField_tipoQuarto = new JTextField();
 		textField_tipoQuarto.setColumns(10);
-		GroupLayout gl_panelEditaQuarto = new GroupLayout(panelEditaQuarto);
-		gl_panelEditaQuarto.setHorizontalGroup(
-			gl_panelEditaQuarto.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaQuarto.createSequentialGroup()
+		GroupLayout gl_panelEditaQuarto_1 = new GroupLayout(panelEditaQuarto_1);
+		gl_panelEditaQuarto_1.setHorizontalGroup(
+			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(label)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -420,18 +324,18 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addComponent(checkBox)
 					.addGap(63))
 		);
-		gl_panelEditaQuarto.setVerticalGroup(
-			gl_panelEditaQuarto.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaQuarto.createSequentialGroup()
+		gl_panelEditaQuarto_1.setVerticalGroup(
+			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panelEditaQuarto.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelEditaQuarto.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelEditaQuarto_1.createParallelGroup(Alignment.BASELINE)
 							.addComponent(label)
 							.addComponent(textField_tipoQuarto, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 						.addComponent(checkBox))
 					.addContainerGap(128, Short.MAX_VALUE))
 		);
-		panelEditaQuarto.setLayout(gl_panelEditaQuarto);
+		panelEditaQuarto_1.setLayout(gl_panelEditaQuarto_1);
 		panelQuartos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		panelExterno.add(panelQuartos, "quarto");
@@ -667,6 +571,129 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addGap(21))
 		);
 		getContentPane().setLayout(groupLayout);
+		
+		if (servico instanceof Quarto) {
+			if (getServico() == null) 
+				layoutPainel.show(panelExterno, "quarto" );
+			else {
+				layoutPainel.show(panelExterno, "edita_quarto");
+			}
+			btnBabysitter.setEnabled(false);
+			btnAluguelCarros.setEnabled(false);
+			btnRestaurante.setEnabled(false);
+		}
+		else if (servico instanceof AluguelCarro) {
+			if ((getServico() == null) ) 
+				layoutPainel.show(panelExterno, "carros" );
+			else {
+				layoutPainel.show(panelExterno, "edita_carro");
+			}
+			btnBabysitter.setEnabled(false);
+			btnRestaurante.setEnabled(false);
+			btnQuartos.setEnabled(false);
+		}
+		else if (servico instanceof Babysitter) {
+			if ((getServico() == null) ) 
+				layoutPainel.show(panelExterno, "babysitter");
+			else {
+				layoutPainel.show(panelExterno, "edita_babysitter");
+			}
+			btnQuartos.setEnabled(false);
+			btnAluguelCarros.setEnabled(false);
+			btnRestaurante.setEnabled(false);
+		}
+		else if (servico instanceof Restaurante) {
+			if ((getServico() == null) ) 
+				layoutPainel.show(panelExterno, "restaurante");
+			else {
+				layoutPainel.show(panelExterno, "edita_restaurante");
+			}
+			btnBabysitter.setEnabled(false);
+			btnQuartos.setEnabled(false);
+			btnAluguelCarros.setEnabled(false);
+		}
+
+	
+	
+	
+	btnAdicionar.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			for (Component comp : panelExterno.getComponents()) {
+				if (comp.isVisible() == true) {
+					if(comp == panelCarros) {
+			    		int diarias = (Integer) spinnerDiariasCarro.getValue();
+			    		boolean tipoCarro = cBoxTipoCarro.getSelectedIndex() == 0 ? true : false;
+			    		try {
+			    			Servico servico = new AluguelCarro(diarias, tipoCarro, chckbxTanqueCheio.isSelected(), chckbxSeguro.isSelected());
+							adicionaServico(servico);
+				    		JOptionPane.showMessageDialog(null, "Adicionado!");
+				    		disposeOnClosed();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+			    		break;
+			    	}
+			    	else if(comp == panelQuartos) {
+			    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(getColecaoHospedes(), getListaDeQuartos(), getContrato(), getPainelPrincipal());				    			
+			    		adicionaNoPainel(painelAddQuarto);
+			    		painelAddQuarto.show();
+			    		disposeOnClosed();
+			    		break;
+			    	}
+			    	else if(comp == panelBabysitter) {
+			    		Babysitter babysitter = new Babysitter();
+			    		if (!(textField_quantidadeHorasBaby.getText().isEmpty())) {
+			    			int horaSaida = Integer.valueOf(textField_quantidadeHorasBaby.getText());
+			    			babysitter.setHoraSaida(horaSaida);
+			    		}
+			    		adicionaServico(babysitter);
+			    		
+			    		JOptionPane.showMessageDialog(null, "Adicionado!");
+			    		disposeOnClosed();
+			    		break;
+			    	}
+			    	else if (comp == panelRestaurante){
+			    		double preco = Double.parseDouble(txtfi_preco.getText());
+			    		try {
+							adicionaServico(new Restaurante(chckbxCobertura.isSelected(), preco));
+							JOptionPane.showMessageDialog(null, "Adicionado!");
+							disposeOnClosed();
+						} catch (Exception e1) {
+							e1.printStackTrace();
+						}
+			    		break;
+			    	}
+			    	else if(comp == panelEditaQuarto_1) {
+			    		disposeOnClosed();
+			    		break;
+			    	}
+			    	else if(comp == panelEditaRestaurante) {
+			    		Restaurante restaurante = (Restaurante) getServico();
+			    		if (!(txtfi_preco.getText().isEmpty())) {
+			    			double preco = Integer.valueOf(txtfi_preco.getText());
+			    		
+			    		restaurante.setPreco(preco);
+			    		disposeOnClosed();
+			    		break;
+			    		}
+			    	}
+			    	else if(comp == panelEditaBabysitter) {
+			    		
+			    		disposeOnClosed();
+			    		break;
+			    	}
+			    	else if(comp == panelEditaCarro) {
+			    		
+			    		disposeOnClosed();
+			    		break;
+			    	}
+			    }			
+				
+			}
+		}
+
+	}
+	);
 		
 	}
 	

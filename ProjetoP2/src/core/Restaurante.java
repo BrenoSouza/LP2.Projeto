@@ -42,5 +42,9 @@ public class Restaurante extends Servico {
 	public String getTipo() {
 		return "Restaurante" + (getIsCobertura() ? "Cobertura" : "");
 	}
+	
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
 
 }

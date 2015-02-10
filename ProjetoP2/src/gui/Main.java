@@ -76,6 +76,7 @@ public class Main extends JFrame {
 	}
 
 	/**
+	 * AluguelCarro aluguel
 	 * Método de conversão string para Calendar
 	 * @param data
 	 * Uma data no formato dd/mm/aaaa
