@@ -72,7 +72,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private final String[] TIPOS_QUARTOS = {"Presidencial", "Luxo Simples", "Luxo Duplo", "Luxo Triplo", "Executivo Simples",
 			"Executivo Duplo", "Executivo Triplo"};	
 	private JTextField txtFldPrecoRestaurante;
-	private JTextField textField_1;
 	private JTextField textField_horaSaida;
 	private JTextField textField_tipoQuarto;
 	private JTextField textField_quantidadeHorasBaby;
@@ -157,161 +156,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 		});
 		
 		panelExterno.setLayout(layoutPainel);
-		
-		panelEditaRestaurante = new JPanel();
-		
-		panelEditaRestaurante.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelExterno.add(panelEditaRestaurante, "edita_restaurante");
-		
-		JLabel lblAlterarPreo = new JLabel("Alterar Preço:");
-		
-		txtFldPrecoRestaurante = new JTextField();
-		txtFldPrecoRestaurante.setColumns(10);
-		
-		
-		JCheckBox checkBox_IsCobertura = new JCheckBox("Cobertura");
-		GroupLayout gl_panelEditaRestaurante = new GroupLayout(panelEditaRestaurante);
-		gl_panelEditaRestaurante.setHorizontalGroup(
-			gl_panelEditaRestaurante.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 767, Short.MAX_VALUE)
-				.addGroup(gl_panelEditaRestaurante.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblAlterarPreo)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtFldPrecoRestaurante, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-					.addGap(74)
-					.addComponent(checkBox_IsCobertura)
-					.addGap(434))
-		);
-		gl_panelEditaRestaurante.setVerticalGroup(
-			gl_panelEditaRestaurante.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 167, Short.MAX_VALUE)
-				.addGroup(gl_panelEditaRestaurante.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelEditaRestaurante.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAlterarPreo)
-						.addComponent(txtFldPrecoRestaurante, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-						.addComponent(checkBox_IsCobertura))
-					.addContainerGap(129, Short.MAX_VALUE))
-		);
-		panelEditaRestaurante.setLayout(gl_panelEditaRestaurante);
-		
-		panelEditaCarro = new JPanel();
-		
-		panelEditaCarro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelExterno.add(panelEditaCarro, "edita_carro");
-		
-		JLabel label_1 = new JLabel("Tipo de Carro:");
-		
-		JLabel lblAcrescentarDirias = new JLabel("Acrescentar Diárias:");
-		
-		JSpinner spinner = new JSpinner();
-		
-		JCheckBox checkBox_1 = new JCheckBox("Tanque Cheio");
-		
-		JCheckBox checkBox_2 = new JCheckBox("Seguro");
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		GroupLayout gl_panelEditaCarro = new GroupLayout(panelEditaCarro);
-		gl_panelEditaCarro.setHorizontalGroup(
-			gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaCarro.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(label_1)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(29)
-					.addComponent(lblAcrescentarDirias)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-					.addGap(27)
-					.addComponent(checkBox_1)
-					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-					.addComponent(checkBox_2)
-					.addGap(34))
-		);
-		gl_panelEditaCarro.setVerticalGroup(
-			gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaCarro.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelEditaCarro.createParallelGroup(Alignment.BASELINE)
-						.addComponent(label_1)
-						.addComponent(checkBox_2)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblAcrescentarDirias)
-						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-						.addComponent(checkBox_1))
-					.addContainerGap(129, Short.MAX_VALUE))
-		);
-		panelEditaCarro.setLayout(gl_panelEditaCarro);
-		
-		panelEditaBabysitter = new JPanel();
-		
-		panelEditaBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelExterno.add(panelEditaBabysitter, "edita_babysitter");
-		
-		JLabel lblNovaSaida = new JLabel("Alterar quantidade de horas:");
-		
-		textField_horaSaida = new JTextField();
-		textField_horaSaida.setColumns(10);
-		
-		
-		GroupLayout gl_panelEditaBabysitter = new GroupLayout(panelEditaBabysitter);
-		gl_panelEditaBabysitter.setHorizontalGroup(
-			gl_panelEditaBabysitter.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaBabysitter.createSequentialGroup()
-					.addGap(27)
-					.addComponent(lblNovaSaida)
-					.addGap(4)
-					.addComponent(textField_horaSaida, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(537, Short.MAX_VALUE))
-		);
-		gl_panelEditaBabysitter.setVerticalGroup(
-			gl_panelEditaBabysitter.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaBabysitter.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelEditaBabysitter.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNovaSaida)
-						.addComponent(textField_horaSaida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(132, Short.MAX_VALUE))
-		);
-		panelEditaBabysitter.setLayout(gl_panelEditaBabysitter);
-		
-		panelEditaQuarto_1 = new JPanel();
-		panelEditaQuarto_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelExterno.add(panelEditaQuarto_1, "edita_quarto");
-		
-		JLabel label = new JLabel("Tipo de Quarto:");
-		
-		JCheckBox checkBox = new JCheckBox("Camas Extras");
-		
-		textField_tipoQuarto = new JTextField();
-		textField_tipoQuarto.setColumns(10);
-		GroupLayout gl_panelEditaQuarto_1 = new GroupLayout(panelEditaQuarto_1);
-		gl_panelEditaQuarto_1.setHorizontalGroup(
-			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(label)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textField_tipoQuarto, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
-					.addComponent(checkBox)
-					.addGap(63))
-		);
-		gl_panelEditaQuarto_1.setVerticalGroup(
-			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelEditaQuarto_1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(label)
-							.addComponent(textField_tipoQuarto, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addComponent(checkBox))
-					.addContainerGap(128, Short.MAX_VALUE))
-		);
-		panelEditaQuarto_1.setLayout(gl_panelEditaQuarto_1);
 		panelQuartos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		panelExterno.add(panelQuartos, "quarto");
@@ -359,6 +203,138 @@ public class PainelAdicionaServico extends JInternalFrame {
 		);
 		
 		panelQuartos.setLayout(gl_panelQuartos);
+		
+		panelEditaQuarto_1 = new JPanel();
+		panelEditaQuarto_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panelExterno.add(panelEditaQuarto_1, "edita_quarto");
+		
+		JLabel label = new JLabel("Tipo de Quarto:");
+		
+		JCheckBox checkBox = new JCheckBox("Camas Extras");
+		
+		textField_tipoQuarto = new JTextField();
+		textField_tipoQuarto.setColumns(10);
+		GroupLayout gl_panelEditaQuarto_1 = new GroupLayout(panelEditaQuarto_1);
+		gl_panelEditaQuarto_1.setHorizontalGroup(
+			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(label)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textField_tipoQuarto, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
+					.addComponent(checkBox)
+					.addGap(63))
+		);
+		gl_panelEditaQuarto_1.setVerticalGroup(
+			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelEditaQuarto_1.createParallelGroup(Alignment.BASELINE)
+							.addComponent(label)
+							.addComponent(textField_tipoQuarto, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+						.addComponent(checkBox))
+					.addContainerGap(128, Short.MAX_VALUE))
+		);
+		panelEditaQuarto_1.setLayout(gl_panelEditaQuarto_1);
+		
+		panelEditaCarro = new JPanel();
+		
+		panelEditaCarro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panelExterno.add(panelEditaCarro, "edita_carro");
+		
+		JLabel lblAcrescentarDirias = new JLabel("Acrescentar Diárias:");
+		
+		JSpinner spinner = new JSpinner();
+		GroupLayout gl_panelEditaCarro = new GroupLayout(panelEditaCarro);
+		gl_panelEditaCarro.setHorizontalGroup(
+			gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaCarro.createSequentialGroup()
+					.addGap(37)
+					.addComponent(lblAcrescentarDirias)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(511, Short.MAX_VALUE))
+		);
+		gl_panelEditaCarro.setVerticalGroup(
+			gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaCarro.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelEditaCarro.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAcrescentarDirias)
+						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(129, Short.MAX_VALUE))
+		);
+		panelEditaCarro.setLayout(gl_panelEditaCarro);
+		
+		panelEditaRestaurante = new JPanel();
+		
+		panelEditaRestaurante.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panelExterno.add(panelEditaRestaurante, "edita_restaurante");
+		
+		JLabel lblAlterarPreo = new JLabel("Alterar Preço:");
+		
+		txtFldPrecoRestaurante = new JTextField();
+		txtFldPrecoRestaurante.setColumns(10);
+		
+		
+		JCheckBox checkBox_IsCobertura = new JCheckBox("Cobertura");
+		GroupLayout gl_panelEditaRestaurante = new GroupLayout(panelEditaRestaurante);
+		gl_panelEditaRestaurante.setHorizontalGroup(
+			gl_panelEditaRestaurante.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaRestaurante.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblAlterarPreo)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(txtFldPrecoRestaurante, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addGap(74)
+					.addComponent(checkBox_IsCobertura)
+					.addGap(434))
+		);
+		gl_panelEditaRestaurante.setVerticalGroup(
+			gl_panelEditaRestaurante.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaRestaurante.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelEditaRestaurante.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAlterarPreo)
+						.addComponent(txtFldPrecoRestaurante, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(checkBox_IsCobertura))
+					.addContainerGap(129, Short.MAX_VALUE))
+		);
+		panelEditaRestaurante.setLayout(gl_panelEditaRestaurante);
+		
+		panelEditaBabysitter = new JPanel();
+		
+		panelEditaBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panelExterno.add(panelEditaBabysitter, "edita_babysitter");
+		
+		JLabel lblNovaSaida = new JLabel("Alterar quantidade de horas:");
+		
+		textField_horaSaida = new JTextField();
+		textField_horaSaida.setColumns(10);
+		
+		
+		GroupLayout gl_panelEditaBabysitter = new GroupLayout(panelEditaBabysitter);
+		gl_panelEditaBabysitter.setHorizontalGroup(
+			gl_panelEditaBabysitter.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaBabysitter.createSequentialGroup()
+					.addGap(27)
+					.addComponent(lblNovaSaida)
+					.addGap(4)
+					.addComponent(textField_horaSaida, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(537, Short.MAX_VALUE))
+		);
+		gl_panelEditaBabysitter.setVerticalGroup(
+			gl_panelEditaBabysitter.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelEditaBabysitter.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelEditaBabysitter.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNovaSaida)
+						.addComponent(textField_horaSaida, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(132, Short.MAX_VALUE))
+		);
+		panelEditaBabysitter.setLayout(gl_panelEditaBabysitter);
 		panelBabysitter.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		
 		panelExterno.add(panelBabysitter, "babysitter");
@@ -452,11 +428,11 @@ public class PainelAdicionaServico extends JInternalFrame {
 		gl_panelRestaurante.setHorizontalGroup(
 			gl_panelRestaurante.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelRestaurante.createSequentialGroup()
-					.addContainerGap()
+					.addGap(36)
 					.addComponent(lblPreo)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtfi_preco, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-					.addGap(74)
+					.addGap(50)
 					.addComponent(chckbxCobertura)
 					.addGap(434))
 		);
@@ -465,10 +441,10 @@ public class PainelAdicionaServico extends JInternalFrame {
 				.addGroup(gl_panelRestaurante.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelRestaurante.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblPreo)
-						.addComponent(txtfi_preco, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
-						.addComponent(chckbxCobertura))
-					.addContainerGap(129, Short.MAX_VALUE))
+						.addComponent(chckbxCobertura)
+						.addComponent(txtfi_preco, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPreo))
+					.addContainerGap(124, Short.MAX_VALUE))
 		);
 		panelRestaurante.setLayout(gl_panelRestaurante);
 		
