@@ -59,6 +59,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private JTabbedPane tabbedPane_1;
 	private JScrollPane scrollPaneNoContrato;
 	private JButton button;
+	private JTable tableHospedesNoQuarto;
 	
 
 	/**
@@ -194,6 +195,9 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		scrollPaneNoContrato = new JScrollPane();
 		tabbedPane_1.addTab("Hóspedes no Quarto", null, scrollPaneNoContrato, null);
 		
+		tableHospedesNoQuarto = new JTable();
+		scrollPaneNoContrato.setColumnHeaderView(tableHospedesNoQuarto);
+		
 		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
@@ -268,6 +272,8 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		btnAdicionarNoContratoQuarto.setEnabled(!(quartoVagoSelecionado == null));
 	}
 	
+	
+	
 	private void escreveTabelas(){
 		Object[][] designTabela;
 		escreveTabelaHospedesSemContrato();
@@ -308,6 +314,38 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	
 	private void escreveTabelaHospedesSemContrato() {
 		LocalDate presente = LocalDate.now();
+			// PREENCHENDO TABELA DOS HÓSPEDES SEM CONTRATO;
+				Object [][] designTabela = new Object[quartoVagoSelecionado.getListaHospedes().size()][3];
+				for (int i = 0; i < quartoVagoSelecionado.getListaHospedes().size(); i++){
+					Hospede hospedeAtual = listaHospedesSemContrato.get(i);
+					//Para preencher a primeira coluna da linha: Nome do hóspede
+					designTabela[i][0] = hospedeAtual.getNome();
+					//Para preencher a segunda coluna da linha: CPF do hóspede
+					designTabela[i][1] = hospedeAtual.getCpf();
+					//Para preencher a terceira coluna da linha: Idade do hóspede
+					Calendar nascimento = hospedeAtual.getDataNascimento();
+					LocalDate diaNascimento = LocalDate.fromCalendarFields(nascimento);
+					Period periodoDeTempo = new Period(diaNascimento, presente, PeriodType.yearMonthDay());
+					designTabela[i][2] = periodoDeTempo.getYears();
+				}
+				@SuppressWarnings("serial")
+				DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
+						"Nome", "CPF", "Idade"
+				}) {
+		
+					@Override
+				    public boolean isCellEditable(int row, int column) {
+				        return false;
+				    }
+				};
+			// FIM DO PREENCHIMENTO DA TABELA DOS HÓSPEDES SEM CONTRATO
+						
+				tableHospedesSemContrato.setModel(modeloTabela);
+				tableHospedesSemContrato.setRowSelectionAllowed(true);
+	}
+	
+	private void escreveTabelaHospedesNoContrato() {
+		LocalDate presente = LocalDate.now();
 			// PREENCHENDO TABELA DOS HÓSPEDES SEM CONTRATO
 			Collections.sort(listaHospedesSemContrato);
 				Object [][] designTabela = new Object[listaHospedesSemContrato.size()][3];
@@ -335,8 +373,8 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				};
 			// FIM DO PREENCHIMENTO DA TABELA DOS HÓSPEDES SEM CONTRATO
 						
-				tableHospedesSemContrato.setModel(modeloTabela);
-				tableHospedesSemContrato.setRowSelectionAllowed(true);
+				tableHospedesNoQuarto.setModel(modeloTabela);
+				tableHospedesNoQuarto.setRowSelectionAllowed(true);
 	}
 	
 	public List<Quarto> getListaDeQuartos() {
