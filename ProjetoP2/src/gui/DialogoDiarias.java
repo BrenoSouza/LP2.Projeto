@@ -34,6 +34,7 @@ public class DialogoDiarias extends JDialog {
 	private JFormattedTextField campoData;
 	private JRadioButton rdbtnReserva;
 	private JFormattedTextField formattedTextFieldCartaoDeCredito;
+	private String cartaoDeCreditovazio;
 
 
 	public DialogoDiarias() {
@@ -99,6 +100,7 @@ public class DialogoDiarias extends JDialog {
 		
 		try {
 			formattedTextFieldCartaoDeCredito = new JFormattedTextField(new MaskFormatter("#### #### #### ####"));
+			cartaoDeCreditovazio = formattedTextFieldCartaoDeCredito.getText();
 		} catch (ParseException e1) {
 			JOptionPane.showMessageDialog(null, e1.getMessage());
 		}
@@ -177,8 +179,8 @@ public class DialogoDiarias extends JDialog {
 		return rdbtnReserva.isSelected();
 	}
 	public String getCartaoDeCredito() throws InvalidParameterException{
-		if (formattedTextFieldCartaoDeCredito.getText().isEmpty()){
-			throw new InvalidParameterException("Cartão de crédito não pode ser vazio");
+		if (formattedTextFieldCartaoDeCredito.getText().equals(cartaoDeCreditovazio)){
+			throw new InvalidParameterException("Cartão de crédito não pode ser vazio!");
 		}
 		return formattedTextFieldCartaoDeCredito.getText();
 	}
