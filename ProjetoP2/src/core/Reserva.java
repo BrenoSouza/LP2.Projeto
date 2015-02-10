@@ -11,31 +11,51 @@ public class Reserva {
 	private DateTime dataCheckOut;
 	private Contrato contrato;
 	private Interval intervalo;
-	
+	/**
+	 * Cria uma reserva com base nas datas de CheckIn e CheckOut de um contrato
+	 * @param contrato Um contrato
+	 */
 	public Reserva(Contrato contrato){
 		this.contrato = contrato;
 		this.dataCheckIn = new DateTime(contrato.getDataCheckIn());
 		this.dataCheckOut = new DateTime(contrato.getDataCheckOut());
 		intervalo = new Interval(dataCheckIn, dataCheckOut);
 	}
+	/**
+	 * Cria uma reserva com base em datas de CheckIn e CheckOut defidas no construtor
+	 * @param dataCheckIn Um calendar com data de CheckIn
+	 * @param dataCheckOut Um calendar com data de CheckOut
+	 */
 	public Reserva(Calendar dataCheckIn, Calendar dataCheckOut){
 		this.dataCheckIn = new DateTime(dataCheckIn);
 		this.dataCheckOut = new DateTime(dataCheckOut);
 		intervalo = new Interval(this.dataCheckIn, this.dataCheckOut);
 	}
-
+	/**
+	 * Retorna a data de checkIn da reserva
+	 * @return A data de checkIn
+	 */
 	public DateTime getDataCheckIn() {
 		return dataCheckIn;
 	}
-
+	/**
+	 * Retorna a data de checkOut da reserva
+	 * @return A data de checkOut
+	 */
 	public DateTime getDataCheckOut() {
 		return dataCheckOut;
 	}
-
+	/**
+	 * Retorna o contrato ligado a reserva
+	 * @return Um contrato
+	 */
 	public Contrato getContrato() {
 		return contrato;
 	}
-
+	/**
+	 * Retorna o intervalo de tempo onde a reserva está ativa
+	 * @return Um Interval com o intervalo
+	 */
 	public Interval getIntervalo() {
 		return intervalo;
 	}
