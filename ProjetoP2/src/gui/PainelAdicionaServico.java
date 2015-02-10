@@ -35,7 +35,7 @@ import classes.Quarto;
 import classes.Restaurante;
 import classes.Servico;
 import colecoes.ColecaoDeHospedes;
-import colecoes.ColecaoDeQuartos;
+//import colecoes.ColecaoDeQuartos;
 
 public class PainelAdicionaServico extends JInternalFrame {
 
