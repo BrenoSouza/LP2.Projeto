@@ -33,11 +33,21 @@ public class TestaRestaurante {
 	@Test
 	public void testaCalculaPrecoTotal() {
 		Assert.assertTrue(servicoRestaurante1.calculaPrecoTotal() == 100.00);
+		servicoRestaurante1.setPreco(50.0);
+		Assert.assertTrue(servicoRestaurante1.calculaPrecoTotal() == 50.0);
 		Assert.assertTrue(servicoRestaurante2.calculaPrecoTotal() == 200.00);	
 	}
 	
 	@Test
 	public void TesteToString() {
 		Assert.assertEquals("Serviço --- Restaurante ---\nHora -> " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + "\nCobertura? Sim\nCusto final: 100.0", servicoRestaurante1.toString());
+	}
+	
+	@Test
+	public void TestEquals() {
+		Assert.assertFalse(servicoRestaurante1.equals(servicoRestaurante2));
+		servicoRestaurante1.setPreco(200.00);
+		servicoRestaurante1.setCobertura(false);
+		Assert.assertTrue(servicoRestaurante1.equals(servicoRestaurante2));
 	}
 }
