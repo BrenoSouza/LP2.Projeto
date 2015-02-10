@@ -33,6 +33,10 @@ public abstract class Servico{
 	public int getHoraEntrada(){
 		return getData().get(Calendar.HOUR_OF_DAY);
 	}
+	/**
+	 * Retorna os minutos da hora de Entrada/Inicio do servico
+	 * @return Um int com os minutos
+	 */
 	public int getMinutosEntrada(){
 		return getData().get(Calendar.MINUTE);
 	}
