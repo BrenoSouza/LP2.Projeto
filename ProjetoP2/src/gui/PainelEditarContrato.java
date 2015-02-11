@@ -65,7 +65,6 @@ public class PainelEditarContrato extends JInternalFrame {
 	private double precoTotal;
 	private JLabel lblPrecoTotal;
 	private JButton btnFinalizar;
-	private ColecaoDeQuartos listaQuartosHotelColecao;
 	private List<Quarto> listaQuartosHotel;
 	private final static int SELECAO_HOSPEDE = 1;
 	private final static int SELECAO_SERVICO = 2;

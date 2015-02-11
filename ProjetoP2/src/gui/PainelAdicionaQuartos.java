@@ -61,7 +61,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private JScrollPane scrollPaneNoContrato;
 	private JButton button;
 	private JTable tableHospedesNoQuarto;
-	private Reserva reserva;
 
 	/**
 	 * Create the frame.

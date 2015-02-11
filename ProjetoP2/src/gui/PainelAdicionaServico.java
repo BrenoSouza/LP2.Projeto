@@ -67,12 +67,12 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JTextField txtfi_preco;
 	private Servico servico;
 	private final String[] TIPOS_CARROS = {"Luxo", "Executivo"};
-	private final String[] TIPOS_QUARTOS = {"Presidencial", "Luxo Simples", "Luxo Duplo", "Luxo Triplo", "Executivo Simples",
-			"Executivo Duplo", "Executivo Triplo"};	
 	private JTextField txtFldPrecoRestaurante;
 	private JTextField textField_horaSaida;
 	private JTextField textField_quantidadeHorasBaby;
 	private JPanel panelEditaQuarto_1;
+	private JSpinner spinnerAddDiariasCarro;
+	private JCheckBox checkBoxEdtCama;
 	
 	
 	/**
@@ -194,20 +194,20 @@ public class PainelAdicionaServico extends JInternalFrame {
 		panelEditaQuarto_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelExterno.add(panelEditaQuarto_1, "edita_quarto");
 		
-		JCheckBox checkBox = new JCheckBox("Camas Extras");
+		checkBoxEdtCama = new JCheckBox("Camas Extras");
 		GroupLayout gl_panelEditaQuarto_1 = new GroupLayout(panelEditaQuarto_1);
 		gl_panelEditaQuarto_1.setHorizontalGroup(
 			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
 					.addGap(68)
-					.addComponent(checkBox)
+					.addComponent(checkBoxEdtCama)
 					.addContainerGap(575, Short.MAX_VALUE))
 		);
 		gl_panelEditaQuarto_1.setVerticalGroup(
 			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(checkBox)
+					.addComponent(checkBoxEdtCama)
 					.addContainerGap(132, Short.MAX_VALUE))
 		);
 		panelEditaQuarto_1.setLayout(gl_panelEditaQuarto_1);
@@ -219,7 +219,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		JLabel lblAcrescentarDirias = new JLabel("Acrescentar Diárias:");
 		
-		JSpinner spinner = new JSpinner();
+		spinnerAddDiariasCarro = new JSpinner();
 		GroupLayout gl_panelEditaCarro = new GroupLayout(panelEditaCarro);
 		gl_panelEditaCarro.setHorizontalGroup(
 			gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
@@ -227,7 +227,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addGap(37)
 					.addComponent(lblAcrescentarDirias)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+					.addComponent(spinnerAddDiariasCarro, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(511, Short.MAX_VALUE))
 		);
 		gl_panelEditaCarro.setVerticalGroup(
@@ -236,7 +236,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 					.addContainerGap()
 					.addGroup(gl_panelEditaCarro.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblAcrescentarDirias)
-						.addComponent(spinner, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+						.addComponent(spinnerAddDiariasCarro, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(129, Short.MAX_VALUE))
 		);
 		panelEditaCarro.setLayout(gl_panelEditaCarro);
@@ -589,6 +589,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		break;
 			    	}
 			    	else if(comp == panelEditaQuarto_1) {
+			    		Quarto quarto = (Quarto) getServico();
+			    		boolean cama = checkBoxEdtCama.isSelected();
+			    		quarto.setCamaExtra(cama);
 			    		dispose();
 			    		break;
 			    	}
@@ -603,12 +606,19 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		}
 			    	}
 			    	else if(comp == panelEditaBabysitter) {
-			    		
-			    		dispose();
-			    		break;
+			    		Babysitter babySitter = (Babysitter) getServico();
+			    		int horas;
+			    		if (!(textField_horaSaida.getText().isEmpty())) {
+			    			horas = Integer.valueOf(textField_horaSaida.getText());
+			    			babySitter.setHoraSaida(horas);
+			    			dispose();
+			    			break;
+			    		}
 			    	}
 			    	else if(comp == panelEditaCarro) {
-			    		
+			    		AluguelCarro carro = (AluguelCarro) getServico();
+			    		int diarias = (Integer) spinnerAddDiariasCarro.getValue();
+			    		carro.setDiarias(diarias);
 			    		dispose();
 			    		break;
 			    	}
