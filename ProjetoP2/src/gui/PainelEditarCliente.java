@@ -15,6 +15,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -28,6 +29,7 @@ import org.joda.time.PeriodType;
 
 import core.Hospede;
 import core.Opiniao;
+import java.awt.Color;
 
 public class PainelEditarCliente extends JInternalFrame {
 
@@ -250,6 +252,20 @@ public class PainelEditarCliente extends JInternalFrame {
 			}
 		});
 		
+		JPanel panelEstrelas = new JPanel();
+		
+		StarRater starRater = new StarRater(5, 0, 1);
+		starRater.setForeground(Color.BLACK);
+		starRater.setIgnoreRepaint(true);
+        starRater.addStarListener(
+            new StarRater.StarListener()   {
+
+                public void handleSelection(int selection) {
+                    System.out.println(selection);
+                }
+            });
+        panelEstrelas.add(starRater);
+		
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -258,18 +274,6 @@ public class PainelEditarCliente extends JInternalFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(textFieldComment, GroupLayout.PREFERRED_SIZE, 525, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblOpinio, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNota, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(radioButton1)
-							.addGap(18)
-							.addComponent(radioButton2)
-							.addGap(18)
-							.addComponent(radioButton3)
-							.addGap(18)
-							.addComponent(radioButton4)
-							.addGap(18)
-							.addComponent(radioButton5))
-						.addComponent(lblInformaesPessoais)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblEndereo, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -294,7 +298,24 @@ public class PainelEditarCliente extends JInternalFrame {
 							.addComponent(btnEditarInfo)
 							.addPreferredGap(ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
 							.addComponent(btnCancelar))
-						.addComponent(lblComentrio, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblComentrio, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNota, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(radioButton1)
+									.addGap(18)
+									.addComponent(radioButton2)
+									.addGap(18)
+									.addComponent(radioButton3)
+									.addGap(18)
+									.addComponent(radioButton4)
+									.addGap(18)
+									.addComponent(radioButton5))
+								.addComponent(lblInformaesPessoais))
+							.addPreferredGap(ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+							.addComponent(panelEstrelas, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
+							.addGap(69)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -307,16 +328,19 @@ public class PainelEditarCliente extends JInternalFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(textFieldComment, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblNota)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(radioButton1)
-						.addComponent(radioButton2)
-						.addComponent(radioButton3)
-						.addComponent(radioButton4)
-						.addComponent(radioButton5))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblInformaesPessoais)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblNota)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(radioButton1)
+								.addComponent(radioButton2)
+								.addComponent(radioButton3)
+								.addComponent(radioButton4)
+								.addComponent(radioButton5))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblInformaesPessoais))
+						.addComponent(panelEstrelas, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNome)
