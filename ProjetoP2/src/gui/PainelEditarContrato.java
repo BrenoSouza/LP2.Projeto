@@ -239,12 +239,12 @@ public class PainelEditarContrato extends JInternalFrame {
 						PainelEditarContrato.this.contrato.fazCheckIn();
 						btnFinalizar.setText("Fazer check-out");
 						for (Quarto quarto: listaQuartos){
-							if (!(quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo()))){
-								JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
-							}else{
+//							if (!(quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo()))){
+//								JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
+//							}else{
 								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
 //								quarto.adicionaReserva(PainelEditarContrato.this.contrato);
-							}
+//							}
 						}dispose();
 					}
 				}
