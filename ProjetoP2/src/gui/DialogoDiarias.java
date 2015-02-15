@@ -63,7 +63,7 @@ public class DialogoDiarias extends JDialog {
 					dispose();
 				}catch (java.text.ParseException e2){
 					JOptionPane.showMessageDialog(null, "Data em formato inválido.");
-				}catch (InvalidParameterException e1){
+				}catch (Exception e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}
@@ -172,11 +172,17 @@ public class DialogoDiarias extends JDialog {
 	public int getDiarias(){
 		return (Integer) spinnerDiarias.getValue();
 	}
-	public Calendar getDataCheckIn() throws java.text.ParseException{
+	public Calendar getDataCheckIn() throws Exception{
 		Calendar checkIn = Calendar.getInstance();
+		checkIn.set(Calendar.HOUR_OF_DAY, 0);
 		if (rdbtnReserva.isSelected()){
 			checkIn = Main.converteParaCalendar(campoData.getText());
-		}
+			Calendar presente = Calendar.getInstance();
+			presente.set(Calendar.HOUR_OF_DAY, 0);
+			if (checkIn.compareTo(presente) <= 0){
+				throw new InvalidParameterException("Não é possível criar uma reserva antes ou no dia atual.");
+			}
+		}		
 		return checkIn;
 	}
 	public boolean isReserva(){

@@ -31,6 +31,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+import org.joda.time.Hours;
 
 import core.Contrato;
 import core.colecoes.ColecaoDeHospedes;
@@ -87,6 +88,7 @@ public class Main extends JFrame {
 	 */
 	public static Calendar converteParaCalendar(String data) throws java.text.ParseException{
 		Calendar dataDeRetorno = Calendar.getInstance();
+		dataDeRetorno.set(Calendar.HOUR_OF_DAY, 0);
 		dataDeRetorno.setTime(FormatoData.parse(data));
 		return dataDeRetorno;
 		

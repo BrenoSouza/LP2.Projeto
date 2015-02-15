@@ -123,7 +123,7 @@ public class PainelNovoContrato extends JInternalFrame {
 			dataCheckIn = dialogoDiarias.getDataCheckIn();
 			cartaoDeCredito = dialogoDiarias.getCartaoDeCredito();
 
-		} catch (ParseException e3) {
+		} catch (Exception e3) {
 			JOptionPane.showMessageDialog(null, e3.getMessage());
 		}
 		dataCheckOut.setTime(dataCheckIn.getTime());
@@ -341,7 +341,7 @@ public class PainelNovoContrato extends JInternalFrame {
 				isReserva = dialogoDiarias.isReserva();
 				try {
 					dataCheckIn = dialogoDiarias.getDataCheckIn();
-				} catch (ParseException e3) {
+				} catch (Exception e3) {
 					JOptionPane.showMessageDialog(null, e3.getMessage());
 				}
 				dataCheckOut.setTime(dataCheckIn.getTime());
