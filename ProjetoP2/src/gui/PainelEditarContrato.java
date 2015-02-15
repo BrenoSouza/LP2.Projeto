@@ -217,6 +217,7 @@ public class PainelEditarContrato extends JInternalFrame {
 				}else{
 					DateTime presente = new DateTime().withTimeAtStartOfDay();
 					DateTime checkIn = new DateTime(PainelEditarContrato.this.contrato.getDataCheckIn()).withTimeAtStartOfDay();
+					DateTime checkOut = new DateTime(PainelEditarContrato.this.contrato.getDataCheckOut()).withTimeAtStartOfDay();
 					if (checkIn.compareTo(presente) == 1){
 						JOptionPane.showMessageDialog(null, "A data presente vem antes da data de CheckIn do contrato.");
 //						int escolha = JOptionPane.showOptionDialog(null, "A data presente vem antes da data de CheckIn do contrato.\nAo fazer isso, a data de check-out será recalculada. Deseja realmente fazer a operação de check-in?", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
@@ -232,6 +233,8 @@ public class PainelEditarContrato extends JInternalFrame {
 //								}
 //							}dispose();
 //						}
+					}else if(checkOut.compareTo(presente) == -1){
+						JOptionPane.showMessageDialog(null, "A data de checkout programada veio antes da data presente.");	
 					}else{
 						PainelEditarContrato.this.contrato.fazCheckIn();
 						btnFinalizar.setText("Fazer check-out");
