@@ -28,6 +28,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+
 import core.AluguelCarro;
 import core.Babysitter;
 import core.Contrato;
@@ -75,9 +78,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JCheckBox checkBoxEdtCama;
 	
 	
-	/**
-	 * Create the frame.
-	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public PainelAdicionaServico(Servico servico, Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaDeQuartos, ColecaoDeHospedes listaHospedes) {
 		this.contrato = contrato;
@@ -85,6 +85,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 		this.listaHospedes = listaHospedes;
 		this.listaDeQuartos = listaDeQuartos;
 		this.servico = servico;
+		DateTime checkIn = new DateTime(contrato.getDataCheckIn()).withTimeAtStartOfDay();
+		DateTime checkOut = new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay();
+		int diasRestantes = new Period(checkIn, checkOut).getDays();
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);
@@ -160,7 +163,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JLabel lblDiarias = new JLabel("Diárias:");
 		
 		spinnerDiarias = new JSpinner();
-		spinnerDiarias.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spinnerDiarias.setModel(new SpinnerNumberModel(1, 1, diasRestantes, 1));
 		
 		chckbxCamasExtras = new JCheckBox("Camas Extras");
 		
@@ -352,7 +355,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		JLabel lblDiariasCarro = new JLabel("Diárias:");
 		
 		spinnerDiariasCarro = new JSpinner();
-		spinnerDiariasCarro.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
+		spinnerDiariasCarro.setModel(new SpinnerNumberModel(1, 1, diasRestantes, 1));
 		
 		GroupLayout gl_panelCarros = new GroupLayout(panelCarros);
 		gl_panelCarros.setHorizontalGroup(
