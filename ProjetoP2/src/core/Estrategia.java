@@ -7,15 +7,17 @@ import java.util.Calendar;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
-
-public class Estrategia {
+import org.joda.time.Interval;
+public class Estrategia implements Comparable<Estrategia>{
 	
 	public static final TipoDeEstrategia ACRESCIMO = TipoDeEstrategia.ACRESCIMO;
 	public static final TipoDeEstrategia DECRESCIMO = TipoDeEstrategia.DECRESCIMO;
 	private DateTime inicioPeriodo;
 	private DateTime finalPeriodo;
 	private Period periodo;
+	private Interval intervalo;
 	private double modificador;
+	private String descricao;
 	private TipoDeEstrategia tipoDeEstrategia;
 	
 	
@@ -32,15 +34,22 @@ public class Estrategia {
 	 * @throws IllegalArgumentException
 	 * Se o modificador não estiver em formato correto. 
 	 */
-	public Estrategia(DateTime inicioPeriodo, DateTime finalPeriodo, double modificador, TipoDeEstrategia tipoDeEstrategia) throws IllegalArgumentException{
+	public Estrategia(DateTime inicioPeriodo, DateTime finalPeriodo, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws IllegalArgumentException{
 		if (modificador < 0 || modificador > 100){
 			throw new IllegalArgumentException("Modificador em formato inválido (menor que 0 ou maior que 100).");
+		}if (descricao.isEmpty()){
+			throw new IllegalArgumentException("Insira alguma descrição para a estratégia.");
 		}
 		this.inicioPeriodo = inicioPeriodo;
 		this.finalPeriodo = finalPeriodo;
 		periodo = new Period(inicioPeriodo, finalPeriodo);
 		this.modificador = modificador;
 		this.tipoDeEstrategia = tipoDeEstrategia;
+		this.descricao = descricao;
+		this.intervalo = new Interval(inicioPeriodo, finalPeriodo);
+	}
+	public Interval getIntervalo() {
+		return intervalo;
 	}
 	/**
 	 * Construtor da classe Estrategia.
@@ -55,8 +64,8 @@ public class Estrategia {
 	 * @throws IllegalArgumentException
 	 * Se o modificador não estiver em formato correto.
 	 */
-	public Estrategia(Calendar inicioPeriodo, Calendar finalPeriodo, double modificador, TipoDeEstrategia tipoDeEstrategia) throws IllegalArgumentException{
-		this(new DateTime(inicioPeriodo), new DateTime(finalPeriodo), modificador, tipoDeEstrategia);
+	public Estrategia(Calendar inicioPeriodo, Calendar finalPeriodo, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws IllegalArgumentException{
+		this(new DateTime(inicioPeriodo), new DateTime(finalPeriodo), modificador, tipoDeEstrategia, descricao);
 	}
 	/**
 	 * Construtor da classe Estrategia.
@@ -73,8 +82,8 @@ public class Estrategia {
 	 * @throws IllegalArgumentException
 	 * Se o modificador não estiver em formato correto.
 	 */
-	public Estrategia(String dataInicio, String dataFinal, double modificador, TipoDeEstrategia tipoDeEstrategia) throws Exception{
-		this(Main.converteParaCalendar(dataInicio), Main.converteParaCalendar(dataFinal), modificador, tipoDeEstrategia);
+	public Estrategia(String dataInicio, String dataFinal, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws Exception{
+		this(Main.converteParaCalendar(dataInicio), Main.converteParaCalendar(dataFinal), modificador, tipoDeEstrategia, descricao);
 	}
 	public DateTime getInicioPeriodo() {
 		return inicioPeriodo;
@@ -103,6 +112,9 @@ public class Estrategia {
 	public void setModificador(double modificador) {
 		this.modificador = modificador;
 	}
+	public String getDescricao() {
+		return descricao;
+	}
 	/**
 	 * Método que retorna o multiplicador final (levando em conta o tipoDeEstrategia) para ser usado no cálculo dos contratos.
 	 * @return
@@ -110,6 +122,22 @@ public class Estrategia {
 	 */
 	public double getModificadorPreco(double preco){
 		return ((modificador / 100 * tipoDeEstrategia.getMultiplicador()) * preco);
+	}
+	public boolean periodoContemPresente(){
+		return intervalo.containsNow();
+	}
+	public int compareTo(Estrategia outraEstrategia){
+		return this.inicioPeriodo.compareTo(outraEstrategia.getInicioPeriodo());
+	}
+	@Override
+	public boolean equals(Object obj){
+		if (!(obj instanceof Estrategia)){
+			return false;
+		}Estrategia outraEstrategia = (Estrategia) obj;
+		return (this.inicioPeriodo.equals(outraEstrategia.getInicioPeriodo()) && this.finalPeriodo.equals(outraEstrategia.getFinalPeriodo()) && this.descricao.equals(outraEstrategia.getDescricao()) && this.modificador == outraEstrategia.getModificador());
+	}
+	public boolean sobrepoe(Estrategia outraEstrategia){
+		return this.intervalo.overlaps(outraEstrategia.getIntervalo());
 	}
 	
 }
