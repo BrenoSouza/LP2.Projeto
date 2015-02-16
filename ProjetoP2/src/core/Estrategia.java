@@ -159,6 +159,8 @@ public class Estrategia implements Comparable<Estrategia>{
 		
 		finalPeriodo = new DateTime(getFinalPeriodo()).withYear(contrato.getDataCheckOut().get(Calendar.YEAR));
 		
+		intervalo = new Interval(inicioPeriodo, finalPeriodo);
+		
 		Interval intervaloContrato = new Interval(new DateTime(contrato.getDataCheckIn()), new DateTime(contrato.getDataCheckOut()));
 		
 		boolean retorno = intervalo.overlaps(intervaloContrato);
