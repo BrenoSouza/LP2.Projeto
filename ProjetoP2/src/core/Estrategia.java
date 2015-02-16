@@ -8,6 +8,8 @@ import java.util.Calendar;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.Interval;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 public class Estrategia implements Comparable<Estrategia>{
 	
 	public static final TipoDeEstrategia ACRESCIMO = TipoDeEstrategia.ACRESCIMO;
@@ -49,6 +51,7 @@ public class Estrategia implements Comparable<Estrategia>{
 		this.intervalo = new Interval(inicioPeriodo, finalPeriodo);
 	}
 	public Interval getIntervalo() {
+		atualizaIntervalo();
 		return intervalo;
 	}
 	/**
@@ -88,11 +91,22 @@ public class Estrategia implements Comparable<Estrategia>{
 	public DateTime getInicioPeriodo() {
 		return inicioPeriodo;
 	}
+	public String getInicioPeriodoString(){
+		atualizaIntervalo();
+		DateTimeFormatter formatador = DateTimeFormat.forPattern("dd/MM");
+		return formatador.print(inicioPeriodo);
+		
+	}
 	public void setInicioPeriodo(DateTime inicioPeriodo) {
 		this.inicioPeriodo = inicioPeriodo;
 	}
 	public DateTime getFinalPeriodo() {
 		return finalPeriodo;
+	}
+	public String getFinalPeriodoString(){
+		atualizaIntervalo();
+		DateTimeFormatter formatador = DateTimeFormat.forPattern("dd/MM");
+		return formatador.print(finalPeriodo);
 	}
 	public void setFinalPeriodo(DateTime finalPeriodo) {
 		this.finalPeriodo = finalPeriodo;
@@ -103,14 +117,8 @@ public class Estrategia implements Comparable<Estrategia>{
 	public Period getPeriodo() {
 		return periodo;
 	}
-	public void setPeriodo(Period periodo) {
-		this.periodo = periodo;
-	}
 	public double getModificador() {
 		return modificador;
-	}
-	public void setModificador(double modificador) {
-		this.modificador = modificador;
 	}
 	public String getDescricao() {
 		return descricao;
@@ -124,9 +132,12 @@ public class Estrategia implements Comparable<Estrategia>{
 		return ((modificador / 100 * tipoDeEstrategia.getMultiplicador()) * preco);
 	}
 	public boolean periodoContemPresente(){
+		atualizaIntervalo();
 		return intervalo.containsNow();
 	}
 	public int compareTo(Estrategia outraEstrategia){
+		this.atualizaIntervalo();
+		outraEstrategia.atualizaIntervalo();
 		return this.inicioPeriodo.compareTo(outraEstrategia.getInicioPeriodo());
 	}
 	@Override
@@ -137,7 +148,33 @@ public class Estrategia implements Comparable<Estrategia>{
 		return (this.inicioPeriodo.equals(outraEstrategia.getInicioPeriodo()) && this.finalPeriodo.equals(outraEstrategia.getFinalPeriodo()) && this.descricao.equals(outraEstrategia.getDescricao()) && this.modificador == outraEstrategia.getModificador());
 	}
 	public boolean sobrepoe(Estrategia outraEstrategia){
+		this.atualizaIntervalo();
+		outraEstrategia.atualizaIntervalo();
 		return this.intervalo.overlaps(outraEstrategia.getIntervalo());
+	}
+	public boolean contratoSobrepoe(Contrato contrato){
+		inicioPeriodo = new DateTime(getInicioPeriodo()).withYear(contrato.getDataCheckIn().get(Calendar.YEAR));
+		
+		finalPeriodo = new DateTime(getFinalPeriodo()).withYear(contrato.getDataCheckOut().get(Calendar.YEAR));
+		
+		Interval intervaloContrato = new Interval(new DateTime(contrato.getDataCheckIn()), new DateTime(contrato.getDataCheckOut()));
+		
+		boolean retorno = intervalo.overlaps(intervaloContrato);
+		atualizaIntervalo();
+		return retorno;
+	}
+	private void atualizaIntervalo(){
+		inicioPeriodo = new DateTime(getInicioPeriodo()).withYear(Calendar.getInstance().get(Calendar.YEAR));
+		finalPeriodo = new DateTime(getFinalPeriodo()).withYear(Calendar.getInstance().get(Calendar.YEAR));
+		intervalo = new Interval(inicioPeriodo, finalPeriodo);
+	}
+	@Override
+	public String toString(){
+		String retorno = "";
+		retorno += getDescricao();
+		retorno += "De " + getInicioPeriodoString() + " até " + getFinalPeriodoString();
+		retorno += getTipoDeEstrategia().toString() + "de " + getModificador() + "%";
+		return retorno;
 	}
 	
 }

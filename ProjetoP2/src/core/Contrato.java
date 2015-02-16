@@ -13,11 +13,18 @@ public class Contrato {
 	private List<Servico> listaServicos = new ArrayList<Servico>();
 	private int numeroDiarias;
 	private Hospede hospedePrincipal = null;
+	
+
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut = Calendar.getInstance();
 	private String status = "ABERTO";
 	private double precoQueFoiPago;
 	private String cartaoDeCredito;
+	public void setEstrategiaDoContrato(Estrategia estrategiaDoContrato) {
+		this.estrategiaDoContrato = estrategiaDoContrato;
+	}
+
+	private Estrategia estrategiaDoContrato;
 	/**
 	 * Construtor da classe Contrato.
 	 * @param listaQuartosAlugados Um List<Quarto> com o(s) quarto(s) alugado(s).
@@ -123,7 +130,11 @@ public class Contrato {
 		if (status.equals("FECHADO")){
 			return precoQueFoiPago;
 		}
-		return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos());
+		if (estrategiaDoContrato == null){
+			return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos());
+		}else{
+			return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos()) + estrategiaDoContrato.getModificadorPreco(this.CalculaPrecoQuartos() + this.CalculaPrecoServicos());
+		}
 	}
 	/**
 	 * Método para mudar o status do contrato de "ABERTO" para "FECHADO".
@@ -234,6 +245,9 @@ public class Contrato {
 		dataCheckIn = Calendar.getInstance();
 		dataCheckOut.setTime(dataCheckIn.getTime());
 		dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
+	}
+	public Estrategia getEstrategiaDoContrato() {
+		return estrategiaDoContrato;
 	}
 	
 	@Override
