@@ -2,7 +2,7 @@ package core;
 
 public enum TipoDeEstrategia {
 	
-	ACRESCIMO (1, "Acrésimo"), DECRESCIMO (-1, "Decréscimo");
+	ACRESCIMO (1, "Acréscimo"), DECRESCIMO (-1, "Decréscimo");
 	private int multiplicador;
 	private String descricao;
 	

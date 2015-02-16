@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.Contrato;
+import core.Estrategia;
 
 public class ColecaoDeContratos {
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
@@ -66,6 +67,38 @@ public class ColecaoDeContratos {
 			}
 		}
 		return removeu;
+	}
+	/**
+	 * Método que adiciona uma estratégia nova nos contratos que sobrepoem o período da estratégia.
+	 * @param estrategia
+	 * A estratégia
+	 * @return
+	 * O número de contratos que foram modificados setando a estratégia.
+	 */
+	public int adicionaEstrategia(Estrategia estrategia){
+		int contratosModificados = 0;
+		for (Contrato contrato: listaContratos){
+			if (estrategia.contratoSobrepoe(contrato)){
+				contrato.setEstrategiaDoContrato(estrategia);
+				contratosModificados++;
+			}
+		}return contratosModificados;
+	}
+	/**
+	 * Método que remove estratégias dos contratos que a possuem.
+	 * @param estrategia
+	 * A estratégia a ser removida.
+	 * @return
+	 * O número de contratos que foram modificados.
+	 */
+	public int removeEstrategia(Estrategia estrategia){
+		int contratosModificados = 0;
+		for (Contrato contrato: listaContratos){
+			if (contrato.getEstrategiaDoContrato().equals(estrategia)){
+				contrato.setEstrategiaDoContrato(null);
+				contratosModificados++;
+			}
+		}return contratosModificados;
 	}
 
 }

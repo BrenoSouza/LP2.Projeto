@@ -34,8 +34,10 @@ import org.eclipse.wb.swing.FocusTraversalOnArray;
 import org.joda.time.Hours;
 
 import core.Contrato;
+import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeHospedes;
 import core.colecoes.ColecaoDeQuartos;
+import core.colecoes.ColecaoDeEstrategias;
 
 public class Main extends JFrame {
 
@@ -45,9 +47,12 @@ public class Main extends JFrame {
 	private PainelClientes painelClientes;
 	private PainelServicos painelServicos;
 	private PainelContratos painelContratos;
-	private List<Contrato> listaContratos = new ArrayList<Contrato>();
+	private PainelEstrategias painelEstrategias;
+	private List<Contrato> listaContratos;
+	private static ColecaoDeContratos listaDeContratos = new ColecaoDeContratos();
 	private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
 	private static ColecaoDeQuartos listaDeQuartos = new ColecaoDeQuartos();
+	private static ColecaoDeEstrategias listaDeEstrategias = new ColecaoDeEstrategias();
 	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
 
 	public static SimpleDateFormat getFormatodata() {
@@ -110,7 +115,7 @@ public class Main extends JFrame {
 		setTitle("Hotel Riviera Campina - Administra\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1366, 700);
-
+		this.listaContratos = listaDeContratos.getListaContratos();
 		listaDeQuartos.criaQuartos();
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -229,6 +234,20 @@ public class Main extends JFrame {
 		btnContratos.setIcon(new ImageIcon(Main.class.getResource("/resources/contrato_icon.png")));
 		btnContratos.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnContratos);
+		
+		JButton btnEstratgias = new JButton("Estratégias");
+		btnEstratgias.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (painelEstrategias == null || painelEstrategias.isClosed()){
+					painelEstrategias = new PainelEstrategias(listaDeEstrategias, listaDeContratos, painelPrincipal);
+					painelPrincipal.add(painelEstrategias);
+					painelEstrategias.show();
+				}
+			}
+		});
+		btnEstratgias.setIcon(new ImageIcon(Main.class.getResource("/resources/calendar146.png")));
+		btnEstratgias.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		toolBar.add(btnEstratgias);
 		contentPane.setLayout(gl_contentPane);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuBar, mnOpo, mntmOpo, mntmOpo_1, mnOpo_1, mntmOpo_3, contentPane, toolBar, btnClientes, btnServios, btnContratos, painelPrincipal}));
 	}

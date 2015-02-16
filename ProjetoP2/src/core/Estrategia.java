@@ -41,6 +41,8 @@ public class Estrategia implements Comparable<Estrategia>{
 			throw new IllegalArgumentException("Modificador em formato inválido (menor que 0 ou maior que 100).");
 		}if (descricao.isEmpty()){
 			throw new IllegalArgumentException("Insira alguma descrição para a estratégia.");
+		}if (inicioPeriodo.isAfter(finalPeriodo)){
+			throw new IllegalArgumentException("Datas inválidas");
 		}
 		this.inicioPeriodo = inicioPeriodo;
 		this.finalPeriodo = finalPeriodo;

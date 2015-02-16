@@ -56,4 +56,7 @@ public class ColecaoDeEstrategias {
 			}
 		}return null;
 	}
+	public Estrategia get(int i){
+		return listaEstrategias.get(i);
+	}
 }
