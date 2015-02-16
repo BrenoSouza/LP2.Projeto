@@ -65,8 +65,6 @@ public class ColecaoDeEstrategias {
 		for (Estrategia estrategia: listaEstrategias){
 			if (estrategia.contratoSobrepoe(contrato)){
 				return estrategia;
-			}else{
-				System.out.println(estrategia.getInicioPeriodo());
 			}
 		}return null;
 	}

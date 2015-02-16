@@ -141,14 +141,14 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 				Estrategia estrategia = new Estrategia(dataDeInicio, dataDeEncerramento, porcentagem, tipoDeEstrategia, descricao);
 				
 				PainelAdicionaEstrategias.this.listaEstrategias.adicionaEstrategia(estrategia);
-				int numeroModificacoes = PainelAdicionaEstrategias.this.listaContratos.adicionaEstrategia(estrategia);
-				String mensagem = "Nenhum contrato foi modificado com a criação dessa estratégia.";
-				if (numeroModificacoes == 1){
-					mensagem = "Um contrato foi modificado com a criação dessa estratégia";
-				}else if (numeroModificacoes > 1){
-					mensagem = numeroModificacoes + " contratos foram modificados com a criação dessa estratégia";
-				}
-				JOptionPane.showMessageDialog(null, mensagem);
+//				int numeroModificacoes = PainelAdicionaEstrategias.this.listaContratos.adicionaEstrategia(estrategia);
+//				String mensagem = "Nenhum contrato foi modificado com a criação dessa estratégia.";
+//				if (numeroModificacoes == 1){
+//					mensagem = "Um contrato foi modificado com a criação dessa estratégia";
+//				}else if (numeroModificacoes > 1){
+//					mensagem = numeroModificacoes + " contratos foram modificados com a criação dessa estratégia";
+//				}
+//				JOptionPane.showMessageDialog(null, mensagem);
 				dispose();
 				
 				}catch (java.text.ParseException e2){
