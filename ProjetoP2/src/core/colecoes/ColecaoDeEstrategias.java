@@ -3,6 +3,7 @@ package core.colecoes;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.Contrato;
 import core.Estrategia;
 
 public class ColecaoDeEstrategias {
@@ -32,6 +33,7 @@ public class ColecaoDeEstrategias {
 				throw new Exception("A estratégia inclui um período referente a outra estratégia existente");
 			}
 		}
+		
 		listaEstrategias.add(estrategia);
 	}
 	/**
@@ -58,5 +60,14 @@ public class ColecaoDeEstrategias {
 	}
 	public Estrategia get(int i){
 		return listaEstrategias.get(i);
+	}
+	public Estrategia checaContratoComEstrategia(Contrato contrato){
+		for (Estrategia estrategia: listaEstrategias){
+			if (estrategia.contratoSobrepoe(contrato)){
+				return estrategia;
+			}else{
+				System.out.println(estrategia.getInicioPeriodo());
+			}
+		}return null;
 	}
 }

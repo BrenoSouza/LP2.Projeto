@@ -174,8 +174,8 @@ public class Estrategia implements Comparable<Estrategia>{
 	public String toString(){
 		String retorno = "";
 		retorno += getDescricao();
-		retorno += "De " + getInicioPeriodoString() + " até " + getFinalPeriodoString();
-		retorno += getTipoDeEstrategia().toString() + "de " + getModificador() + "%";
+		retorno += "\nDe " + getInicioPeriodoString() + " até " + getFinalPeriodoString();
+		retorno += "\n" + getTipoDeEstrategia().toString() + " de " + getModificador() + "%";
 		return retorno;
 	}
 	

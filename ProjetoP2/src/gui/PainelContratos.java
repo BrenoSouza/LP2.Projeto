@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 
 import core.Contrato;
 import core.Quarto;
+import core.colecoes.ColecaoDeEstrategias;
 import core.colecoes.ColecaoDeHospedes;
 import core.colecoes.ColecaoDeQuartos;
 
@@ -50,8 +51,9 @@ public class PainelContratos extends JInternalFrame {
 	private JButton btnPesquisar;
 	private List<Contrato> colecaoAtiva = new ArrayList<Contrato>();
 	private ColecaoDeQuartos colecaoDeQuartos;
+	private ColecaoDeEstrategias colecaoDeEstrategias;
 
-	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos colecaoDeQuartos){
+	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos colecaoDeQuartos, ColecaoDeEstrategias colecaoDeEstrategias){
 		setNormalBounds(new Rectangle(0, 0, 1000, 1000));
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
@@ -66,6 +68,7 @@ public class PainelContratos extends JInternalFrame {
 		this.colecaoDeQuartos = colecaoDeQuartos;
 		this.listaQuartosDisponiveis = colecaoDeQuartos.getListaQuartos();
 		this.listaContratos = listaContratos;
+		this.colecaoDeEstrategias = colecaoDeEstrategias;
 		colecaoAtiva = listaContratos;
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelContratos.class.getResource("/resources/contrato_icon.png")));
@@ -96,7 +99,7 @@ public class PainelContratos extends JInternalFrame {
 		btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelNovo = new PainelNovoContrato(getListaDeHospedes(), getListaQuartosDisponiveis(), getListaContratos(), getPainelPrincipal());
+				painelNovo = new PainelNovoContrato(getListaDeHospedes(), getListaQuartosDisponiveis(), getListaContratos(), getPainelPrincipal(), PainelContratos.this.colecaoDeEstrategias);
 				adicionaNoPainel(painelNovo);
 				painelNovo.show();
 			}

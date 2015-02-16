@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
+import javax.swing.ListSelectionModel;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -26,7 +27,12 @@ import java.awt.event.ActionEvent;
 import java.util.Calendar;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class PainelEstrategias extends JInternalFrame {
 	private JButton btnAddEstrategia;
@@ -36,11 +42,18 @@ public class PainelEstrategias extends JInternalFrame {
 	private ColecaoDeEstrategias listaEstrategias;
 	private ColecaoDeContratos listaContratos;
 	JDesktopPane painelPrincipal;
+	private Estrategia estrategiaSelecionada;
 
 	public PainelEstrategias(ColecaoDeEstrategias listaEstrategias, ColecaoDeContratos listaContratos, JDesktopPane painelPrincipal) {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameActivated(InternalFrameEvent arg0) {
+				escreveTabela();
+			}
+		});
 		setFrameIcon(new ImageIcon(PainelEstrategias.class.getResource("/resources/calendar146.png")));
 		setClosable(true);
-		setTitle("Painel Estratégias");
+		setTitle("Estratégias");
 		setBounds(0, 0, 650, 450);
 		
 		this.listaEstrategias = listaEstrategias;
@@ -59,6 +72,13 @@ public class PainelEstrategias extends JInternalFrame {
 		});
 		
 		btnVisualizarEstrategia = new JButton("Visualizar estratégia");
+		btnVisualizarEstrategia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PainelVisualizacaoEstrategia painelVisualiza = new PainelVisualizacaoEstrategia(estrategiaSelecionada);
+				PainelEstrategias.this.painelPrincipal.add(painelVisualiza);
+				painelVisualiza.show();
+			}
+		});
 		btnVisualizarEstrategia.setEnabled(false);
 		
 		btnEditarEstrategia = new JButton("Editar estratégia");
@@ -96,6 +116,21 @@ public class PainelEstrategias extends JInternalFrame {
 		
 		tabelaEstrategias = new JTable();
 		scrollPane.setViewportView(tabelaEstrategias);
+		
+		ListSelectionModel modeloSelecaoLinha = tabelaEstrategias.getSelectionModel(); 
+		
+		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				int[] indiceSelecionado = tabelaEstrategias.getSelectedRows(); 
+				if (indiceSelecionado.length <= 0){
+					estrategiaSelecionada = null;
+				}else{
+					estrategiaSelecionada = PainelEstrategias.this.listaEstrategias.get(indiceSelecionado[0]);
+				}atualizaBotoes();
+				
+			}
+		});		
 		getContentPane().setLayout(groupLayout);
 		escreveTabela();
 
@@ -127,5 +162,9 @@ public class PainelEstrategias extends JInternalFrame {
 
 tabelaEstrategias.setModel(modeloTabela); 
 tabelaEstrategias.setRowSelectionAllowed(true); // Quando der clique, selecionar toda a linha, e não só uma célula
+	}
+	public void atualizaBotoes(){
+		btnEditarEstrategia.setEnabled(!(estrategiaSelecionada == null));
+		btnVisualizarEstrategia.setEnabled(!(estrategiaSelecionada == null));
 	}
 }
