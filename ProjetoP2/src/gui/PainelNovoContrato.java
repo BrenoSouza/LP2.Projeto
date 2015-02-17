@@ -730,9 +730,9 @@ public class PainelNovoContrato extends JInternalFrame {
 	@Override
 	public void dispose(){
 		for (Quarto quarto: listaQuartosDoContrato){
+			quarto.setToLivre();
 			if (!(listaQuartosDisponiveis.contains(quarto))){
 				listaQuartosDisponiveis.add(quarto);
-				quarto.setToLivre();
 			}
 		}super.dispose();
 	}
