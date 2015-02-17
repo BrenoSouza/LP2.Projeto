@@ -460,11 +460,11 @@ public class PainelNovoContrato extends JInternalFrame {
 						if (estrategiaAtual != null){
 							JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
 							contrato.setEstrategiaDoContrato(estrategiaAtual);
-								for (Quarto quarto: listaQuartosDoContrato){
-									quarto.setToLivre();
-									PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
-									Reserva reserva = new Reserva(contrato);
-									quarto.adicionaReserva(reserva);
+							for (Quarto quarto: listaQuartosDoContrato){
+								quarto.setToLivre();
+								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
+								Reserva reserva = new Reserva(contrato);
+								quarto.adicionaReserva(reserva);
 							}
 						}else{
 							for (Quarto quarto: listaQuartosDoContrato){
@@ -480,11 +480,11 @@ public class PainelNovoContrato extends JInternalFrame {
 						if (estrategiaAtual != null){
 							JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
 							contrato.setEstrategiaDoContrato(estrategiaAtual);
-								for (Quarto quarto: listaQuartosDoContrato){
-									quarto.setToLivre();
-									PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
-									Reserva reserva = new Reserva(contrato);
-									quarto.adicionaReserva(reserva);
+							for (Quarto quarto: listaQuartosDoContrato){
+								quarto.setToLivre();
+								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
+								Reserva reserva = new Reserva(contrato);
+								quarto.adicionaReserva(reserva);
 							}
 						}else{
 							for (Quarto quarto: listaQuartosDoContrato){
@@ -730,8 +730,10 @@ public class PainelNovoContrato extends JInternalFrame {
 	@Override
 	public void dispose(){
 		for (Quarto quarto: listaQuartosDoContrato){
-			listaQuartosDisponiveis.add(quarto);
-			quarto.setToLivre();
+			if (!(listaQuartosDisponiveis.contains(quarto))){
+				listaQuartosDisponiveis.add(quarto);
+				quarto.setToLivre();
+			}
 		}super.dispose();
 	}
 }
