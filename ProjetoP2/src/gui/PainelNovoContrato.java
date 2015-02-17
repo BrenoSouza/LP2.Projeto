@@ -727,4 +727,11 @@ public class PainelNovoContrato extends JInternalFrame {
 
 		}
 	}
+	@Override
+	public void dispose(){
+		for (Quarto quarto: listaQuartosDoContrato){
+			listaQuartosDisponiveis.add(quarto);
+			quarto.setToLivre();
+		}super.dispose();
+	}
 }
