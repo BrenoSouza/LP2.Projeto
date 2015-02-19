@@ -96,10 +96,28 @@ public class PainelRelatorio extends JInternalFrame {
 				lblMedia.setText("" + (Double.isNaN(mediaOpinioes) ? 0.0 : mediaOpinioes));
 				escreveTabelaOpiniao();
 				//CONTRATO
+				int maior = 0;
+				int somaDiarias = 0;
+				int somaHospedes = 0;
+				double mediaDiarias = 0.0;
+				int mediaHospedes = 0;
+				for (Contrato c: colecaoDeContratos.getListaContratos()) {
+					somaDiarias += c.getNumeroDiarias();
+					if (c.getNumeroDiarias() > maior) {
+						maior = c.getNumeroDiarias();
+					}
+					somaHospedes += c.getListaHospedes().size();
+				}
+				mediaHospedes = (colecaoDeContratos.getListaContratoTamanho() == 0 ? 0 : (somaHospedes / colecaoDeContratos.getListaContratoTamanho()));
+				mediaDiarias = (colecaoDeContratos.getListaContratoTamanho() == 0 ? 0.0 : (somaDiarias / colecaoDeContratos.getListaContratoTamanho()));
+				lblMedHospedeCon.setText("" + mediaHospedes);
+				lblMaiorDiaria.setText("" + maior);
+				lblMedDiarias.setText("" + mediaDiarias);
 				lblNumContratos.setText("" + colecaoDeContratos.getListaContratoTamanho());
-				lblContratoAbe.setText("" + colecaoDeContratos.pesquisaStatusContrato("ABERTO"));
-				lblContratoFec.setText("" + colecaoDeContratos.pesquisaStatusContrato("FECHADO"));
-				lblContratoRese.setText("" + colecaoDeContratos.pesquisaStatusContrato("RESERVA"));
+				lblContratoAbe.setText("" + colecaoDeContratos.pesquisaStatusContrato("ABERTO").size());
+				lblContratoFec.setText("" + colecaoDeContratos.pesquisaStatusContrato("FECHADO").size());
+				lblContratoRese.setText("" + colecaoDeContratos.pesquisaStatusContrato("RESERVA").size());
+				escreveTabelaContrato();
 			}
 		});
 		setTitle("Dados gerais");
@@ -293,7 +311,6 @@ public class PainelRelatorio extends JInternalFrame {
 		tableHospede = new JTable();
 		tableHospede.setRowSelectionAllowed(true);
 		scrollPaneHospedes.setColumnHeaderView(tableHospede);
-		escreveTabelaHospede();
 		scrollPaneHospedes.setViewportView(tableHospede);
 		scrollPaneHospedes.setRowHeaderView(table);
 
@@ -303,7 +320,6 @@ public class PainelRelatorio extends JInternalFrame {
 		tableOpiniao = new JTable();
 		tableOpiniao.setRowSelectionAllowed(true);
 		scrollPaneOpinioes.setColumnHeaderView(tableOpiniao);
-		escreveTabelaOpiniao();
 		scrollPaneOpinioes.setViewportView(tableOpiniao);
 		scrollPaneOpinioes.setRowHeaderView(table);
 
@@ -346,22 +362,22 @@ public class PainelRelatorio extends JInternalFrame {
 		JLabel lblMdiaPcontrato = new JLabel("Média p/Contrato: ");
 		lblMdiaPcontrato.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		lblMedHospedeCon = new JLabel("New label");
+		lblMedHospedeCon = new JLabel("");
 		lblMedHospedeCon.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblMaiorDiriaRegistrada = new JLabel("Maior diária registrada: ");
 		lblMaiorDiriaRegistrada.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		lblMaiorDiaria = new JLabel("New label");
+		lblMaiorDiaria = new JLabel("");
 		lblMaiorDiaria.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblMdiaDeDirias = new JLabel("Média de diárias p/Contrato: ");
 		lblMdiaDeDirias.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		lblMedDiarias = new JLabel("New label");
+		lblMedDiarias = new JLabel("");
 		lblMedDiarias.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPaneContrato = new JScrollPane();
 		GroupLayout gl_PanelContratos = new GroupLayout(PanelContratos);
 		gl_PanelContratos.setHorizontalGroup(
 			gl_PanelContratos.createParallelGroup(Alignment.LEADING)
@@ -415,7 +431,7 @@ public class PainelRelatorio extends JInternalFrame {
 					.addContainerGap(496, Short.MAX_VALUE))
 				.addGroup(gl_PanelContratos.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+					.addComponent(scrollPaneContrato, GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_PanelContratos.setVerticalGroup(
@@ -450,12 +466,15 @@ public class PainelRelatorio extends JInternalFrame {
 						.addComponent(lblMaiorDiriaRegistrada)
 						.addComponent(lblMaiorDiaria))
 					.addGap(18)
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+					.addComponent(scrollPaneContrato, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		
 		tableContrato = new JTable();
-		scrollPane.setColumnHeaderView(tableContrato);
+		tableContrato.setRowSelectionAllowed(true);
+		scrollPaneContrato.setColumnHeaderView(tableContrato);
+		scrollPaneContrato.setViewportView(tableContrato);
+		scrollPaneContrato.setRowHeaderView(table);
 		PanelContratos.setLayout(gl_PanelContratos);
 
 		PanelServicos = new JPanel();
@@ -561,5 +580,57 @@ public class PainelRelatorio extends JInternalFrame {
 			}
 		};
 		tableOpiniao.setModel(modeloTabela);
+	}
+	//TABELA CONTRATO
+	private void escreveTabelaContrato(){
+		// INÍCIO DE CONSTRUÇÃO DA TABELA
+						Object[][] designTabela = new Object[colecaoDeContratos.getListaContratos().size()][5];
+						for (int i = 0; i < colecaoDeContratos.getListaContratos().size(); i++){
+							Contrato contratoAtual = colecaoDeContratos.getListaContratos().get(i);
+							// Para preencher a primeira linha da tabela, com o nome do Hóspede Principal.
+							if (contratoAtual.getHospedePrincipal() == null){
+								designTabela[i][0] = "Não especificado";
+							}else{
+								designTabela[i][0] = contratoAtual.getHospedePrincipal().getNome();
+							}
+							// Para conseguir uma String formatada com a data do checkin, através de um método na classe Main.
+							String dataFormatadaCheckIn = "";
+							try{
+								dataFormatadaCheckIn = Main.converteParaString(contratoAtual.getDataCheckIn());
+							}catch (Exception e){
+								JOptionPane.showMessageDialog(null, e.getMessage());
+							}
+							designTabela[i][1] = dataFormatadaCheckIn;
+							// Para conseguir uma String formatada com a estimada data do checkout.
+							String dataFormatadaCheckOut = "";
+							try{
+								dataFormatadaCheckOut = Main.converteParaString(contratoAtual.getDataCheckOut());
+							}catch (Exception e){
+								JOptionPane.showMessageDialog(null, e.getMessage());
+							}
+							designTabela[i][2] = dataFormatadaCheckOut;
+							// Para colocar na tabela o total de despesas do contrato.
+							designTabela[i][3] = "R$ " + contratoAtual.calculaPrecoFinal();
+							if (contratoAtual.getStatus().equals("RESERVA")){
+								designTabela[i][3] = "-- RESERVA --";
+							}
+							// Para colocar na tabela o status do contrato.
+							designTabela[i][4] = contratoAtual.getStatus();
+					// FIM DE CONSTRUÇÃO DE TABELA.
+					
+				}
+						@SuppressWarnings("serial")
+						DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
+								"Hóspede principal", "Data de Check-In", "Data de Check-Out", "Despesas Atuais", "Status"
+						}) {
+
+							@Override
+						    public boolean isCellEditable(int row, int column) {
+						        return false;
+						    }
+						};
+
+			
+				tableContrato.setModel(modeloTabela);
 	}
 }
