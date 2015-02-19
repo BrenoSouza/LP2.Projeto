@@ -828,16 +828,18 @@ public class PainelRelatorio extends JInternalFrame {
 	
 	private void escreveTabelaServicos(int tamanho) {
 		Object[][] designTabela = new Object[tamanho][3];
+		int j = 0;
 		for (Contrato c: colecaoDeContratos.getListaContratos()) {
 			for (int i = 0; i < c.getListaServicos().size(); i++) {
 				Servico servicoAtual = c.getListaServicos().get(i);
 				if (servicoAtual.getTipo() == null){
-				designTabela[i][0] = "Não especificado";
+				designTabela[i + j][0] = "Não especificado";
 				}else{
-					designTabela[i][0] = servicoAtual.getTipo();
+					designTabela[i + j][0] = servicoAtual.getTipo();
 				}
-				designTabela[i][1] = servicoAtual.calculaPrecoTotal();
-				designTabela[i][2] = c.getStatus();
+				designTabela[i + j][1] = servicoAtual.calculaPrecoTotal();
+				designTabela[i + j][2] = c.getStatus();
+				j++;
 			}
 		}
 		@SuppressWarnings("serial")
