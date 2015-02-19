@@ -490,14 +490,14 @@ public class PainelNovoContrato extends JInternalFrame {
 							JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
 							contrato.setEstrategiaDoContrato(estrategiaAtual);
 							for (Quarto quarto: listaQuartosDoContrato){
-								quarto.setToLivre();
+								quarto.setToOcupado(contrato.getNumeroDiarias());
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
 							}
 						}else{
 							for (Quarto quarto: listaQuartosDoContrato){
-								quarto.setToLivre();
+								quarto.setToOcupado(contrato.getNumeroDiarias());
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
