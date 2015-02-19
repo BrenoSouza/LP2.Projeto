@@ -5,6 +5,7 @@ import java.util.List;
 
 import core.Contrato;
 import core.Estrategia;
+import core.Hospede;
 
 public class ColecaoDeContratos {
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
@@ -99,6 +100,18 @@ public class ColecaoDeContratos {
 				contratosModificados++;
 			}
 		}return contratosModificados;
+	}
+	
+	public List<Contrato> pesquisaStatusContrato(String status) {
+		List<Contrato> pesquisados = new ArrayList<Contrato>();
+		if (status != null) {
+			for (Contrato c: listaContratos) {
+				if (c.getStatus() == status) {
+					pesquisados.add(c);
+				}
+			}
+		}
+		return pesquisados;
 	}
 
 }
