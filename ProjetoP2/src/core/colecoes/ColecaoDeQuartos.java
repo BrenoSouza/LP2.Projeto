@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import core.Contrato;
 import core.Quarto;
 import core.QuartoExecutivoDuplo;
 import core.QuartoExecutivoSimples;
@@ -14,6 +15,7 @@ import core.QuartoLuxoDuplo;
 import core.QuartoLuxoSimples;
 import core.QuartoLuxoTriplo;
 import core.QuartoPresidencial;
+import core.Reserva;
 
 public class ColecaoDeQuartos {
 	@SuppressWarnings("unused")
@@ -105,6 +107,14 @@ public class ColecaoDeQuartos {
 			}
 		}return listaQuartosVagos;
 	}
+	public List<Quarto> getListaQuartosVagosReserva(Contrato contrato){
+		List<Quarto> listaQuartosVagos = new ArrayList<Quarto>();
+		for (Quarto quarto: listaQuartos){
+			if (quarto.isLivreParaReserva(new Reserva(contrato.getDataCheckIn(), contrato.getDataCheckOut()).getIntervalo())){
+				listaQuartosVagos.add(quarto);
+			}
+		}return listaQuartosVagos;
+	}
 	
 	/**
 	 * Método que retorna uma List<Quarto> com todos os quartos ocupados.
@@ -115,6 +125,14 @@ public class ColecaoDeQuartos {
 		List<Quarto> listaQuartosOcupados = new ArrayList<Quarto>();
 		for (Quarto quarto: listaQuartos){
 			if (quarto.getEstado().equals("OCUPADO")){
+				listaQuartosOcupados.add(quarto);
+			}
+		}return listaQuartosOcupados;
+	}
+	public List<Quarto> getListaQuartosOcupadosReserva(Contrato contrato){
+		List<Quarto> listaQuartosOcupados = new ArrayList<Quarto>();
+		for (Quarto quarto: listaQuartos){
+			if (!quarto.isLivreParaReserva(new Reserva(contrato.getDataCheckIn(), contrato.getDataCheckOut()).getIntervalo())){
 				listaQuartosOcupados.add(quarto);
 			}
 		}return listaQuartosOcupados;
