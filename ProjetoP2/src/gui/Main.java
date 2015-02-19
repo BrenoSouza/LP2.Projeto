@@ -48,6 +48,7 @@ public class Main extends JFrame {
 	private PainelServicos painelServicos;
 	private PainelContratos painelContratos;
 	private PainelEstrategias painelEstrategias;
+	private PainelRelatorio painelRelatorio;
 	private List<Contrato> listaContratos;
 	private static ColecaoDeContratos listaDeContratos = new ColecaoDeContratos();
 	private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
@@ -235,7 +236,7 @@ public class Main extends JFrame {
 		btnContratos.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnContratos);
 		
-		JButton btnEstratgias = new JButton("Estratégias");
+		JButton btnEstratgias = new JButton("Estratégias ");
 		btnEstratgias.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (painelEstrategias == null || painelEstrategias.isClosed()){
@@ -248,8 +249,21 @@ public class Main extends JFrame {
 		btnEstratgias.setIcon(new ImageIcon(Main.class.getResource("/resources/calendar146.png")));
 		btnEstratgias.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnEstratgias);
+		
+		JButton btnRelatrios = new JButton("Relatórios");
+		btnRelatrios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (painelRelatorio == null || painelRelatorio.isClosed()) {
+					painelRelatorio = new PainelRelatorio(listaDeHospedes, listaDeContratos, painelPrincipal);
+					painelPrincipal.add(painelRelatorio);
+					painelRelatorio.show();
+				}
+			}
+		});
+		btnRelatrios.setIcon(new ImageIcon(Main.class.getResource("/resources/relatorios.png")));
+		btnRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		toolBar.add(btnRelatrios);
 		contentPane.setLayout(gl_contentPane);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuBar, mnOpo, mntmOpo, mntmOpo_1, mnOpo_1, mntmOpo_3, contentPane, toolBar, btnClientes, btnServios, btnContratos, painelPrincipal}));
 	}
-
 }

@@ -88,5 +88,27 @@ public class ColecaoDeHospedes {
 		}
 		return null;
 	}
-	
+	/**
+	 * Pesquisa hospedes que possuem contrato.
+	 * @param status Contrato ABERTO ou FECHADO
+	 * @return Um List<Hospedes> com os hospedes em um tipo de contrato desejado.
+	 */
+	public List<Hospede> pesquisaHospedeContrato(String status) {
+		List<Hospede> pesquisados = new ArrayList<Hospede>();
+		if (status == null) {
+			for (Hospede h: listaHospedes) {
+				if (h.getContratoLigado() == null) {
+					pesquisados.add(h);
+				}
+			}
+		}else{
+			for (Hospede h: listaHospedes) {
+				if (h.getContratoLigado().getStatus() == status){
+					pesquisados.add(h);
+				}
+			}
+		}
+		return pesquisados;
+	}
+
 }

@@ -10,209 +10,368 @@ import java.awt.CardLayout;
 import java.awt.Font;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.border.EtchedBorder;
+
+import java.awt.Component;
+import java.beans.PropertyVetoException;
+import java.util.Collections;
+import java.util.List;
+
+import javax.swing.Box;
+
+import core.Contrato;
+import core.Hospede;
+import core.colecoes.ColecaoDeContratos;
+import core.colecoes.ColecaoDeHospedes;
 
 public class PainelRelatorio extends JInternalFrame {
-	
-	private static final long serialVersionUID = 1L;
-	private JLabel lblNumHospedes;
-	private JTable table;
-	private JLabel lblNumAbeHospede;
-	private JLabel lblNumFecHospede;
-	private JLabel lblNumSemHospede;
-	private JLabel lblIdades;
-	private JLabel lblNumOpiniao;
-	private JLabel lblMedNotasOp;
 
-	public PainelRelatorio() throws Exception {
+	private static final long serialVersionUID = 1L;
+	private JDesktopPane painelPrincipal;
+	private ColecaoDeHospedes colecaoDeHospedes;
+	private ColecaoDeContratos listaContratos;
+	private JTable tableHospede;
+	private JTable tableOpiniao;
+	private JLabel lblSemConHospedes;
+	private JLabel lblNumHospedes;
+	private JLabel lblAbeHospedes;
+	private JLabel lblFecHospedes;
+	private JLabel lblNumOpi;
+	private JLabel lblMedia;
+	private JTable table;
+
+	public PainelRelatorio(ColecaoDeHospedes listaDeHospedes, ColecaoDeContratos listaContratos, JDesktopPane painelPrincipal) {
 		setTitle("Dados gerais");
 		setFrameIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/relatorios.png")));
-		setIcon(true);
+		try {
+			setIcon(true);
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}
 		setClosable(true);
-		setBounds(100, 100, 754, 455);
-		
-		JPanel PanelExterno = new JPanel();
-		
+		setBounds(0, 0, 754, 420);
+
+		this.painelPrincipal = painelPrincipal;
+		this.colecaoDeHospedes = listaDeHospedes;
+		this.listaContratos = listaContratos;
+
 		JButton btnHospedes = new JButton("Hóspedes");
 		btnHospedes.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/clientes_icon.png")));
-		
+
 		JButton btnContratos = new JButton("Contratos");
 		btnContratos.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/contrato_icon.png")));
-		
+
 		JButton btnServicos = new JButton("Serviços");
 		btnServicos.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/servicos_icon.png")));
+
+		JPanel panel = new JPanel();
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(44)
-					.addComponent(btnHospedes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(157)
-					.addComponent(btnContratos, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-					.addGap(154)
-					.addComponent(btnServicos, GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
-					.addGap(42))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(PanelExterno, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
-					.addContainerGap())
-		);
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(panel, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
+										.addContainerGap())
+										.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(btnHospedes, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+												.addGap(18)
+												.addComponent(btnContratos, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+												.addGap(18)
+												.addComponent(btnServicos, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+												.addGap(351))))
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+				groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(35)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnHospedes, Alignment.TRAILING)
-						.addComponent(btnContratos, Alignment.TRAILING)
-						.addComponent(btnServicos, Alignment.TRAILING))
-					.addGap(32)
-					.addComponent(PanelExterno, GroupLayout.PREFERRED_SIZE, 306, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
-		);
-		PanelExterno.setLayout(new CardLayout(0, 0));
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnHospedes)
+								.addComponent(btnContratos)
+								.addComponent(btnServicos))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap())
+				);
+		panel.setLayout(new CardLayout(0, 0));
 		
+		//PAINEL RELATORIO HOSPEDE
 		JPanel PanelHospedes = new JPanel();
-		PanelExterno.add(PanelHospedes, "name_3134536722558");
+		PanelHospedes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.add(PanelHospedes, "name_11549993532232");
+
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		//INFO HOSPEDES
+		JLabel label_5 = new JLabel("Hóspedes");
+		label_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		JLabel lblTotalDeHspedes = new JLabel("Total de hóspedes: ");
-		lblTotalDeHspedes.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		lblNumHospedes = new JLabel("New label");
+		JLabel lblTotalHospedes = new JLabel("Total de hóspedes: ");
+		lblTotalHospedes.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		lblNumHospedes = new JLabel("");
 		lblNumHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblNmeros = new JLabel("Hóspedes");
-		lblNmeros.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel lblHospedesAbe = new JLabel("Hóspedes (Aberto): ");
+		lblHospedesAbe.setToolTipText("Hóspedes com contrato ativo.");
+		lblHospedesAbe.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JLabel lblHspedesaberto = new JLabel("Hóspedes (Aberto): ");
-		lblHspedesaberto.setToolTipText("Hóspedes com contrato ativo.");
-		lblHspedesaberto.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblAbeHospedes = new JLabel("");
+		lblAbeHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		lblNumAbeHospede = new JLabel("New label");
-		lblNumAbeHospede.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		JLabel lblHospedesFec = new JLabel("Hóspedes (Fechado): ");
+		lblHospedesFec.setToolTipText("Hóspedes com contrato encerrado.");
+		lblHospedesFec.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		lblFecHospedes = new JLabel("");
+		lblFecHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+
+		JLabel lblHospedesSem = new JLabel("Hóspedes (Sem contrato): ");
+		lblHospedesSem.setToolTipText("Hóspedes sem contrato.");
+		lblHospedesSem.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		lblSemConHospedes = new JLabel("");
+		lblSemConHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		//INFO OPINIAO
+		JLabel label_6 = new JLabel("Opiniões");
+		label_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
+
+		JLabel lblMedOpinioes = new JLabel("Média das notas: ");
+		lblMedOpinioes.setFont(new Font("Tahoma", Font.PLAIN, 15));
+
+		JLabel NumOpinioes = new JLabel("Total de opiniões: ");
+		NumOpinioes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		JLabel lblHspedesfechado = new JLabel("Hóspedes (Fechado): ");
-		lblHspedesfechado.setToolTipText("Hóspedes com contrato encerrado.");
-		lblHspedesfechado.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		lblNumFecHospede = new JLabel("New label");
-		lblNumFecHospede.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblHspedessemContrato = new JLabel("Hóspedes (Sem contrato): ");
-		lblHspedessemContrato.setToolTipText("Hóspedes sem contrato.");
-		lblHspedessemContrato.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		lblNumSemHospede = new JLabel("New label");
-		lblNumSemHospede.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		JLabel lblMdiaDeIdade = new JLabel("Média de Idade: ");
-		lblMdiaDeIdade.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		lblIdades = new JLabel("New label");
-		lblIdades.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		table = new JTable();
-		
-		JLabel lblOpinies = new JLabel("Opiniões");
-		lblOpinies.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		JLabel lblTotalDeOpinies = new JLabel("Total de opiniões: ");
-		lblTotalDeOpinies.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		JLabel lblMdiaDasNotas = new JLabel("Média das notas: ");
-		lblMdiaDasNotas.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		lblNumOpiniao = new JLabel("New label");
-		lblNumOpiniao.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		lblMedNotasOp = new JLabel("New label");
-		lblMedNotasOp.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		int numOpiniao = 0;
+		double somaNotas = 0.0;
+		double mediaOpinioes = 0.0;
+		for (Hospede h: listaDeHospedes.getListaHospedes()) {
+			if (h.getOpiniao() != null) {
+				somaNotas += h.getOpiniao().getNota();
+				numOpiniao++;
+			}
+		}
+		mediaOpinioes = (somaNotas / numOpiniao);
+		lblNumOpi = new JLabel("" + numOpiniao);
+		lblNumOpi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+
+		lblMedia = new JLabel("" + (Double.isNaN(mediaOpinioes) ? 0.0 : mediaOpinioes));
+		lblMedia.setFont(new Font("Tahoma", Font.PLAIN, 14));
+
 		GroupLayout gl_PanelHospedes = new GroupLayout(PanelHospedes);
 		gl_PanelHospedes.setHorizontalGroup(
 			gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_PanelHospedes.createSequentialGroup()
-					.addGap(85)
-					.addComponent(lblNmeros)
-					.addPreferredGap(ComponentPlacement.RELATED, 383, Short.MAX_VALUE)
-					.addComponent(lblOpinies)
-					.addGap(120))
-				.addGroup(gl_PanelHospedes.createSequentialGroup()
-					.addContainerGap()
 					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addComponent(table, GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
-							.addContainerGap())
+							.addGap(10)
+							.addComponent(lblHospedesFec)
+							.addGap(6)
+							.addComponent(lblFecHospedes))
+						.addGroup(gl_PanelHospedes.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblHospedesSem)
+							.addGap(6)
+							.addComponent(lblSemConHospedes))
+						.addGroup(gl_PanelHospedes.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 698, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_PanelHospedes.createSequentialGroup()
 							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addComponent(lblTotalDeHspedes)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNumHospedes))
+									.addGap(85)
+									.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_PanelHospedes.createSequentialGroup()
+											.addComponent(label_5)
+											.addGap(383)
+											.addComponent(label_6))
+										.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+											.addComponent(lblMedOpinioes)
+											.addComponent(NumOpinioes))))
 								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addComponent(lblHspedesaberto)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNumAbeHospede))
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addComponent(lblHspedesfechado)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNumFecHospede))
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addComponent(lblHspedessemContrato)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNumSemHospede))
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addComponent(lblMdiaDeIdade)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblIdades)))
-							.addPreferredGap(ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+									.addGap(10)
+									.addComponent(lblHospedesAbe)
+									.addGap(6)
+									.addComponent(lblAbeHospedes)))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addComponent(lblMdiaDasNotas)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblMedNotasOp))
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addComponent(lblTotalDeOpinies)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblNumOpiniao)))
-							.addGap(107))))
+								.addComponent(lblNumOpi)
+								.addComponent(lblMedia)))
+						.addGroup(gl_PanelHospedes.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblTotalHospedes)
+							.addGap(6)
+							.addComponent(lblNumHospedes)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		gl_PanelHospedes.setVerticalGroup(
 			gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_PanelHospedes.createSequentialGroup()
 					.addGap(7)
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNmeros)
-						.addComponent(lblOpinies))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblTotalDeHspedes)
-						.addComponent(lblNumHospedes)
-						.addComponent(lblTotalDeOpinies)
-						.addComponent(lblNumOpiniao))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblHspedesaberto)
-						.addComponent(lblNumAbeHospede)
-						.addComponent(lblMdiaDasNotas)
-						.addComponent(lblMedNotasOp))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblHspedesfechado)
-						.addComponent(lblNumFecHospede))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblHspedessemContrato)
-						.addComponent(lblNumSemHospede))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblMdiaDeIdade)
-						.addComponent(lblIdades))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(table, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
+					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+						.addComponent(label_5)
+						.addComponent(label_6))
+					.addGap(11)
+					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_PanelHospedes.createSequentialGroup()
+							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblTotalHospedes)
+								.addGroup(gl_PanelHospedes.createSequentialGroup()
+									.addGap(1)
+									.addComponent(lblNumHospedes)))
+							.addGap(6))
+						.addGroup(gl_PanelHospedes.createSequentialGroup()
+							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
+								.addComponent(NumOpinioes)
+								.addComponent(lblNumOpi))
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_PanelHospedes.createSequentialGroup()
+							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblHospedesAbe)
+								.addGroup(gl_PanelHospedes.createSequentialGroup()
+									.addGap(1)
+									.addComponent(lblAbeHospedes)))
+							.addGap(6)
+							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblHospedesFec)
+								.addGroup(gl_PanelHospedes.createSequentialGroup()
+									.addGap(1)
+									.addComponent(lblFecHospedes)))
+							.addGap(6)
+							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblHospedesSem)
+								.addGroup(gl_PanelHospedes.createSequentialGroup()
+									.addGap(1)
+									.addComponent(lblSemConHospedes))))
+						.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblMedOpinioes)
+							.addComponent(lblMedia)))
+					.addGap(20)
+					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 161, GroupLayout.PREFERRED_SIZE)
+					.addGap(10))
 		);
+
+		JScrollPane scrollPaneHospedes = new JScrollPane();
+		tabbedPane.addTab("Hóspedes", null, scrollPaneHospedes, null);
+
+		tableHospede = new JTable();
+		tableHospede.setRowSelectionAllowed(true);
+		scrollPaneHospedes.setColumnHeaderView(tableHospede);
+		escreveTabelaHospede();
+		scrollPaneHospedes.setViewportView(tableHospede);
+		scrollPaneHospedes.setRowHeaderView(table);
+
+		JScrollPane scrollPaneOpinioes = new JScrollPane();
+		tabbedPane.addTab("Opiniões", null, scrollPaneOpinioes, null);
+
+		tableOpiniao = new JTable();
+		tableOpiniao.setRowSelectionAllowed(true);
+		scrollPaneOpinioes.setColumnHeaderView(tableOpiniao);
+		escreveTabelaOpiniao();
+		scrollPaneOpinioes.setViewportView(tableOpiniao);
+		scrollPaneOpinioes.setRowHeaderView(table);
+		
 		PanelHospedes.setLayout(gl_PanelHospedes);
 		getContentPane().setLayout(groupLayout);
+	}
 
+	//TABELA HOSPEDES
+	private void escreveTabelaHospede(){
+		Collections.sort(colecaoDeHospedes.getListaHospedes());
+		Object[][] designTabela = new Object[colecaoDeHospedes.getListaHospedes().size()][4];
+		for (int i = 0; i < colecaoDeHospedes.getListaHospedes().size(); i++){
+			Hospede hospedeAtual = colecaoDeHospedes.getListaHospedes().get(i);
+			if (hospedeAtual.getNome() == null){
+				designTabela[i][0] = "Não especificado";
+			}else{
+				designTabela[i][0] = hospedeAtual.getNome();
+			}
+			String dataFormatadaNascimento = "";
+			try{
+				dataFormatadaNascimento = Main.converteParaString(hospedeAtual.getDataNascimento());
+			}catch (Exception e){
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+			designTabela[i][1] = dataFormatadaNascimento;
+			if (hospedeAtual.getCpf() == null){
+				designTabela[i][2] = "Não especificado";
+			}else{
+				designTabela[i][2] = hospedeAtual.getCpf();
+			}
+			if (hospedeAtual.getContratoLigado() == null){
+				designTabela[i][3] = "Sem contrato";
+			}else{
+				designTabela[i][3] = hospedeAtual.getContratoLigado().getStatus();
+			}
+		}
+		@SuppressWarnings("serial")
+		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
+				"Nome", "Nascimento", "CPF", "Contrato"
+		}) {
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		tableHospede.setModel(modeloTabela);
+	}
+	//TABELA OPINIAO
+	private void escreveTabelaOpiniao(){
+		Collections.sort(colecaoDeHospedes.getListaHospedes());
+		Object[][] designTabela = new Object[colecaoDeHospedes.getListaHospedes().size()][2];
+		for (int i = 0; i < colecaoDeHospedes.getListaHospedes().size(); i++){
+			Hospede hospedeAtual = colecaoDeHospedes.getListaHospedes().get(i);
+			if (hospedeAtual.getNome() == null){
+				designTabela[i][0] = "Não especificado";
+			}else{
+				designTabela[i][0] = hospedeAtual.getNome();
+			}
+			String dataFormatadaNascimento = "";
+			try{
+				dataFormatadaNascimento = Main.converteParaString(hospedeAtual.getDataNascimento());
+			}catch (Exception e){
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+			designTabela[i][1] = dataFormatadaNascimento;
+			if (hospedeAtual.getCpf() == null){
+				designTabela[i][2] = "Não especificado";
+			}else{
+				designTabela[i][2] = hospedeAtual.getCpf();
+			}
+			if (hospedeAtual.getContratoLigado() == null){
+				designTabela[i][3] = "Sem contrato";
+			}else{
+				designTabela[i][3] = hospedeAtual.getContratoLigado().getStatus();
+			}
+		}
+		@SuppressWarnings("serial")
+		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
+				"Comentário" , "Nota"
+		}) {
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+		tableOpiniao.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Coment\u00E1rio", "Nota"
+			}
+		));
+		tableOpiniao.getColumnModel().getColumn(0).setPreferredWidth(457);
+		tableOpiniao.getColumnModel().getColumn(1).setResizable(false);
 	}
 }
