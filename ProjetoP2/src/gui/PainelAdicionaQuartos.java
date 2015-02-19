@@ -122,7 +122,8 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				
 					quartoVagoSelecionado.setToOcupado(diariasContrato);
 					getContrato().getListaQuartosAlugados().add(quartoVagoSelecionado);
-					getListaDeQuartos().remove(quartoVagoSelecionado);
+//					getListaDeQuartos().remove(quartoVagoSelecionado);
+					quartoVagoSelecionado.adicionaReserva(PainelAdicionaQuartos.this.contrato);
 				
 					JOptionPane.showMessageDialog(null, "Quarto Adicionado!");
 						
