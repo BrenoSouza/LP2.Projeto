@@ -839,8 +839,7 @@ public class PainelRelatorio extends JInternalFrame {
 				}
 				designTabela[i + j][1] = servicoAtual.calculaPrecoTotal();
 				designTabela[i + j][2] = c.getStatus();
-				j++;
-			}
+			}j += c.getListaServicos().size();
 		}
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
