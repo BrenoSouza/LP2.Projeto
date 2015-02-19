@@ -327,12 +327,14 @@ public class PainelNovoContrato extends JInternalFrame {
 		btnAdicionarNoContratoQuarto.setEnabled(false);
 		btnRemoverDoContratoQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PainelNovoContrato.this.listaQuartosDisponiveis.add(quartoContratoSelecionado);
-				listaQuartosDoContrato.remove(quartoContratoSelecionado);
-				quartoContratoSelecionado.setToLivre();
-				//				if (listaQuartosDoContrato.size() == 0){ //Reiniciando o valor das diárias se for esvaziada a lista de quartos do contrato
-				//					diariasContrato = 0;
-				//				}
+//				PainelNovoContrato.this.listaQuartosDisponiveis.add(quartoContratoSelecionado);
+//				listaQuartosDoContrato.remove(quartoContratoSelecionado);
+//				quartoContratoSelecionado.setToLivre();
+//				//				if (listaQuartosDoContrato.size() == 0){ //Reiniciando o valor das diárias se for esvaziada a lista de quartos do contrato
+//				//					diariasContrato = 0;
+//				//				}
+//				escreveTabelas();
+				retiraQuartoLista(quartoContratoSelecionado);
 				escreveTabelas();
 			}
 		});
@@ -342,6 +344,12 @@ public class PainelNovoContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				dialogoDiarias = new DialogoDiarias(cartaoDeCredito);
 				dialogoDiarias.setVisible(true);
+//				for (Quarto quarto: listaQuartosDoContrato){
+////					quarto.setToLivre();
+////					PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
+////					listaQuartosDoContrato.remove(quarto);
+//					retiraQuartoLista(quarto);
+//				}
 				//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 				diariasContrato = dialogoDiarias.getDiarias();
 				cartaoDeCredito = dialogoDiarias.getCartaoDeCredito();
@@ -353,8 +361,9 @@ public class PainelNovoContrato extends JInternalFrame {
 				}
 				dataCheckOut.setTime(dataCheckIn.getTime());
 				dataCheckOut.add(Calendar.DAY_OF_YEAR, diariasContrato);
-				for (Quarto quarto: listaQuartosDoContrato){
-					quarto.setDiarias(diariasContrato);
+				for (int i = listaQuartosDoContrato.size() - 1; i > -1; i--){
+					Quarto quarto = listaQuartosDoContrato.get(i);
+					retiraQuartoLista(quarto);
 				}
 				escreveTabelas();
 			}
@@ -726,6 +735,11 @@ public class PainelNovoContrato extends JInternalFrame {
 
 
 		}
+	}
+	private void retiraQuartoLista(Quarto quarto){
+		PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
+		listaQuartosDoContrato.remove(quarto);
+		quarto.setToLivre();
 	}
 	@Override
 	public void dispose(){
