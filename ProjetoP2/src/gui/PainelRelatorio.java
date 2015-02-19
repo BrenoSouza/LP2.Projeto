@@ -28,8 +28,12 @@ import java.util.List;
 
 import javax.swing.Box;
 
+import core.AluguelCarro;
+import core.Babysitter;
 import core.Contrato;
 import core.Hospede;
+import core.Restaurante;
+import core.Servico;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeHospedes;
 
@@ -70,6 +74,14 @@ public class PainelRelatorio extends JInternalFrame {
 	private JLabel lblMedHospedeCon;
 	private JLabel lblMedDiarias;
 	private JTable tableContrato;
+	private JLabel lblNumServicos;
+	private JLabel lblAbeServi;
+	private JLabel lblFecServi;
+	private JLabel lblCarrosAtivos;
+	private JLabel lblBabyAtivas;
+	private JLabel lblQuartosAtivo;
+	private JLabel lblRestaurantePed;
+	private JTable tableServicos;
 
 	public PainelRelatorio(ColecaoDeHospedes listaDeHospedes, ColecaoDeContratos listaContratos, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -118,6 +130,40 @@ public class PainelRelatorio extends JInternalFrame {
 				lblContratoFec.setText("" + colecaoDeContratos.pesquisaStatusContrato("FECHADO").size());
 				lblContratoRese.setText("" + colecaoDeContratos.pesquisaStatusContrato("RESERVA").size());
 				escreveTabelaContrato();
+				//SERVICO
+				int numServicos = 0;
+				int numServicosAbe = 0;
+				int numServicosFec = 0;
+				int numQuartos = 0;
+				int numCarros = 0;
+				int numPedidosRestaurante = 0;
+				int numBabySitter = 0;
+				for (Contrato c: colecaoDeContratos.getListaContratos()) {
+					numServicos += c.getListaServicos().size() ;
+					if (c.getStatus() == "ABERTO") {
+						numServicosAbe++;
+						numQuartos += c.getListaQuartosAlugados().size();
+					}else if (c.getStatus() == "FECHADO"){
+						numServicosFec++;
+					}
+					for (Servico s: c.getListaServicos()) {
+						if (s instanceof AluguelCarro) {
+							numCarros++;
+						}else if (s instanceof Restaurante) {
+							numPedidosRestaurante++;
+						}else if (s instanceof Babysitter) {
+							numBabySitter++;
+						}
+					}
+				}
+				lblNumServicos.setText("" + numServicos);
+				lblAbeServi.setText("" + numServicosAbe);
+				lblFecServi.setText("" + numServicosFec);
+				lblCarrosAtivos.setText("" + numCarros);
+				lblBabyAtivas.setText("" + numBabySitter);
+				lblQuartosAtivo.setText("" + numQuartos);
+				lblRestaurantePed.setText("" + numPedidosRestaurante);
+				escreveTabelaServicos(numServicos);
 			}
 		});
 		setTitle("Dados gerais");
@@ -382,90 +428,93 @@ public class PainelRelatorio extends JInternalFrame {
 		gl_PanelContratos.setHorizontalGroup(
 			gl_PanelContratos.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_PanelContratos.createSequentialGroup()
-					.addGap(69)
-					.addComponent(lblContrato)
-					.addPreferredGap(ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
-					.addComponent(lblHospede)
-					.addGap(88))
-				.addGroup(gl_PanelContratos.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblMaiorDiriaRegistrada)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblMaiorDiaria)
-					.addContainerGap(504, Short.MAX_VALUE))
+					.addContainerGap(550, Short.MAX_VALUE))
 				.addGroup(gl_PanelContratos.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_PanelContratos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblTotalDeContratos)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNumContratos))
-						.addGroup(gl_PanelContratos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblContratosAbertos)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblContratoAbe)))
-					.addPreferredGap(ComponentPlacement.RELATED, 260, Short.MAX_VALUE)
-					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_PanelContratos.createSequentialGroup()
-							.addComponent(lblMdiaPcontrato)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblMedHospedeCon))
-						.addGroup(gl_PanelContratos.createSequentialGroup()
-							.addComponent(lblMdiaDeDirias)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblMedDiarias)))
-					.addGap(16))
-				.addGroup(gl_PanelContratos.createSequentialGroup()
-					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_PanelContratos.createSequentialGroup()
-							.addContainerGap()
 							.addComponent(lblContratosFechados)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblContratoFec))
 						.addGroup(gl_PanelContratos.createSequentialGroup()
-							.addContainerGap()
 							.addComponent(lblContratosReservados)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblContratoRese)))
-					.addContainerGap(496, Short.MAX_VALUE))
+					.addContainerGap(552, Short.MAX_VALUE))
 				.addGroup(gl_PanelContratos.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(scrollPaneContrato, GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(Alignment.TRAILING, gl_PanelContratos.createSequentialGroup()
+					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_PanelContratos.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_PanelContratos.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_PanelContratos.createSequentialGroup()
+									.addComponent(lblTotalDeContratos)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblNumContratos))
+								.addGroup(gl_PanelContratos.createSequentialGroup()
+									.addComponent(lblContratosAbertos)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblContratoAbe)))
+							.addPreferredGap(ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+							.addGroup(gl_PanelContratos.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblMdiaDeDirias)
+								.addComponent(lblMdiaPcontrato)))
+						.addGroup(gl_PanelContratos.createSequentialGroup()
+							.addGap(69)
+							.addComponent(lblContrato)
+							.addPreferredGap(ComponentPlacement.RELATED, 409, Short.MAX_VALUE)
+							.addComponent(lblHospede)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblMedDiarias, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblMedHospedeCon, GroupLayout.DEFAULT_SIZE, 11, Short.MAX_VALUE))
+					.addGap(101))
 		);
 		gl_PanelContratos.setVerticalGroup(
 			gl_PanelContratos.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_PanelContratos.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblContrato)
-						.addComponent(lblHospede))
+					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_PanelContratos.createSequentialGroup()
+							.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblContrato)
+								.addComponent(lblHospede))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblTotalDeContratos)
+								.addComponent(lblNumContratos)
+								.addComponent(lblMdiaPcontrato)))
+						.addComponent(lblMedHospedeCon, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblTotalDeContratos)
-						.addComponent(lblNumContratos)
-						.addComponent(lblMdiaPcontrato)
-						.addComponent(lblMedHospedeCon))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblContratosAbertos)
-						.addComponent(lblContratoAbe)
-						.addComponent(lblMdiaDeDirias)
-						.addComponent(lblMedDiarias))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblContratosFechados)
-						.addComponent(lblContratoFec))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblContratosReservados)
-						.addComponent(lblContratoRese))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblMaiorDiriaRegistrada)
-						.addComponent(lblMaiorDiaria))
-					.addGap(18)
+					.addGroup(gl_PanelContratos.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_PanelContratos.createSequentialGroup()
+							.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblContratosAbertos)
+								.addComponent(lblContratoAbe)
+								.addComponent(lblMdiaDeDirias))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblContratosFechados)
+								.addComponent(lblContratoFec))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblContratosReservados)
+								.addComponent(lblContratoRese))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_PanelContratos.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblMaiorDiriaRegistrada)
+								.addComponent(lblMaiorDiaria))
+							.addGap(18))
+						.addGroup(gl_PanelContratos.createSequentialGroup()
+							.addComponent(lblMedDiarias, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
+							.addGap(97)))
 					.addComponent(scrollPaneContrato, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
 					.addContainerGap())
 		);
@@ -478,7 +527,150 @@ public class PainelRelatorio extends JInternalFrame {
 		PanelContratos.setLayout(gl_PanelContratos);
 
 		PanelServicos = new JPanel();
+		PanelServicos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.add(PanelServicos, "servicos");
+		
+		JLabel lblServios = new JLabel("Serviços");
+		lblServios.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JLabel lblNDeServios = new JLabel("N° de serviços já usados: ");
+		lblNDeServios.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		lblNumServicos = new JLabel("");
+		lblNumServicos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblNDeServios_1 = new JLabel("N° de serviços em contratos ->");
+		lblNDeServios_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JLabel lblAbertos = new JLabel("Abertos: ");
+		lblAbertos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JLabel lblFechados = new JLabel("Fechados: ");
+		lblFechados.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		lblAbeServi = new JLabel("");
+		lblAbeServi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		lblFecServi = new JLabel("");
+		lblFecServi.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblNDeCarros = new JLabel("N° de carros alugados: ");
+		lblNDeCarros.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		lblCarrosAtivos = new JLabel("");
+		lblCarrosAtivos.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblNDeBabysitters = new JLabel("N° de babysitters ativas: ");
+		lblNDeBabysitters.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		lblBabyAtivas = new JLabel("");
+		lblBabyAtivas.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblNDeQuartos = new JLabel("N° de quartos usados: ");
+		lblNDeQuartos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		lblQuartosAtivo = new JLabel("");
+		lblQuartosAtivo.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JLabel lblNDePedidos = new JLabel("N° de pedidos nos restaurantes: ");
+		lblNDePedidos.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		lblRestaurantePed = new JLabel("New label");
+		lblRestaurantePed.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		
+		JScrollPane scrollPaneServicos = new JScrollPane();
+		GroupLayout gl_PanelServicos = new GroupLayout(PanelServicos);
+		gl_PanelServicos.setHorizontalGroup(
+			gl_PanelServicos.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PanelServicos.createSequentialGroup()
+					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_PanelServicos.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNDeServios)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNumServicos))
+						.addGroup(gl_PanelServicos.createSequentialGroup()
+							.addGap(78)
+							.addComponent(lblServios))
+						.addGroup(gl_PanelServicos.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNDeServios_1)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblAbertos)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblAbeServi)
+							.addGap(18)
+							.addComponent(lblFechados)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblFecServi))
+						.addGroup(gl_PanelServicos.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNDePedidos)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblRestaurantePed))
+						.addGroup(gl_PanelServicos.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNDeCarros)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblCarrosAtivos))
+						.addGroup(gl_PanelServicos.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNDeBabysitters)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblBabyAtivas))
+						.addGroup(gl_PanelServicos.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNDeQuartos)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblQuartosAtivo))
+						.addGroup(gl_PanelServicos.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(scrollPaneServicos, GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		gl_PanelServicos.setVerticalGroup(
+			gl_PanelServicos.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PanelServicos.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblServios)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNDeServios)
+						.addComponent(lblNumServicos))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNDeServios_1)
+						.addComponent(lblAbertos)
+						.addComponent(lblAbeServi)
+						.addComponent(lblFechados)
+						.addComponent(lblFecServi))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNDeCarros)
+						.addComponent(lblCarrosAtivos))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNDeBabysitters)
+						.addComponent(lblBabyAtivas))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNDeQuartos)
+						.addComponent(lblQuartosAtivo))
+					.addGap(7)
+					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNDePedidos)
+						.addComponent(lblRestaurantePed))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPaneServicos, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		
+		tableServicos = new JTable();
+		tableServicos.setRowSelectionAllowed(true);
+		scrollPaneServicos.setColumnHeaderView(tableServicos);
+		scrollPaneServicos.setViewportView(tableServicos);
+		scrollPaneServicos.setRowHeaderView(table);
+		PanelServicos.setLayout(gl_PanelServicos);
 
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -632,5 +824,32 @@ public class PainelRelatorio extends JInternalFrame {
 
 			
 				tableContrato.setModel(modeloTabela);
+	}
+	
+	private void escreveTabelaServicos(int tamanho) {
+		Object[][] designTabela = new Object[tamanho][3];
+		for (Contrato c: colecaoDeContratos.getListaContratos()) {
+			for (int i = 0; i < c.getListaServicos().size(); i++) {
+				Servico servicoAtual = c.getListaServicos().get(i);
+				if (servicoAtual.getTipo() == null){
+				designTabela[i][0] = "Não especificado";
+				}else{
+					designTabela[i][0] = servicoAtual.getTipo();
+				}
+				designTabela[i][1] = servicoAtual.calculaPrecoTotal();
+				designTabela[i][2] = c.getStatus();
+			}
+		}
+		@SuppressWarnings("serial")
+		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
+				"Serviços", "Preço", "Contrato" })     {
+
+			@Override
+		    public boolean isCellEditable(int row, int column) {
+		        return false;
+		    }
+		};
+		
+		tableServicos.setModel(modeloTabela); 
 	}
 }
