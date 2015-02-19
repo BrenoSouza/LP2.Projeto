@@ -31,6 +31,10 @@ import core.Contrato;
 import core.Hospede;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeHospedes;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
 
 public class PainelRelatorio extends JInternalFrame {
 
@@ -47,8 +51,23 @@ public class PainelRelatorio extends JInternalFrame {
 	private JLabel lblNumOpi;
 	private JLabel lblMedia;
 	private JTable table;
+	private JButton btnHospedes;
+	private JPanel panel = new JPanel();
+	protected CardLayout layoutPainel = new CardLayout(0, 0);
+	private JButton btnContratos;
+	private JPanel PanelHospedes;
+	private JPanel PanelContratos;
+	private JButton btnServicos;
+	private JPanel PanelServicos;
 
 	public PainelRelatorio(ColecaoDeHospedes listaDeHospedes, ColecaoDeContratos listaContratos, JDesktopPane painelPrincipal) {
+		addInternalFrameListener(new InternalFrameAdapter() {
+			@Override
+			public void internalFrameActivated(InternalFrameEvent arg0) {
+				escreveTabelaHospede();
+				escreveTabelaOpiniao();
+			}
+		});
 		setTitle("Dados gerais");
 		setFrameIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/relatorios.png")));
 		try {
@@ -63,51 +82,36 @@ public class PainelRelatorio extends JInternalFrame {
 		this.colecaoDeHospedes = listaDeHospedes;
 		this.listaContratos = listaContratos;
 
-		JButton btnHospedes = new JButton("Hóspedes");
+		btnHospedes = new JButton("Hóspedes");
+		btnHospedes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				layoutPainel.show(panel, "hospedes");
+			}
+		});
 		btnHospedes.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/clientes_icon.png")));
 
-		JButton btnContratos = new JButton("Contratos");
+		btnContratos = new JButton("Contratos");
+		btnContratos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				layoutPainel.show(panel, "contratos");
+			}
+		});
 		btnContratos.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/contrato_icon.png")));
 
-		JButton btnServicos = new JButton("Serviços");
+		btnServicos = new JButton("Serviços");
+		btnServicos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				layoutPainel.show(panel, "servicos");
+			}
+		});
 		btnServicos.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/servicos_icon.png")));
-
-		JPanel panel = new JPanel();
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(panel, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
-										.addContainerGap())
-										.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(btnHospedes, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-												.addGap(18)
-												.addComponent(btnContratos, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-												.addGap(18)
-												.addComponent(btnServicos, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-												.addGap(351))))
-				);
-		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnHospedes)
-								.addComponent(btnContratos)
-								.addComponent(btnServicos))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())
-				);
-		panel.setLayout(new CardLayout(0, 0));
+		
+		panel.setLayout(layoutPainel);
 		
 		//PAINEL RELATORIO HOSPEDE
-		JPanel PanelHospedes = new JPanel();
+		PanelHospedes = new JPanel();
 		PanelHospedes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panel.add(PanelHospedes, "name_11549993532232");
+		panel.add(PanelHospedes, "hospedes");
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		//INFO HOSPEDES
@@ -118,6 +122,7 @@ public class PainelRelatorio extends JInternalFrame {
 		lblTotalHospedes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		lblNumHospedes = new JLabel("");
+		lblNumHospedes.setText("" + colecaoDeHospedes.getListaHospedeTamanho());
 		lblNumHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblHospedesAbe = new JLabel("Hóspedes (Aberto): ");
@@ -125,6 +130,7 @@ public class PainelRelatorio extends JInternalFrame {
 		lblHospedesAbe.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		lblAbeHospedes = new JLabel("");
+		lblAbeHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato("ABERTO").size());
 		lblAbeHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblHospedesFec = new JLabel("Hóspedes (Fechado): ");
@@ -132,6 +138,7 @@ public class PainelRelatorio extends JInternalFrame {
 		lblHospedesFec.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		lblFecHospedes = new JLabel("");
+		lblFecHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato("FECHADO").size());
 		lblFecHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		JLabel lblHospedesSem = new JLabel("Hóspedes (Sem contrato): ");
@@ -139,6 +146,7 @@ public class PainelRelatorio extends JInternalFrame {
 		lblHospedesSem.setFont(new Font("Tahoma", Font.PLAIN, 15));
 
 		lblSemConHospedes = new JLabel("");
+		lblSemConHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato(null).size());
 		lblSemConHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		//INFO OPINIAO
 		JLabel label_6 = new JLabel("Opiniões");
@@ -281,6 +289,42 @@ public class PainelRelatorio extends JInternalFrame {
 		scrollPaneOpinioes.setRowHeaderView(table);
 		
 		PanelHospedes.setLayout(gl_PanelHospedes);
+		
+		PanelContratos = new JPanel();
+		panel.add(PanelContratos, "contratos");
+		
+		PanelServicos = new JPanel();
+		panel.add(PanelServicos, "servicos");
+		
+		GroupLayout groupLayout = new GroupLayout(getContentPane());
+		groupLayout.setHorizontalGroup(
+				groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(panel, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
+										.addContainerGap())
+										.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(btnHospedes, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+												.addGap(18)
+												.addComponent(btnContratos, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+												.addGap(18)
+												.addComponent(btnServicos, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+												.addGap(351))))
+				);
+		groupLayout.setVerticalGroup(
+				groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnHospedes)
+								.addComponent(btnContratos)
+								.addComponent(btnServicos))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
+								.addContainerGap())
+				);
 		getContentPane().setLayout(groupLayout);
 	}
 
@@ -348,22 +392,8 @@ public class PainelRelatorio extends JInternalFrame {
 			}else{
 				designTabela[i][2] = hospedeAtual.getCpf();
 			}
-			if (hospedeAtual.getContratoLigado() == null){
-				designTabela[i][3] = "Sem contrato";
-			}else{
-				designTabela[i][3] = hospedeAtual.getContratoLigado().getStatus();
-			}
 		}
-		@SuppressWarnings("serial")
-		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
-				"Comentário" , "Nota"
-		}) {
-
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
+		
 		tableOpiniao.setModel(new DefaultTableModel(
 			new Object[][] {
 			},

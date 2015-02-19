@@ -103,7 +103,7 @@ public class ColecaoDeHospedes {
 			}
 		}else{
 			for (Hospede h: listaHospedes) {
-				if (h.getContratoLigado().getStatus() == status){
+				if (h.getContratoLigado() != null && h.getContratoLigado().getStatus() == status){
 					pesquisados.add(h);
 				}
 			}
