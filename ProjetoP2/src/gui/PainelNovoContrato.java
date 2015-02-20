@@ -746,7 +746,8 @@ public class PainelNovoContrato extends JInternalFrame {
 	@Override
 	public void dispose(){
 		if (contratoFeito == false){
-			for (Quarto quarto: listaQuartosDoContrato){
+			for (int i = listaQuartosDoContrato.size() - 1; i > -1; i--){
+				Quarto quarto = listaQuartosDoContrato.get(i);
 				quarto.setToLivre();
 				if (!(listaQuartosDisponiveis.contains(quarto))){
 					listaQuartosDisponiveis.add(quarto);
