@@ -98,8 +98,8 @@ public class PainelNovoContrato extends JInternalFrame {
 	private Calendar dataCheckOut = Calendar.getInstance();
 	//	private Reserva reserva;
 	private String cartaoDeCredito;
-	private Estrategia estrategiaContrato;
 	private ColecaoDeEstrategias listaEstrategias;
+	private boolean contratoFeito = false;
 
 	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeEstrategias listaEstrategias) {
 		setFrameIcon(new ImageIcon(PainelNovoContrato.class.getResource("/resources/contrato_icon.png")));
@@ -465,6 +465,7 @@ public class PainelNovoContrato extends JInternalFrame {
 					Contrato contrato;
 					if (isReserva){
 						contrato = new Contrato(dataCheckIn, listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
+						contratoFeito = true;
 						Estrategia estrategiaAtual = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
 						if (estrategiaAtual != null){
 							JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
@@ -485,6 +486,7 @@ public class PainelNovoContrato extends JInternalFrame {
 						}
 					}else{
 						contrato = new Contrato(listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
+						contratoFeito = true;
 						Estrategia estrategiaAtual = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
 						if (estrategiaAtual != null){
 							JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
@@ -743,10 +745,12 @@ public class PainelNovoContrato extends JInternalFrame {
 	}
 	@Override
 	public void dispose(){
-		for (Quarto quarto: listaQuartosDoContrato){
-			quarto.setToLivre();
-			if (!(listaQuartosDisponiveis.contains(quarto))){
-				listaQuartosDisponiveis.add(quarto);
+		if (contratoFeito == false){
+			for (Quarto quarto: listaQuartosDoContrato){
+				quarto.setToLivre();
+				if (!(listaQuartosDisponiveis.contains(quarto))){
+					listaQuartosDisponiveis.add(quarto);
+				}
 			}
 		}super.dispose();
 	}
