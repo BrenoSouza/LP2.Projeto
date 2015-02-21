@@ -562,7 +562,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		break;
 			    	}
 			    	else if(comp == panelQuartos) {
-			    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(getColecaoHospedes(), getListaDeQuartos(), getContrato(), getPainelPrincipal());				    			
+			    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(null, getColecaoHospedes(), getListaDeQuartos(), getContrato(), getPainelPrincipal());				    			
 			    		adicionaNoPainel(painelAddQuarto);
 			    		painelAddQuarto.show();
 			    		dispose();
