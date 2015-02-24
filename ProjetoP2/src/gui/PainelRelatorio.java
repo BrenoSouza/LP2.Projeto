@@ -167,7 +167,7 @@ public class PainelRelatorio extends JInternalFrame {
 			}
 		});
 		setTitle("Dados gerais");
-		setFrameIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/relatorios.png")));
+		setFrameIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/files.png")));
 		setClosable(true);
 		setBounds(0, 0, 754, 420);
 

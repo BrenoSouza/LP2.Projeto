@@ -260,7 +260,7 @@ public class Main extends JFrame {
 				}
 			}
 		});
-		btnRelatrios.setIcon(new ImageIcon(Main.class.getResource("/resources/relatorios.png")));
+		btnRelatrios.setIcon(new ImageIcon(Main.class.getResource("/resources/files.png")));
 		btnRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnRelatrios);
 		contentPane.setLayout(gl_contentPane);
