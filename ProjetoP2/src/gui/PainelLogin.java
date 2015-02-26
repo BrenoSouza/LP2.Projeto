@@ -30,11 +30,12 @@ public class PainelLogin<DesktopPane> extends JDialog {
 	private JPasswordField passwordField;
 	private ColecaoDeLogins colecaoDeContas;
 	private DesktopPane painelPrincipal;
+	private Main frame;
 
 	/**
 	 * Create the dialog.
 	 */
-	public PainelLogin(ColecaoDeLogins colecaoDeContas) {
+	public PainelLogin(ColecaoDeLogins colecaoDeContas, Main frame) {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
@@ -46,7 +47,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
 		this.colecaoDeContas = colecaoDeContas;
-		this.painelPrincipal = painelPrincipal;
+		this.frame = frame;
 		
 		JLabel lblUsurio = new JLabel("Usuário:");
 		lblUsurio.setBackground(SystemColor.window);
@@ -64,13 +65,13 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		btnAcessar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String password = new String(passwordField.getPassword());
-				JOptionPane.showMessageDialog(null, getColecaoDeContas().getTamanhoListaLogin());
 
-				if(getColecaoDeContas().verificaLoginESenha(txtUsuario.getText(), password)) {
-					dispose();
-				}
-				else					
-					JOptionPane.showMessageDialog(null, "Senha ou login incorretos!");
+				//if(getColecaoDeContas().verificaLoginESenha(txtUsuario.getText(), password)) {
+				getFrame().setVisible(true);
+				dispose();
+				
+				//else					
+					//JOptionPane.showMessageDialog(null, "Senha ou login incorretos!");
 
 			}
 		});
@@ -79,7 +80,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				
+				dispose();
 
 			}
 		});
@@ -134,6 +135,10 @@ public class PainelLogin<DesktopPane> extends JDialog {
 
 	private ColecaoDeLogins getColecaoDeContas() {
 		return colecaoDeContas;
+	}
+	
+	private Main getFrame() {
+		return frame;
 	}
 	
 }
