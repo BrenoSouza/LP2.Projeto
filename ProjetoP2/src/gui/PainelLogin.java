@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JPasswordField;
 
-import core.colecoes.ColecaoDeContasLogin;
+import core.colecoes.ColecaoDeLogins;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -28,13 +28,13 @@ public class PainelLogin<DesktopPane> extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtUsuario;
 	private JPasswordField passwordField;
-	private ColecaoDeContasLogin colecaoDeContas;
+	private ColecaoDeLogins colecaoDeContas;
 	private DesktopPane painelPrincipal;
 
 	/**
 	 * Create the dialog.
 	 */
-	public PainelLogin(ColecaoDeContasLogin colecaoDeContas) {
+	public PainelLogin(ColecaoDeLogins colecaoDeContas) {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
@@ -132,11 +132,8 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		contentPanel.setLayout(gl_contentPanel);
 	}
 
-	private ColecaoDeContasLogin getColecaoDeContas() {
+	private ColecaoDeLogins getColecaoDeContas() {
 		return colecaoDeContas;
 	}
 	
-	private DesktopPane getPainelPrincipal() {
-		return painelPrincipal;
-	}
 }
