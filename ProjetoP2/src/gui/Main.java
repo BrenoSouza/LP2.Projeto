@@ -36,6 +36,7 @@ import org.joda.time.Hours;
 import core.Contrato;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeHospedes;
+import core.colecoes.ColecaoDeLogins;
 import core.colecoes.ColecaoDeQuartos;
 import core.colecoes.ColecaoDeEstrategias;
 
@@ -50,6 +51,7 @@ public class Main extends JFrame {
 	private PainelEstrategias painelEstrategias;
 	private PainelRelatorio painelRelatorio;
 	private List<Contrato> listaContratos;
+	private static ColecaoDeLogins listaDeLogins = new ColecaoDeLogins();
 	private static ColecaoDeContratos listaDeContratos = new ColecaoDeContratos();
 	private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
 	private static ColecaoDeQuartos listaDeQuartos = new ColecaoDeQuartos();
@@ -67,6 +69,10 @@ public class Main extends JFrame {
 	public static ColecaoDeQuartos getListaDeQuartos() {
 		return listaDeQuartos;
 	}
+	
+	public static ColecaoDeLogins getListaDeLogins() {
+		return listaDeLogins;
+	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -74,7 +80,8 @@ public class Main extends JFrame {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					Main frame = new Main();
-					frame.setVisible(true);
+					PainelLogin painelLogin = new PainelLogin(getListaDeLogins(), frame);
+					painelLogin.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
