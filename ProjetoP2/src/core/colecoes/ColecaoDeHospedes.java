@@ -1,11 +1,12 @@
 package core.colecoes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import core.Hospede;
 
-public class ColecaoDeHospedes {
+public class ColecaoDeHospedes implements Serializable{
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	/**
 	 * Retorna a lista de hospede da colecao

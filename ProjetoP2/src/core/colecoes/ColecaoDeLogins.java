@@ -1,13 +1,16 @@
 package core.colecoes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import core.Login;
 import core.Hospede;
 
-public class ColecaoDeLogins {
+public class ColecaoDeLogins implements Serializable{
 
+	private static final long serialVersionUID = 202762263316350339L;
+	
 	private List<Login> listaContasLogin = new ArrayList<Login>();
 	
 	

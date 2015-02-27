@@ -2,8 +2,9 @@ package core;
 
 import java.io.Serializable;
 
-public class Login implements Serializable {
+public class Login implements Serializable{
 
+	private static final long serialVersionUID = -1716949112678460565L;
 	private String nome;
 	private String senha;
 	private String login;

@@ -70,9 +70,9 @@ public class Main extends JFrame {
 	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
 	URL url = this.getClass().getResource("/resources/arquivo.data");
 	File arquivo = new File(url.toURI());
-	private boolean arquivoVazio = !arquivo.exists() || arquivo.length() == 0;
+	private boolean primeiraVezInicializado = !arquivo.isFile() || arquivo.length() == 0;
 
-
+	
 	public static SimpleDateFormat getFormatodata() {
 		return FormatoData;
 	}
@@ -133,15 +133,33 @@ public class Main extends JFrame {
 		return dataFormatada;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Main() throws Exception{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
 				try{
+								
+					List<Object> listaColecoes = new ArrayList<Object>();
+					
+					/*
+					 * Índices na listaColecoes:
+					 * listaDeLogins = 0
+					 * listaDeContratos = 1
+					 * listaDeHospedes = 2
+					 * listaDeQuartos = 3
+					 * listaDeEstrategias = 4
+					 */
+					
+					listaColecoes.add(listaDeLogins);
+					listaColecoes.add(listaDeContratos);
+					listaColecoes.add(listaDeHospedes);
+					listaColecoes.add(listaDeQuartos);
+					listaColecoes.add(listaDeEstrategias);
+					
 					FileOutputStream f_out = new FileOutputStream(arquivo);
-					System.out.println(arquivo.getAbsolutePath());
 					ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-					obj_out.writeObject(listaDeContratos);
+					obj_out.writeObject(listaColecoes);
 					obj_out.flush();
 					obj_out.close();
 				}catch (Exception e){
@@ -154,15 +172,37 @@ public class Main extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1366, 700);
 		
-		if (!arquivoVazio){		
+		if (!primeiraVezInicializado){		
 			FileInputStream f_in = new FileInputStream(arquivo);
 			ObjectInputStream obj_in = new ObjectInputStream(f_in);
-			listaDeContratos = (ColecaoDeContratos) obj_in.readObject();
+			
+			/*
+			 * Índices na listaColecoes:
+			 * listaDeLogins = 0
+			 * listaDeContratos = 1
+			 * listaDeHospedes = 2
+			 * listaDeQuartos = 3
+			 * listaDeEstrategias = 4
+			 */
+			try{
+			List <Object> listaColecoes = (ArrayList<Object>) obj_in.readObject();
+			listaDeLogins = (ColecaoDeLogins) listaColecoes.get(0);
+			listaDeContratos = (ColecaoDeContratos) listaColecoes.get(1);
+			listaDeHospedes = (ColecaoDeHospedes) listaColecoes.get(2);
+			listaDeQuartos = (ColecaoDeQuartos) listaColecoes.get(3);
+			listaDeEstrategias = (ColecaoDeEstrategias) listaColecoes.get(4);
+			
 			obj_in.close();
+			}catch (Exception e){
+				arquivo = new File(url.toURI());
+				JOptionPane.showMessageDialog(null, "Um erro com os dados salvos no computador ocorreu. Os dados tiveram de ser apagados.");
+				listaDeQuartos = new ColecaoDeQuartos();
+				listaDeQuartos.criaQuartos();
+			}
+		}else{
+			listaDeQuartos.criaQuartos();
 		}
-		
 		this.listaContratos = listaDeContratos.getListaContratos();
-		listaDeQuartos.criaQuartos();
 		
 		
 		JMenuBar menuBar = new JMenuBar();

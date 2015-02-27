@@ -1,5 +1,6 @@
 package core.colecoes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,7 +18,9 @@ import core.QuartoLuxoTriplo;
 import core.QuartoPresidencial;
 import core.Reserva;
 
-public class ColecaoDeQuartos {
+public class ColecaoDeQuartos implements Serializable {
+
+	private static final long serialVersionUID = -589681074308782532L;
 	@SuppressWarnings("unused")
 	private static final int VAGOS_PRIMEIRO = -1;
 	@SuppressWarnings("unused")

@@ -1,13 +1,16 @@
 package core.colecoes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import core.Contrato;
 import core.Estrategia;
 
-public class ColecaoDeEstrategias {
+public class ColecaoDeEstrategias implements Serializable{
 	
+
+	private static final long serialVersionUID = -1785850243417643058L;
 	private List<Estrategia> listaEstrategias = new ArrayList<Estrategia>();
 	/**
 	 * Método que retorna o tamanho da lista de estratégias.
