@@ -173,6 +173,7 @@ public class Main extends JFrame {
 		setBounds(0, 0, 1366, 700);
 		
 		if (!primeiraVezInicializado){		
+			try{
 			FileInputStream f_in = new FileInputStream(arquivo);
 			ObjectInputStream obj_in = new ObjectInputStream(f_in);
 			
@@ -184,7 +185,7 @@ public class Main extends JFrame {
 			 * listaDeQuartos = 3
 			 * listaDeEstrategias = 4
 			 */
-			try{
+			
 			List <Object> listaColecoes = (ArrayList<Object>) obj_in.readObject();
 			listaDeLogins = (ColecaoDeLogins) listaColecoes.get(0);
 			listaDeContratos = (ColecaoDeContratos) listaColecoes.get(1);
