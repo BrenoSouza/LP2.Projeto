@@ -1,13 +1,16 @@
 package core.colecoes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import core.Contrato;
 import core.Estrategia;
-import core.Hospede;
 
-public class ColecaoDeContratos {
+public class ColecaoDeContratos implements Serializable {
+
+	private static final long serialVersionUID = 2971770745024962292L;
+	
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	/**
 	 * Retorna a lista de contratos da colecao

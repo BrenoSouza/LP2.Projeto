@@ -2,9 +2,10 @@ package core;
 
 import gui.Main;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Hospede implements Comparable<Hospede>{
+public class Hospede implements Comparable<Hospede>, Serializable{
 
 	private String nome, cpf;
 	private Calendar dataNascimento;

@@ -1,6 +1,8 @@
 package core;
 
-public class Opiniao {
+import java.io.Serializable;
+
+public class Opiniao implements Serializable {
 	private String comentario = "";
 	private int nota;
 	/**

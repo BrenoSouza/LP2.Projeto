@@ -2,9 +2,10 @@ package core;
 
 import gui.Main;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class Babysitter extends Servico {
+public class Babysitter extends Servico implements Serializable {
 	private Calendar horaSaida;
 	private int horasPrecoNormal;
 	private int horasPrecoExtra;

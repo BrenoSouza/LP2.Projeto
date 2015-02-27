@@ -1,6 +1,8 @@
 package core;
 
-public class Restaurante extends Servico {
+import java.io.Serializable;
+
+public class Restaurante extends Servico implements Serializable{
 
 	private boolean isCobertura;
 	private double preco;

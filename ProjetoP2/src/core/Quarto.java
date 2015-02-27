@@ -1,11 +1,12 @@
 package core;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.Interval;
 
-public abstract class Quarto extends Servico implements Comparable<Quarto>{
+public abstract class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 	private int numero, numeroHospedes;
 	private int diarias = 0;
 	private double precoDiaria;

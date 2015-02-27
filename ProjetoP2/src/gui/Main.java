@@ -8,6 +8,13 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -23,6 +30,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -39,6 +47,9 @@ import core.colecoes.ColecaoDeHospedes;
 import core.colecoes.ColecaoDeLogins;
 import core.colecoes.ColecaoDeQuartos;
 import core.colecoes.ColecaoDeEstrategias;
+
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class Main extends JFrame {
 
@@ -57,6 +68,10 @@ public class Main extends JFrame {
 	private static ColecaoDeQuartos listaDeQuartos = new ColecaoDeQuartos();
 	private static ColecaoDeEstrategias listaDeEstrategias = new ColecaoDeEstrategias();
 	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
+	URL url = this.getClass().getResource("/resources/arquivo.data");
+	File arquivo = new File(url.toURI());
+	private boolean arquivoVazio = !arquivo.exists() || arquivo.length() == 0;
+
 
 	public static SimpleDateFormat getFormatodata() {
 		return FormatoData;
@@ -81,7 +96,7 @@ public class Main extends JFrame {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					Main frame = new Main();
 					PainelLogin painelLogin = new PainelLogin(getListaDeLogins(), frame);
-					painelLogin.setVisible(true);
+					painelLogin.setVisible(true);			
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -119,12 +134,36 @@ public class Main extends JFrame {
 	}
 	
 	public Main() throws Exception{
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				try{
+					FileOutputStream f_out = new FileOutputStream(arquivo);
+					System.out.println(arquivo.getAbsolutePath());
+					ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
+					obj_out.writeObject(listaDeContratos);
+					obj_out.flush();
+					obj_out.close();
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
+		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/resources/hotel39.png")));
 		setTitle("Hotel Riviera Campina - Administra\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1366, 700);
+		
+		if (!arquivoVazio){		
+			FileInputStream f_in = new FileInputStream(arquivo);
+			ObjectInputStream obj_in = new ObjectInputStream(f_in);
+			listaDeContratos = (ColecaoDeContratos) obj_in.readObject();
+			obj_in.close();
+		}
+		
 		this.listaContratos = listaDeContratos.getListaContratos();
 		listaDeQuartos.criaQuartos();
+		
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

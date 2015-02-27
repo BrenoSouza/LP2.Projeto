@@ -2,6 +2,7 @@ package core;
 
 import gui.Main;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.Calendar;
 
@@ -10,7 +11,7 @@ import org.joda.time.Period;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-public class Estrategia implements Comparable<Estrategia>{
+public class Estrategia implements Comparable<Estrategia>, Serializable{
 	
 	public static final TipoDeEstrategia ACRESCIMO = TipoDeEstrategia.ACRESCIMO;
 	public static final TipoDeEstrategia DECRESCIMO = TipoDeEstrategia.DECRESCIMO;

@@ -2,9 +2,10 @@ package core;
 
 import gui.Main;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public abstract class Servico{
+public abstract class Servico implements Serializable{
 	
 	private Calendar data;
 	/**

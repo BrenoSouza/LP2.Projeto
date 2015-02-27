@@ -2,11 +2,12 @@ package core;
 
 import gui.Main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Contrato {
+public class Contrato implements Serializable{
 
 	private List<Quarto> listaQuartosAlugados = new ArrayList<Quarto>();
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();

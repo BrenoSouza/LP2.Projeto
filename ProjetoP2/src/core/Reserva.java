@@ -1,11 +1,12 @@
 package core;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
-public class Reserva {
+public class Reserva implements Serializable{
 	
 	private DateTime dataCheckIn;
 	private DateTime dataCheckOut;

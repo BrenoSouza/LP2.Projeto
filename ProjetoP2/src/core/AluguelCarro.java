@@ -2,9 +2,10 @@ package core;
 
 import gui.Main;
 
+import java.io.Serializable;
 import java.util.Calendar;
 
-public class AluguelCarro extends Servico {
+public class AluguelCarro extends Servico implements Serializable {
 
 	private boolean isLuxo;
 	private boolean isTanqueCheio;
