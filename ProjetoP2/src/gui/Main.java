@@ -226,14 +226,6 @@ public class Main extends JFrame {
 		});
 		mnOpo.add(mntmOpo);
 
-		JMenuItem mntmOpo_1 = new JMenuItem("Sair");
-		mntmOpo_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-			}
-		});
-		mnOpo.add(mntmOpo_1);
-
 		JMenu mnOpo_1 = new JMenu("Sobre");
 		menuBar.add(mnOpo_1);
 
@@ -354,6 +346,6 @@ public class Main extends JFrame {
 		btnRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnRelatrios);
 		contentPane.setLayout(gl_contentPane);
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuBar, mnOpo, mntmOpo, mntmOpo_1, mnOpo_1, mntmOpo_3, contentPane, toolBar, btnClientes, btnServios, btnContratos, painelPrincipal}));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuBar, mnOpo, mntmOpo, mnOpo_1, mntmOpo_3, contentPane, toolBar, btnClientes, btnServios, btnContratos, painelPrincipal}));
 	}
 }
