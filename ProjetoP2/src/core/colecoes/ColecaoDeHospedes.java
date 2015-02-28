@@ -104,7 +104,7 @@ public class ColecaoDeHospedes implements Serializable{
 			}
 		}else{
 			for (Hospede h: listaHospedes) {
-				if (h.getContratoLigado() != null && h.getContratoLigado().getStatus() == status){
+				if (h.getContratoLigado() != null && h.getContratoLigado().getStatus().equals(status)){
 					pesquisados.add(h);
 				}
 			}
