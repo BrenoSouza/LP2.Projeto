@@ -13,21 +13,21 @@ public class ColecaoDeContratos implements Serializable {
 	
 	private List<Contrato> listaContratos = new ArrayList<Contrato>();
 	/**
-	 * Retorna a lista de contratos da colecao
-	 * @return Um List<Contrato>
+	 * Retorna a lista de contratos da colecao.
+	 * @return Uma lista de contratos
 	 */
 	public List<Contrato> getListaContratos() {
 		return this.listaContratos;
 	}
 	/**
-	 * Informa o tamanho da lista da colecao/numero de contratos
+	 * Informa o tamanho da lista da colecao/numero de contratos.
 	 * @return Um int com o tamanho da lista
 	 */
 	public int getListaContratoTamanho() {
 		return listaContratos.size();
 	}
 	/**
-	 * Adiciona um contrato na colecao
+	 * Adiciona um contrato na colecao.
 	 * @param contrato O contrato a ser adicionado
 	 * @throws Exception Caso atinga as exceções da classe Contrato
 	 */
@@ -38,8 +38,8 @@ public class ColecaoDeContratos implements Serializable {
 		listaContratos.add(contrato);
 	}
 	/**
-	 * Adiciona uma lista de contratos a colecao
-	 * @param contratos Um List<Contrato>
+	 * Adiciona uma lista de contratos a colecao.
+	 * @param contratos Uma lista de contratos
 	 * @throws Exception Caso atinga as exceções da classe Contrato
 	 */
 	public void adicionaContratos(List<Contrato> contratos) throws Exception {
@@ -49,7 +49,7 @@ public class ColecaoDeContratos implements Serializable {
 		listaContratos.addAll(contratos);
 	}
 	/**
-	 * Remove um contrato da colecao
+	 * Remove um contrato da colecao.
 	 * @param contrato O contrato a ser removido
 	 * @return True - se foi removido / False - se houve algum problema
 	 */
@@ -57,8 +57,8 @@ public class ColecaoDeContratos implements Serializable {
 		return listaContratos.remove(contrato);
 	}
 	/**
-	 * Remove uma lista de contratos da colecao
-	 * @param contratos Um List<Contratos>
+	 * Remove uma lista de contratos da colecao.
+	 * @param contratos uma lista de contratos
 	 * @return True - se removeu algum contrato da colecao / False - se não removeu nenhum contrato
 	 * @throws Exception Caso atinga as exceções da classe Contrato
 	 */
@@ -84,7 +84,7 @@ public class ColecaoDeContratos implements Serializable {
 		for (Contrato contrato: listaContratos){
 			if (estrategia.contratoSobrepoe(contrato)){
 				contrato.setEstrategiaDoContrato(estrategia);
-				contratosModificados++;
+				contratosModificados += 1;
 			}
 		}return contratosModificados;
 	}
@@ -100,11 +100,18 @@ public class ColecaoDeContratos implements Serializable {
 		for (Contrato contrato: listaContratos){
 			if (contrato.getEstrategiaDoContrato().equals(estrategia)){
 				contrato.setEstrategiaDoContrato(null);
-				contratosModificados++;
+				contratosModificados += 1;
 			}
 		}return contratosModificados;
 	}
 	
+	/**
+	 * Método que retorna uma ArrayList com os contratos cujo status são o mesmo da entrada.
+	 * @param status
+	 * O status a ser pesquisado.
+	 * @return
+	 * Uma ArrayList com os contratos cujo status são o mesmo da entrada.
+	 */
 	public List<Contrato> pesquisaStatusContrato(String status) {
 		List<Contrato> pesquisados = new ArrayList<Contrato>();
 		if (status != null) {
