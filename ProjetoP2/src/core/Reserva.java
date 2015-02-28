@@ -8,6 +8,10 @@ import org.joda.time.Interval;
 
 public class Reserva implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6743667760478686254L;
 	private DateTime dataCheckIn;
 	private DateTime dataCheckOut;
 	private Contrato contrato;

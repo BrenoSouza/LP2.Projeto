@@ -35,7 +35,6 @@ import org.joda.time.PeriodType;
 import core.Contrato;
 import core.Hospede;
 import core.Quarto;
-import core.Reserva;
 import core.Servico;
 import core.colecoes.ColecaoDeHospedes;
 import core.colecoes.ColecaoDeQuartos;

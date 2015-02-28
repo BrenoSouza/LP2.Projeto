@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +30,6 @@ import org.joda.time.PeriodType;
 
 import core.Hospede;
 import core.Opiniao;
-import java.awt.Color;
 
 public class PainelEditarCliente extends JInternalFrame {
 

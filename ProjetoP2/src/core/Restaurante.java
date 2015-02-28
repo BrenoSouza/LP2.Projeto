@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Restaurante extends Servico implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1277741509068732041L;
 	private boolean isCobertura;
 	private double preco;
 	/**

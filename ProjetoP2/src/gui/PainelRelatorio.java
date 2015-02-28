@@ -1,32 +1,30 @@
 package gui;
 
-import javax.swing.JInternalFrame;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import java.awt.CardLayout;
 import java.awt.Font;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JDesktopPane;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.border.EtchedBorder;
-
-import java.awt.Component;
-import java.beans.PropertyVetoException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.Box;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EtchedBorder;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.table.DefaultTableModel;
 
 import core.AluguelCarro;
 import core.Babysitter;
@@ -37,16 +35,9 @@ import core.Servico;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeHospedes;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
-
 public class PainelRelatorio extends JInternalFrame {
 
-	private static final long serialVersionUID = 1L;
-	private JDesktopPane painelPrincipal;
+	private static final long serialVersionUID = -1940047160422510314L;
 	private ColecaoDeHospedes colecaoDeHospedes;
 	private ColecaoDeContratos colecaoDeContratos;
 	private JTable tableHospede;
@@ -173,7 +164,6 @@ public class PainelRelatorio extends JInternalFrame {
 		setClosable(true);
 		setBounds(0, 0, 754, 420);
 
-		this.painelPrincipal = painelPrincipal;
 		this.colecaoDeHospedes = listaDeHospedes;
 		this.colecaoDeContratos = listaContratos;
 

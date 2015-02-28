@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 public class Hospede implements Comparable<Hospede>, Serializable{
 
+	private static final long serialVersionUID = -8295292718915935142L;
 	private String nome, cpf;
 	private Calendar dataNascimento;
 	private Opiniao opiniao;

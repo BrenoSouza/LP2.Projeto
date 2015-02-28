@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.Login;
 import core.Hospede;
+import core.Login;
 
 public class ColecaoDeLogins implements Serializable{
 

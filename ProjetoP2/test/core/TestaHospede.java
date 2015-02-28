@@ -6,9 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.Hospede;
-import core.Opiniao;
-
 public class TestaHospede {
 
 	private Hospede hospede;

@@ -1,45 +1,43 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-import javax.swing.JInternalFrame;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-
-import java.awt.Font;
-
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JToggleButton;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.text.MaskFormatter;
 
 import core.Estrategia;
 import core.TipoDeEstrategia;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeEstrategias;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.text.DecimalFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-import javax.swing.event.ChangeListener;
-import javax.swing.event.ChangeEvent;
-import javax.swing.text.MaskFormatter;
-import javax.swing.JFormattedTextField;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 public class PainelAdicionaEstrategias extends JInternalFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8477765149069604363L;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel lblExemplo;
 	private JSpinner spinnerPorcentagem;
@@ -48,7 +46,7 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 	private JFormattedTextField formattedTextFieldAte;
 	private JButton btnFinalizar;
 	private JTextField textFieldDescricao;
-	private ColecaoDeContratos listaContratos;
+//	private ColecaoDeContratos listaContratos;
 	private ColecaoDeEstrategias listaEstrategias;
 	private JFormattedTextField formattedTextFieldExemplo;
 
@@ -57,7 +55,8 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelAdicionaEstrategias.class.getResource("/resources/calendar146.png")));
 		setTitle("Painel Adicionar Estratégias");
 		setBounds(100, 100, 605, 261);
-		this.listaContratos = listaContratos;
+//		this.listaContratos = listaContratos;
+//		Esse listaContratos serviria se fosse necessário mudar os contratos quando uma estratégia fosse definida. Isso não acontecerá, mas mantenho a linha comentada por qualquer necessidade no futuro
 		this.listaEstrategias = listaEstrategias;
 		
 		JLabel lblDescrio = new JLabel("Descrição:");

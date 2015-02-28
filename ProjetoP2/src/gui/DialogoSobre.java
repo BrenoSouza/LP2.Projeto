@@ -49,7 +49,7 @@ public class DialogoSobre extends JDialog {
 						.addComponent(lblProjeto)
 						.addComponent(lblMembros))
 					.addContainerGap(76, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+					.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
 					.addContainerGap(204, Short.MAX_VALUE)
 					.addComponent(lblLink)
 					.addGap(19))

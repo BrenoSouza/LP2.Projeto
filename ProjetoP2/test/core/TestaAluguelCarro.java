@@ -8,8 +8,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.AluguelCarro;
-
 public class TestaAluguelCarro {
 
 	private AluguelCarro aluguelCarroLuxo, outroCarroLuxo;

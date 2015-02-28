@@ -1,20 +1,20 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTabbedPane;
-import javax.swing.JButton;
+import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
@@ -29,14 +29,14 @@ import org.joda.time.PeriodType;
 import core.Contrato;
 import core.Hospede;
 import core.Quarto;
-import core.Reserva;
 import core.Servico;
 import core.colecoes.ColecaoDeHospedes;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class PainelAdicionaQuartos extends JInternalFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6419476853081059807L;
 	private JPanel panelPrincipal;
 	private JPanel panelQuartos;
 	private JScrollPane scrollPaneQuartos;
@@ -51,19 +51,14 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private JButton btnAdicionar;
 	private JButton btnAdicionarHospede;
 	private JButton btnRemoverHospede;
-	private Quarto quarto;
 	private Quarto quartoSelecionado;
-	private ColecaoDeHospedes listaDeHospedes;
 	private List<Quarto> listaQuartosDisponiveis;
 	private Contrato contrato;
-	private List<Hospede> hospedesSemQuarto = new ArrayList();
-	private List<Hospede> hospedesNoQuarto = new ArrayList();
-	private JDesktopPane painelPrincipal;
+	private List<Hospede> hospedesSemQuarto = new ArrayList<Hospede>();
+	private List<Hospede> hospedesNoQuarto = new ArrayList<Hospede>();
+	@SuppressWarnings("unused")
 	private Hospede hospedeSelecionado;
 	
-	/**
-	 * Create the frame.
-	 */
 	public PainelAdicionaQuartos(Servico quarto, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, Contrato contrato, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override	
@@ -79,12 +74,8 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		
-		this.quarto = (Quarto) quarto;
-		this.listaDeHospedes = listaDeHospedes;
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.contrato = contrato;
-		this.painelPrincipal = painelPrincipal;
-				
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBounds(0, 0, 835, 349);
 		getContentPane().add(panelPrincipal);

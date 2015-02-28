@@ -7,12 +7,13 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.joda.time.Interval;
+import org.joda.time.Period;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 public class Estrategia implements Comparable<Estrategia>, Serializable{
 	
+	private static final long serialVersionUID = -1724512552674869456L;
 	public static final TipoDeEstrategia ACRESCIMO = TipoDeEstrategia.ACRESCIMO;
 	public static final TipoDeEstrategia DECRESCIMO = TipoDeEstrategia.DECRESCIMO;
 	private DateTime inicioPeriodo;

@@ -1,35 +1,34 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JPasswordField;
+import javax.swing.border.EmptyBorder;
 
 import core.colecoes.ColecaoDeLogins;
 
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
-
 public class PainelLogin<DesktopPane> extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7190192353826010805L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtUsuario;
 	private JPasswordField passwordField;
 	private ColecaoDeLogins colecaoDeContas;
-	private DesktopPane painelPrincipal;
 	private Main frame;
 
 	public PainelLogin(ColecaoDeLogins colecaoDeContas, Main frame) {
@@ -61,7 +60,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		JButton btnAcessar = new JButton("Acessar");
 		btnAcessar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String password = new String(passwordField.getPassword());
+//				String password = new String(passwordField.getPassword());
 
 				//if(getColecaoDeContas().verificaLoginESenha(txtUsuario.getText(), password)) {
 				getFrame().setVisible(true);
@@ -130,7 +129,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		contentPanel.setLayout(gl_contentPanel);
 	}
 
-	private ColecaoDeLogins getColecaoDeContas() {
+	public ColecaoDeLogins getColecaoDeContas() {
 		return colecaoDeContas;
 	}
 	

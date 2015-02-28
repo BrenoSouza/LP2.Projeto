@@ -7,6 +7,8 @@ import java.util.List;
 import core.Hospede;
 
 public class ColecaoDeHospedes implements Serializable{
+
+	private static final long serialVersionUID = 4378311643213774791L;
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	/**
 	 * Retorna a lista de hospede da colecao

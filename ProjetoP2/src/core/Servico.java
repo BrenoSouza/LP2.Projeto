@@ -7,6 +7,10 @@ import java.util.Calendar;
 
 public abstract class Servico implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1379056791595576269L;
 	private Calendar data;
 	/**
 	 * Construtor de serviço

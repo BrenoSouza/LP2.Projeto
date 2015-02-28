@@ -2,6 +2,11 @@ package core;
 
 public class QuartoExecutivoSimples extends Quarto {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6606816465165418755L;
+
+	/**
 	 * Construtor de um quarto do tipo Executivo Simples.
 	 * @param numero Número do quarto.
 	 * @param diarias Diárias no hotel.

@@ -11,12 +11,6 @@ import org.joda.time.Interval;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.Quarto;
-import core.QuartoExecutivoTriplo;
-import core.QuartoLuxoTriplo;
-import core.QuartoPresidencial;
-import core.Reserva;
-
 
 @SuppressWarnings("deprecation")
 public class TestaQuarto {

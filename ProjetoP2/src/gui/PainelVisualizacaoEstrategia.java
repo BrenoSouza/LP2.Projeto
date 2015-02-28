@@ -1,26 +1,23 @@
 package gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.ImageIcon;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-
 import java.awt.Font;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import core.Estrategia;
 
 public class PainelVisualizacaoEstrategia extends JInternalFrame {
+
+	private static final long serialVersionUID = 7269090620731625395L;
 	private JLabel lblModificadorVariavel;
 	private JLabel lblDiaFinal;
 	private JLabel labelDiaInicio;
 	private JLabel lblDescricao;
-	private Estrategia estrategia;
-
 	public PainelVisualizacaoEstrategia(Estrategia estrategia) {
 		setResizable(true);
 		setFrameIcon(new ImageIcon(PainelVisualizacaoEstrategia.class.getResource("/resources/calendar146.png")));

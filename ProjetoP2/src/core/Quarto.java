@@ -7,6 +7,10 @@ import java.util.List;
 import org.joda.time.Interval;
 
 public abstract class Quarto extends Servico implements Comparable<Quarto>, Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4732990503698798922L;
 	private int numero, numeroHospedes;
 	private int diarias = 0;
 	private double precoDiaria;

@@ -6,8 +6,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import core.Reserva;
-
 public class TestaReserva {
 	Calendar dataCheckIn;
 	Calendar dataCheckOut;

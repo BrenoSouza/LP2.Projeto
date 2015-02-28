@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 public class Babysitter extends Servico implements Serializable {
+
+	private static final long serialVersionUID = 3158442945646329013L;
 	private Calendar horaSaida;
 	private int horasPrecoNormal;
 	private int horasPrecoExtra;

@@ -3,15 +3,10 @@ package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
-
-
-
-
 
 //import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -522,10 +517,6 @@ public class PainelNovoContrato extends JInternalFrame {
 				}
 			}
 		});
-		try{
-		}catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
 		GroupLayout gl_panelFinalizar = new GroupLayout(panelFinalizar);
 		gl_panelFinalizar.setHorizontalGroup(
 				gl_panelFinalizar.createParallelGroup(Alignment.LEADING)

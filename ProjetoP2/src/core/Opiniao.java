@@ -3,6 +3,8 @@ package core;
 import java.io.Serializable;
 
 public class Opiniao implements Serializable {
+
+	private static final long serialVersionUID = 1443649888865947750L;
 	private String comentario = "";
 	private int nota;
 	/**

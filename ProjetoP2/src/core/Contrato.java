@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Contrato implements Serializable{
 
+	private static final long serialVersionUID = -1853311162234683521L;
 	private List<Quarto> listaQuartosAlugados = new ArrayList<Quarto>();
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	private List<Servico> listaServicos = new ArrayList<Servico>();

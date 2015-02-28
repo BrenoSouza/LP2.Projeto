@@ -1,41 +1,34 @@
 package gui;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
-import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
-import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
-
-import org.joda.time.LocalDate;
-import org.joda.time.Period;
-import org.joda.time.PeriodType;
-
-import core.Estrategia;
-import core.Hospede;
-import core.colecoes.ColecaoDeContratos;
-import core.colecoes.ColecaoDeEstrategias;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.util.Calendar;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.ImageIcon;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+
+import core.Estrategia;
+import core.colecoes.ColecaoDeContratos;
+import core.colecoes.ColecaoDeEstrategias;
 
 public class PainelEstrategias extends JInternalFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7820263481612861415L;
 	private JButton btnAddEstrategia;
 	private JButton btnVisualizarEstrategia;
 	private JButton btnRemoverEstrategia;

@@ -8,7 +8,8 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.ByteArrayOutputStream;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -39,17 +40,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
-import org.joda.time.Hours;
 
 import core.Contrato;
 import core.colecoes.ColecaoDeContratos;
+import core.colecoes.ColecaoDeEstrategias;
 import core.colecoes.ColecaoDeHospedes;
 import core.colecoes.ColecaoDeLogins;
 import core.colecoes.ColecaoDeQuartos;
-import core.colecoes.ColecaoDeEstrategias;
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 public class Main extends JFrame {
 
@@ -95,7 +92,7 @@ public class Main extends JFrame {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					Main frame = new Main();
-					PainelLogin painelLogin = new PainelLogin(getListaDeLogins(), frame);
+					PainelLogin<Object> painelLogin = new PainelLogin<Object>(getListaDeLogins(), frame);
 					painelLogin.toFront();
 					painelLogin.setVisible(true);			
 					

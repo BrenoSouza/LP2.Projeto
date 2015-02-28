@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 public class AluguelCarro extends Servico implements Serializable {
 
+	private static final long serialVersionUID = 7778878597157652456L;
 	private boolean isLuxo;
 	private boolean isTanqueCheio;
 	private boolean isSegurado;

@@ -95,10 +95,10 @@ public class DialogoDiarias extends JDialog {
 		} catch (ParseException e1) {
 			System.out.println(e1.getMessage());;
 		}
-		
+
 		JLabel lblInsiraOCarto = new JLabel("Insira o cartão de crédito referente ao contrato:");
 		lblInsiraOCarto.setFont(new Font("Dialog", Font.PLAIN, 15));
-		
+
 		try {
 			formattedTextFieldCartaoDeCredito = new JFormattedTextField(new MaskFormatter("#### #### #### ####"));
 			cartaoDeCreditovazio = formattedTextFieldCartaoDeCredito.getText();
@@ -107,62 +107,62 @@ public class DialogoDiarias extends JDialog {
 		}
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblDialogoDiarias)
-					.addContainerGap(32, Short.MAX_VALUE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblSelecione)
-					.addContainerGap(121, Short.MAX_VALUE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(rdbtnCheckInImediato)
-					.addGap(18)
-					.addComponent(rdbtnReserva)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(campoData, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(92, Short.MAX_VALUE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblInsiraOCarto)
-					.addContainerGap(70, Short.MAX_VALUE))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(51)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+						.addContainerGap()
+						.addComponent(lblDialogoDiarias)
+						.addContainerGap(32, Short.MAX_VALUE))
 						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
-							.addGap(93))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(formattedTextFieldCartaoDeCredito, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(101, Short.MAX_VALUE))))
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(165)
-					.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(210, Short.MAX_VALUE))
-		);
+								.addContainerGap()
+								.addComponent(lblSelecione)
+								.addContainerGap(121, Short.MAX_VALUE))
+								.addGroup(gl_contentPanel.createSequentialGroup()
+										.addContainerGap()
+										.addComponent(rdbtnCheckInImediato)
+										.addGap(18)
+										.addComponent(rdbtnReserva)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(campoData, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+										.addContainerGap(92, Short.MAX_VALUE))
+										.addGroup(gl_contentPanel.createSequentialGroup()
+												.addContainerGap()
+												.addComponent(lblInsiraOCarto)
+												.addContainerGap(70, Short.MAX_VALUE))
+												.addGroup(gl_contentPanel.createSequentialGroup()
+														.addGap(51)
+														.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+																.addGroup(gl_contentPanel.createSequentialGroup()
+																		.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+																		.addGap(93))
+																		.addGroup(gl_contentPanel.createSequentialGroup()
+																				.addComponent(formattedTextFieldCartaoDeCredito, GroupLayout.PREFERRED_SIZE, 280, GroupLayout.PREFERRED_SIZE)
+																				.addContainerGap(101, Short.MAX_VALUE))))
+																				.addGroup(gl_contentPanel.createSequentialGroup()
+																						.addGap(165)
+																						.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+																						.addContainerGap(210, Short.MAX_VALUE))
+				);
 		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
+				gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblDialogoDiarias)
-					.addGap(18)
-					.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(20)
-					.addComponent(lblSelecione)
-					.addGap(18)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(rdbtnCheckInImediato)
-						.addComponent(rdbtnReserva)
-						.addComponent(campoData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblInsiraOCarto)
-					.addGap(18)
-					.addComponent(formattedTextFieldCartaoDeCredito, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-					.addComponent(btnNewButton))
-		);
+						.addContainerGap()
+						.addComponent(lblDialogoDiarias)
+						.addGap(18)
+						.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGap(20)
+						.addComponent(lblSelecione)
+						.addGap(18)
+						.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(rdbtnCheckInImediato)
+								.addComponent(rdbtnReserva)
+								.addComponent(campoData, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(lblInsiraOCarto)
+								.addGap(18)
+								.addComponent(formattedTextFieldCartaoDeCredito, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+								.addComponent(btnNewButton))
+				);
 		contentPanel.setLayout(gl_contentPanel);
 	}
 	public DialogoDiarias(String cartaoDeCredito){
