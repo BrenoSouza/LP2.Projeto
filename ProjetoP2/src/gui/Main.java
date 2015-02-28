@@ -96,7 +96,9 @@ public class Main extends JFrame {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					Main frame = new Main();
 					PainelLogin painelLogin = new PainelLogin(getListaDeLogins(), frame);
+					painelLogin.toFront();
 					painelLogin.setVisible(true);			
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -171,6 +173,7 @@ public class Main extends JFrame {
 		setTitle("Hotel Riviera Campina - Administra\u00E7\u00E3o");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(0, 0, 1366, 700);
+		toFront();
 		
 		if (!primeiraVezInicializado){		
 			try{
