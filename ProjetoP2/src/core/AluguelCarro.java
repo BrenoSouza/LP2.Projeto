@@ -96,13 +96,16 @@ public class AluguelCarro extends Servico implements Serializable {
 		preco = 0.0;
 		if (isTanqueCheio()){
 			preco += PRECO_TANQUE_CHEIO;
-		}if (isSegurado()){
+		}
+		if (isSegurado()){
 			preco += PRECO_SEGURO;
-		}if (isLuxo()){
+		}
+		if (isLuxo()){
 			preco += (DIARIA_LUXO * diarias);
 		}else{
 			preco += (DIARIA_EXECUTIVO * diarias);
-		}return preco;
+		}
+		return preco;
 		
 	}
 	
@@ -126,7 +129,8 @@ public class AluguelCarro extends Servico implements Serializable {
 	public boolean equals(Object obj) {
 		if (!(obj instanceof AluguelCarro)){
 			return false;
-		}AluguelCarro outroCarro = (AluguelCarro) obj;
+		}
+		AluguelCarro outroCarro = (AluguelCarro) obj;
 		return toString().equals(outroCarro.toString());
 	}
 	

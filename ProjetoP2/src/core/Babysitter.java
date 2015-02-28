@@ -29,14 +29,14 @@ public class Babysitter extends Servico implements Serializable {
 		int fim = horaSaida.get(Calendar.HOUR_OF_DAY);
 		while (inicio != fim){
 			if (inicio < 24){
-				inicio ++;
+				inicio += 1;
 			}else{
 				inicio = 1;
 			}
 			if (inicio > 18 || inicio < 7){
-				horasPrecoExtra++;
+				horasPrecoExtra += 1;
 			}else{
-				horasPrecoNormal++;
+				horasPrecoNormal += 1;
 			}
 		}
 	}
@@ -102,7 +102,8 @@ public class Babysitter extends Servico implements Serializable {
 	public boolean equals(Object obj) {
 		if (!(obj instanceof Babysitter)){
 			return false;
-		}Babysitter outraBabysitter = (Babysitter) obj;
+		}
+		Babysitter outraBabysitter = (Babysitter) obj;
 		return toString().equals(outraBabysitter.toString());
 	}
 

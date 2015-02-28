@@ -22,6 +22,11 @@ public class Contrato implements Serializable{
 	private String status = "ABERTO";
 	private double precoQueFoiPago;
 	private String cartaoDeCredito;
+	
+	/**
+	 * Um setter para modificar a estrategia de preco usada no contrato.
+	 * @param estrategiaDoContrato Uma Estrategia para o contrato
+	 */
 	public void setEstrategiaDoContrato(Estrategia estrategiaDoContrato) {
 		this.estrategiaDoContrato = estrategiaDoContrato;
 	}
@@ -29,15 +34,16 @@ public class Contrato implements Serializable{
 	private Estrategia estrategiaDoContrato;
 	/**
 	 * Construtor da classe Contrato.
-	 * @param listaQuartosAlugados Um List<Quarto> com o(s) quarto(s) alugado(s).
-	 * @param listaHospedes Um List<Hospede> com o(s) hóspede(s) ligado(s) ao contrato.
+	 * @param listaQuartosAlugados Um List de Quarto com o(s) quarto(s) alugado(s).
+	 * @param listaHospedes Um List de Hospede com o(s) hóspede(s) ligado(s) ao contrato.
 	 * @param numeroDiarias O número de diárias.
 	 */
 	public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws Exception{
-		if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 
-				|| listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0
-				){
+		if (listaQuartosAlugados == null || numeroDiarias <= 0 || listaQuartosAlugados.size() == 0) {
 			throw new Exception ("Dados inválidos. Tente novamente.");
+		}
+		if (listaHospedes == null || listaHospedes.size() == 0) {
+		  throw new Exception ("Lista de hospedes invalida.");
 		}
 		this.listaQuartosAlugados.addAll(listaQuartosAlugados);
 		this.listaHospedes.addAll(listaHospedes);
