@@ -14,7 +14,6 @@ public abstract class Servico implements Serializable{
 	private Calendar data;
 	/**
 	 * Construtor de serviço
-	 * @param data Data de criação do serviço.
 	 */
 	public Servico() {
 		this.data = Calendar.getInstance();

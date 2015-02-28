@@ -278,7 +278,7 @@ public class PainelClientes extends JInternalFrame {
 			if (hospedeAtual.getOpiniao() == null){
 				designTabela[i][4] = "Sem opinião";
 			}else{
-				designTabela[i][4] = hospedeAtual.getOpiniao().getComentario().substring(0, 11) + "..."  + "  |   Nota -> " + hospedeAtual.getOpiniao().getNota();;
+				designTabela[i][4] = hospedeAtual.getOpiniao().getComentario().substring(0, 11) + "..."  + "  |   Nota -> " + hospedeAtual.getOpiniao().getNota();
 			}
 		}
 		@SuppressWarnings("serial")

@@ -13,8 +13,6 @@ public class Babysitter extends Servico implements Serializable {
 	private int horasPrecoExtra;
 	/**
 	 * Construtor do serviço de babysitter.
-	 * @param horaEntrada A hora de entrada da babysitter.
-	 * @param horaSaida A hora de saída da babysitter.
 	 */
 	public Babysitter() {
 		super();

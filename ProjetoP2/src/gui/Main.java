@@ -13,8 +13,10 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
@@ -64,14 +67,14 @@ public class Main extends JFrame {
 	private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
 	private static ColecaoDeQuartos listaDeQuartos = new ColecaoDeQuartos();
 	private static ColecaoDeEstrategias listaDeEstrategias = new ColecaoDeEstrategias();
-	private final static SimpleDateFormat FormatoData = new SimpleDateFormat("dd/MM/yyyy");
+	private final static SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
 	URL url = this.getClass().getResource("/resources/arquivo.data");
 	File arquivo = new File(url.toURI());
 	private boolean primeiraVezInicializado = !arquivo.isFile() || arquivo.length() == 0;
 
 	
 	public static SimpleDateFormat getFormatodata() {
-		return FormatoData;
+		return FORMATO_DATA;
 	}
 	
 	public static ColecaoDeHospedes getListaDeHospedes() {
@@ -96,8 +99,12 @@ public class Main extends JFrame {
 					painelLogin.toFront();
 					painelLogin.setVisible(true);			
 					
-				} catch (Exception e) {
+				}catch (ReflectiveOperationException e){
 					e.printStackTrace();
+				}catch (UnsupportedLookAndFeelException e1){
+					e1.printStackTrace();
+				}catch (URISyntaxException e2){
+					e2.printStackTrace();
 				}
 			}
 		});
@@ -116,7 +123,7 @@ public class Main extends JFrame {
 	public static Calendar converteParaCalendar(String data) throws java.text.ParseException{
 		Calendar dataDeRetorno = Calendar.getInstance();
 		dataDeRetorno.set(Calendar.HOUR_OF_DAY, 0);
-		dataDeRetorno.setTime(FormatoData.parse(data));
+		dataDeRetorno.setTime(FORMATO_DATA.parse(data));
 		return dataDeRetorno;
 		
 	}
@@ -128,12 +135,12 @@ public class Main extends JFrame {
 	 * Uma string com a data formatada do Calendar no formato dd/mm/aaaa
 	 */
 	public static String converteParaString (Calendar data) {
-		String dataFormatada = FormatoData.format(data.getTime());
+		String dataFormatada = FORMATO_DATA.format(data.getTime());
 		return dataFormatada;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Main() throws Exception{
+	public Main() throws URISyntaxException{
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {
@@ -156,12 +163,12 @@ public class Main extends JFrame {
 					listaColecoes.add(listaDeQuartos);
 					listaColecoes.add(listaDeEstrategias);
 					
-					FileOutputStream f_out = new FileOutputStream(arquivo);
-					ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
-					obj_out.writeObject(listaColecoes);
-					obj_out.flush();
-					obj_out.close();
-				}catch (Exception e){
+					FileOutputStream fOut = new FileOutputStream(arquivo);
+					ObjectOutputStream objOut = new ObjectOutputStream(fOut);
+					objOut.writeObject(listaColecoes);
+					objOut.flush();
+					objOut.close();
+				}catch (IOException e){
 					e.printStackTrace();
 				}
 			}
@@ -174,8 +181,8 @@ public class Main extends JFrame {
 		
 		if (!primeiraVezInicializado){		
 			try{
-			FileInputStream f_in = new FileInputStream(arquivo);
-			ObjectInputStream obj_in = new ObjectInputStream(f_in);
+			FileInputStream fileIn = new FileInputStream(arquivo);
+			ObjectInputStream objIn = new ObjectInputStream(fileIn);
 			
 			/*
 			 * Índices na listaColecoes:
@@ -186,14 +193,14 @@ public class Main extends JFrame {
 			 * listaDeEstrategias = 4
 			 */
 			
-			List <Object> listaColecoes = (ArrayList<Object>) obj_in.readObject();
+			List <Object> listaColecoes = (ArrayList<Object>) objIn.readObject();
 			listaDeLogins = (ColecaoDeLogins) listaColecoes.get(0);
 			listaDeContratos = (ColecaoDeContratos) listaColecoes.get(1);
 			listaDeHospedes = (ColecaoDeHospedes) listaColecoes.get(2);
 			listaDeQuartos = (ColecaoDeQuartos) listaColecoes.get(3);
 			listaDeEstrategias = (ColecaoDeEstrategias) listaColecoes.get(4);
 			
-			obj_in.close();
+			objIn.close();
 			}catch (Exception e){
 				arquivo = new File(url.toURI());
 				JOptionPane.showMessageDialog(null, "Um erro com os dados salvos no computador ocorreu. Os dados tiveram de ser apagados.");

@@ -12,7 +12,6 @@ public class Restaurante extends Servico implements Serializable{
 	private double preco;
 	/**
 	 * Construtor da classe restaurante, onde registra o preço da conta.
-	 * @param data Data do uso do serviço.
 	 * @param isCobertura Se usou o restaurante da cobertura.
 	 * @param preco Preço da conta
 	 * @throws Exception Caso o preço informado seja menor que zero.

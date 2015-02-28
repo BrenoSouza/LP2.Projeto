@@ -67,11 +67,6 @@ public class PainelServicos extends JInternalFrame {
 		this.listaHospedes = listaHospedes;
 		this.painelPrincipal = painelPrincipal;
 		this.listaDeQuartos = listaDeQuartos.getListaQuartosVagos();
-		try{
-
-		} catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
 	
 		this.listaContratos = listaContratos;		
 		

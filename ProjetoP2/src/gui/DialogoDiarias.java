@@ -63,7 +63,7 @@ public class DialogoDiarias extends JDialog {
 					dispose();
 				}catch (java.text.ParseException e2){
 					JOptionPane.showMessageDialog(null, "Data em formato inválido.");
-				}catch (Exception e1){
+				}catch (IllegalArgumentException e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}
@@ -93,7 +93,7 @@ public class DialogoDiarias extends JDialog {
 			campoData = new JFormattedTextField(new MaskFormatter("##/##/####"));
 			campoData.setEnabled(false);
 		} catch (ParseException e1) {
-			System.out.println(e1.getMessage());;
+			JOptionPane.showMessageDialog(null, e1.getMessage());
 		}
 
 		JLabel lblInsiraOCarto = new JLabel("Insira o cartão de crédito referente ao contrato:");
@@ -172,7 +172,7 @@ public class DialogoDiarias extends JDialog {
 	public int getDiarias(){
 		return (Integer) spinnerDiarias.getValue();
 	}
-	public Calendar getDataCheckIn() throws Exception{
+	public Calendar getDataCheckIn() throws ParseException, IllegalArgumentException{
 		Calendar checkIn = Calendar.getInstance();
 		checkIn.set(Calendar.HOUR_OF_DAY, 0);
 		if (rdbtnReserva.isSelected()){
@@ -180,7 +180,7 @@ public class DialogoDiarias extends JDialog {
 			Calendar presente = Calendar.getInstance();
 			presente.set(Calendar.HOUR_OF_DAY, 0);
 			if (checkIn.compareTo(presente) <= 0){
-				throw new InvalidParameterException("Não é possível criar uma reserva antes ou no dia atual.");
+				throw new IllegalArgumentException("Não é possível criar uma reserva antes ou no dia atual.");
 			}
 		}		
 		return checkIn;

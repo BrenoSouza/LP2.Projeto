@@ -63,7 +63,7 @@ public class ColecaoDeQuartos implements Serializable {
 				numeroQuarto++;
 			}
 
-		}catch (Exception e){
+		}catch (IllegalArgumentException e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}

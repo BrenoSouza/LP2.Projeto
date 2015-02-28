@@ -23,14 +23,13 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	 * O construtor do quarto.
 	 * @param numero Número do quarto.
 	 * @param numeroHospedes Número de hospedes.
-	 * @param data Data de entrada.
 	 * @param precoDiaria Preço da diária
 	 * @throws Exception Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
-	public Quarto(int numero, int numeroHospedes, double precoDiaria) throws Exception{
+	public Quarto(int numero, int numeroHospedes, double precoDiaria) throws IllegalArgumentException{
 		super();
 		if (numeroHospedes < 0 || diarias < 0 || numero < 0){
-			throw new Exception("O número de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
+			throw new IllegalArgumentException("O número de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
 		}
 		this.numero = numero;
 		this.numeroHospedes = numeroHospedes;

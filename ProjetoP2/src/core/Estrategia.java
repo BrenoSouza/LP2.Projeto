@@ -31,7 +31,6 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * Um DateTime contendo o início do período da estratégia.
 	 * @param finalPeriodo
 	 * Um DateTime contendo o final do período da estratégia.
-	 * @param modificador.
 	 * O modificador, de 0-100;
 	 * @param tipoDeEstrategia
 	 * Estrategia.ACRESCIMO ou Estrategia.DECRESCIMO.

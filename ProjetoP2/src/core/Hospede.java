@@ -19,7 +19,7 @@ public class Hospede implements Comparable<Hospede>, Serializable{
 	 * Contrutor da classe Hospede.
 	 * @param nome
 	 * O nome do hóspede.
-	 * @param endereço
+	 * @param endereco
 	 * O endereço do Hospede.
 	 * @param cpf
 	 * O CPF do hóspede.
