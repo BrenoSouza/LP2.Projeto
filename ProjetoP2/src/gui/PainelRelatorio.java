@@ -92,6 +92,7 @@ public class PainelRelatorio extends JInternalFrame {
 				lblNumHospedes.setText("" + colecaoDeHospedes.getListaHospedeTamanho());
 				lblAbeHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato("ABERTO").size());
 				lblFecHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato("FECHADO").size());
+				lblHospedeReserva.setText("" + colecaoDeHospedes.pesquisaHospedeContrato("RESERVA").size());
 				lblSemConHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato(null).size());
 				escreveTabelaHospede();
 				//OPINIAO
