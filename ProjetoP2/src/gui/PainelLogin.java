@@ -32,9 +32,6 @@ public class PainelLogin<DesktopPane> extends JDialog {
 	private DesktopPane painelPrincipal;
 	private Main frame;
 
-	/**
-	 * Create the dialog.
-	 */
 	public PainelLogin(ColecaoDeLogins colecaoDeContas, Main frame) {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
