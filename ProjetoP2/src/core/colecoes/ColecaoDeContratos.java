@@ -109,7 +109,7 @@ public class ColecaoDeContratos implements Serializable {
 		List<Contrato> pesquisados = new ArrayList<Contrato>();
 		if (status != null) {
 			for (Contrato c: listaContratos) {
-				if (c.getStatus() == status) {
+				if (c.getStatus().equals(status)) {
 					pesquisados.add(c);
 				}
 			}

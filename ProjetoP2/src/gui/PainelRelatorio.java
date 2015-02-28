@@ -140,10 +140,10 @@ public class PainelRelatorio extends JInternalFrame {
 				int numBabySitter = 0;
 				for (Contrato c: colecaoDeContratos.getListaContratos()) {
 					numServicos += c.getListaServicos().size() ;
-					if (c.getStatus() == "ABERTO") {
+					if (c.getStatus().equals("ABERTO")) {
 						numServicosAbe++;
 						numQuartos += c.getListaQuartosAlugados().size();
-					}else if (c.getStatus() == "FECHADO"){
+					}else if (c.getStatus().equals("FECHADO") ){
 						numServicosFec++;
 					}
 					for (Servico s: c.getListaServicos()) {
