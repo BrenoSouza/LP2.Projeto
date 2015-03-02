@@ -207,7 +207,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	 */
 	public void retiraReserva(Contrato contrato){
 		for (Reserva reserva: listaReservas){
-			if (reserva.getContrato() == contrato){
+			if (reserva.getContrato().equals(contrato)){
 				listaReservas.remove(reserva);
 				break;
 			}

@@ -72,7 +72,7 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 				int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?" + (hospedeSelecionado2 == contratoSelecionado.getHospedePrincipal() ? "\nEsse hóspede está configurado como o hóspede principal do contrato selecionado." : ""), /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 				if (escolha == JOptionPane.YES_OPTION){
 					listaHospedesDoContrato.remove(hospedeSelecionado2);
-					if (hospedeSelecionado2 == contratoSelecionado.getHospedePrincipal()){
+					if (hospedeSelecionado2.equals(contratoSelecionado.getHospedePrincipal())){
 						contratoSelecionado.setHospedePrincipal(null);
 					}hospedeSelecionado2.setContratoLigado(null);
 					escreveTabelas();

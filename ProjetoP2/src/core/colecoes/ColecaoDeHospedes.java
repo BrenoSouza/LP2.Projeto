@@ -85,7 +85,7 @@ public class ColecaoDeHospedes implements Serializable{
 	 */
 	public Hospede pesquisar(String cpf) {
 		for (Hospede hospede: getListaHospedes()){
-			if(hospede.getCpf() == cpf){
+			if(hospede.getCpf().equals(cpf)){
 				return hospede;
 			}
 		}

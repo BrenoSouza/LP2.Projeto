@@ -259,6 +259,21 @@ public class Contrato implements Serializable{
 	}
 	
 	@Override
+	public boolean equals(Object obj){
+	  if (obj == null || !(obj instanceof Contrato)){
+	    return false;
+	  }
+	  Contrato outroContrato = (Contrato) obj;
+	  boolean datasIguais = dataCheckIn.equals(outroContrato.getDataCheckIn()) && dataCheckOut.equals(outroContrato.getDataCheckOut());
+	  boolean hospedePrincipalIgual = hospedePrincipal.equals(outroContrato.getHospedePrincipal());
+	  boolean dadosIguais = numeroDiarias == outroContrato.getNumeroDiarias() && cartaoDeCredito.equals(outroContrato.getCartaoDeCredito());
+	  boolean listasIguais = listaHospedes.equals(outroContrato.getListaHospedes()) && listaQuartosAlugados.equals(outroContrato.getListaQuartosAlugados()) && listaServicos.equals(outroContrato.getListaHospedes());
+	  
+	  return (datasIguais && hospedePrincipalIgual && dadosIguais && listasIguais);
+	  
+	}
+	
+	@Override
 	public String toString() {
 		return "--- Relatório ---" + " CheckIn: " + this.getDataCheckInToString() + " | CheckOut: "+ this.getDataCheckOutToString() +
 				"\nStatus -> " + this.getStatus() +
