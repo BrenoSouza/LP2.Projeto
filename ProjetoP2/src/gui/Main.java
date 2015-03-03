@@ -53,7 +53,7 @@ import core.colecoes.ColecaoDeQuartos;
 
 public class Main extends JFrame {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6565568846885435L;
 	private JPanel contentPane;
 	private JDesktopPane painelPrincipal = new JDesktopPane();
 	private PainelClientes painelClientes;
@@ -169,7 +169,7 @@ public class Main extends JFrame {
 					objOut.flush();
 					objOut.close();
 				}catch (IOException e){
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 			}
 		});
