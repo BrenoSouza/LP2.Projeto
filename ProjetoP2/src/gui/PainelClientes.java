@@ -50,6 +50,7 @@ public class PainelClientes extends JInternalFrame {
 
 
 	public PainelClientes(ColecaoDeHospedes listaDeHospedes, JDesktopPane painelPrincipal) {
+	  //Atualização da tabela de hospedes.
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
@@ -65,13 +66,15 @@ public class PainelClientes extends JInternalFrame {
 		setTitle("Clientes");
 		setClosable(true);
 		setBounds(0, 0, 752, 450);
-
+		
+		//Criação da tabela.
 		tableHospedes = new JTable();
 		escreveTabela();
 
 		tableHospedes.setRowSelectionAllowed(true);
+		
+		//Método para selecionar e saber o que está selecionado na tabela.
 		ListSelectionModel modeloSelecaoLinha = tableHospedes.getSelectionModel();
-
 		modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
@@ -87,7 +90,8 @@ public class PainelClientes extends JInternalFrame {
 
 		scrollPanePrincipal.setViewportView(tableHospedes);
 		scrollPanePrincipal.setRowHeaderView(table);
-
+		
+		//Inicializa um JInternalFrame de visualização das informações do hospede selecionado na tabela.
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -98,6 +102,7 @@ public class PainelClientes extends JInternalFrame {
 		});
 		btnVisualizar.setEnabled(false);
 
+		//Inicializa um JInternalFrame de criação de um hospede.
 		btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -111,6 +116,7 @@ public class PainelClientes extends JInternalFrame {
 			}
 		});
 
+		//Inicializa um JInternalFrame para edição das informações do hospede.
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -125,6 +131,7 @@ public class PainelClientes extends JInternalFrame {
 		});
 		btnEditar.setEnabled(false);
 
+		//Remove um hospede da coleção de hospedes.
 		btnRemover = new JButton("Remover");
 		btnRemover.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -137,7 +144,8 @@ public class PainelClientes extends JInternalFrame {
 			}
 		});
 		btnRemover.setEnabled(false);
-
+		
+		//-------------- Pesquisa de hospedes --------------
 		textFieldPesquisa = new JTextField();
 		textFieldPesquisa.setColumns(10);
 
@@ -178,6 +186,7 @@ public class PainelClientes extends JInternalFrame {
 		btnCancelaPesquisa.setEnabled(false);
 		btnCancelaPesquisa.setToolTipText("Cancelar pesquisa( A tabela volta a ter todos os hóspedes).");
 		btnCancelaPesquisa.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/cross.png")));
+		//-------------- Fim do codigo de pesquisa --------------
 
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -235,7 +244,7 @@ public class PainelClientes extends JInternalFrame {
 		hospedeSelecionado = getColecaoDeHospedes().getListaHospedes().get(indice);
 	}
 
-
+	//Metodo para habilitar ou desabilitar botões, de acordo com a linha selecionada.
 	private void atualizaBotoes(){
 		if (hospedeSelecionado == null){
 			btnRemover.setEnabled(false);
@@ -247,17 +256,20 @@ public class PainelClientes extends JInternalFrame {
 			btnRemover.setEnabled(true);
 		}
 	}
-
+	//Criação da tabela com os hospedes na interface.
 	private void escreveTabela(){
 		Collections.sort(colecaoAtiva);
+		//Linhas da tabela igual o numero de hospedes.
 		Object[][] designTabela = new Object[colecaoAtiva.size()][5];
 		for (int i = 0; i < colecaoAtiva.size(); i++){
 			Hospede hospedeAtual = colecaoAtiva.get(i);
+			//Na 1 coluna "Nome", escreve o nome do hospede indice i.
 			if (hospedeAtual.getNome() == null){
 				designTabela[i][0] = "Não especificado";
 			}else{
 				designTabela[i][0] = hospedeAtual.getNome();
 			}
+			//Na 2 coluna "Nascimento", escreve a data de nascimento do hospede incide i.
 			String dataFormatadaNascimento = "";
 			try{
 				dataFormatadaNascimento = Main.converteParaString(hospedeAtual.getDataNascimento());
@@ -265,6 +277,7 @@ public class PainelClientes extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 			designTabela[i][1] = dataFormatadaNascimento;
+			//Na
 			if (hospedeAtual.getCpf() == null){
 				designTabela[i][2] = "Não especificado";
 			}else{
@@ -278,7 +291,7 @@ public class PainelClientes extends JInternalFrame {
 			if (hospedeAtual.getOpiniao() == null){
 				designTabela[i][4] = "Sem opinião";
 			}else{
-				designTabela[i][4] = hospedeAtual.getOpiniao().getComentario().substring(0, 11) + "..."  + "  |   Nota -> " + hospedeAtual.getOpiniao().getNota();
+				designTabela[i][4] = hospedeAtual.getOpiniao().getComentario().substring(0, 10) + "..."  + "  |   Nota -> " + hospedeAtual.getOpiniao().getNota();
 			}
 		}
 		@SuppressWarnings("serial")
