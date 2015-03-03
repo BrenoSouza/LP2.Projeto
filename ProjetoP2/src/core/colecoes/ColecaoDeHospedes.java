@@ -11,21 +11,21 @@ public class ColecaoDeHospedes implements Serializable{
 	private static final long serialVersionUID = 4378311643213774791L;
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	/**
-	 * Retorna a lista de hospede da colecao
-	 * @return Um List<hospede>
+	 * Retorna a lista de hospede da colecao.
+	 * @return Uma lista de hóspedes
 	 */
 	public List<Hospede> getListaHospedes() {
 		return listaHospedes;
 	}
 	/**
-	 * Informa o tamanho da lista da colecao/numero de hospedes
+	 * Informa o tamanho da lista da colecao/numero de hospedes.
 	 * @return Um int com o tamanho da lista
 	 */
 	public int getListaHospedeTamanho() {
 		return this.getListaHospedes().size();
 	}
 	/**
-	 * Adiciona um hospede na colecao
+	 * Adiciona um hospede na colecao.
 	 * @param hospede O hospede a ser adicionado
 	 * @throws Exception Caso atinga as exceções da classe hospede
 	 */
@@ -36,7 +36,7 @@ public class ColecaoDeHospedes implements Serializable{
 		listaHospedes.add(hospede);
 	}
 	/**
-	 * Adiciona uma lista de hospedes a colecao
+	 * Adiciona uma lista de hospedes a colecao.
 	 * @param hospedes Um List<hospede>
 	 * @throws Exception Caso atinga as exceções da classe hospede
 	 */
@@ -47,7 +47,7 @@ public class ColecaoDeHospedes implements Serializable{
 		listaHospedes.addAll(hospedes);
 	}
 	/**
-	 * Remove um hospede da colecao
+	 * Remove um hospede da colecao.
 	 * @param hospede O hospede a ser removido
 	 * @return True - se foi removido / False - se houve algum problema
 	 */
@@ -55,7 +55,7 @@ public class ColecaoDeHospedes implements Serializable{
 		return listaHospedes.remove(hospede);
 	}
 	/**
-	 * Remove uma lista de hospedes da colecao
+	 * Remove uma lista de hospedes da colecao.
 	 * @param hospedes Um List<hospede>
 	 * @return True - se removeu algum hospede da colecao / False - se não removeu nenhum hospede
 	 * @throws Exception Caso atinga as exceções da classe hospede
@@ -71,7 +71,7 @@ public class ColecaoDeHospedes implements Serializable{
 		return removeu;
 	}
 	/**
-	 * Informa o hospede localizado em certo indice da colecao
+	 * Informa o hospede localizado em certo indice da colecao.
 	 * @param i Um inteiro informando o indice
 	 * @return Um hospede indice i da colecao
 	 */
@@ -79,7 +79,7 @@ public class ColecaoDeHospedes implements Serializable{
 		return listaHospedes.get(i);
 	}
 	/**
-	 * Pesquisa hospedes na colecao
+	 * Pesquisa hospedes na colecao.
 	 * @param cpf O cpf para localizar o hospede
 	 * @return O hospede encontrado ou null se nada for encontrado
 	 */

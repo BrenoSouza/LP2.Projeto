@@ -139,7 +139,7 @@ public class Hospede implements Comparable<Hospede>, Serializable{
 		return "Nome: " + getNome() + ".\n"
 				+ "CPF: " + getCpf() + ".\n"
 				+ "Endereço: " + getEndereco() + ".\n"
-				+ "Data de Nascimento: " + Main.converteParaString(getDataNascimento()) + ".\n"  // Ajustar depois a formatacão desse objeto Calendar
+				+ "Data de Nascimento: " + Main.converteParaString(getDataNascimento()) + ".\n" 
 				+ ((getOpiniao() == null) ? "" : ("Opinião: " + getOpiniao().toString() + "."));
 
 	}

@@ -61,6 +61,7 @@ public class DialogoDiarias extends JDialog {
 					getDataCheckIn();
 					getCartaoDeCredito();
 					dispose();
+					//Lidando com possíveis excessões antes de enviar esses dados para o painel anterior.
 				}catch (java.text.ParseException e2){
 					JOptionPane.showMessageDialog(null, "Data em formato inválido.");
 				}catch (IllegalArgumentException e1){

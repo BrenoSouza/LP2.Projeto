@@ -254,6 +254,11 @@ public class Contrato implements Serializable{
 		dataCheckOut.setTime(dataCheckIn.getTime());
 		dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
 	}
+	/**
+	 * Retorna a estratégia vigente no contrato.
+	 * @return
+	 * A estratégia vigente no contrato. null se não existir.
+	 */
 	public Estrategia getEstrategiaDoContrato() {
 		return estrategiaDoContrato;
 	}
@@ -269,10 +274,12 @@ public class Contrato implements Serializable{
 	  boolean hospedePrincipalIgual;
 	  
 	  if (hospedePrincipal == null || outroContrato.getHospedePrincipal() == null){
+	    // Existe a possibilidade que hospedePrincipal seja null, então...
 	    hospedePrincipalIgual = hospedePrincipal == outroContrato.getHospedePrincipal();
 	  }else{
 	    hospedePrincipalIgual = hospedePrincipal.equals(outroContrato.getHospedePrincipal());
 	  }	  
+	  
 	  boolean dadosIguais = numeroDiarias == outroContrato.getNumeroDiarias() && cartaoDeCredito.equals(outroContrato.getCartaoDeCredito());
 	  boolean listasIguais = listaHospedes.equals(outroContrato.getListaHospedes()) && listaQuartosAlugados.equals(outroContrato.getListaQuartosAlugados()) && listaServicos.equals(outroContrato.getListaHospedes());
 	  

@@ -34,6 +34,8 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * O modificador, de 0-100;
 	 * @param tipoDeEstrategia
 	 * Estrategia.ACRESCIMO ou Estrategia.DECRESCIMO.
+	 * @param descricao
+	 * Uma descrição da estratégia.
 	 * @throws IllegalArgumentException
 	 * Se o modificador não estiver em formato correto. 
 	 */
