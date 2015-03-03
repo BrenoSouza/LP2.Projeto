@@ -265,7 +265,14 @@ public class Contrato implements Serializable{
 	  }
 	  Contrato outroContrato = (Contrato) obj;
 	  boolean datasIguais = dataCheckIn.equals(outroContrato.getDataCheckIn()) && dataCheckOut.equals(outroContrato.getDataCheckOut());
-	  boolean hospedePrincipalIgual = hospedePrincipal.equals(outroContrato.getHospedePrincipal());
+	  
+	  boolean hospedePrincipalIgual;
+	  
+	  if (hospedePrincipal == null || outroContrato.getHospedePrincipal() == null){
+	    hospedePrincipalIgual = hospedePrincipal == outroContrato.getHospedePrincipal();
+	  }else{
+	    hospedePrincipalIgual = hospedePrincipal.equals(outroContrato.getHospedePrincipal());
+	  }	  
 	  boolean dadosIguais = numeroDiarias == outroContrato.getNumeroDiarias() && cartaoDeCredito.equals(outroContrato.getCartaoDeCredito());
 	  boolean listasIguais = listaHospedes.equals(outroContrato.getListaHospedes()) && listaQuartosAlugados.equals(outroContrato.getListaQuartosAlugados()) && listaServicos.equals(outroContrato.getListaHospedes());
 	  
