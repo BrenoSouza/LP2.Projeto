@@ -53,6 +53,11 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 		this.descricao = descricao;
 		this.intervalo = new Interval(inicioPeriodo, finalPeriodo);
 	}
+	/**
+	 * Getter do Interval da estratégia.
+	 * @return
+	 * O Interval da estratégia
+	 */
 	public Interval getIntervalo() {
 		atualizaIntervalo();
 		return intervalo;
@@ -88,41 +93,92 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * @throws IllegalArgumentException
 	 * Se o modificador não estiver em formato correto.
 	 */
-	public Estrategia(String dataInicio, String dataFinal, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws Exception{
+	public Estrategia(String dataInicio, String dataFinal, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws IllegalArgumentException, ParseException{
 		this(Main.converteParaCalendar(dataInicio), Main.converteParaCalendar(dataFinal), modificador, tipoDeEstrategia, descricao);
 	}
+	/**
+	 * Getter do inicio do periodo dado pela estratégia.
+	 * @return
+	 * O inicio do período dado pela estratégia.
+	 */
 	public DateTime getInicioPeriodo() {
+	  atualizaIntervalo();
 		return inicioPeriodo;
 	}
+	/**
+	 * Método para se ter o inicio do periodo formatado em String.
+	 * @return
+	 * O inicio do periodo dado pela estratégia, formatado em uma String no formato (dd/MM)
+	 */
 	public String getInicioPeriodoString(){
 		atualizaIntervalo();
 		DateTimeFormatter formatador = DateTimeFormat.forPattern("dd/MM");
 		return formatador.print(inicioPeriodo);
 		
 	}
+	/**
+	 * Setter do inicio do periodo da estratégia.
+	 * @param inicioPeriodo
+	 * O início do período da estratégia.
+	 */
 	public void setInicioPeriodo(DateTime inicioPeriodo) {
 		this.inicioPeriodo = inicioPeriodo;
 	}
+	/**
+	 * Getter do final do período da estratégia.
+	 * @return
+	 * O final do período da estratégia.
+	 */
 	public DateTime getFinalPeriodo() {
 		return finalPeriodo;
 	}
+	 /**
+   * Método para se ter o final do periodo formatado em String.
+   * @return
+   * O final do periodo dado pela estratégia, formatado em uma String no formato (dd/MM)
+   */
 	public String getFinalPeriodoString(){
 		atualizaIntervalo();
 		DateTimeFormatter formatador = DateTimeFormat.forPattern("dd/MM");
 		return formatador.print(finalPeriodo);
 	}
+	 /**
+   * Setter do final do periodo da estratégia.
+   * @param finalPeriodo
+   * O final do período da estratégia.
+   */
 	public void setFinalPeriodo(DateTime finalPeriodo) {
 		this.finalPeriodo = finalPeriodo;
 	}
+	/**
+	 * Getter do Tipo de estratégia.
+	 * @return
+	 * Um TipoDeEstrategia (enum) relevante
+	 */
 	public TipoDeEstrategia getTipoDeEstrategia() {
 		return tipoDeEstrategia;
 	}
+	/**
+	 * Getter do objeto Period periodo relevante a estratégia.
+	 * @return
+	 * O objeto com o período da estratégia.
+	 */
 	public Period getPeriodo() {
 		return periodo;
 	}
+	/**
+	 * Getter do modificador da estratégia. 
+	 * @return
+	 * Um double na faixa de 1 - 100
+	 */
 	public double getModificador() {
 		return modificador;
 	}
+	/**
+	 * Getter da descrição da estratégia.
+	 * @return
+	 * A descrição da estratégia.
+	 */
 	public String getDescricao() {
 		return descricao;
 	}
@@ -134,6 +190,11 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	public double getModificadorPreco(double preco){
 		return ((modificador / 100 * tipoDeEstrategia.getMultiplicador()) * preco);
 	}
+	/**
+	 * Método que verifica se o tempo presente está incluso na estratégia.
+	 * @return
+	 * True, se o presente estiver na estratégia.
+	 */
 	public boolean periodoContemPresente(){
 		atualizaIntervalo();
 		return intervalo.containsNow();
@@ -148,26 +209,49 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 		if (!(obj instanceof Estrategia)){
 			return false;
 		}Estrategia outraEstrategia = (Estrategia) obj;
+		atualizaIntervalo();
+		outraEstrategia.atualizaIntervalo();
 		return (this.inicioPeriodo.equals(outraEstrategia.getInicioPeriodo()) && this.finalPeriodo.equals(outraEstrategia.getFinalPeriodo()) && this.descricao.equals(outraEstrategia.getDescricao()) && this.modificador == outraEstrategia.getModificador());
 	}
+	/**
+	 * Método que verifica se duas estratégias se sobrepoem.
+	 * @param outraEstrategia
+	 * Outra estratégia
+	 * @return
+	 * True se ouver sobreposição.
+	 */
 	public boolean sobrepoe(Estrategia outraEstrategia){
 		this.atualizaIntervalo();
 		outraEstrategia.atualizaIntervalo();
 		return this.intervalo.overlaps(outraEstrategia.getIntervalo());
 	}
 	public boolean contratoSobrepoe(Contrato contrato){
+	  /*
+	   * O objetivo todo de se definir uma estratégia envolve não colocar um ano nela. Ex: Não se diz que uma estratégia vai de 01/01/2015 até 02/02/2015, se diz que ela vai de 01/01 até 02/02, todo ano.
+	   * Mas não é criar uma instância de Period só com uma data e mês, o seguinte "workaround" foi utilizado:
+	   * - Ao se criar uma estratégia, ela fica com o ano que está no sistema.
+	   * - Quando se quer comparar se um contrato está em um período definido por uma estratégia, o Period se "re-inicializa", mantendo o dia e mês (que nunca mudará) mas usando o ano do contrato que foi passado.
+	   * No exemplo dado, se formos comparar a estratégia de 01/01 até 02/02 com um contrato de 2016, o Period vai ser "re-criado" com o ano de 2016.
+	   */
 		inicioPeriodo = new DateTime(getInicioPeriodo()).withYear(contrato.getDataCheckIn().get(Calendar.YEAR));
 		
 		finalPeriodo = new DateTime(getFinalPeriodo()).withYear(contrato.getDataCheckOut().get(Calendar.YEAR));
 		
 		intervalo = new Interval(inicioPeriodo, finalPeriodo);
 		
+		// Abaixo se consegue um Interval com o checkIn e checkOut do contrato, para fins de comparação.
+		
 		Interval intervaloContrato = new Interval(new DateTime(contrato.getDataCheckIn()), new DateTime(contrato.getDataCheckOut()));
 		
 		boolean retorno = intervalo.overlaps(intervaloContrato);
-		atualizaIntervalo();
+		
+		atualizaIntervalo(); //Método que retorna o Interval para o ano do sistema.
+		
 		return retorno;
 	}
+	/**
+	 * Método para uso interno, setando o ano do Interval para o ano do sistema, para fins de comparação.
+	 */
 	private void atualizaIntervalo(){
 		inicioPeriodo = new DateTime(getInicioPeriodo()).withYear(Calendar.getInstance().get(Calendar.YEAR));
 		finalPeriodo = new DateTime(getFinalPeriodo()).withYear(Calendar.getInstance().get(Calendar.YEAR));
