@@ -179,7 +179,7 @@ public class Main extends JFrame {
 		setBounds(0, 0, 1366, 700);
 		toFront();
 		
-		if (!primeiraVezInicializado){		
+		if (!primeiraVezInicializado){	//Não é a primeira vez que o usuário abriu o programa	
 			try{
 			FileInputStream fileIn = new FileInputStream(arquivo);
 			ObjectInputStream objIn = new ObjectInputStream(fileIn);
@@ -207,7 +207,7 @@ public class Main extends JFrame {
 				listaDeQuartos = new ColecaoDeQuartos();
 				listaDeQuartos.criaQuartos();
 			}
-		}else{
+		}else{ //Primeira vez que o usuário abriu o programa
 			listaDeQuartos.criaQuartos();
 		}
 		this.listaContratos = listaDeContratos.getListaContratos();
