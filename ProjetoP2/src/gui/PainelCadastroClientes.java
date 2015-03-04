@@ -54,10 +54,10 @@ public class PainelCadastroClientes extends JInternalFrame {
 
     campoEndereco = new JTextField();
     campoEndereco.setColumns(10);
+    
     //Formatação para os campos de CPF e data.
     mascaraCPF.setPlaceholderCharacter(' ');
     campoCPF = new JFormattedTextField(mascaraCPF);
-
     campoData = new JFormattedTextField(mascaraData);
     mascaraData.setPlaceholderCharacter(' ');
 

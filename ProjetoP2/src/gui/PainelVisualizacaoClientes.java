@@ -32,22 +32,26 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelVisualizacaoClientes.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Cliente - Informações");
 		addInternalFrameListener(new InternalFrameAdapter() {
+		  //Atualiza o painel quando ele é ativado
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
+			  //Atualiza quais botoes vao ficar habilitados e quais vao ficar desabilitados
 				atualizaBotoes();
 			}
 		});
 		setClosable(true);
 		setBounds(100, 100, 450, 333);
+		
 		contrato = hospede.getContratoLigado();
 		this.hospede = hospede;
 		this.painelPrincipal = painelPrincipal;
 		
+		//JLabel com as informacoes do hospede
 		JLabel lblInformaes = new JLabel("Informações:");
 		lblInformaes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblToStringHospede = new JLabel("");
-		String texto = "<html>" + hospede.toString() + "</html>"; //Envolver a string em tags <html>
+		String texto = "<html>" + hospede.toString() + "</html>"; //Envolver a string em tags <html> para pular linha
 		texto = texto.replaceAll("\n", "<br> <br>");
 		lblToStringHospede.setText(texto);
 		lblToStringHospede.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -60,6 +64,7 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 		lblContratoCliente.setText(texto2);
 		lblContratoCliente.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		
+		//Botao para visualizar o contrato que o hospede esta, caso o hospede nao tenha um contrato o botao fica desabilitado.
 		btnVisualizarContrato = new JButton("Visualizar contrato");
 		btnVisualizarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

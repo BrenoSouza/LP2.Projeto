@@ -25,7 +25,7 @@ public class DialogoSobre extends JDialog {
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		
+		// Informações do projeto
 		JLabel lblPrograma = new JLabel("Programa de administração do Hotel Riviera Campina");
 		lblPrograma.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		

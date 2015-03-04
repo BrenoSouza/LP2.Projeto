@@ -61,9 +61,10 @@ public class PainelEditarCliente extends JInternalFrame {
 		setTitle("Clientes - Editar");
 		setClosable(true);
 		addInternalFrameListener(new InternalFrameAdapter() {
+		//Para atualizar o painel quando ele for ativado novamente.
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {
-				//Opinião
+				//Atualizacao das informacoes sobre a opinião do hospede.
 				String Comment = (hospede.getOpiniao() == null) ? "" : hospede.getOpiniao().getComentario();
 				textFieldComment.setText(Comment);
 				if (hospede.getOpiniao() != null) {
@@ -90,7 +91,7 @@ public class PainelEditarCliente extends JInternalFrame {
 						break;
 					}
 				}
-				//Informações
+				//Informações do hospede, nome, cpf, idade, etc.
 				String Name = "" + hospede.getNome();
 				textFieldName.setText(Name);
 				String Birth = Main.converteParaString(hospede.getDataNascimento());
@@ -111,6 +112,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		this.painelPrincipal = painelPrincipal;
 		this.hospede = hospede;
 		
+		//Os JLabel da interface grafica
 		JLabel lblOpinio = new JLabel("Opinião");
 		lblOpinio.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
@@ -167,6 +169,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		textFieldAdress.setText(Adress);
 		textFieldAdress.setColumns(10);
 		
+		//Botão para salvar as mudancas feitas nas informacoes do hospede.
 		btnEditarInfo = new JButton("Salvar mudanças");
 		btnEditarInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -200,11 +203,13 @@ public class PainelEditarCliente extends JInternalFrame {
 			}
 		});
 		
+		//Modificacao no JLabel sobre o comentario, para mostrar a opiniao do hospede na caixa.
 		textFieldComment = new JTextField();
 		String Comment = (hospede.getOpiniao() == null) ? "" : hospede.getOpiniao().getComentario();
 		textFieldComment.setText(Comment);
 		textFieldComment.setColumns(10);
 		
+		//5 radioButton referentes a nota da opiniao do hospede, esses botoes estao em um buttonGroup.
 		radioButton1 = new JRadioButton("1");
 		radioButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -245,6 +250,7 @@ public class PainelEditarCliente extends JInternalFrame {
 		});
 		buttonGroup.add(radioButton5);
 		
+		//Botao para cancelar a edicao do hospede e nao salvar as mudancas feitas.
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

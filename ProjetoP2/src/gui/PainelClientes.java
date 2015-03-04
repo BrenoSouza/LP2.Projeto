@@ -269,7 +269,7 @@ public class PainelClientes extends JInternalFrame {
 			}else{
 				designTabela[i][0] = hospedeAtual.getNome();
 			}
-			//Na 2 coluna "Nascimento", escreve a data de nascimento do hospede incide i.
+			//Na 2 coluna "Nascimento", escreve a data de nascimento do hospede indice i.
 			String dataFormatadaNascimento = "";
 			try{
 				dataFormatadaNascimento = Main.converteParaString(hospedeAtual.getDataNascimento());
@@ -277,28 +277,31 @@ public class PainelClientes extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 			designTabela[i][1] = dataFormatadaNascimento;
-			//Na
+			//Na 3 coluna "CPF", escreve o CPF do hospede indice i.
 			if (hospedeAtual.getCpf() == null){
 				designTabela[i][2] = "Não especificado";
 			}else{
 				designTabela[i][2] = hospedeAtual.getCpf();
 			}
+			//Na 4 coluna "Contrato", informa se o hospede esta em um contrato, se sim, escreve o status do contrato.
 			if (hospedeAtual.getContratoLigado() == null){
 				designTabela[i][3] = "Sem contrato";
 			}else{
 				designTabela[i][3] = hospedeAtual.getContratoLigado().getStatus();
 			}
+			//Na 5 coluna "Opiniao", se o hospede possuir uma opiniao cadastrada, informa o comentario e a nota.
 			if (hospedeAtual.getOpiniao() == null){
 				designTabela[i][4] = "Sem opinião";
 			}else{
 				designTabela[i][4] = hospedeAtual.getOpiniao().getComentario().substring(0, 10) + "..."  + "  |   Nota -> " + hospedeAtual.getOpiniao().getNota();
 			}
 		}
+		//Nome das colunas
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 				"Nome", "Nascimento", "CPF", "Contrato", "Opinião"
 		}) {
-
+		//Um override neste metodo para não permitir a edicao na tabela.
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;

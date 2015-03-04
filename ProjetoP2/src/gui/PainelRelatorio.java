@@ -77,16 +77,18 @@ public class PainelRelatorio extends JInternalFrame {
 
 	public PainelRelatorio(ColecaoDeHospedes listaDeHospedes, ColecaoDeContratos listaContratos, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
+		//Para atualizar o painel quando ele for ativado novamente.
 			@Override
 			public void internalFrameActivated(InternalFrameEvent arg0) {
-				//HOSPEDE
+				//Atualizacao dos dados referentes aos HOSPEDES.
 				lblNumHospedes.setText("" + colecaoDeHospedes.getListaHospedeTamanho());
 				lblAbeHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato("ABERTO").size());
 				lblFecHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato("FECHADO").size());
 				lblHospedeReserva.setText("" + colecaoDeHospedes.pesquisaHospedeContrato("RESERVA").size());
 				lblSemConHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato(null).size());
 				escreveTabelaHospede();
-				//OPINIAO
+				
+				//Atualizacao dos dados referentes as OPINIOES dos hospedes.
 				int numOpiniao = 0;
 				double somaNotas = 0.0;
 				double mediaOpinioes = 0.0;
@@ -100,7 +102,8 @@ public class PainelRelatorio extends JInternalFrame {
 				lblNumOpi.setText("" + numOpiniao);
 				lblMedia.setText("" + (Double.isNaN(mediaOpinioes) ? 0.0 : mediaOpinioes));
 				escreveTabelaOpiniao();
-				//CONTRATO
+				
+				//Atualizacao dos dados referentes aos CONTRATOS.
 				int maior = 0;
 				int somaDiarias = 0;
 				int somaHospedes = 0;
@@ -123,7 +126,8 @@ public class PainelRelatorio extends JInternalFrame {
 				lblContratoFec.setText("" + colecaoDeContratos.pesquisaStatusContrato("FECHADO").size());
 				lblContratoRese.setText("" + colecaoDeContratos.pesquisaStatusContrato("RESERVA").size());
 				escreveTabelaContrato();
-				//SERVICO
+				
+				//Atualizacao dos dados referentes aos SERVICOS.
 				int numServicos = 0;
 				int numServicosAbe = 0;
 				int numServicosFec = 0;
@@ -159,6 +163,7 @@ public class PainelRelatorio extends JInternalFrame {
 				escreveTabelaServicos(numServicos);
 			}
 		});
+		
 		setTitle("Dados gerais");
 		setFrameIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/files.png")));
 		setClosable(true);
@@ -166,7 +171,8 @@ public class PainelRelatorio extends JInternalFrame {
 
 		this.colecaoDeHospedes = listaDeHospedes;
 		this.colecaoDeContratos = listaContratos;
-
+		
+		//Criacao dos botoes para selecionar quais dados seram mostrados no painel.
 		btnHospedes = new JButton("Hóspedes");
 		btnHospedes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -192,14 +198,14 @@ public class PainelRelatorio extends JInternalFrame {
 		btnServicos.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/servicos_icon.png")));
 
 		panel.setLayout(layoutPainel);
-
+		
 		//PAINEL RELATORIO HOSPEDE
 		PanelHospedes = new JPanel();
 		PanelHospedes.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.add(PanelHospedes, "hospedes");
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		//INFO HOSPEDES
+		//INFORMACOES DO PAINEL HOSPEDES
 		JLabel label_5 = new JLabel("Hóspedes");
 		label_5.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
@@ -241,7 +247,7 @@ public class PainelRelatorio extends JInternalFrame {
 		lblSemConHospedes.setText("" + colecaoDeHospedes.pesquisaHospedeContrato(null).size());
 		lblSemConHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		//INFO OPINIAO
+		//INFORMACOES DO PAINEL OPINIAO
 		JLabel label_6 = new JLabel("Opiniões");
 		label_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
@@ -362,7 +368,8 @@ public class PainelRelatorio extends JInternalFrame {
 
 		JScrollPane scrollPaneHospedes = new JScrollPane();
 		tabbedPane.addTab("Hóspedes", null, scrollPaneHospedes, null);
-
+		
+	  //Criacao da tabela da parte de hospede
 		tableHospede = new JTable();
 		tableHospede.setRowSelectionAllowed(true);
 		scrollPaneHospedes.setColumnHeaderView(tableHospede);
@@ -371,7 +378,8 @@ public class PainelRelatorio extends JInternalFrame {
 
 		JScrollPane scrollPaneOpinioes = new JScrollPane();
 		tabbedPane.addTab("Opiniões", null, scrollPaneOpinioes, null);
-
+		
+		//Criacao da tabela da parte de opiniao
 		tableOpiniao = new JTable();
 		tableOpiniao.setRowSelectionAllowed(true);
 		scrollPaneOpinioes.setColumnHeaderView(tableOpiniao);
@@ -384,6 +392,7 @@ public class PainelRelatorio extends JInternalFrame {
 		PanelContratos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.add(PanelContratos, "contratos");
 		
+		//INFORMACOES DO PAINEL CONTRATO
 		JLabel lblContrato = new JLabel("Contrato");
 		lblContrato.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
@@ -528,6 +537,7 @@ public class PainelRelatorio extends JInternalFrame {
 					.addContainerGap())
 		);
 		
+	  //Criacao da tabela da parte de contrato
 		tableContrato = new JTable();
 		tableContrato.setRowSelectionAllowed(true);
 		scrollPaneContrato.setColumnHeaderView(tableContrato);
@@ -539,6 +549,7 @@ public class PainelRelatorio extends JInternalFrame {
 		PanelServicos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel.add(PanelServicos, "servicos");
 		
+		//INFORMACOES DO PAINEL SERVICOS
 		JLabel lblServios = new JLabel("Serviços");
 		lblServios.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
@@ -674,6 +685,7 @@ public class PainelRelatorio extends JInternalFrame {
 					.addContainerGap())
 		);
 		
+		//Criacao da tabela da parte de servico
 		tableServicos = new JTable();
 		tableServicos.setRowSelectionAllowed(true);
 		scrollPaneServicos.setColumnHeaderView(tableServicos);
@@ -719,11 +731,13 @@ public class PainelRelatorio extends JInternalFrame {
 		Object[][] designTabela = new Object[colecaoDeHospedes.getListaHospedes().size()][4];
 		for (int i = 0; i < colecaoDeHospedes.getListaHospedes().size(); i++){
 			Hospede hospedeAtual = colecaoDeHospedes.getListaHospedes().get(i);
+			//Na 1 coluna "Nome", escreve o nome do hospede indice i.
 			if (hospedeAtual.getNome() == null){
 				designTabela[i][0] = "Não especificado";
 			}else{
 				designTabela[i][0] = hospedeAtual.getNome();
 			}
+			//Na 2 coluna "Nascimento", escreve a data de nascimento do hospede indice i.
 			String dataFormatadaNascimento = "";
 			try{
 				dataFormatadaNascimento = Main.converteParaString(hospedeAtual.getDataNascimento());
@@ -731,22 +745,25 @@ public class PainelRelatorio extends JInternalFrame {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 			designTabela[i][1] = dataFormatadaNascimento;
+			//Na 3 coluna "CPF", escreve o CPF do hospede indice i.
 			if (hospedeAtual.getCpf() == null){
 				designTabela[i][2] = "Não especificado";
 			}else{
 				designTabela[i][2] = hospedeAtual.getCpf();
 			}
+			//Na 4 coluna "Contrato", informa se o hospede esta em um contrato, se sim, escreve o status do contrato.
 			if (hospedeAtual.getContratoLigado() == null){
 				designTabela[i][3] = "Sem contrato";
 			}else{
 				designTabela[i][3] = hospedeAtual.getContratoLigado().getStatus();
 			}
 		}
+		//Nome das colunas
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 				"Nome", "Nascimento", "CPF", "Contrato"
 		}) {
-
+		//Um override neste metodo para não permitir a edicao na tabela.
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -758,6 +775,7 @@ public class PainelRelatorio extends JInternalFrame {
 	private void escreveTabelaOpiniao(){
 		List <Hospede> hospedesOpiniao = new ArrayList<Hospede>();
 		Collections.sort(colecaoDeHospedes.getListaHospedes());
+		//Um for para criar uma lista apenas com os hospedes que ja cadastraram uma opiniao
 		for (Hospede h: colecaoDeHospedes.getListaHospedes()) {
 			if (h.getOpiniao() != null) {
 				hospedesOpiniao.add(h);
@@ -767,14 +785,18 @@ public class PainelRelatorio extends JInternalFrame {
 		Object[][] designTabela = new Object[hospedesOpiniao.size()][2];
 		for (int i = 0; i < hospedesOpiniao.size(); i++){
 			Hospede hospedeAtual = hospedesOpiniao.get(i);
+			//Na 1 coluna "Comentario", escreve o comentario que o hospede cadastrou.
 			designTabela[i][0] = hospedeAtual.getOpiniao().getComentario();
+			//Na 2 coluna "Nota", escreve a nota que o hospede deu ao hotel.
 			designTabela[i][1] = hospedeAtual.getOpiniao().getNota();
 		}
+		
+		//Nomes das colunas da tabela
 		@SuppressWarnings("serial")
 		DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
 				"Comentário", "Nota"
 		}) {
-
+		//Um override neste metodo para não permitir a edicao na tabela.
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -782,6 +804,7 @@ public class PainelRelatorio extends JInternalFrame {
 		};
 		tableOpiniao.setModel(modeloTabela);
 	}
+	
 	//TABELA CONTRATO
 	private void escreveTabelaContrato(){
 		// INÍCIO DE CONSTRUÇÃO DA TABELA
@@ -835,18 +858,22 @@ public class PainelRelatorio extends JInternalFrame {
 				tableContrato.setModel(modeloTabela);
 	}
 	
+	//TABELA SERVICOS
 	private void escreveTabelaServicos(int tamanho) {
 		Object[][] designTabela = new Object[tamanho][3];
 		int j = 0;
 		for (Contrato c: colecaoDeContratos.getListaContratos()) {
 			for (int i = 0; i < c.getListaServicos().size(); i++) {
 				Servico servicoAtual = c.getListaServicos().get(i);
+				//Na 1 coluna, escreve o nome do servico
 				if (servicoAtual.getTipo() == null){
 				designTabela[i + j][0] = "Não especificado";
 				}else{
 					designTabela[i + j][0] = servicoAtual.getTipo();
 				}
+				//Na 2 coluna, escreve o preço atual do servico
 				designTabela[i + j][1] = servicoAtual.calculaPrecoTotal();
+				//Na 3 coluna, escreve o status do contrato que esta usando o servico
 				designTabela[i + j][2] = c.getStatus();
 			}j += c.getListaServicos().size();
 		}

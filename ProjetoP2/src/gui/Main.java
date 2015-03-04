@@ -111,7 +111,6 @@ public class Main extends JFrame {
 	}
 
 	/**
-	 * AluguelCarro aluguel
 	 * Método de conversão string para Calendar
 	 * @param data
 	 * Uma data no formato dd/mm/aaaa
@@ -212,7 +211,7 @@ public class Main extends JFrame {
 		}
 		this.listaContratos = listaDeContratos.getListaContratos();
 		
-		
+		//MenuBar com opções para fechar janelas abertas e informações sobre o projeto
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
@@ -241,13 +240,16 @@ public class Main extends JFrame {
 			}
 		});
 		mnOpo_1.add(mntmOpo_3);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-
+		
+		//toolBar com os botões Clientes, Servicos, Contrato, Estrátegia e Relátorio
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
-
+		
+		//JDesktopPane onde as janelas do programa são criadas
 		painelPrincipal.setBorder(new LineBorder(new Color(0, 0, 0)));
 		painelPrincipal.setBackground(SystemColor.window);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -276,7 +278,8 @@ public class Main extends JFrame {
 				.addGap(0, 464, Short.MAX_VALUE)
 				);
 		painelPrincipal.setLayout(gl_painelPrincipal);
-
+		
+		//Criação dos botões na toolBar
 		JButton btnClientes = new JButton("Clientes    ");
 		btnClientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -349,6 +352,8 @@ public class Main extends JFrame {
 		btnRelatrios.setIcon(new ImageIcon(Main.class.getResource("/resources/files.png")));
 		btnRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		toolBar.add(btnRelatrios);
+		//Fim da criação dos botões
+		
 		contentPane.setLayout(gl_contentPane);
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuBar, mnOpo, mntmOpo, mnOpo_1, mntmOpo_3, contentPane, toolBar, btnClientes, btnServios, btnContratos, painelPrincipal}));
 	}
