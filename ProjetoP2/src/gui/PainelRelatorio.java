@@ -34,6 +34,7 @@ import core.Restaurante;
 import core.Servico;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeHospedes;
+import java.awt.BorderLayout;
 
 public class PainelRelatorio extends JInternalFrame {
 
@@ -692,36 +693,47 @@ public class PainelRelatorio extends JInternalFrame {
 		scrollPaneServicos.setViewportView(tableServicos);
 		scrollPaneServicos.setRowHeaderView(table);
 		PanelServicos.setLayout(gl_PanelServicos);
+		
+		JButton btnNewButton = new JButton("Faturamento");
+		btnNewButton.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/coins17.png")));
 
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(panel, GroupLayout.DEFAULT_SIZE, 718, Short.MAX_VALUE)
-										.addContainerGap())
-										.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(btnHospedes, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-												.addGap(18)
-												.addComponent(btnContratos, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-												.addGap(18)
-												.addComponent(btnServicos, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-												.addGap(351))))
-				);
+		  groupLayout.createParallelGroup(Alignment.LEADING)
+		    .addGroup(groupLayout.createSequentialGroup()
+		      .addContainerGap()
+		      .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+		        .addGroup(groupLayout.createSequentialGroup()
+		          .addComponent(panel, GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
+		          .addContainerGap())
+		        .addGroup(groupLayout.createSequentialGroup()
+		          .addComponent(btnHospedes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		          .addGap(18)
+		          .addComponent(btnContratos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		          .addGap(18)
+		          .addComponent(btnServicos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		          .addPreferredGap(ComponentPlacement.UNRELATED)
+		          .addComponent(btnNewButton)
+		          .addGap(222))))
+		);
 		groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnHospedes)
-								.addComponent(btnContratos)
-								.addComponent(btnServicos))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(panel, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap())
-				);
+		  groupLayout.createParallelGroup(Alignment.TRAILING)
+		    .addGroup(groupLayout.createSequentialGroup()
+		      .addContainerGap()
+		      .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+		        .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+		          .addComponent(btnHospedes)
+		          .addComponent(btnContratos)
+		          .addComponent(btnServicos))
+		        .addComponent(btnNewButton))
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addComponent(panel, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
+		      .addContainerGap())
+		);
+		
+		JPanel PanelFaturamento = new JPanel();
+		panel.add(PanelFaturamento, "name_16295030467314");
+		PanelFaturamento.setLayout(new BorderLayout(0, 0));
 		getContentPane().setLayout(groupLayout);
 	}
 
