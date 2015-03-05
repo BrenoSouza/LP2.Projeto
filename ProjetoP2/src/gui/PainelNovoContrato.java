@@ -3,10 +3,12 @@ package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+
 
 //import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -102,6 +104,7 @@ public class PainelNovoContrato extends JInternalFrame {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
 			public void internalFrameActivated(InternalFrameEvent e) {
+			  if (dialogoDiarias.getFinalizado())
 				escreveTabelas();
 			}
 		});
@@ -119,6 +122,7 @@ public class PainelNovoContrato extends JInternalFrame {
 		dialogoDiarias = new DialogoDiarias();
 		dialogoDiarias.setVisible(true);
 		//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
+		if (dialogoDiarias.getFinalizado()){
 		diariasContrato = dialogoDiarias.getDiarias();
 		isReserva = dialogoDiarias.isReserva();
 		try {
@@ -190,7 +194,6 @@ public class PainelNovoContrato extends JInternalFrame {
 					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(getListaDeHospedes());
 					getPainelPrincipal().add(painelCadastro);
 					painelCadastro.show();
-
 				}catch (Exception e){
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
@@ -558,7 +561,8 @@ public class PainelNovoContrato extends JInternalFrame {
 		panelFinalizar.setLayout(gl_panelFinalizar);
 		getContentPane().setLayout(groupLayout);
 		escreveTabelas();
-
+		
+		}
 	}
 	public List<Quarto> getListaQuartosDisponiveis() {
 		return listaQuartosDisponiveis;
@@ -568,6 +572,9 @@ public class PainelNovoContrato extends JInternalFrame {
 	}
 	public List<Contrato> getListaContratos() {
 		return listaContratos;
+	}
+	public boolean getFinalizado(){
+	  return dialogoDiarias.getFinalizado();
 	}
 	private void setHospedeSelecionado(int i){
 		hospedeSelecionado = listaHospedesSemContrato.get(i);

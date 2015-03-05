@@ -102,6 +102,9 @@ public class PainelContratos extends JInternalFrame {
 				painelNovo = new PainelNovoContrato(getListaDeHospedes(), getListaQuartosDisponiveis(), getListaContratos(), getPainelPrincipal(), PainelContratos.this.colecaoDeEstrategias);
 				adicionaNoPainel(painelNovo);
 				painelNovo.show();
+				if (!painelNovo.getFinalizado()){
+				  painelNovo.dispose();
+				}
 			}
 		});
 		

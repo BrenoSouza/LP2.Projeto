@@ -35,11 +35,12 @@ public class DialogoDiarias extends JDialog {
 	private JRadioButton rdbtnReserva;
 	private JFormattedTextField formattedTextFieldCartaoDeCredito;
 	private String cartaoDeCreditovazio;
+	private boolean finalizado = false;
 
 
 	public DialogoDiarias() {
 		setResizable(false);
-		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 		//		Essa linha acima garante que esse JDialog seja tratado como uma aplicação modal, ou seja: Quando ela for iniciada, a classe mãe (no caso PainelNovoContrato) PARA de ser processado e só volta quando essa classe for "disposed".
 		//		Isso garante que o usuário tenha tempo de selecionar uma opção. Se a aplicação não fosse modal, o diálogo seria aberto, mas a classe mãe continuaria a processar, e ela chamaria o getDiarias() que, como o user não fez nada, retornaria o valor padrão (1).
@@ -60,6 +61,7 @@ public class DialogoDiarias extends JDialog {
 				try{
 					getDataCheckIn();
 					getCartaoDeCredito();
+					finalizado = true;
 					dispose();
 					//Lidando com possíveis excessões antes de enviar esses dados para o painel anterior.
 				}catch (java.text.ParseException e2){
@@ -194,5 +196,8 @@ public class DialogoDiarias extends JDialog {
 			throw new InvalidParameterException("Cartão de crédito não pode ser vazio!");
 		}
 		return formattedTextFieldCartaoDeCredito.getText();
+	}
+	public boolean getFinalizado(){
+	  return finalizado;
 	}
 }
