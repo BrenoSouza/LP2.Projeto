@@ -64,11 +64,11 @@ public class Main extends JFrame {
   private PainelEstrategias painelEstrategias;
   private PainelRelatorio painelRelatorio;
   private List<Contrato> listaContratos;
-  private static ColecaoDeLogins listaDeLogins = new ColecaoDeLogins();
-  private static ColecaoDeContratos listaDeContratos = new ColecaoDeContratos();
-  private static ColecaoDeHospedes listaDeHospedes = new ColecaoDeHospedes();
-  private static ColecaoDeQuartos listaDeQuartos = new ColecaoDeQuartos();
-  private static ColecaoDeEstrategias listaDeEstrategias = new ColecaoDeEstrategias();
+  private static ColecaoDeLogins listaDeLogins;
+  private static ColecaoDeContratos listaDeContratos;
+  private static ColecaoDeHospedes listaDeHospedes;
+  private static ColecaoDeQuartos listaDeQuartos;
+  private static ColecaoDeEstrategias listaDeEstrategias;
   private final static SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
   URL url = this.getClass().getResource("/resources/arquivo.data");
   File arquivo = new File(url.toURI());
@@ -140,7 +140,6 @@ public class Main extends JFrame {
     return dataFormatada;
   }
 
-  @SuppressWarnings("unchecked")
   public Main() throws URISyntaxException{
     addWindowListener(new WindowAdapter() {
       @Override
@@ -180,50 +179,7 @@ public class Main extends JFrame {
     setBounds(0, 0, 1366, 700);
     toFront();
 
-    if (!primeiraVezInicializado){	//Não é a primeira vez que o usuário abriu o programa	
-      try{
-        FileInputStream fileIn = new FileInputStream(arquivo);
-        ObjectInputStream objIn = new ObjectInputStream(fileIn);
-
-        /*
-         * Índices na listaColecoes:
-         * listaDeLogins = 0
-         * listaDeContratos = 1
-         * listaDeHospedes = 2
-         * listaDeQuartos = 3
-         * listaDeEstrategias = 4
-         */
-
-        List <Object> listaColecoes = (ArrayList<Object>) objIn.readObject();
-        listaDeLogins = (ColecaoDeLogins) listaColecoes.get(0);
-        listaDeContratos = (ColecaoDeContratos) listaColecoes.get(1);
-        listaDeHospedes = (ColecaoDeHospedes) listaColecoes.get(2);
-        listaDeQuartos = (ColecaoDeQuartos) listaColecoes.get(3);
-        listaDeEstrategias = (ColecaoDeEstrategias) listaColecoes.get(4);
-
-        objIn.close();
-      }catch (Exception e){
-        /*
-         * Um catch bem genérico pois só serão lançadas duas excessões: IOException e FileNotFoundException.
-         * Nos dois casos de uma dessas excessões serem lançadas, o comportamento será o mesmo.
-         * A única coisa em comum dessas duas excessões é a herança de Exception.
-         */
-        try {
-          apagaArquivo();
-          JOptionPane.showMessageDialog(null, "Um erro com os dados salvos no computador ocorreu. Os dados tiveram de ser apagados.");
-          listaDeQuartos = new ColecaoDeQuartos();
-          listaDeQuartos.criaQuartos();
-        } catch (HeadlessException e1) {
-          JOptionPane.showMessageDialog(null, e1.getMessage() + "\nContate o operador do sistema.");
-        } catch (FileNotFoundException e1) {
-          JOptionPane.showMessageDialog(null, e1.getMessage() + "\nContate o operador do sistema.");
-        } catch (IOException e1) {
-          JOptionPane.showMessageDialog(null, e1.getMessage() + "\nContate o operador do sistema.");
-        }
-      }
-    }else{ //Primeira vez que o usuário abriu o programa
-      listaDeQuartos.criaQuartos();
-    }
+    inicializacao();
     this.listaContratos = listaDeContratos.getListaContratos();
 
     //MenuBar com opções para fechar janelas abertas e informações sobre o projeto
@@ -320,6 +276,8 @@ public class Main extends JFrame {
           painelClientes = new PainelClientes(listaDeHospedes, painelPrincipal);
           painelPrincipal.add(painelClientes);
           painelClientes.show();
+        }else{
+          painelClientes.toFront();
         }
       }
     });
@@ -336,6 +294,8 @@ public class Main extends JFrame {
           painelServicos = new PainelServicos(listaContratos, painelPrincipal, listaDeQuartos, listaDeHospedes);
           painelPrincipal.add(painelServicos);
           painelServicos.show();
+        }else{
+          painelServicos.toFront();
         }
       }
     });
@@ -351,6 +311,8 @@ public class Main extends JFrame {
           painelContratos = new PainelContratos(listaContratos, painelPrincipal, listaDeHospedes, listaDeQuartos, listaDeEstrategias);
           painelPrincipal.add(painelContratos);
           painelContratos.show();
+        }else{
+          painelContratos.toFront();
         }
       }
     });
@@ -365,6 +327,8 @@ public class Main extends JFrame {
           painelEstrategias = new PainelEstrategias(listaDeEstrategias, listaDeContratos, painelPrincipal);
           painelPrincipal.add(painelEstrategias);
           painelEstrategias.show();
+        }else{
+          painelEstrategias.toFront();
         }
       }
     });
@@ -379,6 +343,8 @@ public class Main extends JFrame {
           painelRelatorio = new PainelRelatorio(listaDeHospedes, listaDeContratos, painelPrincipal);
           painelPrincipal.add(painelRelatorio);
           painelRelatorio.show();
+        }else{
+          painelRelatorio.toFront();
         }
       }
     });
@@ -389,6 +355,59 @@ public class Main extends JFrame {
 
     contentPane.setLayout(gl_contentPane);
     setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{menuBar, mnOpo, mntmOpo, mnOpo_1, mntmOpo_3, contentPane, toolBar, btnClientes, btnServios, btnContratos, painelPrincipal}));
+  }
+
+  private void inicializacao() throws URISyntaxException {
+    if (!primeiraVezInicializado){	//Não é a primeira vez que o usuário abriu o programa	
+      try{
+        FileInputStream fileIn = new FileInputStream(arquivo);
+        ObjectInputStream objIn = new ObjectInputStream(fileIn);
+
+        /*
+         * Índices na listaColecoes:
+         * listaDeLogins = 0
+         * listaDeContratos = 1
+         * listaDeHospedes = 2
+         * listaDeQuartos = 3
+         * listaDeEstrategias = 4
+         */
+
+        @SuppressWarnings("unchecked") //O cast é seguro, mesmo se a IDE mandar um warning.
+        List <Object> listaColecoes = (ArrayList<Object>) objIn.readObject();
+        listaDeLogins = (ColecaoDeLogins) listaColecoes.get(0);
+        listaDeContratos = (ColecaoDeContratos) listaColecoes.get(1);
+        listaDeHospedes = (ColecaoDeHospedes) listaColecoes.get(2);
+        listaDeQuartos = (ColecaoDeQuartos) listaColecoes.get(3);
+        listaDeEstrategias = (ColecaoDeEstrategias) listaColecoes.get(4);
+
+        objIn.close();
+      }catch (Exception e){
+        /*
+         * Um catch bem genérico pois só serão lançadas duas excessões: IOException e FileNotFoundException.
+         * Nos dois casos de uma dessas excessões serem lançadas, o comportamento será o mesmo.
+         * A única coisa em comum dessas duas excessões é a herança de Exception.
+         */
+        try {
+          apagaArquivo();
+          JOptionPane.showMessageDialog(null, "Um erro com os dados salvos no computador ocorreu. Os dados tiveram de ser apagados.");
+          listaDeQuartos = new ColecaoDeQuartos();
+          listaDeQuartos.criaQuartos();
+        } catch (HeadlessException e1) {
+          JOptionPane.showMessageDialog(null, e1.getMessage() + "\nContate o operador do sistema.");
+        } catch (FileNotFoundException e1) {
+          JOptionPane.showMessageDialog(null, e1.getMessage() + "\nContate o operador do sistema.");
+        } catch (IOException e1) {
+          JOptionPane.showMessageDialog(null, e1.getMessage() + "\nContate o operador do sistema.");
+        }
+      }
+    }else{ //Primeira vez que o usuário abriu o programa
+      listaDeLogins = new ColecaoDeLogins();
+      listaDeContratos = new ColecaoDeContratos();
+      listaDeHospedes = new ColecaoDeHospedes();
+      listaDeEstrategias = new ColecaoDeEstrategias();
+      listaDeQuartos = new ColecaoDeQuartos();
+      listaDeQuartos.criaQuartos();
+    }
   }
   /**
    * Método para uso privado, deletando todos os dados do arquivo que salva os dados do hotel.
