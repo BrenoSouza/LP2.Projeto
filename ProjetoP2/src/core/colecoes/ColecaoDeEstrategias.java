@@ -64,11 +64,12 @@ public class ColecaoDeEstrategias implements Serializable{
 	public Estrategia get(int i){
 		return listaEstrategias.get(i);
 	}
-	public Estrategia checaContratoComEstrategia(Contrato contrato){
+	public List<Estrategia> checaContratoComEstrategia(Contrato contrato){
+	  List<Estrategia> listaEstrategiasContrato = new ArrayList<Estrategia>();
 		for (Estrategia estrategia: listaEstrategias){
 			if (estrategia.contratoSobrepoe(contrato)){
-				return estrategia;
+			  listaEstrategiasContrato.add(estrategia);
 			}
-		}return null;
+		}return listaEstrategiasContrato;
 	}
 }

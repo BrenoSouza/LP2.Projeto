@@ -134,7 +134,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		}
 		lblDataMarcadaCheckOutVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblTotalASerPago = new JLabel("Total a ser pago:");
+		JLabel lblTotalASerPago = new JLabel("Total a ser pago (levando em conta possíveis Estratégias):");
 		if (contrato.getStatus().equals("FECHADO")){
 			lblTotalASerPago.setText("Total que foi pago:");
 		}
@@ -186,12 +186,12 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblCartao = new JLabel(contrato.getCartaoDeCredito());
 		lblCartao.setFont(new Font("Dialog", Font.PLAIN, 14));
 		
-		JLabel lblEstratgia = new JLabel("Estratégia:");
+		JLabel lblEstratgia = new JLabel("Estratégia(s):");
 		lblEstratgia.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblNewLabel = new JLabel("Nenhuma");
-		if (contrato.getEstrategiaDoContrato() != null){
-			lblNewLabel.setText(contrato.getEstrategiaDoContrato().getDescricao());
+		if (contrato.getEstrategiasDoContrato().size() > 0){
+			lblNewLabel.setText(contrato.getDescricaoEstrategias());
 		}
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout gl_panelDetalhes = new GroupLayout(panelDetalhes);

@@ -3,14 +3,12 @@ package gui;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyVetoException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
 
-//import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -464,10 +462,14 @@ public class PainelNovoContrato extends JInternalFrame {
 					if (isReserva){
 						contrato = new Contrato(dataCheckIn, listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
 						contratoFeito = true;
-						Estrategia estrategiaAtual = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
-						if (estrategiaAtual != null){
-							JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
-							contrato.setEstrategiaDoContrato(estrategiaAtual);
+						List<Estrategia> estrategiasAtuais = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
+						JOptionPane.showMessageDialog(null, estrategiasAtuais.size());
+						if (estrategiasAtuais.size() > 0){
+						  for (Estrategia estrategiaAtual: estrategiasAtuais){
+						    JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
+	              contrato.adicionaEstrategiaNoContrato(estrategiaAtual);
+						  }
+							
 							for (Quarto quarto: listaQuartosDoContrato){
 								quarto.setToLivre();
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
@@ -485,10 +487,13 @@ public class PainelNovoContrato extends JInternalFrame {
 					}else{
 						contrato = new Contrato(listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
 						contratoFeito = true;
-						Estrategia estrategiaAtual = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
-						if (estrategiaAtual != null){
-							JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
-							contrato.setEstrategiaDoContrato(estrategiaAtual);
+						List<Estrategia> estrategiasAtuais = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
+						
+            if (estrategiasAtuais.size() > 0){
+              for (Estrategia estrategiaAtual: estrategiasAtuais){
+                JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
+                contrato.adicionaEstrategiaNoContrato(estrategiaAtual);
+              }
 							for (Quarto quarto: listaQuartosDoContrato){
 								quarto.setToOcupado(contrato.getNumeroDiarias());
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);

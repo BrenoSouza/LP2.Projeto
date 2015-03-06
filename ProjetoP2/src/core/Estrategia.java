@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeFieldType;
 import org.joda.time.Interval;
 import org.joda.time.Period;
 import org.joda.time.ReadableInstant;
@@ -202,6 +203,23 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 		return intervalo.containsNow();
 	}
 	public boolean periodoContemIntervalo (ReadableInstant instante){
+	  int ano = instante.get(DateTimeFieldType.year()); //O ano do instante a ser comparado.
+	  
+	  inicioPeriodo = new DateTime(getInicioPeriodo()).withYear(ano); //Setando o início do período da estratégia para o ano do instante.
+    
+    finalPeriodo = new DateTime(getFinalPeriodo()).withYear(ano); //Setando o final do período da estratégia para o ano do instante.
+    
+    if (finalPeriodo.isBefore(inicioPeriodo)){ 
+      /*
+       * Com esse ajuste, pode ser que o final do período fique antes do início, exemplo, se o ano do intervalo for 2018:
+       * 21/12/2015 até 01/01/2016 -> 21/12/2018 até 01/01/2018.
+       * Se esse for o caso, adiciona +1 no campo ano do final do período.
+       */
+      finalPeriodo.plusYears(1);
+    }
+    
+    intervalo = new Interval(inicioPeriodo, finalPeriodo); //Re-criando o intervalo com as datas modificadas.
+	  
 	  return intervalo.contains(instante);
 	}
 	public int compareTo(Estrategia outraEstrategia){
@@ -242,11 +260,18 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 		
 		finalPeriodo = new DateTime(getFinalPeriodo()).withYear(contrato.getDataCheckOut().get(Calendar.YEAR));
 		
+		if (finalPeriodo.isBefore(inicioPeriodo)){
+      finalPeriodo.plusYears(1);
+    }
+		
 		intervalo = new Interval(inicioPeriodo, finalPeriodo);
 		
 		// Abaixo se consegue um Interval com o checkIn e checkOut do contrato, para fins de comparação.
 		
-		Interval intervaloContrato = new Interval(new DateTime(contrato.getDataCheckIn()), new DateTime(contrato.getDataCheckOut()));
+		Interval intervaloContrato = new Interval(new DateTime(contrato.getDataCheckIn()).withTimeAtStartOfDay(), new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay());
+		
+		System.out.println(intervalo.toString());
+		System.out.println(intervaloContrato.toString());
 		
 		boolean retorno = intervalo.overlaps(intervaloContrato);
 		
@@ -258,9 +283,19 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * Método para uso interno, setando o ano do Interval para o ano do sistema, para fins de comparação.
 	 */
 	private void atualizaIntervalo(){
-		inicioPeriodo = new DateTime(getInicioPeriodo()).withYear(Calendar.getInstance().get(Calendar.YEAR));
-		finalPeriodo = new DateTime(getFinalPeriodo()).withYear(Calendar.getInstance().get(Calendar.YEAR));
-		intervalo = new Interval(inicioPeriodo, finalPeriodo);
+		inicioPeriodo = new DateTime(getInicioPeriodo()).withYear(Calendar.getInstance().get(Calendar.YEAR)); //Setando o início do período da estratégia para o ano do instante.
+		finalPeriodo = new DateTime(getFinalPeriodo()).withYear(Calendar.getInstance().get(Calendar.YEAR)); //Setando o final do período da estratégia para o ano do instante.
+		
+		if (finalPeriodo.isBefore(inicioPeriodo)){
+		  /*
+       * Com esse ajuste, pode ser que o final do período fique antes do início, exemplo, se o ano do intervalo for 2018:
+       * 21/12/2015 até 01/01/2016 -> 21/12/2018 até 01/01/2018.
+       * Se esse for o caso, adiciona +1 no campo ano do final do período.
+       */
+      finalPeriodo.plusYears(1);
+    }
+		
+		intervalo = new Interval(inicioPeriodo, finalPeriodo); //Re-criando o intervalo com as datas modificadas.
 	}
 	@Override
 	public String toString(){
