@@ -463,7 +463,6 @@ public class PainelNovoContrato extends JInternalFrame {
 						contrato = new Contrato(dataCheckIn, listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
 						contratoFeito = true;
 						List<Estrategia> estrategiasAtuais = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
-						JOptionPane.showMessageDialog(null, estrategiasAtuais.size());
 						if (estrategiasAtuais.size() > 0){
 						  for (Estrategia estrategiaAtual: estrategiasAtuais){
 						    JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
