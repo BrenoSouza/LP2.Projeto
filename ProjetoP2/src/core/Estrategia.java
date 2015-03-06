@@ -9,6 +9,7 @@ import java.util.Calendar;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.joda.time.Period;
+import org.joda.time.ReadableInstant;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 public class Estrategia implements Comparable<Estrategia>, Serializable{
@@ -104,7 +105,6 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * O inicio do período dado pela estratégia.
 	 */
 	public DateTime getInicioPeriodo() {
-	  atualizaIntervalo();
 		return inicioPeriodo;
 	}
 	/**
@@ -200,6 +200,9 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	public boolean periodoContemPresente(){
 		atualizaIntervalo();
 		return intervalo.containsNow();
+	}
+	public boolean periodoContemIntervalo (ReadableInstant instante){
+	  return intervalo.contains(instante);
 	}
 	public int compareTo(Estrategia outraEstrategia){
 		this.atualizaIntervalo();
