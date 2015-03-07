@@ -19,8 +19,7 @@ public class QuartoExecutivoDuplo extends Quarto {
 	public String toString() {
 		return "Serviço --- Quarto Executivo Duplo ---" +
 				super.toString() +
-				"\nPreço da diária -> " + this.getPrecoDiaria() +
-				"\nCusto final -> " + this.calculaPrecoTotal();
+				"\nPreço da diária -> " + this.getPrecoDiaria();
 	}
 
 	@Override
