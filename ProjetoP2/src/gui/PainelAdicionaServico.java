@@ -63,7 +63,6 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JButton btnRestaurante;
 	private JButton btnAluguelCarros;
 	private JSpinner spinnerDiariasCarro;
-	private JSpinner spinnerDiarias;
 	private JCheckBox chckbxCamasExtras;
 	private JCheckBox chckbxCobertura;
 	private JTextField txtfi_preco;
@@ -159,35 +158,22 @@ public class PainelAdicionaServico extends JInternalFrame {
 		
 		panelExterno.add(panelQuartos, "quarto");
 		
-		JLabel lblDiarias = new JLabel("Diárias:");
-		
-		spinnerDiarias = new JSpinner();
-		spinnerDiarias.setModel(new SpinnerNumberModel(1, 1, diasRestantes, 1));
-		
 		chckbxCamasExtras = new JCheckBox("Camas Extras");
 		
 		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
 		gl_panelQuartos.setHorizontalGroup(
-			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelQuartos.createSequentialGroup()
-					.addGap(139)
-					.addComponent(lblDiarias)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-					.addGap(76)
-					.addComponent(chckbxCamasExtras)
-					.addContainerGap(308, Short.MAX_VALUE))
+		  gl_panelQuartos.createParallelGroup(Alignment.LEADING)
+		    .addGroup(gl_panelQuartos.createSequentialGroup()
+		      .addGap(335)
+		      .addComponent(chckbxCamasExtras)
+		      .addContainerGap(308, Short.MAX_VALUE))
 		);
 		gl_panelQuartos.setVerticalGroup(
-			gl_panelQuartos.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelQuartos.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelQuartos.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panelQuartos.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblDiarias)
-							.addComponent(spinnerDiarias, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
-						.addComponent(chckbxCamasExtras))
-					.addContainerGap(127, Short.MAX_VALUE))
+		  gl_panelQuartos.createParallelGroup(Alignment.LEADING)
+		    .addGroup(gl_panelQuartos.createSequentialGroup()
+		      .addContainerGap()
+		      .addComponent(chckbxCamasExtras)
+		      .addContainerGap(128, Short.MAX_VALUE))
 		);
 		
 		panelQuartos.setLayout(gl_panelQuartos);
