@@ -541,7 +541,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 							adicionaServico(servico);
 				    		JOptionPane.showMessageDialog(null, "Adicionado!");
 				    		dispose();
-						} catch (Exception e1) {
+						} catch (NullPointerException e1) {
 							e1.printStackTrace();
 						}
 			    		break;
@@ -571,7 +571,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 							adicionaServico(new Restaurante(chckbxCobertura.isSelected(), preco));
 							JOptionPane.showMessageDialog(null, "Adicionado!");
 							dispose();
-						} catch (Exception e1) {
+						} catch (NullPointerException e1) {
 							e1.printStackTrace();
 						}
 			    		break;

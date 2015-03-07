@@ -127,8 +127,10 @@ public class PainelNovoContrato extends JInternalFrame {
 			dataCheckIn = dialogoDiarias.getDataCheckIn();
 			cartaoDeCredito = dialogoDiarias.getCartaoDeCredito();
 
-		} catch (Exception e3) {
+		} catch (IllegalArgumentException e3) {
 			JOptionPane.showMessageDialog(null, e3.getMessage());
+		}catch (java.text.ParseException e4){
+		  JOptionPane.showMessageDialog(null, e4.getMessage());
 		}
 		dataCheckOut.setTime(dataCheckIn.getTime());
 		dataCheckOut.add(Calendar.DAY_OF_YEAR, diariasContrato);
@@ -192,7 +194,7 @@ public class PainelNovoContrato extends JInternalFrame {
 					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(getListaDeHospedes());
 					getPainelPrincipal().add(painelCadastro);
 					painelCadastro.show();
-				}catch (Exception e){
+				}catch (java.text.ParseException e){
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 
@@ -352,8 +354,10 @@ public class PainelNovoContrato extends JInternalFrame {
 				isReserva = dialogoDiarias.isReserva();
 				try {
 					dataCheckIn = dialogoDiarias.getDataCheckIn();
-				} catch (Exception e3) {
+				} catch (IllegalArgumentException e3) {
 					JOptionPane.showMessageDialog(null, e3.getMessage());
+				}catch (java.text.ParseException e4){
+				  JOptionPane.showMessageDialog(null, e4.getMessage());
 				}
 				dataCheckOut.setTime(dataCheckIn.getTime());
 				dataCheckOut.add(Calendar.DAY_OF_YEAR, diariasContrato);
@@ -517,9 +521,7 @@ public class PainelNovoContrato extends JInternalFrame {
 					getListaContratos().add(contrato);
 					JOptionPane.showMessageDialog(null, "Contrato criado com sucesso!");
 					dispose();
-				}catch (java.text.ParseException e2){
-					JOptionPane.showMessageDialog(null, "Data em formato inválido.");
-				}catch (Exception e1){
+				}catch (IllegalArgumentException e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}

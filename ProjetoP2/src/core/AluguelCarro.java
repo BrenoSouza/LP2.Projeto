@@ -25,13 +25,13 @@ public class AluguelCarro extends Servico implements Serializable {
 	 * @param isLuxo Se o carro escolhido é de Luxo.
 	 * @param isTanqueCheio Se o tanque do carro está cheio.
 	 * @param isSegurado Se o carro está com seguro.
-	 * @throws Exception Se o número de diárias for menor que 1.
+	 * @throws IllegalArgumentException Se o número de diárias for menor que 1.
 	 */
 	
-	public AluguelCarro(int diarias, boolean isLuxo, boolean isTanqueCheio, boolean isSegurado) throws Exception {
+	public AluguelCarro(int diarias, boolean isLuxo, boolean isTanqueCheio, boolean isSegurado) throws IllegalArgumentException {
 		super();
 		if (diarias < 1) {
-			throw new Exception("Parametros inválidos!");
+			throw new IllegalArgumentException("Parametros inválidos!");
 		}
 		Calendar diaInicio = super.getData();
 		diaFim.setTime(diaInicio.getTime());

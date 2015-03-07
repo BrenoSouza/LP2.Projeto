@@ -24,16 +24,16 @@ public class ColecaoDeEstrategias implements Serializable{
 	 * Método para adicionar uma estratégia a lista de estratégias.
 	 * @param estrategia
 	 * Uma estratégia a ser adicionada.
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 * Se a estratégia for null, já existir na lista de estratégias ou sobrepoe um intervalo de outra estratégia.
 	 */
-	public void adicionaEstrategia(Estrategia estrategia) throws Exception{
+	public void adicionaEstrategia(Estrategia estrategia) throws IllegalArgumentException{
 		if (estrategia == null || listaEstrategias.contains(estrategia)){
-			throw new Exception("A estratégia não foi adicionado");
+			throw new IllegalArgumentException("A estratégia não foi adicionado");
 		}
 		for (Estrategia outraEstrategia: listaEstrategias){
 			if (outraEstrategia.sobrepoe(estrategia)){
-				throw new Exception("A estratégia inclui um período referente a outra estratégia existente");
+				throw new IllegalArgumentException("A estratégia inclui um período referente a outra estratégia existente");
 			}
 		}
 		

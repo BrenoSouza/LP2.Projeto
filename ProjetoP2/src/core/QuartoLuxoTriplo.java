@@ -9,7 +9,7 @@ public class QuartoLuxoTriplo extends Quarto {
 	/**
 	 * Construtor de um quarto do tipo Luxo Triplo.
 	 * @param numero Número do quarto.
-	 * @throws Exception Caso o número/numeroHospedes/diárias seja menor que zero.
+	 * @throws IllegalArgumentException Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
 	public QuartoLuxoTriplo(int numero) throws IllegalArgumentException {
 		super(numero, 3, 620.0);

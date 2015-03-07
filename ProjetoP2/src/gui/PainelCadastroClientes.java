@@ -33,7 +33,7 @@ public class PainelCadastroClientes extends JInternalFrame {
   private JFormattedTextField campoData;
   private ColecaoDeHospedes listaDeHospedes;
 
-  public PainelCadastroClientes(ColecaoDeHospedes colecao) throws Exception{
+  public PainelCadastroClientes(ColecaoDeHospedes colecao) throws java.text.ParseException{
     setResizable(true);
     setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
     setTitle("Clientes");
@@ -78,7 +78,7 @@ public class PainelCadastroClientes extends JInternalFrame {
           dispose();
         }catch (java.text.ParseException e){
           JOptionPane.showMessageDialog(null, "Data em formato inválido.");
-        }catch (Exception e){
+        }catch (NullPointerException e){
           JOptionPane.showMessageDialog(null, e.getMessage());
         }
       }

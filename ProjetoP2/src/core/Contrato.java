@@ -27,7 +27,8 @@ public class Contrato implements Serializable{
 
   /**
    * Um setter para modificar a estrategia de preco usada no contrato.
-   * @param estrategiaDoContrato Uma Estrategia para o contrato
+   * @param estrategiasDoContrato 
+   * Uma lista de estrategias para o contrato
    */
   public void setEstrategiasDoContrato(List<Estrategia> estrategiasDoContrato) {
     this.estrategiasDoContrato = estrategiasDoContrato;
@@ -38,13 +39,14 @@ public class Contrato implements Serializable{
    * @param listaQuartosAlugados Um List de Quarto com o(s) quarto(s) alugado(s).
    * @param listaHospedes Um List de Hospede com o(s) hóspede(s) ligado(s) ao contrato.
    * @param numeroDiarias O número de diárias.
+   * @throws IllegalArgumentException
    */
-  public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws Exception{
+  public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws IllegalArgumentException{
     if (listaQuartosAlugados == null || numeroDiarias <= 0 || listaQuartosAlugados.size() == 0) {
-      throw new Exception ("Dados inválidos. Tente novamente.");
+      throw new IllegalArgumentException ("Dados inválidos. Tente novamente.");
     }
     if (listaHospedes == null || listaHospedes.size() == 0) {
-      throw new Exception ("Lista de hospedes invalida.");
+      throw new IllegalArgumentException ("Lista de hospedes invalida.");
     }
     this.listaQuartosAlugados.addAll(listaQuartosAlugados);
     this.listaHospedes.addAll(listaHospedes);
@@ -54,18 +56,18 @@ public class Contrato implements Serializable{
     dataCheckOut.add(Calendar.DAY_OF_YEAR, numeroDiarias);
   }
   /**
-   * Segundo construtor de Contrato, com uma data de check-in (para reservas)
+   * Segundo construtor de Contrato, com uma data de check-in (para reservas).
    * @param dataCheckIn
    * Dia que se espera que haja o check-in
    * @param listaQuartosAlugados Um List<Quarto> com o(s) quarto(s) alugado(s).
    * @param listaHospedes Um List<Hospede> com o(s) hóspede(s) ligado(s) ao contrato.
    * @param numeroDiarias O número de diárias.
    */
-  public Contrato(Calendar dataCheckIn, List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws Exception{
+  public Contrato(Calendar dataCheckIn, List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws IllegalArgumentException{
     if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 
         || listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0
         ){
-      throw new Exception ("Dados inválidos. Tente novamente.");
+      throw new IllegalArgumentException ("Dados inválidos. Tente novamente.");
     }
     this.listaQuartosAlugados.addAll(listaQuartosAlugados);
     this.listaHospedes.addAll(listaHospedes);
@@ -104,14 +106,14 @@ public class Contrato implements Serializable{
     return numeroDiarias;
   }
   /**
-   * Informa o numero do cartao de credito usado no contrato
+   * Informa o numero do cartao de credito usado no contrato.
    * @return O numero do cartao
    */
   public String getCartaoDeCredito() {
     return cartaoDeCredito;
   }
   /**
-   * Modifica o numero do cartao de credito usado no contrato
+   * Modifica o numero do cartao de credito usado no contrato.
    * @param cartao Uma string com o numero do cartao
    */
   public void setCartaoDeCredito (String cartao){
@@ -260,7 +262,7 @@ public class Contrato implements Serializable{
     return quartosToString;
   }
   /**
-   * Faz com que determinados hospedes estejam ligados ao contrato
+   * Faz com que determinados hospedes estejam ligados ao contrato.
    * @param hospedes Uma List<Hospedes> com os hospedes a serem ligados ao contrato
    */
   public void setContratoEmHospede(List<Hospede> hospedes) {
@@ -269,7 +271,7 @@ public class Contrato implements Serializable{
     }
   }
   /**
-   * Inicia o contrato e calcula a data de checkOut com base nas diarias do contrato
+   * Inicia o contrato e calcula a data de checkOut com base nas diarias do contrato.
    */
   public void fazCheckIn(){
     status = "ABERTO";

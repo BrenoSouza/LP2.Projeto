@@ -280,7 +280,7 @@ public class StarRater extends JPanel {
       objectStream.close();
       return byteStream.toByteArray();
     }
-    catch (Exception e) {
+    catch (InterruptedException e) {
       throw new IOException("Error storing image in object: " + e);
     }
   }
@@ -307,7 +307,9 @@ public class StarRater extends JPanel {
       MemoryImageSource mis = new MemoryImageSource(width, height, imageSource, 0, width);
       return Toolkit.getDefaultToolkit().createImage(mis);    
     }
-    catch (Exception e) {
+    catch (IOException e) {
+      return null;
+    }catch (ClassNotFoundException e2){
       return null;
     }
   }

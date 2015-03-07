@@ -53,10 +53,8 @@ public class PainelEditarCliente extends JInternalFrame {
 	private JFormattedTextField formattedTextFieldData;
 	private JFormattedTextField formattedTextFieldCpf;
 	private JButton btnEditarInfo;
-	/**
-	 * Create the frame.
-	 */
-	public PainelEditarCliente(final Hospede hospede, JDesktopPane painelPrincipal) throws Exception{
+
+	public PainelEditarCliente(final Hospede hospede, JDesktopPane painelPrincipal) throws java.text.ParseException{
 		setFrameIcon(new ImageIcon(PainelEditarCliente.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes - Editar");
 		setClosable(true);
@@ -182,7 +180,7 @@ public class PainelEditarCliente extends JInternalFrame {
 				String Data = formattedTextFieldData.getText();
 				try {
 				getHospede().setDataNascimento(Main.converteParaCalendar(Data));
-				} catch (Exception e1) {
+				} catch (java.text.ParseException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 				String comment = textFieldComment.getText();
@@ -196,7 +194,7 @@ public class PainelEditarCliente extends JInternalFrame {
 						getHospede().setOpiniao(opiniao);
 						JOptionPane.showMessageDialog(null, "Mudanças salvas.");
 						dispose();
-					} catch (Exception e1) {
+					} catch (IllegalArgumentException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
 				}

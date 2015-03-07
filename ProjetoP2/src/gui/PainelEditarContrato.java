@@ -186,7 +186,7 @@ public class PainelEditarContrato extends JInternalFrame {
 					painelAdd.show();
 				}
 				escreveTabelas();
-				}catch (Exception e5){
+				}catch (java.text.ParseException e5){
 						JOptionPane.showMessageDialog(null, e5.getMessage());
 				}
 			}

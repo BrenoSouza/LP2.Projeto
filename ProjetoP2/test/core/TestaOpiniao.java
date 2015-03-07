@@ -9,7 +9,7 @@ public class TestaOpiniao {
 	private Opiniao opiniao;
 	
 	@Before
-	public void criaOpiniao() throws Exception {
+	public void criaOpiniao() throws IllegalArgumentException {
 		opiniao = new Opiniao("Muito bom!!", 5);
 	}
 	
@@ -20,28 +20,28 @@ public class TestaOpiniao {
 					+ "Muito, Muito, Muito, Muito, Muito, Muito, Muito, Muito, Muito, "
 					+ "Muito, Muito, Muito, Muito, Muito, Muito, Muito, Muito bom!", 5);
 			Assert.fail("Esperava exceção, pois o comentário tem mais de 140 caracteres");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			Assert.assertEquals("Mensagem errada", "O comentário não pode ser vazio e deve possuir no máximo 140 caracteres.", e.getMessage());
 		}
 		
 		try {
 			new Opiniao("", 5);
 			Assert.fail("Esperava exceção, pois o comentário está vazio.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			Assert.assertEquals("Mensagem errada", "O comentário não pode ser vazio e deve possuir no máximo 140 caracteres.", e.getMessage());
 		}
 		
 		try {
 			new Opiniao("Muito bom!", 10);
 			Assert.fail("Esperava exceção, pois a nota é maior que 5.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			Assert.assertEquals("Mensagem errada", "A nota deve ser entre 0 e 5.", e.getMessage());
 		}
 		
 		try {
 			new Opiniao("Muito bom!", -1);
 			Assert.fail("Esperava exceção, pois a nota é menor que 0.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			Assert.assertEquals("Mensagem errada", "A nota deve ser entre 0 e 5.", e.getMessage());
 		}
 		

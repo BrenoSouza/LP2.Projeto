@@ -108,7 +108,7 @@ public class PainelClientes extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					painelNovo = new PainelCadastroClientes(getColecaoDeHospedes());
-				} catch (Exception e) {
+				} catch (java.text.ParseException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				adicionaNoPainel(painelNovo);
@@ -122,7 +122,7 @@ public class PainelClientes extends JInternalFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					painelEditar = new PainelEditarCliente(hospedeSelecionado, getPainelPrincipal());
-				} catch (Exception e) {
+				} catch (java.text.ParseException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				adicionaNoPainel(painelEditar);
@@ -271,11 +271,7 @@ public class PainelClientes extends JInternalFrame {
 			}
 			//Na 2 coluna "Nascimento", escreve a data de nascimento do hospede indice i.
 			String dataFormatadaNascimento = "";
-			try{
 				dataFormatadaNascimento = Main.converteParaString(hospedeAtual.getDataNascimento());
-			}catch (Exception e){
-				JOptionPane.showMessageDialog(null, e.getMessage());
-			}
 			designTabela[i][1] = dataFormatadaNascimento;
 			//Na 3 coluna "CPF", escreve o CPF do hospede indice i.
 			if (hospedeAtual.getCpf() == null){

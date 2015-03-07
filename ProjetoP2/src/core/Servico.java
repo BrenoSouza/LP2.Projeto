@@ -13,7 +13,7 @@ public abstract class Servico implements Serializable{
 	private static final long serialVersionUID = -1379056791595576269L;
 	private Calendar data;
 	/**
-	 * Construtor de serviço
+	 * Construtor de serviço.
 	 */
 	public Servico() {
 		this.data = Calendar.getInstance();
@@ -38,7 +38,7 @@ public abstract class Servico implements Serializable{
 		return getData().get(Calendar.HOUR_OF_DAY);
 	}
 	/**
-	 * Retorna os minutos da hora de Entrada/Inicio do servico
+	 * Retorna os minutos da hora de Entrada/Inicio do servico.
 	 * @return Um int com os minutos
 	 */
 	public int getMinutosEntrada(){

@@ -29,20 +29,20 @@ public class ColecaoDeHospedes implements Serializable{
 	 * @param hospede O hospede a ser adicionado
 	 * @throws Exception Caso atinga as exceções da classe hospede
 	 */
-	public void adicionaHospede(Hospede hospede) throws Exception{
+	public void adicionaHospede(Hospede hospede) throws IllegalArgumentException{
 		if (hospede == null || listaHospedes.contains(hospede)){
-			throw new Exception("O hospede não foi adicionado.");
+			throw new IllegalArgumentException("O hospede não foi adicionado.");
 		}
 		listaHospedes.add(hospede);
 	}
 	/**
 	 * Adiciona uma lista de hospedes a colecao.
 	 * @param hospedes Um List<hospede>
-	 * @throws Exception Caso atinga as exceções da classe hospede
+	 * @throws IllegalArgumentException Caso atinga as exceções da classe hospede
 	 */
-	public void adicionaListaHospedes(List<Hospede> hospedes) throws Exception{
+	public void adicionaListaHospedes(List<Hospede> hospedes) throws IllegalArgumentException{
 		if (hospedes == null || hospedes.contains(null) || listaHospedes.containsAll(hospedes)){
-			throw new Exception("Os hospedes não foram adicionados.");
+			throw new IllegalArgumentException("Os hospedes não foram adicionados.");
 		}
 		listaHospedes.addAll(hospedes);
 	}
@@ -58,9 +58,8 @@ public class ColecaoDeHospedes implements Serializable{
 	 * Remove uma lista de hospedes da colecao.
 	 * @param hospedes Um List<hospede>
 	 * @return True - se removeu algum hospede da colecao / False - se não removeu nenhum hospede
-	 * @throws Exception Caso atinga as exceções da classe hospede
 	 */
-	public boolean removeHospedes(List<Hospede> hospedes) throws Exception{
+	public boolean removeHospedes(List<Hospede> hospedes){
 		boolean removeu = false;
 		for (Hospede hospede: hospedes){
 			if (listaHospedes.contains(hospede)){

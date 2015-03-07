@@ -25,12 +25,12 @@ public class Hospede implements Comparable<Hospede>, Serializable{
 	 * O CPF do hóspede.
 	 * @param dataNascimento
 	 * Um objeto Calendar contendo a data de nascimento do hóspede.
-	 * @throws Exception
+	 * @throws IllegalArgumentException
 	 * Joga uma excessão caso qualquer um dos atributos estiverem em formato inválido.
 	 */
-	public Hospede(String nome, String endereco, String cpf, Calendar dataNascimento) throws Exception{
+	public Hospede(String nome, String endereco, String cpf, Calendar dataNascimento) throws IllegalArgumentException{
 		if (nome == null || endereco == null || endereco.isEmpty() || nome.isEmpty() || dataNascimento == null || cpf == null || cpf.equals("   .   .   -  ")){
-			throw new Exception ("Dados inválidos. Tente novamente");
+			throw new IllegalArgumentException ("Dados inválidos. Tente novamente");
 		}
 		this.nome = nome;
 		this.cpf = cpf;
@@ -63,14 +63,14 @@ public class Hospede implements Comparable<Hospede>, Serializable{
 		return cpf;
 	}
 	/**
-	 * Modifica o atributo de cpf do hospede
+	 * Modifica o atributo de cpf do hospede.
 	 * @param cpf O novo cpf do hospede
 	 */
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	/**
-	 * Getter da variável referente ao contrato ligado ao hóspede
+	 * Getter da variável referente ao contrato ligado ao hóspede.
 	 * @return
 	 * O contrato ligado ao hóspede
 	 */
@@ -78,7 +78,7 @@ public class Hospede implements Comparable<Hospede>, Serializable{
 		return contratoLigado;
 	}
 	/**
-	 * Setter da variável referente ao contrato ligado ao hóspede
+	 * Setter da variável referente ao contrato ligado ao hóspede.
 	 * @param contratoLigado
 	 * O contrato a ser ligado com o cliente
 	 */
@@ -95,7 +95,7 @@ public class Hospede implements Comparable<Hospede>, Serializable{
 		return dataNascimento;
 	}
 	/**
-	 * Modifica a data de nascimento do hospede
+	 * Modifica a data de nascimento do hospede.
 	 * @param dataNascimento Uma Calendar com a nova data de nascimento
 	 */
 	public void setDataNascimento(Calendar dataNascimento) {

@@ -64,11 +64,11 @@ public class Main extends JFrame {
   private PainelEstrategias painelEstrategias;
   private PainelRelatorio painelRelatorio;
   private List<Contrato> listaContratos;
-  private static ColecaoDeLogins listaDeLogins;
-  private static ColecaoDeContratos listaDeContratos;
-  private static ColecaoDeHospedes listaDeHospedes;
-  private static ColecaoDeQuartos listaDeQuartos;
-  private static ColecaoDeEstrategias listaDeEstrategias;
+  private ColecaoDeLogins listaDeLogins;
+  private ColecaoDeContratos listaDeContratos;
+  private ColecaoDeHospedes listaDeHospedes;
+  private ColecaoDeQuartos listaDeQuartos;
+  private ColecaoDeEstrategias listaDeEstrategias;
   private final static SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
   URL url = this.getClass().getResource("/resources/arquivo.data");
   File arquivo = new File(url.toURI());
@@ -79,15 +79,15 @@ public class Main extends JFrame {
     return FORMATO_DATA;
   }
 
-  public static ColecaoDeHospedes getListaDeHospedes() {
+  public ColecaoDeHospedes getListaDeHospedes() {
     return listaDeHospedes;
   }
 
-  public static ColecaoDeQuartos getListaDeQuartos() {
+  public ColecaoDeQuartos getListaDeQuartos() {
     return listaDeQuartos;
   }
 
-  public static ColecaoDeLogins getListaDeLogins() {
+  public ColecaoDeLogins getListaDeLogins() {
     return listaDeLogins;
   }
 
@@ -97,7 +97,7 @@ public class Main extends JFrame {
         try {
           UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
           Main frame = new Main();
-          PainelLogin<Object> painelLogin = new PainelLogin<Object>(getListaDeLogins(), frame);
+          PainelLogin<Object> painelLogin = new PainelLogin<Object>(frame.getListaDeLogins(), frame);
           painelLogin.toFront();
           painelLogin.setVisible(true);			
 
@@ -113,12 +113,12 @@ public class Main extends JFrame {
   }
 
   /**
-   * Método de conversão string para Calendar
+   * Método de conversão string para Calendar.
    * @param data
    * Uma data no formato dd/mm/aaaa
    * @return
    * Um calendar com essa data
-   * @throws Exception
+   * @throws ParseException
    * Se a string estiver em algum formato inválido
    */
   public static Calendar converteParaCalendar(String data) throws java.text.ParseException{
@@ -129,7 +129,7 @@ public class Main extends JFrame {
 
   }
   /**
-   * Método de conversão de um Calendar para uma string
+   * Método de conversão de um Calendar para uma string.
    * @param data
    * O objeto Calendar
    * @return

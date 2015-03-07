@@ -14,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -116,22 +115,16 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 			lblDataCheckIn.setText("Data marcada para Check-In:");
 		}
 		JLabel lblDataCheckInVariavel = new JLabel("New label");
-		try{
 			lblDataCheckInVariavel.setText(Main.converteParaString(contrato.getDataCheckIn()));
-		}catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
 		lblDataCheckInVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblDataMarcadaCheckOut = new JLabel("Data marcada para Check-Out:");
 		lblDataMarcadaCheckOut.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblDataMarcadaCheckOutVariavel = new JLabel("New label");
-		try{
+
 			lblDataMarcadaCheckOutVariavel.setText(Main.converteParaString(contrato.getDataCheckOut()));
-		}catch (Exception e){
-			JOptionPane.showMessageDialog(null, e.getMessage());
-		}
+
 		lblDataMarcadaCheckOutVariavel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JLabel lblTotalASerPago = new JLabel("Total a ser pago (levando em conta possíveis Estratégias):");

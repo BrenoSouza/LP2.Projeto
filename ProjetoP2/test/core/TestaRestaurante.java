@@ -12,7 +12,7 @@ public class TestaRestaurante {
 	private Restaurante servicoRestaurante2;
 	
 	@Before
-	public void criaServico() throws Exception {
+	public void criaServico() throws IllegalArgumentException {
 		servicoRestaurante1 = new Restaurante(true, 100.00);
 		servicoRestaurante2 = new Restaurante(false, 200.00);
 	}
@@ -22,7 +22,7 @@ public class TestaRestaurante {
 		try {
 	         new Restaurante(true, -1.0);
 	         Assert.fail("Esperava excecao preco informado é negativo!");
-	      } catch (Exception e) {
+	      } catch (IllegalArgumentException e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "O preço da conta nao pode ser menor que zero.", e.getMessage());
 	      }

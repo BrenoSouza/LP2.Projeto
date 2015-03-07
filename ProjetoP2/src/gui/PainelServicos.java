@@ -354,19 +354,11 @@ public class PainelServicos extends JInternalFrame {
 			}
 			// Para conseguir uma String formatada com a data do checkin, através de um método na classe Main.
 			String dataFormatadaCheckIn = "";
-			try{
 				dataFormatadaCheckIn = Main.converteParaString(contratoAtual.getDataCheckIn());
-			}catch (Exception e){
-				JOptionPane.showMessageDialog(null, e.getMessage());
-			}
 			designTabela[i][1] = dataFormatadaCheckIn;
 			// Para conseguir uma String formatada com a estimada data do checkout.
 			String dataFormatadaCheckOut = "";
-			try{
 				dataFormatadaCheckOut = Main.converteParaString(contratoAtual.getDataCheckOut());
-			}catch (Exception e){
-				JOptionPane.showMessageDialog(null, e.getMessage());
-			}
 			designTabela[i][2] = dataFormatadaCheckOut;
 			// Para colocar na tabela o total de despesas do contrato.
 			designTabela[i][3] = contratoAtual.calculaPrecoFinal();

@@ -17,7 +17,7 @@ public class Reserva implements Serializable{
 	private Contrato contrato;
 	private Interval intervalo;
 	/**
-	 * Cria uma reserva com base nas datas de CheckIn e CheckOut de um contrato
+	 * Cria uma reserva com base nas datas de CheckIn e CheckOut de um contrato.
 	 * @param contrato Um contrato
 	 */
 	public Reserva(Contrato contrato){
@@ -27,7 +27,7 @@ public class Reserva implements Serializable{
 		intervalo = new Interval(dataCheckIn, dataCheckOut);
 	}
 	/**
-	 * Cria uma reserva com base em datas de CheckIn e CheckOut defidas no construtor
+	 * Cria uma reserva com base em datas de CheckIn e CheckOut defidas no construtor.
 	 * @param dataCheckIn Um calendar com data de CheckIn
 	 * @param dataCheckOut Um calendar com data de CheckOut
 	 */
@@ -37,35 +37,35 @@ public class Reserva implements Serializable{
 		intervalo = new Interval(this.dataCheckIn, this.dataCheckOut);
 	}
 	/**
-	 * Retorna a data de checkIn da reserva
+	 * Retorna a data de checkIn da reserva.
 	 * @return A data de checkIn
 	 */
 	public DateTime getDataCheckIn() {
 		return dataCheckIn;
 	}
 	/**
-	 * Retorna a data de checkOut da reserva
+	 * Retorna a data de checkOut da reserva.
 	 * @return A data de checkOut
 	 */
 	public DateTime getDataCheckOut() {
 		return dataCheckOut;
 	}
 	/**
-	 * Retorna o contrato ligado a reserva
+	 * Retorna o contrato ligado a reserva.
 	 * @return Um contrato
 	 */
 	public Contrato getContrato() {
 		return contrato;
 	}
 	/**
-	 * Retorna o intervalo de tempo onde a reserva está ativa
+	 * Retorna o intervalo de tempo onde a reserva está ativa.
 	 * @return Um Interval com o intervalo
 	 */
 	public Interval getIntervalo() {
 		return intervalo;
 	}
 	/**
-	 * Método para saber se uma reserva está "sobrepondo" outra
+	 * Método para saber se uma reserva está "sobrepondo" outra.
 	 * @param outroIntervalo
 	 * Um intervalo de tempo.
 	 * @return
@@ -75,7 +75,7 @@ public class Reserva implements Serializable{
 		return (!(outroIntervalo.equals(intervalo)) && intervalo.overlaps(outroIntervalo));
 	}
 	/**
-	 * Método para saber se uma reserva está "sobrepondo" outra
+	 * Método para saber se uma reserva está "sobrepondo" outra.
 	 * @param outraReserva
 	 * Outra reserva.
 	 * @return

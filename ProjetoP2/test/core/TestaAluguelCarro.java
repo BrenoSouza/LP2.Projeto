@@ -19,7 +19,7 @@ public class TestaAluguelCarro {
 	private Calendar dataInicio, dataFim;
 	
 	@Before
-	public void criaServicoAluguel() throws Exception {
+	public void criaServicoAluguel() throws IllegalArgumentException {
 		aluguelCarroLuxo = new AluguelCarro(1, true, false, false);
 		outroCarroLuxo = new AluguelCarro(1, true, false, false);
 		aluguelCarroLuxoTanqueCheio = new AluguelCarro(1, true, true, false);
@@ -36,7 +36,7 @@ public class TestaAluguelCarro {
 		try {
 	         new AluguelCarro(-2, true, true, true);
 	         Assert.fail("Esperava excecao o número de diárias informado é menor que 1!");
-	      } catch (Exception e) {
+	      } catch (IllegalArgumentException e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "Parametros inválidos!", e.getMessage());
 	      }

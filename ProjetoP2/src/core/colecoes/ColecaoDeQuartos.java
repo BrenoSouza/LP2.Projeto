@@ -141,7 +141,7 @@ public class ColecaoDeQuartos implements Serializable {
 		}return listaQuartosOcupados;
 	}
 	/**
-	 * Método para pesquisar um quarto pelo seu número
+	 * Método para pesquisar um quarto pelo seu número.
 	 * @param numeroQuarto
 	 * O número do quarto
 	 * @return
@@ -172,7 +172,7 @@ public class ColecaoDeQuartos implements Serializable {
 	}
 
 	/**
-	 * Método para ordenar os quartos em relação ao seu estado (Vago/Ocupado)
+	 * Método para ordenar os quartos em relação ao seu estado (Vago/Ocupado).
 	 * @param modoDeOrdenacao
 	 * ColecaoDeQuartos.VAGOS_PRIMEIRO ou ColecaoDeQuartos.OCUPADOS_PRIMEIRO
 	 */

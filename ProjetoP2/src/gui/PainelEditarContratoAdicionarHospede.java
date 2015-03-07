@@ -118,7 +118,7 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(PainelEditarContratoAdicionarHospede.this.listaDeHospedes);
 					PainelEditarContratoAdicionarHospede.this.painelPrincipal.add(painelCadastro);
 					painelCadastro.show();
-				} catch (Exception e1) {
+				} catch (java.text.ParseException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}

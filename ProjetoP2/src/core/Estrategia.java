@@ -92,6 +92,8 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * O modificador, de 0-100;
 	 * @param tipoDeEstrategia
 	 * Estrategia.ACRESCIMO ou Estrategia.DECRESCIMO.
+	 * @param descricao
+	 * Uma curta descrição sobre a estratégia.
 	 * @throws ParseException
 	 * Se a data não estiver em formato correto.
 	 * @throws IllegalArgumentException
@@ -269,10 +271,7 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 		// Abaixo se consegue um Interval com o checkIn e checkOut do contrato, para fins de comparação.
 		
 		Interval intervaloContrato = new Interval(new DateTime(contrato.getDataCheckIn()).withTimeAtStartOfDay(), new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay());
-		
-		System.out.println(intervalo.toString());
-		System.out.println(intervaloContrato.toString());
-		
+				
 		boolean retorno = intervalo.overlaps(intervaloContrato);
 		
 		atualizaIntervalo(); //Método que retorna o Interval para o ano do sistema.

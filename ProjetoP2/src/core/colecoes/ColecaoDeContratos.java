@@ -28,22 +28,22 @@ public class ColecaoDeContratos implements Serializable {
 	/**
 	 * Adiciona um contrato na colecao.
 	 * @param contrato O contrato a ser adicionado
-	 * @throws Exception Caso atinga as exceções da classe Contrato
+	 * @throws IllegalArgumentException Caso atinja as exceções da classe Contrato
 	 */
-	public void adicionaContrato(Contrato contrato) throws Exception{
+	public void adicionaContrato(Contrato contrato) throws IllegalArgumentException{
 		if (contrato == null || listaContratos.contains(contrato)){
-			throw new Exception("O contrato não foi adicionado.");
+			throw new IllegalArgumentException("O contrato não foi adicionado.");
 		}
 		listaContratos.add(contrato);
 	}
 	/**
 	 * Adiciona uma lista de contratos a colecao.
 	 * @param contratos Uma lista de contratos
-	 * @throws Exception Caso atinga as exceções da classe Contrato
+	 * @throws IllegalArgumentException Caso atinga as exceções da classe Contrato
 	 */
-	public void adicionaContratos(List<Contrato> contratos) throws Exception {
+	public void adicionaContratos(List<Contrato> contratos) throws IllegalArgumentException {
 		if (contratos == null || contratos.contains(null) || listaContratos.containsAll(contratos)){
-			throw new Exception("Os contratos não foram adicionados.");
+			throw new IllegalArgumentException("Os contratos não foram adicionados.");
 		}
 		listaContratos.addAll(contratos);
 	}
@@ -59,9 +59,8 @@ public class ColecaoDeContratos implements Serializable {
 	 * Remove uma lista de contratos da colecao.
 	 * @param contratos uma lista de contratos
 	 * @return True - se removeu algum contrato da colecao / False - se não removeu nenhum contrato
-	 * @throws Exception Caso atinga as exceções da classe Contrato
 	 */
-	public boolean removeHospedes(List<Contrato> contratos) throws Exception{
+	public boolean removeHospedes(List<Contrato> contratos){
 		boolean removeu = false;
 		for (Contrato contrato: contratos){
 			if (listaContratos.contains(contrato)){

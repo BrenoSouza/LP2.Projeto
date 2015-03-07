@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -751,11 +750,7 @@ public class PainelRelatorio extends JInternalFrame {
 			}
 			//Na 2 coluna "Nascimento", escreve a data de nascimento do hospede indice i.
 			String dataFormatadaNascimento = "";
-			try{
 				dataFormatadaNascimento = Main.converteParaString(hospedeAtual.getDataNascimento());
-			}catch (Exception e){
-				JOptionPane.showMessageDialog(null, e.getMessage());
-			}
 			designTabela[i][1] = dataFormatadaNascimento;
 			//Na 3 coluna "CPF", escreve o CPF do hospede indice i.
 			if (hospedeAtual.getCpf() == null){
@@ -831,19 +826,11 @@ public class PainelRelatorio extends JInternalFrame {
 							}
 							// Para conseguir uma String formatada com a data do checkin, através de um método na classe Main.
 							String dataFormatadaCheckIn = "";
-							try{
 								dataFormatadaCheckIn = Main.converteParaString(contratoAtual.getDataCheckIn());
-							}catch (Exception e){
-								JOptionPane.showMessageDialog(null, e.getMessage());
-							}
 							designTabela[i][1] = dataFormatadaCheckIn;
 							// Para conseguir uma String formatada com a estimada data do checkout.
 							String dataFormatadaCheckOut = "";
-							try{
 								dataFormatadaCheckOut = Main.converteParaString(contratoAtual.getDataCheckOut());
-							}catch (Exception e){
-								JOptionPane.showMessageDialog(null, e.getMessage());
-							}
 							designTabela[i][2] = dataFormatadaCheckOut;
 							// Para colocar na tabela o total de despesas do contrato.
 							designTabela[i][3] = "R$ " + contratoAtual.calculaPrecoFinal();

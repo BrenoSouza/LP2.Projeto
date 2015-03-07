@@ -24,7 +24,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	 * @param numero Número do quarto.
 	 * @param numeroHospedes Número de hospedes.
 	 * @param precoDiaria Preço da diária
-	 * @throws Exception Caso o número/numeroHospedes/diárias seja menor que zero.
+	 * @throws IllegalArgumentException Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
 	public Quarto(int numero, int numeroHospedes, double precoDiaria) throws IllegalArgumentException{
 		super();
@@ -36,7 +36,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 		this.precoDiaria = precoDiaria;
 	}
 	/**
-	 * Getter do parâmetro "isLivre"
+	 * Getter do parâmetro "isLivre".
 	 * @return
 	 * True se o quarto estiver desocupado
 	 */
@@ -44,7 +44,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 		return isLivre;
 	}
 	/**
-	 * Setter do parâmetro "isLivre"
+	 * Setter do parâmetro "isLivre".
 	 * @param isLivre
 	 * True se o quarto for ser definido como "vago"
 	 */
@@ -55,7 +55,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 		this.isLivre = isLivre;
 	}
 	/**
-	 * Getter de uma string revelando se o quarto está vago ou livre
+	 * Getter de uma string revelando se o quarto está vago ou livre.
 	 * @return
 	 * "VAGO" se o quarto estiver livre, "OCUPADO" caso contrário
 	 */
@@ -67,7 +67,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 		}
 	}
 	/**
-	 * Setter da variável "diarias"
+	 * Setter da variável "diarias".
 	 * @param diarias
 	 * O número de diárias
 	 */
@@ -126,9 +126,9 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	 * Adiciona hóspedes no quarto.
 	 * @param hospede O hóspede a ser adicionado.
 	 */
-	public boolean adicionaHospede(Hospede hospede) throws Exception{
+	public boolean adicionaHospede(Hospede hospede) throws IllegalArgumentException{
 		if (hospede == null){
-			throw new Exception("Nao é um hóspede válido.");
+			throw new IllegalArgumentException("Nao é um hóspede válido.");
 		}
 		return listaHospedes.add(hospede);
 	}
@@ -143,9 +143,9 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	 * Remove um hóspede do quarto.
 	 * @param hospede O hóspede a ser removido.
 	 */
-	public boolean removeHospede(Hospede hospede) throws Exception{
+	public boolean removeHospede(Hospede hospede) throws IllegalArgumentException{
 		if (hospede == null){
-			throw new Exception("Nao é um hóspede valido.");
+			throw new IllegalArgumentException("Nao é um hóspede valido.");
 		}
 		return listaHospedes.remove(hospede);
 	}
@@ -164,14 +164,14 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 		return this.getNumero() - q.getNumero();
 	}
 	/**
-	 * Método para que o quarto retorne ao seu padrão (Livre e com 0 diárias)
+	 * Método para que o quarto retorne ao seu padrão (Livre e com 0 diárias).
 	 */
 	public void setToLivre(){
 		setDiarias(0);
 		setLivre(true);
 	}
 	/**
-	 * Método para que o quarto entre no estado de Vago
+	 * Método para que o quarto entre no estado de Vago.
 	 * @param diarias
 	 * As diárias para o quarto
 	 */
@@ -180,14 +180,14 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 		setLivre(false);
 	}
 	/**
-	 * Retorna uma List<Reserva> de quarto
+	 * Retorna uma List<Reserva> de quarto.
 	 * @return Uma List<Reserva>
 	 */
 	public List<Reserva> getListaReservas() {
 		return listaReservas;
 	}
 	/**
-	 * Adiciona uma reserva a lista de reservas
+	 * Adiciona uma reserva a lista de reservas.
 	 * @param reserva A reserva
 	 */
 	public void adicionaReserva(Reserva reserva){
@@ -202,7 +202,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 		listaReservas.add(reserva);
 	}
 	/**
-	 * Retira uma reserva da lista de reserva
+	 * Retira uma reserva da lista de reserva.
 	 * @param contrato O contrato ligado a reserva a ser removida
 	 */
 	public void retiraReserva(Contrato contrato){
@@ -214,7 +214,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 		}
 	}
 	/**
-	 * Checa se o quarto está livre para reserva ou não
+	 * Checa se o quarto está livre para reserva ou não.
 	 * @param intervalo O intervalo de tempo que o quarto será utilizado
 	 * @return True - se está livre para reserva / False - se está ocupado/reservado
 	 */

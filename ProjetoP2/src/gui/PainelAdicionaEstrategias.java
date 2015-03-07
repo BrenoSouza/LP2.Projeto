@@ -152,7 +152,7 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 				
 				}catch (java.text.ParseException e2){
 					JOptionPane.showMessageDialog(null, "Data(s) em formato(s) inválido(s).");
-				}catch (Exception e){
+				}catch (NullPointerException e){
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
 				

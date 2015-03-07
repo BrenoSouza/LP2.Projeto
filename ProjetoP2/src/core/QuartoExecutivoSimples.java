@@ -9,7 +9,7 @@ public class QuartoExecutivoSimples extends Quarto {
 	/**
 	 * Construtor de um quarto do tipo Executivo Simples.
 	 * @param numero Número do quarto.
-	 * @throws Exception Caso o número/numeroHospedes/diárias seja menor que zero.
+	 * @throws IllegalArgumentException Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
 	public QuartoExecutivoSimples(int numero) throws IllegalArgumentException {
 		super(numero, 3, 360.0);
