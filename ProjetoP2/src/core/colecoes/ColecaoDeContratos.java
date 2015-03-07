@@ -131,10 +131,11 @@ public class ColecaoDeContratos implements Serializable {
 	}
 	
 	public List<Contrato> pesquisaContratoCheckOut(int mes) {
+	  Calendar anoAtual = Calendar.getInstance();
 	  List<Contrato> pesquisados = new ArrayList<Contrato>();
 	  if (mes >= 0 && mes <= 11) {
 	    for (Contrato c: listaContratos) {
-	      if (c.getDataCheckOut().get(Calendar.MONTH) == mes) {
+	      if (c.getDataCheckOut().get(Calendar.MONTH) == mes && c.getDataCheckOut().get(Calendar.YEAR) == anoAtual.get(Calendar.YEAR)) {
 	        pesquisados.add(c);
 	      }
 	    }

@@ -171,13 +171,16 @@ public class PainelRelatorio extends JInternalFrame {
 				lblQuartosAtivo.setText("" + numQuartos);
 				lblRestaurantePed.setText("" + numPedidosRestaurante);
 				escreveTabelaServicos(numServicos);
+				
+				//Habilitar o botao para ver o faturamento no grafico
+				atualizarBotaoFaturamento();
 			}
 		});
 		
 		setTitle("Dados gerais");
 		setFrameIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/files.png")));
 		setClosable(true);
-		setBounds(0, 0, 754, 420);
+		setBounds(0, 0, 800, 422);
 
 		this.colecaoDeHospedes = listaDeHospedes;
 		this.colecaoDeContratos = listaContratos;
@@ -212,20 +215,20 @@ public class PainelRelatorio extends JInternalFrame {
 		  public void actionPerformed(ActionEvent arg0) {
 		    //Criacao do grafico de barras do panelFaturamento
 		    DefaultCategoryDataset graficoBarrasData = new DefaultCategoryDataset();
-		    graficoBarrasData.setValue((mesTotalFaturamento(0) == 0.0) ? 0 : (mesTotalFaturamento(0)), "Faturamento", "Janeiro");
-		    graficoBarrasData.setValue((mesTotalFaturamento(1) == 0.0) ? 0 : (mesTotalFaturamento(1)), "Faturamento", "Fevereiro");
-		    graficoBarrasData.setValue((mesTotalFaturamento(2) == 0.0) ? 0 : (mesTotalFaturamento(2)), "Faturamento", "Março");
-		    graficoBarrasData.setValue((mesTotalFaturamento(3) == 0.0) ? 0 : (mesTotalFaturamento(3)), "Faturamento", "Abril");
-		    graficoBarrasData.setValue((mesTotalFaturamento(4) == 0.0) ? 0 : (mesTotalFaturamento(4)), "Faturamento", "Maio");
-		    graficoBarrasData.setValue((mesTotalFaturamento(5) == 0.0) ? 0 : (mesTotalFaturamento(5)), "Faturamento", "Junho");
-		    graficoBarrasData.setValue((mesTotalFaturamento(6) == 0.0) ? 0 : (mesTotalFaturamento(6)), "Faturamento", "Julho");
-		    graficoBarrasData.setValue((mesTotalFaturamento(7) == 0.0) ? 0 : (mesTotalFaturamento(7)), "Faturamento", "Agosto");
-		    graficoBarrasData.setValue((mesTotalFaturamento(8) == 0.0) ? 0 : (mesTotalFaturamento(8)), "Faturamento", "Setembro");
-		    graficoBarrasData.setValue((mesTotalFaturamento(9) == 0.0) ? 0 : (mesTotalFaturamento(9)), "Faturamento", "Outubro");
-		    graficoBarrasData.setValue((mesTotalFaturamento(10) == 0.0) ? 0 : (mesTotalFaturamento(10)), "Faturamento", "Novembro");
-		    graficoBarrasData.setValue((mesTotalFaturamento(11) == 0.0) ? 0 : (mesTotalFaturamento(11)), "Faturamento", "Dezembro");
-		    
-		    JFreeChart barChart = ChartFactory.createBarChart("Faturamento Anual", "Mês", "Faturamento", graficoBarrasData, PlotOrientation.VERTICAL, false, true, true);
+		    graficoBarrasData.setValue(mesTotalFaturamento(0), "Faturamento", "Jan");
+		    graficoBarrasData.setValue(mesTotalFaturamento(1), "Faturamento", "Fev");
+		    graficoBarrasData.setValue(mesTotalFaturamento(2), "Faturamento", "Mar");
+		    graficoBarrasData.setValue(mesTotalFaturamento(3), "Faturamento", "Abr");
+		    graficoBarrasData.setValue(mesTotalFaturamento(4), "Faturamento", "Mai");
+		    graficoBarrasData.setValue(mesTotalFaturamento(5), "Faturamento", "Jun");
+		    graficoBarrasData.setValue(mesTotalFaturamento(6), "Faturamento", "Jul");
+		    graficoBarrasData.setValue(mesTotalFaturamento(7), "Faturamento", "Ago");
+		    graficoBarrasData.setValue(mesTotalFaturamento(8), "Faturamento", "Set");
+		    graficoBarrasData.setValue(mesTotalFaturamento(9), "Faturamento", "Out");
+		    graficoBarrasData.setValue(mesTotalFaturamento(10), "Faturamento", "Nov");
+		    graficoBarrasData.setValue(mesTotalFaturamento(11), "Faturamento", "Dez");
+
+		    JFreeChart barChart = ChartFactory.createBarChart("Faturamento Mensal", "Mês", "Faturamento", graficoBarrasData, PlotOrientation.VERTICAL, false, true, true);
 		    CategoryPlot barChrt = barChart.getCategoryPlot();
 		    barChrt.setRangeGridlinePaint(Color.BLACK);
 		    
@@ -308,105 +311,105 @@ public class PainelRelatorio extends JInternalFrame {
 
 		GroupLayout gl_PanelHospedes = new GroupLayout(PanelHospedes);
 		gl_PanelHospedes.setHorizontalGroup(
-			gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PanelHospedes.createSequentialGroup()
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblHospedesFec)
-							.addGap(6)
-							.addComponent(lblFecHospedes))
-						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblHospedesSem)
-							.addGap(6)
-							.addComponent(lblSemConHospedes))
-						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addGap(85)
-									.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.TRAILING)
-										.addGroup(gl_PanelHospedes.createSequentialGroup()
-											.addComponent(label_5)
-											.addGap(383)
-											.addComponent(label_6))
-										.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-											.addComponent(lblMedOpinioes)
-											.addComponent(NumOpinioes))))
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addGap(10)
-									.addComponent(lblHospedesAbe)
-									.addGap(6)
-									.addComponent(lblAbeHospedes)))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNumOpi)
-								.addComponent(lblMedia)))
-						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblTotalHospedes)
-							.addGap(6)
-							.addComponent(lblNumHospedes))
-						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblHspedesreserva)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblHospedeReserva))
-						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 698, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		  gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		    .addGroup(gl_PanelHospedes.createSequentialGroup()
+		      .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		        .addGroup(gl_PanelHospedes.createSequentialGroup()
+		          .addGap(10)
+		          .addComponent(lblHospedesFec)
+		          .addGap(6)
+		          .addComponent(lblFecHospedes))
+		        .addGroup(gl_PanelHospedes.createSequentialGroup()
+		          .addGap(10)
+		          .addComponent(lblHospedesSem)
+		          .addGap(6)
+		          .addComponent(lblSemConHospedes))
+		        .addGroup(gl_PanelHospedes.createSequentialGroup()
+		          .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		            .addGroup(gl_PanelHospedes.createSequentialGroup()
+		              .addGap(85)
+		              .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.TRAILING)
+		                .addGroup(gl_PanelHospedes.createSequentialGroup()
+		                  .addComponent(label_5)
+		                  .addGap(383)
+		                  .addComponent(label_6))
+		                .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		                  .addComponent(lblMedOpinioes)
+		                  .addComponent(NumOpinioes))))
+		            .addGroup(gl_PanelHospedes.createSequentialGroup()
+		              .addGap(10)
+		              .addComponent(lblHospedesAbe)
+		              .addGap(6)
+		              .addComponent(lblAbeHospedes)))
+		          .addPreferredGap(ComponentPlacement.RELATED)
+		          .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		            .addComponent(lblNumOpi)
+		            .addComponent(lblMedia)))
+		        .addGroup(gl_PanelHospedes.createSequentialGroup()
+		          .addGap(10)
+		          .addComponent(lblTotalHospedes)
+		          .addGap(6)
+		          .addComponent(lblNumHospedes))
+		        .addGroup(gl_PanelHospedes.createSequentialGroup()
+		          .addContainerGap()
+		          .addComponent(lblHspedesreserva)
+		          .addPreferredGap(ComponentPlacement.RELATED)
+		          .addComponent(lblHospedeReserva))
+		        .addGroup(gl_PanelHospedes.createSequentialGroup()
+		          .addContainerGap()
+		          .addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 782, Short.MAX_VALUE)))
+		      .addContainerGap())
 		);
 		gl_PanelHospedes.setVerticalGroup(
-			gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PanelHospedes.createSequentialGroup()
-					.addGap(7)
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-						.addComponent(label_5)
-						.addComponent(label_6))
-					.addGap(11)
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblTotalHospedes)
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addGap(1)
-									.addComponent(lblNumHospedes)))
-							.addGap(6))
-						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
-								.addComponent(NumOpinioes)
-								.addComponent(lblNumOpi))
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_PanelHospedes.createSequentialGroup()
-							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblHospedesAbe)
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addGap(1)
-									.addComponent(lblAbeHospedes)))
-							.addGap(6)
-							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblHospedesFec)
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addGap(1)
-									.addComponent(lblFecHospedes)))
-							.addGap(6)
-							.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblHospedesSem)
-								.addGroup(gl_PanelHospedes.createSequentialGroup()
-									.addGap(1)
-									.addComponent(lblSemConHospedes))))
-						.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblMedOpinioes)
-							.addComponent(lblMedia)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblHspedesreserva)
-						.addComponent(lblHospedeReserva))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-					.addGap(2))
+		  gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		    .addGroup(gl_PanelHospedes.createSequentialGroup()
+		      .addGap(7)
+		      .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		        .addComponent(label_5)
+		        .addComponent(label_6))
+		      .addGap(11)
+		      .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.TRAILING)
+		        .addGroup(gl_PanelHospedes.createSequentialGroup()
+		          .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		            .addComponent(lblTotalHospedes)
+		            .addGroup(gl_PanelHospedes.createSequentialGroup()
+		              .addGap(1)
+		              .addComponent(lblNumHospedes)))
+		          .addGap(6))
+		        .addGroup(gl_PanelHospedes.createSequentialGroup()
+		          .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
+		            .addComponent(NumOpinioes)
+		            .addComponent(lblNumOpi))
+		          .addPreferredGap(ComponentPlacement.RELATED)))
+		      .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		        .addGroup(gl_PanelHospedes.createSequentialGroup()
+		          .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		            .addComponent(lblHospedesAbe)
+		            .addGroup(gl_PanelHospedes.createSequentialGroup()
+		              .addGap(1)
+		              .addComponent(lblAbeHospedes)))
+		          .addGap(6)
+		          .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		            .addComponent(lblHospedesFec)
+		            .addGroup(gl_PanelHospedes.createSequentialGroup()
+		              .addGap(1)
+		              .addComponent(lblFecHospedes)))
+		          .addGap(6)
+		          .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.LEADING)
+		            .addComponent(lblHospedesSem)
+		            .addGroup(gl_PanelHospedes.createSequentialGroup()
+		              .addGap(1)
+		              .addComponent(lblSemConHospedes))))
+		        .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
+		          .addComponent(lblMedOpinioes)
+		          .addComponent(lblMedia)))
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addGroup(gl_PanelHospedes.createParallelGroup(Alignment.BASELINE)
+		        .addComponent(lblHspedesreserva)
+		        .addComponent(lblHospedeReserva))
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
+		      .addGap(2))
 		);
 
 		JScrollPane scrollPaneHospedes = new JScrollPane();
@@ -939,5 +942,16 @@ public class PainelRelatorio extends JInternalFrame {
       somaDoMes += c.calculaPrecoFinal();
     }
     return somaDoMes;
+  }
+	
+	//Ativar o botao para ver o grafico apenas quando existir algum contrato
+	private void atualizarBotaoFaturamento(){
+    if (colecaoDeContratos.getListaContratoTamanho() == 0){
+      btnFaturamento.setEnabled(false);
+      btnFaturamento.setToolTipText("É necessário existir algum contrato no hotel para ver o gráfico.");
+    }else{
+      btnFaturamento.setEnabled(true);
+      btnFaturamento.setToolTipText("Gráfico de barras com o faturamento do hotel.");
+    }
   }
 }
