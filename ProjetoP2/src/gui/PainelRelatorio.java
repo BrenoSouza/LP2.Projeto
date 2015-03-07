@@ -212,18 +212,18 @@ public class PainelRelatorio extends JInternalFrame {
 		  public void actionPerformed(ActionEvent arg0) {
 		    //Criacao do grafico de barras do panelFaturamento
 		    DefaultCategoryDataset graficoBarrasData = new DefaultCategoryDataset();
-		    graficoBarrasData.setValue(mesTotalFaturamento(0), "Faturamento", "Janeiro");
-		    graficoBarrasData.setValue(mesTotalFaturamento(1), "Faturamento", "Fevereiro");
-		    graficoBarrasData.setValue(mesTotalFaturamento(2), "Faturamento", "Março");
-		    graficoBarrasData.setValue(mesTotalFaturamento(3), "Faturamento", "Abril");
-		    graficoBarrasData.setValue(mesTotalFaturamento(4), "Faturamento", "Maio");
-		    graficoBarrasData.setValue(mesTotalFaturamento(5), "Faturamento", "Junho");
-		    graficoBarrasData.setValue(mesTotalFaturamento(6), "Faturamento", "Julho");
-		    graficoBarrasData.setValue(mesTotalFaturamento(7), "Faturamento", "Agosto");
-		    graficoBarrasData.setValue(mesTotalFaturamento(8), "Faturamento", "Setembro");
-		    graficoBarrasData.setValue(mesTotalFaturamento(9), "Faturamento", "Outubro");
-		    graficoBarrasData.setValue(mesTotalFaturamento(10), "Faturamento", "Novembro");
-		    graficoBarrasData.setValue(mesTotalFaturamento(11), "Faturamento", "Dezembro");
+		    graficoBarrasData.setValue((mesTotalFaturamento(0) == 0.0) ? 0 : (mesTotalFaturamento(0)), "Faturamento", "Janeiro");
+		    graficoBarrasData.setValue((mesTotalFaturamento(1) == 0.0) ? 0 : (mesTotalFaturamento(1)), "Faturamento", "Fevereiro");
+		    graficoBarrasData.setValue((mesTotalFaturamento(2) == 0.0) ? 0 : (mesTotalFaturamento(2)), "Faturamento", "Março");
+		    graficoBarrasData.setValue((mesTotalFaturamento(3) == 0.0) ? 0 : (mesTotalFaturamento(3)), "Faturamento", "Abril");
+		    graficoBarrasData.setValue((mesTotalFaturamento(4) == 0.0) ? 0 : (mesTotalFaturamento(4)), "Faturamento", "Maio");
+		    graficoBarrasData.setValue((mesTotalFaturamento(5) == 0.0) ? 0 : (mesTotalFaturamento(5)), "Faturamento", "Junho");
+		    graficoBarrasData.setValue((mesTotalFaturamento(6) == 0.0) ? 0 : (mesTotalFaturamento(6)), "Faturamento", "Julho");
+		    graficoBarrasData.setValue((mesTotalFaturamento(7) == 0.0) ? 0 : (mesTotalFaturamento(7)), "Faturamento", "Agosto");
+		    graficoBarrasData.setValue((mesTotalFaturamento(8) == 0.0) ? 0 : (mesTotalFaturamento(8)), "Faturamento", "Setembro");
+		    graficoBarrasData.setValue((mesTotalFaturamento(9) == 0.0) ? 0 : (mesTotalFaturamento(9)), "Faturamento", "Outubro");
+		    graficoBarrasData.setValue((mesTotalFaturamento(10) == 0.0) ? 0 : (mesTotalFaturamento(10)), "Faturamento", "Novembro");
+		    graficoBarrasData.setValue((mesTotalFaturamento(11) == 0.0) ? 0 : (mesTotalFaturamento(11)), "Faturamento", "Dezembro");
 		    
 		    JFreeChart barChart = ChartFactory.createBarChart("Faturamento Anual", "Mês", "Faturamento", graficoBarrasData, PlotOrientation.VERTICAL, false, true, true);
 		    CategoryPlot barChrt = barChart.getCategoryPlot();
