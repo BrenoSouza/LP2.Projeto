@@ -2,6 +2,7 @@ package core.colecoes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import core.Contrato;
@@ -127,6 +128,18 @@ public class ColecaoDeContratos implements Serializable {
 			}
 		}
 		return pesquisados;
+	}
+	
+	public List<Contrato> pesquisaContratoCheckOut(int mes) {
+	  List<Contrato> pesquisados = new ArrayList<Contrato>();
+	  if (mes >= 0 && mes <= 11) {
+	    for (Contrato c: listaContratos) {
+	      if (c.getDataCheckOut().get(Calendar.MONTH) == mes) {
+	        pesquisados.add(c);
+	      }
+	    }
+	  }
+	  return pesquisados;
 	}
 
 }

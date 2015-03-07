@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.CardLayout;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,6 +27,13 @@ import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+
 import core.AluguelCarro;
 import core.Babysitter;
 import core.Contrato;
@@ -33,7 +42,6 @@ import core.Restaurante;
 import core.Servico;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeHospedes;
-import java.awt.BorderLayout;
 
 public class PainelRelatorio extends JInternalFrame {
 
@@ -74,6 +82,8 @@ public class PainelRelatorio extends JInternalFrame {
 	private JLabel lblRestaurantePed;
 	private JTable tableServicos;
 	private JLabel lblHospedeReserva;
+	private JButton btnFaturamento;
+	private JPanel PanelFaturamento;
 
 	public PainelRelatorio(ColecaoDeHospedes listaDeHospedes, ColecaoDeContratos listaContratos, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -196,7 +206,40 @@ public class PainelRelatorio extends JInternalFrame {
 			}
 		});
 		btnServicos.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/servicos_icon.png")));
-
+		
+		btnFaturamento = new JButton("Faturamento");
+		btnFaturamento.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent arg0) {
+		    //Criacao do grafico de barras do panelFaturamento
+		    DefaultCategoryDataset graficoBarrasData = new DefaultCategoryDataset();
+		    graficoBarrasData.setValue(mesTotalFaturamento(0), "Faturamento", "Janeiro");
+		    graficoBarrasData.setValue(mesTotalFaturamento(1), "Faturamento", "Fevereiro");
+		    graficoBarrasData.setValue(mesTotalFaturamento(2), "Faturamento", "Março");
+		    graficoBarrasData.setValue(mesTotalFaturamento(3), "Faturamento", "Abril");
+		    graficoBarrasData.setValue(mesTotalFaturamento(4), "Faturamento", "Maio");
+		    graficoBarrasData.setValue(mesTotalFaturamento(5), "Faturamento", "Junho");
+		    graficoBarrasData.setValue(mesTotalFaturamento(6), "Faturamento", "Julho");
+		    graficoBarrasData.setValue(mesTotalFaturamento(7), "Faturamento", "Agosto");
+		    graficoBarrasData.setValue(mesTotalFaturamento(8), "Faturamento", "Setembro");
+		    graficoBarrasData.setValue(mesTotalFaturamento(9), "Faturamento", "Outubro");
+		    graficoBarrasData.setValue(mesTotalFaturamento(10), "Faturamento", "Novembro");
+		    graficoBarrasData.setValue(mesTotalFaturamento(11), "Faturamento", "Dezembro");
+		    
+		    JFreeChart barChart = ChartFactory.createBarChart("Faturamento Anual", "Mês", "Faturamento", graficoBarrasData, PlotOrientation.VERTICAL, false, true, true);
+		    CategoryPlot barChrt = barChart.getCategoryPlot();
+		    barChrt.setRangeGridlinePaint(Color.BLACK);
+		    
+		    ChartPanel panelGrafico = new ChartPanel(barChart);
+		    
+		    PanelFaturamento.removeAll();
+		    PanelFaturamento.add(panelGrafico, BorderLayout.CENTER);
+		    PanelFaturamento.validate();
+		    
+		    layoutPainel.show(panel, "Faturamento");
+		  }
+		});
+    btnFaturamento.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/coins17.png")));
+    
 		panel.setLayout(layoutPainel);
 		
 		//PAINEL RELATORIO HOSPEDE
@@ -693,8 +736,10 @@ public class PainelRelatorio extends JInternalFrame {
 		scrollPaneServicos.setRowHeaderView(table);
 		PanelServicos.setLayout(gl_PanelServicos);
 		
-		JButton btnNewButton = new JButton("Faturamento");
-		btnNewButton.setIcon(new ImageIcon(PainelRelatorio.class.getResource("/resources/coins17.png")));
+		//Panel Faturamento
+		PanelFaturamento = new JPanel();
+    panel.add(PanelFaturamento, "Faturamento");
+    
 
 		GroupLayout groupLayout = new GroupLayout(getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -703,7 +748,7 @@ public class PainelRelatorio extends JInternalFrame {
 		      .addContainerGap()
 		      .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 		        .addGroup(groupLayout.createSequentialGroup()
-		          .addComponent(panel, GroupLayout.DEFAULT_SIZE, 786, Short.MAX_VALUE)
+		          .addComponent(panel, GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
 		          .addContainerGap())
 		        .addGroup(groupLayout.createSequentialGroup()
 		          .addComponent(btnHospedes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -711,27 +756,24 @@ public class PainelRelatorio extends JInternalFrame {
 		          .addComponent(btnContratos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		          .addGap(18)
 		          .addComponent(btnServicos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-		          .addPreferredGap(ComponentPlacement.UNRELATED)
-		          .addComponent(btnNewButton)
-		          .addGap(222))))
+		          .addGap(18)
+		          .addComponent(btnFaturamento)
+		          .addGap(214))))
 		);
 		groupLayout.setVerticalGroup(
 		  groupLayout.createParallelGroup(Alignment.TRAILING)
 		    .addGroup(groupLayout.createSequentialGroup()
 		      .addContainerGap()
-		      .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-		        .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-		          .addComponent(btnHospedes)
-		          .addComponent(btnContratos)
-		          .addComponent(btnServicos))
-		        .addComponent(btnNewButton))
+		      .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+		        .addComponent(btnHospedes)
+		        .addComponent(btnContratos)
+		        .addComponent(btnServicos)
+		        .addComponent(btnFaturamento))
 		      .addPreferredGap(ComponentPlacement.RELATED)
 		      .addComponent(panel, GroupLayout.PREFERRED_SIZE, 324, GroupLayout.PREFERRED_SIZE)
 		      .addContainerGap())
 		);
 		
-		JPanel PanelFaturamento = new JPanel();
-		panel.add(PanelFaturamento, "name_16295030467314");
 		PanelFaturamento.setLayout(new BorderLayout(0, 0));
 		getContentPane().setLayout(groupLayout);
 	}
@@ -888,4 +930,14 @@ public class PainelRelatorio extends JInternalFrame {
 		
 		tableServicos.setModel(modeloTabela); 
 	}
+	
+	//Dados para o grafico do panelFaturamento
+	private double mesTotalFaturamento(int mes) {
+	  double somaDoMes = 0.0;
+    List<Contrato> contratos = colecaoDeContratos.pesquisaContratoCheckOut(mes);
+    for (Contrato c: contratos) {
+      somaDoMes += c.calculaPrecoFinal();
+    }
+    return somaDoMes;
+  }
 }
