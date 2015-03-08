@@ -193,7 +193,7 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * O multiplicador final.
 	 */
 	public double getModificadorPreco(double preco){
-		return ((modificador / 100 * tipoDeEstrategia.getMultiplicador()) * preco);
+		return (((modificador / 100.0) * tipoDeEstrategia.getMultiplicador()) * preco);
 	}
 	/**
 	 * Método que verifica se o tempo presente está incluso na estratégia.

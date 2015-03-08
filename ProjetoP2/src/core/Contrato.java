@@ -164,7 +164,7 @@ public class Contrato implements Serializable{
    * @return Uma String com a data de checkIn.
    */
   public String getDataCheckInToString() {
-    String dataFormatada = Main.getFormatodata().format(dataCheckIn.getTime());
+    String dataFormatada = Main.converteParaString(dataCheckIn);
     return dataFormatada;
   }
   /**
@@ -179,7 +179,7 @@ public class Contrato implements Serializable{
    * @return Uma String com a data de checkOut.
    */
   public String getDataCheckOutToString() {
-    String dataFormatada = Main.getFormatodata().format(dataCheckOut.getTime());
+    String dataFormatada = Main.converteParaString(dataCheckOut);
     return dataFormatada;
   }
   /**
@@ -211,11 +211,19 @@ public class Contrato implements Serializable{
         quartosPreco += i.getPrecoDiaria() * getNumeroDiarias();
       }
     }else{
-      DateTime inicioContrato = new DateTime(getDataCheckIn()).withTimeAtStartOfDay();
       for (Quarto i: listaQuartosAlugados){
-        
-        DateTime inicio = inicioContrato;
-        DateTime parada = inicioContrato.plusDays(numeroDiarias);
+        Reserva reservaSelecionada = null;
+        for (Reserva reserva: i.getListaReservas()){
+          if (equals(reserva.getContrato())){
+            reservaSelecionada = reserva;
+            break;
+          }
+        }
+        if (reservaSelecionada == null){
+          throw new RuntimeException("Na busca pelas reservas do quarto selecionado, a reserva referente ao contrato não foi encontrada");
+        }
+        DateTime inicio = reservaSelecionada.getDataCheckIn();
+        DateTime parada = reservaSelecionada.getDataCheckOut();
         DateTime dia = inicio;
         // Itera por cada dia do período.
         while (dia.compareTo(parada) < 0) {
@@ -311,7 +319,7 @@ public class Contrato implements Serializable{
       return false;
     }
     Contrato outroContrato = (Contrato) obj;
-    boolean datasIguais = dataCheckIn.equals(outroContrato.getDataCheckIn()) && dataCheckOut.equals(outroContrato.getDataCheckOut());
+    boolean datasIguais = getDataCheckInToString().equals(outroContrato.getDataCheckInToString()) && getDataCheckOutToString().equals(outroContrato.getDataCheckOutToString());
 
     boolean hospedePrincipalIgual;
 
@@ -323,9 +331,8 @@ public class Contrato implements Serializable{
     }	  
 
     boolean dadosIguais = numeroDiarias == outroContrato.getNumeroDiarias() && cartaoDeCredito.equals(outroContrato.getCartaoDeCredito());
-    boolean listasIguais = listaHospedes.equals(outroContrato.getListaHospedes()) && listaQuartosAlugados.equals(outroContrato.getListaQuartosAlugados()) && listaServicos.equals(outroContrato.getListaHospedes());
 
-    return (datasIguais && hospedePrincipalIgual && dadosIguais && listasIguais);
+    return (datasIguais && hospedePrincipalIgual && dadosIguais);
 
   }
 
