@@ -22,8 +22,8 @@ public class Reserva implements Serializable{
 	 */
 	public Reserva(Contrato contrato){
 		this.contrato = contrato;
-		this.dataCheckIn = new DateTime(contrato.getDataCheckIn());
-		this.dataCheckOut = new DateTime(contrato.getDataCheckOut());
+		this.dataCheckIn = new DateTime(contrato.getDataCheckIn()).withTimeAtStartOfDay();
+		this.dataCheckOut = new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay();
 		intervalo = new Interval(dataCheckIn, dataCheckOut);
 	}
 	/**
@@ -32,8 +32,8 @@ public class Reserva implements Serializable{
 	 * @param dataCheckOut Um calendar com data de CheckOut
 	 */
 	public Reserva(Calendar dataCheckIn, Calendar dataCheckOut){
-		this.dataCheckIn = new DateTime(dataCheckIn);
-		this.dataCheckOut = new DateTime(dataCheckOut);
+		this.dataCheckIn = new DateTime(dataCheckIn).withTimeAtStartOfDay();
+		this.dataCheckOut = new DateTime(dataCheckOut).withTimeAtStartOfDay();
 		intervalo = new Interval(this.dataCheckIn, this.dataCheckOut);
 	}
 	/**
@@ -56,6 +56,14 @@ public class Reserva implements Serializable{
 	 */
 	public Contrato getContrato() {
 		return contrato;
+	}
+	/**
+	 * Setter do contrato da estratégia.
+	 * @param contrato
+	 * Um contrato.
+	 */
+	public void setContrato(Contrato contrato){
+	  this.contrato = contrato;
 	}
 	/**
 	 * Retorna o intervalo de tempo onde a reserva está ativa.
