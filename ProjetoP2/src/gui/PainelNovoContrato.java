@@ -501,7 +501,6 @@ public class PainelNovoContrato extends JInternalFrame {
 							for (Quarto quarto: listaQuartosDoContrato){
 								quarto.setToOcupado(contrato.getNumeroDiarias());
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
-								JOptionPane.showMessageDialog(null, "Add reserva aí campeão");
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
 							}
@@ -509,7 +508,6 @@ public class PainelNovoContrato extends JInternalFrame {
 							for (Quarto quarto: listaQuartosDoContrato){
 								quarto.setToOcupado(contrato.getNumeroDiarias());
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
-								JOptionPane.showMessageDialog(null, "Add reserva aí campeão");
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
 							}
