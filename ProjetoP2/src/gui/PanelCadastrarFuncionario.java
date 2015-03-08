@@ -22,7 +22,7 @@ public class PanelCadastrarFuncionario extends JPanel {
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(12, 0, 520, 368);
+		panel.setBounds(12, 0, 520, 330);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -80,11 +80,11 @@ public class PanelCadastrarFuncionario extends JPanel {
 		panel.add(lblCadastrarFuncionrio);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
-		btnCadastrar.setBounds(115, 315, 117, 25);
+		btnCadastrar.setBounds(115, 293, 117, 25);
 		panel.add(btnCadastrar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(302, 315, 117, 25);
+		btnCancelar.setBounds(293, 293, 117, 25);
 		panel.add(btnCancelar);
 
 		

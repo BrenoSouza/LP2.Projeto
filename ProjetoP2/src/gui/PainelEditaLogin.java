@@ -12,10 +12,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
 public class PainelEditaLogin extends JInternalFrame {
-  private JPanel panelExterno = new JPanel();;
-  private CardLayout layoutPainel = new CardLayout();  
+  private CardLayout layout = new CardLayout();
+  private JPanel panelExterno = new JPanel();
   private JButton btnCadastrarFuncionrio;
   private PanelEditarLogin editaLogin = new PanelEditarLogin();
   private PanelCadastrarFuncionario cadastraFuncionario = new PanelCadastrarFuncionario();
@@ -25,11 +28,10 @@ public class PainelEditaLogin extends JInternalFrame {
    */
   public PainelEditaLogin() {
     cadastraFuncionario.setSize(new Dimension(500, 330));
-    editaLogin.setSize(new Dimension(500, 330));
+    editaLogin.setSize(new Dimension(470, 320));
     setBounds(100, 100, 782, 505);
-    
-    panelExterno.setLayout(layoutPainel);
-    
+    panelExterno.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+    panelExterno.setLayout(layout);
     panelExterno.add(editaLogin, "editaLogin");
     panelExterno.add(cadastraFuncionario, "cadastrarLogin");
     
@@ -37,7 +39,7 @@ public class PainelEditaLogin extends JInternalFrame {
     btnEditarDados.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         
-        layoutPainel.show(panelExterno, "editaLogin");
+        layout.show(panelExterno, "editaLogin");
         
       }
     });
@@ -46,7 +48,7 @@ public class PainelEditaLogin extends JInternalFrame {
     btnCadastrarFuncionrio.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         
-        layoutPainel.show(panelExterno, "cadastrarLogin");
+        layout.show(panelExterno, "cadastrarLogin");
         
       }
     });
@@ -54,17 +56,17 @@ public class PainelEditaLogin extends JInternalFrame {
     
     GroupLayout groupLayout = new GroupLayout(getContentPane());
     groupLayout.setHorizontalGroup(
-      groupLayout.createParallelGroup(Alignment.LEADING)
-        .addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-          .addContainerGap(189, Short.MAX_VALUE)
+      groupLayout.createParallelGroup(Alignment.TRAILING)
+        .addGroup(groupLayout.createSequentialGroup()
+          .addContainerGap(174, Short.MAX_VALUE)
           .addComponent(btnEditarDados)
           .addGap(129)
           .addComponent(btnCadastrarFuncionrio)
           .addGap(152))
-        .addGroup(groupLayout.createSequentialGroup()
+        .addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
           .addGap(60)
           .addComponent(panelExterno, GroupLayout.PREFERRED_SIZE, 673, GroupLayout.PREFERRED_SIZE)
-          .addContainerGap(46, Short.MAX_VALUE))
+          .addContainerGap(39, Short.MAX_VALUE))
     );
     groupLayout.setVerticalGroup(
       groupLayout.createParallelGroup(Alignment.LEADING)
@@ -73,8 +75,8 @@ public class PainelEditaLogin extends JInternalFrame {
           .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
             .addComponent(btnCadastrarFuncionrio)
             .addComponent(btnEditarDados))
-          .addGap(37)
-          .addComponent(panelExterno, GroupLayout.PREFERRED_SIZE, 333, GroupLayout.PREFERRED_SIZE)
+          .addGap(18)
+          .addComponent(panelExterno, GroupLayout.PREFERRED_SIZE, 352, GroupLayout.PREFERRED_SIZE)
           .addContainerGap(52, Short.MAX_VALUE))
     );
     GroupLayout gl_panelExterno = new GroupLayout(panelExterno);
@@ -86,7 +88,6 @@ public class PainelEditaLogin extends JInternalFrame {
       gl_panelExterno.createParallelGroup(Alignment.LEADING)
         .addGap(0, 387, Short.MAX_VALUE)
     );
-    panelExterno.setLayout(gl_panelExterno);
     getContentPane().setLayout(groupLayout);
 
   }
