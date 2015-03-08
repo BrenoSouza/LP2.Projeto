@@ -351,6 +351,19 @@ public class Main extends JFrame {
     btnRelatrios.setIcon(new ImageIcon(Main.class.getResource("/resources/files.png")));
     btnRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 17));
     toolBar.add(btnRelatrios);
+    
+    JButton btnLogin = new JButton("Editar Login");
+    btnLogin.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        
+        PainelEditaLogin painelEditaLogin = new PainelEditaLogin();
+        painelPrincipal.add(painelEditaLogin);
+        painelEditaLogin.show();
+      }
+    });
+    btnLogin.setIcon(new ImageIcon(Main.class.getResource("/resources/administrator.png")));
+    btnLogin.setFont(new Font("Dialog", Font.PLAIN, 17));
+    toolBar.add(btnLogin);
     //Fim da criação dos botões
 
     contentPane.setLayout(gl_contentPane);
