@@ -32,6 +32,7 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import core.AluguelCarro;
@@ -214,6 +215,8 @@ public class PainelRelatorio extends JInternalFrame {
 		btnFaturamento.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent arg0) {
 		    //Criacao do grafico de barras do panelFaturamento
+		    
+		    //Dados
 		    DefaultCategoryDataset graficoBarrasData = new DefaultCategoryDataset();
 		    graficoBarrasData.setValue(mesTotalFaturamento(0), "Faturamento", "Jan");
 		    graficoBarrasData.setValue(mesTotalFaturamento(1), "Faturamento", "Fev");
@@ -227,13 +230,18 @@ public class PainelRelatorio extends JInternalFrame {
 		    graficoBarrasData.setValue(mesTotalFaturamento(9), "Faturamento", "Out");
 		    graficoBarrasData.setValue(mesTotalFaturamento(10), "Faturamento", "Nov");
 		    graficoBarrasData.setValue(mesTotalFaturamento(11), "Faturamento", "Dez");
-
+		    //Objetos
 		    JFreeChart barChart = ChartFactory.createBarChart("Faturamento Mensal", "Mês", "Faturamento", graficoBarrasData, PlotOrientation.VERTICAL, false, true, true);
 		    CategoryPlot barChrt = barChart.getCategoryPlot();
+		    BarRenderer renderer = (BarRenderer) barChrt.getRenderer();
+		    //Cores
 		    barChrt.setRangeGridlinePaint(Color.BLACK);
-		    
+		    Color cinzaClaro = new Color(224,224,224);
+		    barChrt.setBackgroundPaint(cinzaClaro);
+		    Color verde = new Color(0,204,0);
+		    renderer.setSeriesPaint(0, verde);
+		    //Painel
 		    ChartPanel panelGrafico = new ChartPanel(barChart);
-		    
 		    PanelFaturamento.removeAll();
 		    PanelFaturamento.add(panelGrafico, BorderLayout.CENTER);
 		    PanelFaturamento.validate();
