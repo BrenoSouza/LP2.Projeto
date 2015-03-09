@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.joda.time.Interval;
 
 public class Reserva implements Serializable{
@@ -92,6 +93,12 @@ public class Reserva implements Serializable{
 	public boolean getIntervaloSobrepoe(Reserva outraReserva){
 		Interval outroIntervalo = outraReserva.getIntervalo();
 		return (!(outroIntervalo.equals(intervalo)) && intervalo.overlaps(outroIntervalo));
+	}
+	public int getNumeroDias(){
+	  int dias = Days.daysBetween(getDataCheckIn().withTimeAtStartOfDay() , getDataCheckOut().withTimeAtStartOfDay() ).getDays();
+	  if (dias == 0){
+	    return 1; //Essa classe Days pode ter certos comportamentos estranhos, principalmente quando se leva em conta horário de verão e afins.
+	  }return dias;
 	}
 	@Override
 	public boolean equals(Object obj){

@@ -208,7 +208,16 @@ public class Contrato implements Serializable{
     double quartosPreco = 0;
     if (estrategiasDoContrato.size() == 0){ //Se não houverem estratégias no contrato, o cálculo é BEM mais simples
       for (Quarto i : listaQuartosAlugados) {
-        quartosPreco += i.getPrecoDiaria() * getNumeroDiarias();
+        Reserva reservaSelecionada = null;
+        for (Reserva reserva: i.getListaReservas()){
+          if (equals(reserva.getContrato())){
+            reservaSelecionada = reserva;
+            break;
+          }
+        }if (reservaSelecionada == null){
+          throw new RuntimeException("Na busca pelas reservas do quarto selecionado, a reserva referente ao contrato não foi encontrada.");
+        }
+        quartosPreco += i.getPrecoDiaria() * reservaSelecionada.getNumeroDias();
       }
     }else{
       for (Quarto i: listaQuartosAlugados){
@@ -220,7 +229,7 @@ public class Contrato implements Serializable{
           }
         }
         if (reservaSelecionada == null){
-          throw new RuntimeException("Na busca pelas reservas do quarto selecionado, a reserva referente ao contrato não foi encontrada");
+          throw new RuntimeException("Na busca pelas reservas do quarto selecionado, a reserva referente ao contrato não foi encontrada.");
         }
         DateTime inicio = reservaSelecionada.getDataCheckIn();
         DateTime parada = reservaSelecionada.getDataCheckOut();
