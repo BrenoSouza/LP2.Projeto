@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 //import java.awt.event.MouseAdapter;
 //import java.awt.event.MouseEvent;
 import java.util.List;
@@ -74,6 +75,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JPanel panelEditaQuarto_1;
 	private JSpinner spinnerAddDiariasCarro;
 	private JCheckBox checkBoxEdtCama;
+	private int diasRestantes;
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -83,9 +85,9 @@ public class PainelAdicionaServico extends JInternalFrame {
 		this.listaHospedes = listaHospedes;
 		this.listaDeQuartos = listaDeQuartos;
 		this.servico = servico;
-		DateTime checkIn = new DateTime(contrato.getDataCheckIn()).withTimeAtStartOfDay();
+		DateTime hoje = new DateTime(Calendar.getInstance()).withTimeAtStartOfDay();
 		DateTime checkOut = new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay();
-		int diasRestantes = new Period(checkIn, checkOut).getDays();
+		diasRestantes = new Period(hoje, checkOut).getDays();
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);
@@ -547,7 +549,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		break;
 			    	}
 			    	else if(comp == panelQuartos) {
-			    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(null, getColecaoHospedes(), getListaDeQuartos(), getContrato(), getPainelPrincipal());				    			
+			    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(null, getColecaoHospedes(), getListaDeQuartos(), getContrato(), getPainelPrincipal(), PainelAdicionaServico.this.diasRestantes);				    			
 			    		adicionaNoPainel(painelAddQuarto);
 			    		painelAddQuarto.show();
 			    		dispose();

@@ -56,10 +56,11 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private Contrato contrato;
 	private List<Hospede> hospedesSemQuarto = new ArrayList<Hospede>();
 	private List<Hospede> hospedesNoQuarto = new ArrayList<Hospede>();
+	public int diasRestantes;
 	@SuppressWarnings("unused")
 	private Hospede hospedeSelecionado;
 	
-	public PainelAdicionaQuartos(Servico quarto, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, Contrato contrato, JDesktopPane painelPrincipal) {
+	public PainelAdicionaQuartos(Servico quarto, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, Contrato contrato, JDesktopPane painelPrincipal, int diasRestantes) {
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override	
 			public void internalFrameActivated(InternalFrameEvent e) {
@@ -76,6 +77,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.contrato = contrato;
+		this.diasRestantes = diasRestantes;
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBounds(0, 0, 835, 349);
 		getContentPane().add(panelPrincipal);
@@ -117,6 +119,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			  diariasContrato = PainelAdicionaQuartos.this.diasRestantes;
 				if (diariasContrato == 0) {
 					dialogoDiarias = new DialogoDiarias();
 					dialogoDiarias.setVisible(true);

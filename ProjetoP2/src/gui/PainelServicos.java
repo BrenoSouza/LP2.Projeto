@@ -316,13 +316,13 @@ public class PainelServicos extends JInternalFrame {
 				//Para preencher a segunda coluna da linha: O preço da diária
 				designTabela[j][1] = "R$ " + quartoAtualContrato.getPrecoDiaria();
 				//Para preencher a terceira coluna da linha: O número de diárias setadas
-				designTabela[j][2] = quartoAtualContrato.getDiarias();
+				designTabela[j][2] = quartoAtualContrato.getDiariasViaReservaDeContrato(contratoSelecionado);
 				//Para preencher a quarta coluna da linha: O número de pessoas que o quarto acomoda
 				designTabela[j][3] = quartoAtualContrato.getNumeroHospedes();
 				//Para preencher a quinta coluna da linha: O número do quarto
 				designTabela[j][4] = quartoAtualContrato.getNumero();
 				//Para preencher a sexta coluna da linha: O preço a ser pago
-				designTabela[j][5] = "R$ " + quartoAtualContrato.calculaPrecoTotal();
+				designTabela[j][5] = "R$ " + quartoAtualContrato.getPrecoDiaria() * quartoAtualContrato.getDiariasViaReservaDeContrato(contratoSelecionado);
 			
 			}
 		}

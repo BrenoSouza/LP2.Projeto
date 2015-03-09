@@ -448,7 +448,7 @@ public class PainelEditarContrato extends JInternalFrame {
 					//Para preencher a quinta coluna da linha: O número do quarto
 					designTabela[j][4] = quartoAtualContrato.getNumero();
 					//Para preencher a sexta coluna da linha: O preço a ser pago
-					designTabela[j][5] = "R$ " + contrato.getNumeroDiarias() * quartoAtualContrato.getPrecoDiaria();
+					designTabela[j][5] = "R$ " + quartoAtualContrato.getDiariasViaReservaDeContrato(contrato) * quartoAtualContrato.getPrecoDiaria();
 				}
 					@SuppressWarnings("serial")
 					DefaultTableModel modeloTabela4 = new DefaultTableModel(designTabela, new String[] {

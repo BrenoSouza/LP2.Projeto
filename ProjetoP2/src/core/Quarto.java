@@ -150,6 +150,11 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 		return listaHospedes.remove(hospede);
 	}
 	@Override
+	@Deprecated
+	/**
+	 * O antigo método de calcula preço dos quartos.
+	 * @deprecated Não faz mais sentido usar esse método. Os cálculos de preço de quartos são feitos no contrato agora.
+	 */
 	public double calculaPrecoTotal(){
 		return getPrecoDiaria() * getDiarias();
 	}
@@ -157,8 +162,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	@Override
 	public String toString() {
 		return "\nNúmero do quarto -> " + this.getNumero() +
-				"\nNúmero de hóspedes -> " + this.getNumeroHospedes() +
-				"\nDiárias -> " + this.getDiarias();
+				"\nNúmero de hóspedes -> " + this.getNumeroHospedes();
 	}
 	public int compareTo(Quarto q){
 		return this.getNumero() - q.getNumero();
@@ -224,6 +228,31 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 				return false;
 			}
 		}return true;
+	}
+	/**
+	 * Método que retorna o número de diárias que o quarto está alugado para um certo contrato.
+	 * @param contrato
+	 * O contrato em questão.
+	 * @return
+	 * O número de diárias.
+	 */
+	public int getDiariasViaReservaDeContrato(Contrato contrato){
+	  int diarias = 0;
+	  Reserva reservaSelecionada = null;
+    for (Reserva reserva: listaReservas){
+      if (contrato.equals(reserva.getContrato())){
+        reservaSelecionada = reserva;
+        break;
+      }
+    }if (reservaSelecionada == null){
+      throw new RuntimeException("Na busca pelas reservas do quarto selecionado, a reserva referente ao contrato não foi encontrada.");
+    }else{
+      diarias = reservaSelecionada.getNumeroDias();
+    }
+    return diarias;
+    
+      
+      
 	}
 	@Override
 	public boolean equals (Object obj){
