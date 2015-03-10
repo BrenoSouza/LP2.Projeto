@@ -181,7 +181,6 @@ public class Main extends JFrame {
     toFront();
 
     inicializacao();
-    this.listaContratos = listaDeContratos.getListaContratos();
 
     //MenuBar com opções para fechar janelas abertas e informações sobre o projeto
     JMenuBar menuBar = new JMenuBar();
@@ -393,6 +392,7 @@ public class Main extends JFrame {
         listaDeHospedes = (ColecaoDeHospedes) listaColecoes.get(2);
         listaDeQuartos = (ColecaoDeQuartos) listaColecoes.get(3);
         listaDeEstrategias = (ColecaoDeEstrategias) listaColecoes.get(4);
+        this.listaContratos = listaDeContratos.getListaContratos();
 
         objIn.close();
       }catch (Exception e){
@@ -417,6 +417,7 @@ public class Main extends JFrame {
     }else{ //Primeira vez que o usuário abriu o programa
       listaDeLogins = new ColecaoDeLogins();
       listaDeContratos = new ColecaoDeContratos();
+      this.listaContratos = listaDeContratos.getListaContratos();
       listaDeHospedes = new ColecaoDeHospedes();
       listaDeEstrategias = new ColecaoDeEstrategias();
       listaDeQuartos = new ColecaoDeQuartos();
