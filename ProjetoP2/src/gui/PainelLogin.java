@@ -11,6 +11,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -18,6 +19,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 import core.colecoes.ColecaoDeLogins;
+
+import javax.swing.ImageIcon;
+
+import java.awt.Color;
+
+import javax.swing.UIManager;
+import javax.swing.border.EtchedBorder;
 
 public class PainelLogin<DesktopPane> extends JDialog {
 
@@ -30,13 +38,14 @@ public class PainelLogin<DesktopPane> extends JDialog {
 	private JPasswordField passwordField;
 	private ColecaoDeLogins colecaoDeContas;
 	private Main frame;
+	private final JLabel background = new JLabel("");
 
 	public PainelLogin(ColecaoDeLogins colecaoDeContas, Main frame) {
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 		
-		setBounds(100, 100, 472, 310);
+		setBounds(100, 100, 520, 402);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setForeground(SystemColor.inactiveCaptionBorder);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,34 +54,24 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		this.colecaoDeContas = colecaoDeContas;
 		this.frame = frame;
 		
-		JLabel lblUsurio = new JLabel("Usuário:");
-		lblUsurio.setBackground(SystemColor.window);
-		lblUsurio.setFont(new Font("Dialog", Font.BOLD, 14));
-		
-		txtUsuario = new JTextField();
-		txtUsuario.setColumns(10);
-		
-		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setFont(new Font("Dialog", Font.BOLD, 14));
-		
-		passwordField = new JPasswordField();
-		
-		JButton btnAcessar = new JButton("Acessar");
-		btnAcessar.addActionListener(new ActionListener() {
+		JButton btnEntrar = new JButton("Entrar");
+		btnEntrar.setBounds(107, 294, 129, 39);
+		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				String password = new String(passwordField.getPassword());
+			  String password = new String(passwordField.getPassword());
 
-				//if(getColecaoDeContas().verificaLoginESenha(txtUsuario.getText(), password)) {
-				getFrame().setVisible(true);
+				if(getColecaoDeContas().verificaLoginESenha(txtUsuario.getText(), password)) {
+				    getFrame().setVisible(true);
 				dispose();
-				
-				//else					
-					//JOptionPane.showMessageDialog(null, "Senha ou login incorretos!");
+				}
+				else					
+					JOptionPane.showMessageDialog(null, "Senha ou login incorretos!");
 
 			}
 		});
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Sair");
+		btnCancelar.setBounds(260, 294, 129, 39);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -82,51 +81,47 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		});
 		
 		JButton btnEsqueceuSuaSenha = new JButton("Esqueceu sua Senha?");
-		btnEsqueceuSuaSenha.setForeground(SystemColor.inactiveCaption);
+		btnEsqueceuSuaSenha.setBounds(166, 252, 173, 19);
+		btnEsqueceuSuaSenha.setForeground(Color.BLACK);
 		btnEsqueceuSuaSenha.setContentAreaFilled(false);
 		btnEsqueceuSuaSenha.setFont(new Font("Dialog", Font.BOLD, 11));
 		btnEsqueceuSuaSenha.setBorderPainted(false);
-		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
-		gl_contentPanel.setHorizontalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(74)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblSenha)
-								.addComponent(lblUsurio))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(txtUsuario)
-								.addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
-								.addComponent(btnEsqueceuSuaSenha)))
-						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addComponent(btnAcessar, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)
-							.addGap(56)
-							.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)))
-					.addGap(74))
-		);
-		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addContainerGap(122, Short.MAX_VALUE)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(txtUsuario, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblUsurio))
-					.addGap(28)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblSenha))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnEsqueceuSuaSenha, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(gl_contentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAcessar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCancelar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
-					.addGap(19))
-		);
-		contentPanel.setLayout(gl_contentPanel);
+		contentPanel.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panel.setBounds(107, 110, 282, 130);
+		panel.setBackground(UIManager.getColor("Button.highlight"));
+		contentPanel.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblSenha = new JLabel("");
+		lblSenha.setBounds(49, 78, 24, 24);
+		lblSenha.setIcon(new ImageIcon(PainelLogin.class.getResource("/resources/padlock.png")));
+		panel.add(lblSenha);
+		lblSenha.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		JLabel lblUsurio = new JLabel("");
+		lblUsurio.setBounds(49, 30, 24, 24);
+		lblUsurio.setIcon(new ImageIcon(PainelLogin.class.getResource("/resources/male.png")));
+		panel.add(lblUsurio);
+		lblUsurio.setBackground(SystemColor.window);
+		lblUsurio.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		txtUsuario = new JTextField();
+		txtUsuario.setBounds(83, 30, 133, 25);
+		panel.add(txtUsuario);
+		txtUsuario.setColumns(10);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(83, 78, 133, 25);
+		panel.add(passwordField);
+		contentPanel.add(btnEsqueceuSuaSenha);
+		contentPanel.add(btnEntrar);
+		contentPanel.add(btnCancelar);
+		background.setIcon(new ImageIcon(PainelLogin.class.getResource("/resources/background.jpg")));
+		background.setBounds(0, 0, 520, 374);
+		contentPanel.add(background);
 	}
 
 	public ColecaoDeLogins getColecaoDeContas() {
@@ -136,5 +131,4 @@ public class PainelLogin<DesktopPane> extends JDialog {
 	private Main getFrame() {
 		return frame;
 	}
-	
 }
