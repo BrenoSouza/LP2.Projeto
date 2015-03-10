@@ -93,6 +93,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		setClosable(true);
 		setBounds(100, 100, 800, 400);
 		
+		// Codigo dos Botões que alternam o Cardlayout
 		
 		Icon imagemQuarto = new ImageIcon(PainelServicos.class.getResource("/resources/quarto.png"));
 		btnQuartos = new JButton(imagemQuarto);
@@ -142,6 +143,8 @@ public class PainelAdicionaServico extends JInternalFrame {
 				}
 			}
 		});
+		
+		// Fim dos Botões que alternam o Cardlayout
 		
 		JButton btnAdicionar = new JButton("Adicionar");
 		
@@ -487,50 +490,15 @@ public class PainelAdicionaServico extends JInternalFrame {
 		);
 		getContentPane().setLayout(groupLayout);
 		
-		if (servico instanceof Quarto) {
-			if (PainelAdicionaServico.this.servico == null) 
-				layoutPainel.show(panelExterno, "quarto" );
-			else {
-				layoutPainel.show(panelExterno, "edita_quarto");
-			}
-			btnBabysitter.setEnabled(false);
-			btnAluguelCarros.setEnabled(false);
-			btnRestaurante.setEnabled(false);
-		}
-		else if (servico instanceof AluguelCarro) {
-			if ((PainelAdicionaServico.this.servico == null) ) 
-				layoutPainel.show(panelExterno, "carros" );
-			else {
-				layoutPainel.show(panelExterno, "edita_carro");
-			}
-			btnBabysitter.setEnabled(false);
-			btnRestaurante.setEnabled(false);
-			btnQuartos.setEnabled(false);
-		}
-		else if (servico instanceof Babysitter) {
-			if ((PainelAdicionaServico.this.servico == null) ) 
-				layoutPainel.show(panelExterno, "babysitter");
-			else {
-				layoutPainel.show(panelExterno, "edita_babysitter");
-			}
-			btnQuartos.setEnabled(false);
-			btnAluguelCarros.setEnabled(false);
-			btnRestaurante.setEnabled(false);
-		}
-		else if (servico instanceof Restaurante) {
-			if ((PainelAdicionaServico.this.servico == null) ) 
-				layoutPainel.show(panelExterno, "restaurante");
-			else {
-				layoutPainel.show(panelExterno, "edita_restaurante");
-			}
-			btnBabysitter.setEnabled(false);
-			btnQuartos.setEnabled(false);
-			btnAluguelCarros.setEnabled(false);
-		}
+		
+	  // Codigo que mostra o JPanel do Cardlayout de acordo com a instancia do serviço!
+	  // Dependendo do tipo de serviço aparecerá as opções para ele!
+		mostraOCardLayout(servico);
 
 	
 	
-	
+	//Vai adicionar um novo serviço depedendo do JPanel do cardlayout selecionado.
+		
 	btnAdicionar.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			for (Component comp : panelExterno.getComponents()) {
@@ -621,10 +589,55 @@ public class PainelAdicionaServico extends JInternalFrame {
 	);
 		
 	}
+
+  private void mostraOCardLayout(Servico servico) {
+    if (servico instanceof Quarto) {
+			if (PainelAdicionaServico.this.servico == null) 
+				layoutPainel.show(panelExterno, "quarto" );
+			else {
+				layoutPainel.show(panelExterno, "edita_quarto");
+			}
+			btnBabysitter.setEnabled(false);
+			btnAluguelCarros.setEnabled(false);
+			btnRestaurante.setEnabled(false);
+		}
+		else if (servico instanceof AluguelCarro) {
+			if ((PainelAdicionaServico.this.servico == null) ) 
+				layoutPainel.show(panelExterno, "carros" );
+			else {
+				layoutPainel.show(panelExterno, "edita_carro");
+			}
+			btnBabysitter.setEnabled(false);
+			btnRestaurante.setEnabled(false);
+			btnQuartos.setEnabled(false);
+		}
+		else if (servico instanceof Babysitter) {
+			if ((PainelAdicionaServico.this.servico == null) ) 
+				layoutPainel.show(panelExterno, "babysitter");
+			else {
+				layoutPainel.show(panelExterno, "edita_babysitter");
+			}
+			btnQuartos.setEnabled(false);
+			btnAluguelCarros.setEnabled(false);
+			btnRestaurante.setEnabled(false);
+		}
+		else if (servico instanceof Restaurante) {
+			if ((PainelAdicionaServico.this.servico == null) ) 
+				layoutPainel.show(panelExterno, "restaurante");
+			else {
+				layoutPainel.show(panelExterno, "edita_restaurante");
+			}
+			btnBabysitter.setEnabled(false);
+			btnQuartos.setEnabled(false);
+			btnAluguelCarros.setEnabled(false);
+		}
+  }
 	
+  // Método que adiciona o serviço Selecionado.
 	private void adicionaServico(Servico servico) {
 		contrato.getListaServicos().add(servico); 
 	}
+	
 	
 	public JDesktopPane getPainelPrincipal() {
 		return painelPrincipal;
