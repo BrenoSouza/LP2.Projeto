@@ -34,7 +34,6 @@ public class PainelCadastroClientes extends JInternalFrame {
   private ColecaoDeHospedes listaDeHospedes;
 
   public PainelCadastroClientes(ColecaoDeHospedes colecao) throws java.text.ParseException{
-    setResizable(true);
     setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
     setTitle("Clientes");
     setClosable(true);

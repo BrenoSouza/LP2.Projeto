@@ -41,7 +41,7 @@ public class PanelCadastrarFuncionario extends JPanel {
 		txtNome.setColumns(10);
 		panel.add(txtNome);
 		
-		JLabel lblSenha = new JLabel("Senha de entrada:");
+		JLabel lblSenha = new JLabel("Senha: ");
 		lblSenha.setBounds(29, 152, 146, 17);
 		lblSenha.setFont(new Font("Dialog", Font.BOLD, 14));
 		panel.add(lblSenha);
@@ -52,7 +52,7 @@ public class PanelCadastrarFuncionario extends JPanel {
 		panel.add(lblConfirmaSenha);
 		
 		passwordSenha = new JPasswordField();
-		passwordSenha.setBounds(182, 147, 152, 27);
+		passwordSenha.setBounds(96, 147, 152, 27);
 		panel.add(passwordSenha);
 		
 		passwordConfirmSenha = new JPasswordField();

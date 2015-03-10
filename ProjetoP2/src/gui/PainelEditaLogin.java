@@ -1,22 +1,21 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 import java.awt.CardLayout;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
+
 
 public class PainelEditaLogin extends JInternalFrame {
+  
+  private static final long serialVersionUID = 58746164L;
   private CardLayout layout = new CardLayout();
   private JPanel panelExterno = new JPanel();
   private JButton btnCadastrarFuncionrio;
