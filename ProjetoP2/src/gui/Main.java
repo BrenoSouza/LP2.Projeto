@@ -357,7 +357,7 @@ public class Main extends JFrame {
     btnLogin.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         
-        PainelEditaLogin painelEditaLogin = new PainelEditaLogin();
+        PainelEditaLogin painelEditaLogin = new PainelEditaLogin(listaDeLogins);
         painelPrincipal.add(painelEditaLogin);
         painelEditaLogin.show();
       }

@@ -2,11 +2,20 @@ package gui;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+
+import core.Login;
+import core.colecoes.ColecaoDeLogins;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelCadastrarFuncionario extends JPanel {
 	private JTextField txtNome;
@@ -14,12 +23,15 @@ public class PanelCadastrarFuncionario extends JPanel {
 	private JPasswordField passwordConfirmSenha;
 	private JTextField txtLogin;
 	private JTextField textField;
+	private ColecaoDeLogins listaDeLogins;
 
 	/**
 	 * Create the panel.
+	 * @param listaDeLogins 
 	 */
-	public PanelCadastrarFuncionario() {
+	public PanelCadastrarFuncionario(ColecaoDeLogins listaDeLogins) {
 		setLayout(null);
+		this.listaDeLogins = listaDeLogins;
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(12, 0, 520, 330);
@@ -80,14 +92,40 @@ public class PanelCadastrarFuncionario extends JPanel {
 		panel.add(lblCadastrarFuncionrio);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent e) {
+		    String password = new String(passwordSenha.getPassword());
+		    String passwordConfirm = new String(passwordConfirmSenha.getPassword());
+		    if (verificaSenhasIguais(password, passwordConfirm)) {
+		      Login login = new Login(txtNome.getText(), txtLogin.getText(), password, textField.getText());
+		      PanelCadastrarFuncionario.this.listaDeLogins.adicionaContaLogin(login);
+		      JOptionPane.showMessageDialog(null, "Funcionário Cadastrado!");
+		    }
+		    else {
+		      JOptionPane.showMessageDialog(null, "O usuário não foi cadastrado!");
+		    }
+		    
+		  }
+		});
 		btnCadastrar.setBounds(115, 293, 117, 25);
 		panel.add(btnCadastrar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent e) {
+		  }
+		});
 		btnCancelar.setBounds(293, 293, 117, 25);
 		panel.add(btnCancelar);
 
 		
-		
+	
+	}
+	
+	private boolean verificaSenhasIguais(String senha1, String senha2) {
+	  if (senha1.equals(senha2)) {
+	    return true;
+	  }
+	  return false;
 	}
 }
