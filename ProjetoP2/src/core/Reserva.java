@@ -25,6 +25,9 @@ public class Reserva implements Serializable{
 		this.contrato = contrato;
 		this.dataCheckIn = new DateTime(contrato.getDataCheckIn()).withTimeAtStartOfDay();
 		this.dataCheckOut = new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay();
+		if (dataCheckOut.isBefore(dataCheckIn)){ //Safeguard para o futuro.
+		  this.dataCheckOut = dataCheckOut.plusYears(1);
+		}
 		intervalo = new Interval(dataCheckIn, dataCheckOut);
 	}
 	/**
@@ -35,6 +38,9 @@ public class Reserva implements Serializable{
 	public Reserva(Calendar dataCheckIn, Calendar dataCheckOut){
 		this.dataCheckIn = new DateTime(dataCheckIn).withTimeAtStartOfDay();
 		this.dataCheckOut = new DateTime(dataCheckOut).withTimeAtStartOfDay();
+		if (this.dataCheckOut.isBefore(this.dataCheckIn)){ //Safeguard para o futuro. Evita ter um possível dataCheckOut antes de dataCheckOut, evitando quebrar na hora de criar o interval abaixo.
+		  this.dataCheckOut = this.dataCheckOut.plusYears(1);
+		  }
 		intervalo = new Interval(this.dataCheckIn, this.dataCheckOut);
 	}
 	/**

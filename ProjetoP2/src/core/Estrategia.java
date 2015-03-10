@@ -46,16 +46,18 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 			throw new IllegalArgumentException("Modificador em formato inválido (menor que 0 ou maior que 100).");
 		}if (descricao.isEmpty()){
 			throw new IllegalArgumentException("Insira alguma descrição para a estratégia.");
-		}if (inicioPeriodo.isAfter(finalPeriodo)){
-			throw new IllegalArgumentException("Datas inválidas");
 		}
 		this.inicioPeriodo = inicioPeriodo;
-		this.finalPeriodo = finalPeriodo;
+		if (inicioPeriodo.isAfter(finalPeriodo)){ //No caso de uma estratégia que começa num ano e termina em outro.
+      this.finalPeriodo = finalPeriodo.plusYears(1); 
+    }else{
+      this.finalPeriodo = finalPeriodo;
+    }
 		periodo = new Period(inicioPeriodo, finalPeriodo);
 		this.modificador = modificador;
 		this.tipoDeEstrategia = tipoDeEstrategia;
 		this.descricao = descricao;
-		this.intervalo = new Interval(inicioPeriodo, finalPeriodo);
+		this.intervalo = new Interval(this.inicioPeriodo, this.finalPeriodo);
 	}
 	/**
 	 * Getter do Interval da estratégia.
@@ -217,7 +219,7 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
        * 21/12/2015 até 01/01/2016 -> 21/12/2018 até 01/01/2018.
        * Se esse for o caso, adiciona +1 no campo ano do final do período.
        */
-      finalPeriodo.plusYears(1);
+     finalPeriodo = finalPeriodo.plusYears(1);
     }
     
     intervalo = new Interval(inicioPeriodo, finalPeriodo); //Re-criando o intervalo com as datas modificadas.
@@ -236,7 +238,7 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 		}Estrategia outraEstrategia = (Estrategia) obj;
 		atualizaIntervalo();
 		outraEstrategia.atualizaIntervalo();
-		return (this.inicioPeriodo.equals(outraEstrategia.getInicioPeriodo()) && this.finalPeriodo.equals(outraEstrategia.getFinalPeriodo()) && this.descricao.equals(outraEstrategia.getDescricao()) && this.modificador == outraEstrategia.getModificador());
+		return (this.getInicioPeriodoString().equals(outraEstrategia.getInicioPeriodoString()) && this.getFinalPeriodoString().equals(outraEstrategia.getFinalPeriodoString()) && this.descricao.equals(outraEstrategia.getDescricao()) && this.modificador == outraEstrategia.getModificador() && this.getTipoDeEstrategia() == outraEstrategia.getTipoDeEstrategia());
 	}
 	/**
 	 * Método que verifica se duas estratégias se sobrepoem.
@@ -263,7 +265,7 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 		finalPeriodo = new DateTime(getFinalPeriodo()).withYear(contrato.getDataCheckOut().get(Calendar.YEAR));
 		
 		if (finalPeriodo.isBefore(inicioPeriodo)){
-      finalPeriodo.plusYears(1);
+     finalPeriodo = finalPeriodo.plusYears(1);
     }
 		
 		intervalo = new Interval(inicioPeriodo, finalPeriodo);
@@ -291,7 +293,7 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
        * 21/12/2015 até 01/01/2016 -> 21/12/2018 até 01/01/2018.
        * Se esse for o caso, adiciona +1 no campo ano do final do período.
        */
-      finalPeriodo.plusYears(1);
+      finalPeriodo = finalPeriodo.plusYears(1);
     }
 		
 		intervalo = new Interval(inicioPeriodo, finalPeriodo); //Re-criando o intervalo com as datas modificadas.
