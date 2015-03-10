@@ -8,7 +8,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
 public class PanelEditarLogin extends JPanel {
-	private JTextField txtLogin;
+	/**
+   * 
+   */
+  private static final long serialVersionUID = 2204248112263535113L;
+  private JTextField txtLogin;
 	private JPasswordField passwordField_2;
 	private JPasswordField passwordField_3;
 	private JTextField textField_4;
