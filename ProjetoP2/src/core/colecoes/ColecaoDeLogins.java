@@ -45,7 +45,7 @@ public class ColecaoDeLogins implements Serializable{
 	 * @param ContaLogin A conta a ser removida
 	 * @return True - se foi removido / False - se houve algum problema
 	 */
-	public boolean removeContaLogin(Hospede ContaLogin){
+	public boolean removeContaLogin(Login ContaLogin){
 		return listaContasLogin.remove(ContaLogin);
 	}
 	
