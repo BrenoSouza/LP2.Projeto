@@ -47,6 +47,7 @@ import javax.swing.border.LineBorder;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import core.Contrato;
+import core.Login;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeEstrategias;
 import core.colecoes.ColecaoDeHospedes;
@@ -420,6 +421,7 @@ public class Main extends JFrame {
       listaDeEstrategias = new ColecaoDeEstrategias();
       listaDeQuartos = new ColecaoDeQuartos();
       listaDeQuartos.criaQuartos();
+      listaDeLogins.adicionaContaLogin(new Login("administrador", "admin", "12345", "Senha Padrão!"));
     }
   }
   /**
