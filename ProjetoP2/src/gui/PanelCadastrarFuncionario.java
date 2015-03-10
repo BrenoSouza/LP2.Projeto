@@ -8,7 +8,6 @@ import java.awt.Font;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-import javax.swing.JComboBox;
 import javax.swing.JButton;
 
 import core.Login;
@@ -18,7 +17,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class PanelCadastrarFuncionario extends JPanel {
-	private JTextField txtNome;
+	/**
+   * 
+   */
+  private static final long serialVersionUID = 1211992371328534269L;
+  private JTextField txtNome;
 	private JPasswordField passwordSenha;
 	private JPasswordField passwordConfirmSenha;
 	private JTextField txtLogin;

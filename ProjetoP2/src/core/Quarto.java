@@ -6,18 +6,18 @@ import java.util.List;
 
 import org.joda.time.Interval;
 
-public abstract class Quarto extends Servico implements Comparable<Quarto>, Serializable{
+public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4732990503698798922L;
-	private int numero, numeroHospedes;
+	private static final long serialVersionUID = 4732990503698798923L;
+	private int numero;
 	private int diarias = 0;
-	private double precoDiaria;
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	private boolean camaExtra = false;
 	private boolean isLivre = true;
 	private List<Reserva> listaReservas = new ArrayList<Reserva>();
+	private TipoDeQuarto tipoDeQuarto;
 
 	/**
 	 * O construtor do quarto.
@@ -26,16 +26,22 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	 * @param precoDiaria Preço da diária
 	 * @throws IllegalArgumentException Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
-	public Quarto(int numero, int numeroHospedes, double precoDiaria) throws IllegalArgumentException{
+	public Quarto(int numero, TipoDeQuarto tipoDeQuarto) throws IllegalArgumentException{
 		super();
-		if (numeroHospedes < 0 || diarias < 0 || numero < 0){
-			throw new IllegalArgumentException("O número de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
+		if (numero < 0){
+			throw new IllegalArgumentException("O número do quarto nao pode ser menor que zero.");
 		}
 		this.numero = numero;
-		this.numeroHospedes = numeroHospedes;
-		this.precoDiaria = precoDiaria;
-	}
+		this.tipoDeQuarto = tipoDeQuarto;
+		
 	/**
+	 * Getter do parâmetro tipoDeQuarto;
+	 */
+	}
+	public TipoDeQuarto getTipoDeQuarto() {
+    return tipoDeQuarto;
+  }
+  /**
 	 * Getter do parâmetro "isLivre".
 	 * @return
 	 * True se o quarto estiver desocupado
@@ -89,9 +95,9 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	 */
 	public int getNumeroHospedes() {
 		if (isCamaExtra()){
-			return numeroHospedes + 1;
+			return tipoDeQuarto.getNumeroHospedes() + 1;
 		}else{
-			return numeroHospedes;
+			return tipoDeQuarto.getNumeroHospedes();
 		}
 	}
 	/**
@@ -137,7 +143,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	 * @return O preço da diária.
 	 */
 	public double getPrecoDiaria() {
-		return precoDiaria;
+		return tipoDeQuarto.getPrecoDiaria();
 	}
 	/**
 	 * Remove um hóspede do quarto.
@@ -154,6 +160,7 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	/**
 	 * O antigo método de calcula preço dos quartos.
 	 * @deprecated Não faz mais sentido usar esse método. Os cálculos de preço de quartos são feitos no contrato agora.
+	 * A razão para isso é que para se saber o preço total de um quarto, necessita saber se ele está dentro de uma estratégia, e isso é armazenado com o contrato.
 	 */
 	public double calculaPrecoTotal(){
 		return getPrecoDiaria() * getDiarias();
@@ -161,8 +168,11 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	
 	@Override
 	public String toString() {
-		return "\nNúmero do quarto -> " + this.getNumero() +
-				"\nNúmero de hóspedes -> " + this.getNumeroHospedes();
+		return "Serviço --- " + getTipo() + " ---" + 		    
+		    "\nNúmero do quarto -> " + this.getNumero() +
+				"\nNúmero de hóspedes -> " + this.getNumeroHospedes()+
+				"\nPreço da diária -> " + this.getPrecoDiaria();
+
 	}
 	public int compareTo(Quarto q){
 		return this.getNumero() - q.getNumero();
@@ -265,4 +275,8 @@ public abstract class Quarto extends Servico implements Comparable<Quarto>, Seri
 	public int compareToEstado(Quarto q){
 		return this.getEstado().compareTo(q.getEstado());
 	}
+  @Override
+  public String getTipo() {
+    return tipoDeQuarto.getTipo();
+  }
 }

@@ -9,14 +9,8 @@ import javax.swing.JOptionPane;
 
 import core.Contrato;
 import core.Quarto;
-import core.QuartoExecutivoDuplo;
-import core.QuartoExecutivoSimples;
-import core.QuartoExecutivoTriplo;
-import core.QuartoLuxoDuplo;
-import core.QuartoLuxoSimples;
-import core.QuartoLuxoTriplo;
-import core.QuartoPresidencial;
 import core.Reserva;
+import core.TipoDeQuarto;
 
 public class ColecaoDeQuartos implements Serializable {
 
@@ -33,32 +27,32 @@ public class ColecaoDeQuartos implements Serializable {
 		Quarto quartoParaAdicionar;
 		int numeroQuarto = 1;
 		try{
-			for (int i = 0; i < 5; i++){
-				quartoParaAdicionar = new QuartoPresidencial(numeroQuarto);
+			for (int i = 0; i < 5; i++){ //Loop dos quartos presidenciais.
+				quartoParaAdicionar = new Quarto(numeroQuarto, TipoDeQuarto.PRESIDENCIAL);
 				listaQuartos.add(quartoParaAdicionar);
 				numeroQuarto++;
-			}for (int i = 0; i < 5; i++){
-				quartoParaAdicionar = new QuartoLuxoSimples(numeroQuarto);
+			}for (int i = 0; i < 5; i++){ //Loop dos quartos luxo simples.
+				quartoParaAdicionar = new Quarto(numeroQuarto, TipoDeQuarto.LUXOSIMPLES);
 				listaQuartos.add(quartoParaAdicionar);
 				numeroQuarto++;
-			}for (int i = 0; i < 15; i++){
-				quartoParaAdicionar = new QuartoLuxoDuplo(numeroQuarto);
+			}for (int i = 0; i < 15; i++){ //Loop dos quartos luxo duplo.
+				quartoParaAdicionar = new Quarto(numeroQuarto, TipoDeQuarto.LUXODUPLO);
 				listaQuartos.add(quartoParaAdicionar);
 				numeroQuarto++;
-			}for (int i = 0; i < 20; i++){
-				quartoParaAdicionar = new QuartoLuxoTriplo(numeroQuarto);
+			}for (int i = 0; i < 20; i++){ //Loop dos quartos luxo triplo.
+				quartoParaAdicionar = new Quarto(numeroQuarto, TipoDeQuarto.LUXOTRIPLO);
 				listaQuartos.add(quartoParaAdicionar);
 				numeroQuarto++;
-			}for (int i = 0; i < 5; i++){
-				quartoParaAdicionar = new QuartoExecutivoSimples(numeroQuarto);
+			}for (int i = 0; i < 5; i++){ //Loop dos quartos executivo simples.
+				quartoParaAdicionar = new Quarto(numeroQuarto, TipoDeQuarto.EXECUTIVOSIMPLES);
 				listaQuartos.add(quartoParaAdicionar);
 				numeroQuarto++;
-			}for (int i = 0; i < 15; i++){
-				quartoParaAdicionar = new QuartoExecutivoDuplo(numeroQuarto);
+			}for (int i = 0; i < 15; i++){ //Loop dos quartos executivo duplo.
+				quartoParaAdicionar = new Quarto(numeroQuarto, TipoDeQuarto.EXECUTIVODUPLO);
 				listaQuartos.add(quartoParaAdicionar);
 				numeroQuarto++;
-			}for (int i = 0; i < 20; i++){
-				quartoParaAdicionar = new QuartoExecutivoTriplo(numeroQuarto);
+			}for (int i = 0; i < 20; i++){ //Loop dos quartos executivo triplo.
+				quartoParaAdicionar = new Quarto(numeroQuarto, TipoDeQuarto.EXECUTIVOTRIPLO);
 				listaQuartos.add(quartoParaAdicionar);
 				numeroQuarto++;
 			}

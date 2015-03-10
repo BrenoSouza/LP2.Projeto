@@ -1,6 +1,5 @@
 package core;
 
-//import java.time.Period;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -20,9 +19,9 @@ public class TestaQuarto {
 	
 	@Before
 	public void antes_testes() throws IllegalArgumentException{
-		quarto1 = new QuartoExecutivoTriplo(1);
-		quarto2 = new QuartoLuxoTriplo(2);
-		quarto3 = new QuartoPresidencial(3);
+		quarto1 = new Quarto(1, TipoDeQuarto.EXECUTIVOTRIPLO);
+		quarto2 = new Quarto(2, TipoDeQuarto.EXECUTIVOTRIPLO);
+		quarto3 = new Quarto(3, TipoDeQuarto.PRESIDENCIAL);
 		checkIn = Calendar.getInstance();
 		checkOut = Calendar.getInstance();
 		checkOut.setTime(checkIn.getTime());
@@ -31,7 +30,7 @@ public class TestaQuarto {
 	@Test
 	public void testa_criacao(){
 		try{
-			quarto1 = new QuartoExecutivoTriplo(-1);
+			quarto1 = new Quarto(-1, TipoDeQuarto.EXECUTIVODUPLO);
 			Assert.fail("Número negativo de quarto, esperava excessão");
 		}catch (IllegalArgumentException e){
 			Assert.assertEquals(e.getMessage(),"O número de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
@@ -58,24 +57,13 @@ public class TestaQuarto {
 	@Test
 	public void testa_equals() throws IllegalArgumentException{
 		Assert.assertFalse(quarto1.equals(quarto2));
-		quarto2 = new QuartoExecutivoTriplo(1);
+		quarto2 = new Quarto(1, TipoDeQuarto.EXECUTIVOTRIPLO);
 		Assert.assertTrue(quarto1.equals(quarto2));		
 	}
 	@Test
-	public void testa_calculaPrecoTotal(){
-		Assert.assertEquals(quarto1.calculaPrecoTotal(), 0.0);
-		quarto1.setToOcupado(2);
-		Assert.assertFalse(quarto1.calculaPrecoTotal() == 0.0);
-		Assert.assertEquals(quarto1.calculaPrecoTotal(), 880.0);
-		quarto1.setToLivre();
-		Assert.assertEquals(quarto1.calculaPrecoTotal(), 0.0);
-	}
-	@Test
 	public void testa_toString(){
-		Assert.assertEquals(quarto1.toString(), "Serviço --- Quarto Executivo Triplo ---\nNúmero do quarto -> 1\nNúmero de hóspedes -> 3\nDiárias -> 0\nPreço da diária -> 440.0\nCusto final -> 0.0");
-		Assert.assertEquals(quarto2.toString(), "Serviço --- Quarto Executivo triplo ---\nNúmero do quarto -> 2\nNúmero de hóspedes -> 3\nDiárias -> 0\nPreço da diária -> 620.0\nCusto final -> 0.0");
-		Assert.assertEquals(quarto3.toString(), "Serviço --- Quarto Presidencial ---\nNúmero do quarto -> 3\nNúmero de hóspedes -> 4\nDiárias -> 0\nPreço da diária -> 1200.0\nCusto final -> 0.0");
-		quarto1.setToOcupado(3);
-		Assert.assertEquals(quarto1.toString(), "Serviço --- Quarto Executivo Triplo ---\nNúmero do quarto -> 1\nNúmero de hóspedes -> 3\nDiárias -> 3\nPreço da diária -> 440.0\nCusto final -> 1320.0");
+		Assert.assertEquals(quarto1.toString(), "Serviço --- Quarto Executivo Triplo ---\nNúmero do quarto -> 1\nNúmero de hóspedes -> 3\nPreço da diária -> 440.0");
+		Assert.assertEquals(quarto2.toString(), "Serviço --- Quarto Executivo Triplo ---\nNúmero do quarto -> 2\nNúmero de hóspedes -> 3\nPreço da diária -> 440.0");
+		Assert.assertEquals(quarto3.toString(), "Serviço --- Quarto Presidencial ---\nNúmero do quarto -> 3\nNúmero de hóspedes -> 4\nPreço da diária -> 1200.0");
 	}
 }
