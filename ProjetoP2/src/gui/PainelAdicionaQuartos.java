@@ -128,7 +128,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				}
 				
 					quartoSelecionado.setToOcupado(diariasContrato);
-					getContrato().getListaQuartosAlugados().add(quartoSelecionado);
+					PainelAdicionaQuartos.this.contrato.getListaQuartosAlugados().add(quartoSelecionado);
 //					getListaDeQuartos().remove(quartoVagoSelecionado);
 					quartoSelecionado.adicionaReserva(PainelAdicionaQuartos.this.contrato);
 				
@@ -220,10 +220,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		atualizaTabelas(quarto, listaQuartosDisponiveis, contrato);
 		
 	}
-	
-	private Contrato getContrato() {
-		return contrato;
-	}
+
 
 	private void adicionandoHospedesAsListas(Contrato contrato) {
 		for (int i = 0; i < contrato.getListaHospedes().size(); i++) {

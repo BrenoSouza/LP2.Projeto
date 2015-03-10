@@ -21,7 +21,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import core.Login;
-import core.Servico;
 import core.colecoes.ColecaoDeLogins;
 
 import javax.swing.JTable;
