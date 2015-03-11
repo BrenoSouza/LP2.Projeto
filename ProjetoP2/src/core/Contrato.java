@@ -22,7 +22,6 @@ public class Contrato implements Serializable{
   private Calendar dataCheckIn;
   private Calendar dataCheckOut = Calendar.getInstance();
   private String status = "ABERTO";
-  private double precoQueFoiPago;
   private String cartaoDeCredito;
 
   /**
