@@ -74,6 +74,7 @@ public class Main extends JFrame {
   URL url = this.getClass().getResource("/resources/arquivo.data");
   File arquivo = new File(url.toURI());
   private boolean primeiraVezInicializado = !arquivo.isFile() || arquivo.length() == 0;
+  private JMenuItem mntmSalvarDados;
 
 
   public static SimpleDateFormat getFormatodata() {
@@ -145,33 +146,7 @@ public class Main extends JFrame {
     addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent arg0) {
-        try{
-
-          List<Object> listaColecoes = new ArrayList<Object>();
-
-          /*
-           * Índices na listaColecoes:
-           * listaDeLogins = 0
-           * listaDeContratos = 1
-           * listaDeHospedes = 2
-           * listaDeQuartos = 3
-           * listaDeEstrategias = 4
-           */
-
-          listaColecoes.add(listaDeLogins);
-          listaColecoes.add(listaDeContratos);
-          listaColecoes.add(listaDeHospedes);
-          listaColecoes.add(listaDeQuartos);
-          listaColecoes.add(listaDeEstrategias);
-
-          FileOutputStream fOut = new FileOutputStream(arquivo);
-          ObjectOutputStream objOut = new ObjectOutputStream(fOut);
-          objOut.writeObject(listaColecoes);
-          objOut.flush();
-          objOut.close();
-        }catch (IOException e){
-          JOptionPane.showMessageDialog(null, e.getMessage());
-        }
+        salvarArquivos();
       }
     });
     setIconImage(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/resources/hotel39.png")));
@@ -205,17 +180,19 @@ public class Main extends JFrame {
       public void actionPerformed(ActionEvent arg0) {
         int escolha = JOptionPane.showOptionDialog(null, "Tem certeza de que deseja deletar todos os dados do hotel?\nEssa é uma operação irreversível.", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
         if (escolha == JOptionPane.YES_OPTION) {
-          try{
             apagaArquivo();
             dispose();
-          }catch (URISyntaxException e){
-            JOptionPane.showMessageDialog(null, e.getMessage() + "\nContate o operador do sistema");
-          }catch (IOException e){
-            JOptionPane.showMessageDialog(null, e.getMessage() + "\nContate o operador do sistema");
-          }
         }
       }
     });
+    
+    mntmSalvarDados = new JMenuItem("Salvar dados");
+    mntmSalvarDados.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent arg0) {
+        salvarArquivos();
+      }
+    });
+    mnOpo.add(mntmSalvarDados);
     mnOpo.add(mntmDeletarDados);
 
     JMenu mnOpo_1 = new JMenu("Sobre");
@@ -408,10 +385,6 @@ public class Main extends JFrame {
           listaDeQuartos.criaQuartos();
         } catch (HeadlessException e1) {
           JOptionPane.showMessageDialog(null, e1.getMessage() + "\nContate o operador do sistema.");
-        } catch (FileNotFoundException e1) {
-          JOptionPane.showMessageDialog(null, e1.getMessage() + "\nContate o operador do sistema.");
-        } catch (IOException e1) {
-          JOptionPane.showMessageDialog(null, e1.getMessage() + "\nContate o operador do sistema.");
         }
       }
     }else{ //Primeira vez que o usuário abriu o programa
@@ -431,9 +404,48 @@ public class Main extends JFrame {
    * @throws FileNotFoundException
    * @throws IOException
    */
-  private void apagaArquivo() throws URISyntaxException, FileNotFoundException, IOException {
-    arquivo = new File(url.toURI());
-    FileOutputStream deletaConteudo = new FileOutputStream(arquivo); //Criando um FileOutputStream que não vai escrever nada, ou seja, o arquivo ficará vazio.
-    deletaConteudo.close();
+  private void apagaArquivo(){
+    try {
+      arquivo = new File(url.toURI());
+      FileOutputStream deletaConteudo = new FileOutputStream(arquivo); //Criando um FileOutputStream que não vai escrever nada, ou seja, o arquivo ficará vazio.
+      deletaConteudo.close();
+    } catch (URISyntaxException e) {
+      JOptionPane.showMessageDialog(null, e.getMessage() + "\nContate o operador do sistema.");
+    } catch (FileNotFoundException e){
+      JOptionPane.showMessageDialog(null, e.getMessage() + "\nContate o operador do sistema.");
+    } catch (IOException e){
+      JOptionPane.showMessageDialog(null, e.getMessage() + "\nContate o operador do sistema.");
+    }
+  }
+
+  private void salvarArquivos() {
+    try{
+      List<Object> listaColecoes = new ArrayList<Object>();
+
+      /*
+       * Índices na listaColecoes:
+       * listaDeLogins = 0
+       * listaDeContratos = 1
+       * listaDeHospedes = 2
+       * listaDeQuartos = 3
+       * listaDeEstrategias = 4
+       */
+
+      listaColecoes.add(listaDeLogins);
+      listaColecoes.add(listaDeContratos);
+      listaColecoes.add(listaDeHospedes);
+      listaColecoes.add(listaDeQuartos);
+      listaColecoes.add(listaDeEstrategias);
+
+      FileOutputStream fOut = new FileOutputStream(arquivo);
+      ObjectOutputStream objOut = new ObjectOutputStream(fOut);
+      objOut.writeObject(listaColecoes);
+      objOut.flush();
+      objOut.close();
+      JOptionPane.showMessageDialog(null, "Os dados dessa sessão foram salvos.");
+    }catch (IOException e){
+      JOptionPane.showMessageDialog(null, "Ocorreu um erro no processo de salvar os dados e eles foram perdidos.");
+      apagaArquivo();      
+    }
   }
 }
