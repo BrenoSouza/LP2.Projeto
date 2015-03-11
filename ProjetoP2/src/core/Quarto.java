@@ -21,15 +21,17 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 
 	/**
 	 * O construtor do quarto.
-	 * @param numero Número do quarto.
-	 * @param numeroHospedes Número de hospedes.
-	 * @param precoDiaria Preço da diária
-	 * @throws ParametrosInvalidosException Caso o número/numeroHospedes/diárias seja menor que zero.
+	 * @param numero
+	 * Número do quarto.
+	 * @param tipoDeQuarto
+	 * Um TipoDeQuarto referente ao tipo de quarto da instância.
+	 * @throws ParametrosInvalidosException
+	 * Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
 	public Quarto(int numero, TipoDeQuarto tipoDeQuarto) throws ParametrosInvalidosException{
 		super();
-		if (numero < 0){
-			throw new ParametrosInvalidosException("O número do quarto nao pode ser menor que zero.");
+		if (numero <= 0){
+			throw new ParametrosInvalidosException("O número do quarto não pode ser menor ou igual a zero.");
 		}
 		this.numero = numero;
 		this.tipoDeQuarto = tipoDeQuarto;
