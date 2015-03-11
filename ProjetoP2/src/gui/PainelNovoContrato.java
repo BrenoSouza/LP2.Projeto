@@ -24,8 +24,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -99,13 +97,6 @@ public class PainelNovoContrato extends JInternalFrame implements Atualizador{
 	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeEstrategias listaEstrategias, Atualizador framePai) {
 		setFrameIcon(new ImageIcon(PainelNovoContrato.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Novo contrato");
-		addInternalFrameListener(new InternalFrameAdapter() {
-			@Override
-			public void internalFrameActivated(InternalFrameEvent e) {
-			  if (dialogoDiarias.getFinalizado())
-				escreveTabelas();
-			}
-		});
 		setClosable(true);
 		setResizable(true);
 		setBounds(0, 0, 1060, 400);

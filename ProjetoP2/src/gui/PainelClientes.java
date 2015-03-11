@@ -18,8 +18,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -50,13 +48,6 @@ public class PainelClientes extends JInternalFrame implements Atualizador{
 
 
 	public PainelClientes(ColecaoDeHospedes listaDeHospedes, JDesktopPane painelPrincipal) {
-	  //Atualização da tabela de hospedes.
-		addInternalFrameListener(new InternalFrameAdapter() {
-			@Override
-			public void internalFrameActivated(InternalFrameEvent arg0) {
-				escreveTabela();
-			}
-		});
 		this.painelPrincipal = painelPrincipal;
 		this.colecaoDeHospedes = listaDeHospedes;
 		this.colecaoAtiva = getColecaoDeHospedes().getListaHospedes();

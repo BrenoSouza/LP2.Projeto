@@ -14,8 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +22,7 @@ import core.Estrategia;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeEstrategias;
 
-public class PainelEstrategias extends JInternalFrame {
+public class PainelEstrategias extends JInternalFrame implements Atualizador {
 	/**
 	 * 
 	 */
@@ -39,12 +37,7 @@ public class PainelEstrategias extends JInternalFrame {
 	private Estrategia estrategiaSelecionada;
 
 	public PainelEstrategias(ColecaoDeEstrategias listaEstrategias, ColecaoDeContratos listaContratos, JDesktopPane painelPrincipal) {
-		addInternalFrameListener(new InternalFrameAdapter() {
-			@Override
-			public void internalFrameActivated(InternalFrameEvent arg0) {
-				escreveTabela();
-			}
-		});
+		
 		setFrameIcon(new ImageIcon(PainelEstrategias.class.getResource("/resources/calendar146.png")));
 		setClosable(true);
 		setTitle("Estratégias");
@@ -59,7 +52,7 @@ public class PainelEstrategias extends JInternalFrame {
 		btnAddEstrategia = new JButton("Adicionar estratégia");
 		btnAddEstrategia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				PainelAdicionaEstrategias painelAdd = new PainelAdicionaEstrategias(PainelEstrategias.this.listaContratos, PainelEstrategias.this.listaEstrategias);
+				PainelAdicionaEstrategias painelAdd = new PainelAdicionaEstrategias(PainelEstrategias.this.listaContratos, PainelEstrategias.this.listaEstrategias, PainelEstrategias.this);
 				PainelEstrategias.this.painelPrincipal.add(painelAdd);
 				painelAdd.show();
 			}
@@ -171,4 +164,8 @@ public class PainelEstrategias extends JInternalFrame {
 		btnRemoverEstrategia.setEnabled(!(estrategiaSelecionada == null));
 		btnVisualizarEstrategia.setEnabled(!(estrategiaSelecionada == null));
 	}
+	
+	public void atualiza() {
+    escreveTabela();    
+  }
 }

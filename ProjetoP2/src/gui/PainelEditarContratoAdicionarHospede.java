@@ -19,8 +19,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -58,12 +56,6 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame impleme
 		setTitle("Adicionar hóspede no contrato");
 		setResizable(true);
 		setClosable(true);
-		addInternalFrameListener(new InternalFrameAdapter() {
-			@Override
-			public void internalFrameActivated(InternalFrameEvent e) {
-				escreveTabelas();
-			}
-		});
 		setBounds(0, 0, 970, 380);
 		this.listaDeHospedes = listaDeHospedes;
 		this.painelPrincipal = painelPrincipal;
@@ -289,6 +281,6 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame impleme
   @Override
   public void dispose(){
     framePai.atualiza();
-    dispose();
+    super.dispose();
   }
 }
