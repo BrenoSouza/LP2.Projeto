@@ -30,7 +30,7 @@ import core.Servico;
 import core.colecoes.ColecaoDeHospedes;
 import core.colecoes.ColecaoDeQuartos;
 
-public class PainelServicos extends JInternalFrame {
+public class PainelServicos extends JInternalFrame implements Atualizador {
 	
 	private static final long serialVersionUID = 5210861302996214641L;
 	private final JScrollPane scrollPaneServicos = new JScrollPane();
@@ -53,7 +53,7 @@ public class PainelServicos extends JInternalFrame {
 	private JButton btnVisualizar;;
 	private PainelAdicionaServico painelAdicionar;
 	private ListSelectionModel modeloSelecaoLinhaContrato;
-	
+	private Atualizador framePai;
 	
 	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -66,7 +66,7 @@ public class PainelServicos extends JInternalFrame {
 		});		
 		this.listaHospedes = listaHospedes;
 		this.painelPrincipal = painelPrincipal;
-		this.listaDeQuartos = listaDeQuartos.getListaQuartosVagos();
+		this.listaDeQuartos = listaDeQuartos.getListaQuartos(); // ve isso
 	
 		this.listaContratos = listaContratos;		
 		
@@ -82,7 +82,7 @@ public class PainelServicos extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(contratoSelecionado != null) {
-					painelAdicionar = new PainelAdicionaServico(null, contratoSelecionado, getPainelPrincipal(), PainelServicos.this.listaDeQuartos, PainelServicos.this.listaHospedes);
+					painelAdicionar = new PainelAdicionaServico(null, contratoSelecionado, getPainelPrincipal(), PainelServicos.this.listaDeQuartos, PainelServicos.this.listaHospedes, PainelServicos.this);
 					adicionaNoPainel(painelAdicionar);
 					painelAdicionar.show();
 				}
@@ -99,7 +99,7 @@ public class PainelServicos extends JInternalFrame {
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				painelAdicionar = new PainelAdicionaServico(servicoSelecionado, contratoSelecionado, getPainelPrincipal(), PainelServicos.this.listaDeQuartos, PainelServicos.this.listaHospedes);
+				painelAdicionar = new PainelAdicionaServico(servicoSelecionado, contratoSelecionado, getPainelPrincipal(), PainelServicos.this.listaDeQuartos, PainelServicos.this.listaHospedes, framePai);
 				adicionaNoPainel(painelAdicionar);
 				painelAdicionar.show();
 				
@@ -447,4 +447,11 @@ public class PainelServicos extends JInternalFrame {
 	public JDesktopPane getPainelPrincipal(){
 		return painelPrincipal;
 	}
+
+
+  public void atualiza() {
+    escreveTabelaContratos();
+    escreveTabelaServicos();
+    escreveTabelaQuartos();
+  }
 }

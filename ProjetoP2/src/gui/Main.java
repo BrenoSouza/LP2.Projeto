@@ -401,7 +401,7 @@ public class Main extends JFrame {
       listaDeEstrategias = new ColecaoDeEstrategias();
       listaDeQuartos = new ColecaoDeQuartos();
       listaDeQuartos.criaQuartos();
-      listaDeLogins.adicionaContaLogin(new Login("administrador", "admin", "12345", "Senha Padrão!"));
+      listaDeLogins.adicionaContaLogin(new Login("administrador", "admin", "12345", "12345", "Senha Padrão!"));
     }
   }
   /**
