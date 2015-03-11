@@ -42,56 +42,56 @@ public class PanelCadastrarFuncionario extends JPanel {
 		panel.setLayout(null);
 		
 		JLabel lblNome = new JLabel("Nome:");
-		lblNome.setBounds(29, 55, 51, 17);
+		lblNome.setBounds(12, 55, 51, 17);
 		lblNome.setFont(new Font("Dialog", Font.BOLD, 14));
 		panel.add(lblNome);
 		
 		JLabel lblLogin = new JLabel("Login:");
-		lblLogin.setBounds(29, 103, 49, 17);
+		lblLogin.setBounds(12, 103, 49, 17);
 		lblLogin.setFont(new Font("Dialog", Font.BOLD, 14));
 		panel.add(lblLogin);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(86, 50, 360, 28);
+		txtNome.setBounds(73, 50, 347, 27);
 		txtNome.setColumns(10);
 		panel.add(txtNome);
 		
 		JLabel lblSenha = new JLabel("Senha: ");
-		lblSenha.setBounds(29, 152, 146, 17);
+		lblSenha.setBounds(12, 152, 60, 17);
 		lblSenha.setFont(new Font("Dialog", Font.BOLD, 14));
 		panel.add(lblSenha);
 		
 		JLabel lblConfirmaSenha = new JLabel("Confirmar senha:");
-		lblConfirmaSenha.setBounds(29, 197, 137, 17);
+		lblConfirmaSenha.setBounds(12, 197, 137, 17);
 		lblConfirmaSenha.setFont(new Font("Dialog", Font.BOLD, 14));
 		panel.add(lblConfirmaSenha);
 		
 		passwordSenha = new JPasswordField();
-		passwordSenha.setBounds(96, 147, 152, 27);
+		passwordSenha.setBounds(73, 147, 152, 27);
 		panel.add(passwordSenha);
 		
 		passwordConfirmSenha = new JPasswordField();
-		passwordConfirmSenha.setBounds(182, 192, 152, 28);
+		passwordConfirmSenha.setBounds(157, 192, 152, 28);
 		panel.add(passwordConfirmSenha);
 		
 		txtLogin = new JTextField();
-		txtLogin.setBounds(86, 98, 146, 28);
+		txtLogin.setBounds(73, 98, 146, 28);
 		txtLogin.setColumns(10);
 		panel.add(txtLogin);
 		
 		JLabel lblDicaDeSenha = new JLabel("Dica de Senha:");
 		lblDicaDeSenha.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblDicaDeSenha.setBounds(29, 248, 124, 15);
+		lblDicaDeSenha.setBounds(12, 248, 124, 15);
 		panel.add(lblDicaDeSenha);
 		
 		textField = new JTextField();
-		textField.setBounds(157, 242, 276, 28);
+		textField.setBounds(157, 242, 263, 28);
 		panel.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblCadastrarFuncionrio = new JLabel("Cadastrar Funcionário");
 		lblCadastrarFuncionrio.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblCadastrarFuncionrio.setBounds(182, 23, 204, 15);
+		lblCadastrarFuncionrio.setBounds(145, 23, 204, 15);
 		panel.add(lblCadastrarFuncionrio);
 		
 		JButton btnCadastrar = new JButton("Cadastrar");
@@ -110,7 +110,7 @@ public class PanelCadastrarFuncionario extends JPanel {
 		    
 		  }
 		});
-		btnCadastrar.setBounds(115, 293, 117, 25);
+		btnCadastrar.setBounds(73, 293, 117, 25);
 		panel.add(btnCadastrar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -118,7 +118,7 @@ public class PanelCadastrarFuncionario extends JPanel {
 		  public void actionPerformed(ActionEvent e) {
 		  }
 		});
-		btnCancelar.setBounds(293, 293, 117, 25);
+		btnCancelar.setBounds(261, 293, 117, 25);
 		panel.add(btnCancelar);
 
 		

@@ -25,6 +25,7 @@ import core.colecoes.ColecaoDeLogins;
 
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
 
 
 public class PainelEditaLogin extends JInternalFrame {
@@ -53,8 +54,8 @@ public class PainelEditaLogin extends JInternalFrame {
 
     cadastraFuncionario.setSize(new Dimension(500, 330));
     editaLogin.setSize(new Dimension(470, 320));
-    setBounds(100, 100, 782, 505);
-    panelExterno.setBounds(207, 51, 518, 370);
+    setBounds(100, 100, 714, 467);
+    panelExterno.setBounds(231, 69, 447, 338);
     panelExterno.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
     panelExterno.setLayout(layout);
     panelExterno.add(editaLogin, "editaLogin");
@@ -62,7 +63,8 @@ public class PainelEditaLogin extends JInternalFrame {
     panelExterno.add(cadastraFuncionario, "cadastrarLogin");
         
     JButton btnEditarDados = new JButton("Editar Dados");
-    btnEditarDados.setBounds(32, 89, 125, 25);
+    btnEditarDados.setIcon(new ImageIcon(PainelEditaLogin.class.getResource("/resources/editardados.png")));
+    btnEditarDados.setBounds(32, 98, 161, 34);
     btnEditarDados.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         
@@ -72,7 +74,8 @@ public class PainelEditaLogin extends JInternalFrame {
     });
     
     btnCadastrarFuncionrio = new JButton("Cadastrar");
-    btnCadastrarFuncionrio.setBounds(32, 198, 125, 25);
+    btnCadastrarFuncionrio.setIcon(new ImageIcon(PainelEditaLogin.class.getResource("/resources/cadastrar.png")));
+    btnCadastrarFuncionrio.setBounds(32, 209, 161, 34);
     btnCadastrarFuncionrio.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         layout.show(panelExterno, "cadastrarLogin");
@@ -85,12 +88,12 @@ public class PainelEditaLogin extends JInternalFrame {
     panelFuncionariosCadastrados.setLayout(null);
     
     panel = new JPanel();
-    panel.setBounds(36, 59, 444, 181);
+    panel.setBounds(36, 59, 383, 181);
     panelFuncionariosCadastrados.add(panel);
     panel.setLayout(null);
     
     scrollPane = new JScrollPane();
-    scrollPane.setBounds(0, 0, 444, 181);
+    scrollPane.setBounds(0, 0, 385, 181);
     panel.add(scrollPane);
     
     tableLogins = new JTable();
@@ -156,6 +159,7 @@ public class PainelEditaLogin extends JInternalFrame {
     getContentPane().add(panelExterno);
     
     JButton btnCadastrados = new JButton("Cadastrados");
+    btnCadastrados.setIcon(new ImageIcon(PainelEditaLogin.class.getResource("/resources/clientes_icon.png")));
     btnCadastrados.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         desenhaTabela();
@@ -163,7 +167,7 @@ public class PainelEditaLogin extends JInternalFrame {
         
       }
     });
-    btnCadastrados.setBounds(32, 318, 125, 25);
+    btnCadastrados.setBounds(32, 318, 161, 34);
     getContentPane().add(btnCadastrados);
 
   }
