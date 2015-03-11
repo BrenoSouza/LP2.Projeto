@@ -76,6 +76,7 @@ public class PainelAdicionaServico extends JInternalFrame{
 	private JSpinner spinnerAddDiariasCarro;
 	private JCheckBox checkBoxEdtCama;
 	private int diasRestantes;
+	private PainelAdicionaQuartos painelAddQuarto;
 	private Atualizador framePai;
 	
 	
@@ -502,7 +503,6 @@ public class PainelAdicionaServico extends JInternalFrame{
 	//Vai adicionar um novo serviço depedendo do JPanel do cardlayout selecionado.
 		
 	btnAdicionar.addActionListener(new ActionListener() {
-		private PainelAdicionaQuartos painelAddQuarto;
 
     public void actionPerformed(ActionEvent e) {
 			for (Component comp : panelExterno.getComponents()) {
