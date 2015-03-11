@@ -38,7 +38,7 @@ public class TestaRestaurante {
 	
 	@Test
 	public void TesteToString() {
-		Assert.assertEquals("Serviço --- Restaurante ---\nHora -> " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + "\nCobertura? Sim\nCusto final: 100.0", servicoRestaurante1.toString());
+		Assert.assertEquals("Serviço --- Restaurante ---" + System.getProperty("line.separator") + "Hora -> " + Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + System.getProperty("line.separator")  + "Cobertura? Sim" + System.getProperty("line.separator") + "Custo final: 100.0", servicoRestaurante1.toString());
 	}
 	
 	@Test

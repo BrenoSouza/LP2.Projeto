@@ -32,10 +32,10 @@ public class TestaBabysitter {
 	public void TesteToString() {
 		babySitter.horasTrabalhadas();
 		Assert.assertEquals("Serviço --- Babysitter ---" +
-				"\nInício -> " + babySitter.getInicioServico() + " Hora de entrada -> " + babySitter.getHoraEntrada() +
-				"\nFim -> " + babySitter.getFim() + " Hora de saída -> " + babySitter.getHoraSaida() +
-				"\nHoras -> " + babySitter.getHorasPrecoNormal() + ", preço normal | " + babySitter.getHorasPrecoExtra() + ", preço dobrado" +
-				"\nCusto final: " + babySitter.calculaPrecoTotal(), babySitter.toString());
+				System.getProperty("line.separator") + "Início -> " + babySitter.getInicioServico() + " Hora de entrada -> " + babySitter.getHoraEntrada() +
+				System.getProperty("line.separator") + "Fim -> " + babySitter.getFim() + " Hora de saída -> " + babySitter.getHoraSaida() +
+				System.getProperty("line.separator") + "Horas -> " + babySitter.getHorasPrecoNormal() + ", preço normal | " + babySitter.getHorasPrecoExtra() + ", preço dobrado" +
+				System.getProperty("line.separator") + "Custo final: " + babySitter.calculaPrecoTotal(), babySitter.toString());
 	}
 	
 	@Test

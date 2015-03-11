@@ -33,7 +33,7 @@ public class TestaQuarto {
 			quarto1 = new Quarto(-1, TipoDeQuarto.EXECUTIVODUPLO);
 			Assert.fail("Número negativo de quarto, esperava excessão");
 		}catch (ParametrosInvalidosException e){
-			Assert.assertEquals(e.getMessage(),"O número de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
+			Assert.assertEquals("O número do quarto não pode ser menor ou igual a zero.", e.getMessage());
 		}
 	}
 	@Test
@@ -55,8 +55,8 @@ public class TestaQuarto {
 	}
 	@Test
 	public void testa_toString(){
-		Assert.assertEquals(quarto1.toString(), "Serviço --- Quarto Executivo Triplo ---\nNúmero do quarto -> 1\nNúmero de hóspedes -> 3\nPreço da diária -> 440.0");
-		Assert.assertEquals(quarto2.toString(), "Serviço --- Quarto Executivo Triplo ---\nNúmero do quarto -> 2\nNúmero de hóspedes -> 3\nPreço da diária -> 440.0");
-		Assert.assertEquals(quarto3.toString(), "Serviço --- Quarto Presidencial ---\nNúmero do quarto -> 3\nNúmero de hóspedes -> 4\nPreço da diária -> 1200.0");
+		Assert.assertEquals(quarto1.toString(), "Serviço --- Quarto Executivo Triplo ---" + System.getProperty("line.separator") + "Número do quarto -> 1" + System.getProperty("line.separator") + "Número de hóspedes -> 3" + System.getProperty("line.separator") + "Preço da diária -> 440.0");
+		Assert.assertEquals(quarto2.toString(), "Serviço --- Quarto Executivo Triplo ---" + System.getProperty("line.separator") + "Número do quarto -> 2" + System.getProperty("line.separator") + "Número de hóspedes -> 3" + System.getProperty("line.separator") + "Preço da diária -> 440.0");
+		Assert.assertEquals(quarto3.toString(), "Serviço --- Quarto Presidencial ---" + System.getProperty("line.separator") + "Número do quarto -> 3" + System.getProperty("line.separator") + "Número de hóspedes -> 4" + System.getProperty("line.separator") + "Preço da diária -> 1200.0");
 	}
 }

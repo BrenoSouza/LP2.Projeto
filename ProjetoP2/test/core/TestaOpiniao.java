@@ -50,7 +50,7 @@ public class TestaOpiniao {
 	
 	@Test
 	public void TesteToString() {
-		Assert.assertEquals("Comentario: Muito bom!!" + "\nNota: 5", opiniao.toString());
+		Assert.assertEquals("Comentario: Muito bom!!" + System.getProperty("line.separator") + "Nota: 5", opiniao.toString());
 	}
 	
 	

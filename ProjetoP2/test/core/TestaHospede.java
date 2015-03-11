@@ -1,5 +1,7 @@
 package core;
 
+import gui.Main;
+
 import java.util.Calendar;
 
 import org.junit.Assert;
@@ -10,7 +12,6 @@ public class TestaHospede {
 
 	private Hospede hospede;
 	private Hospede outroHospede;
-
 	private Calendar dataNascimento = Calendar.getInstance();
 	private Calendar segundaDataNascimento = Calendar.getInstance();
 	Opiniao opiniao;
@@ -108,6 +109,14 @@ public class TestaHospede {
 		Assert.assertTrue(hospede.equals(outroHospede));
 		outroHospede.setNome("Maria");
 		Assert.assertFalse(hospede.equals(outroHospede));
+	}
+	@Test
+	public void testaToString() {
+	  Assert.assertEquals("Nome: " + hospede.getNome() + "." + Main.quebraDeLinha + ""
+        + "CPF: " + hospede.getCpf() + "." + Main.quebraDeLinha + ""
+        + "Endereço: " + hospede.getEndereco() + "." + Main.quebraDeLinha + ""
+        + "Data de Nascimento: " + Main.converteParaString(hospede.getDataNascimento()) + "." + Main.quebraDeLinha + "" 
+        + ((hospede.getOpiniao() == null) ? "" : ("Opinião: " + hospede.getOpiniao().toString() + ".")), hospede.toString());
 	}
 	
 }
