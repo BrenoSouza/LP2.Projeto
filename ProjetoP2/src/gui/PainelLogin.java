@@ -57,7 +57,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 			  String password = new String(passwordField.getPassword());
 
-				if(getColecaoDeContas().verificaLoginESenha(txtUsuario.getText(), password)) {
+				if(PainelLogin.this.colecaoDeContas.verificaLoginESenha(txtUsuario.getText(), password)) {
 				    getFrame().setVisible(true);
 				dispose();
 				}
@@ -121,9 +121,6 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		contentPanel.add(background);
 	}
 
-	public ColecaoDeLogins getColecaoDeContas() {
-		return colecaoDeContas;
-	}
 	
 	private Main getFrame() {
 		return frame;

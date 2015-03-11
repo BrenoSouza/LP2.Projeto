@@ -82,7 +82,7 @@ public class PainelServicos extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(contratoSelecionado != null) {
-					painelAdicionar = new PainelAdicionaServico(null, contratoSelecionado, getPainelPrincipal(), getColecaoDeQuartos(), getColecaoHospedes());
+					painelAdicionar = new PainelAdicionaServico(null, contratoSelecionado, getPainelPrincipal(), PainelServicos.this.listaDeQuartos, PainelServicos.this.listaHospedes);
 					adicionaNoPainel(painelAdicionar);
 					painelAdicionar.show();
 				}
@@ -99,7 +99,7 @@ public class PainelServicos extends JInternalFrame {
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				painelAdicionar = new PainelAdicionaServico(servicoSelecionado, contratoSelecionado, getPainelPrincipal(), getColecaoDeQuartos(), getColecaoHospedes());
+				painelAdicionar = new PainelAdicionaServico(servicoSelecionado, contratoSelecionado, getPainelPrincipal(), PainelServicos.this.listaDeQuartos, PainelServicos.this.listaHospedes);
 				adicionaNoPainel(painelAdicionar);
 				painelAdicionar.show();
 				
@@ -116,7 +116,7 @@ public class PainelServicos extends JInternalFrame {
 				else {
 				//	contratoSelecionado.getListaQuartosAlugados().remove(servicoSelecionado);
 				//	((Quarto) servicoSelecionado).setToLivre();
-				//	getColecaoDeQuartos().getListaQuartosVagos().add((Quarto) servicoSelecionado);
+				//	PainelServicos.this.listaDeQuartos.getListaQuartosVagos().add((Quarto) servicoSelecionado);
 					servicoSelecionado = (Quarto) servicoSelecionado;
 					PainelServicos.this.listaDeQuartos.add((Quarto)servicoSelecionado);
 					contratoSelecionado.getListaQuartosAlugados().remove((Quarto)servicoSelecionado);
@@ -289,13 +289,6 @@ public class PainelServicos extends JInternalFrame {
 
 	}
 
-	public List<Quarto> getColecaoDeQuartos() {
-		return listaDeQuartos;
-	}
-	
-	private ColecaoDeHospedes getColecaoHospedes() {
-		return listaHospedes;
-	}
 	
 	private void escreveTabelaQuartos() {
 		

@@ -93,12 +93,13 @@ public class PainelAdicionaServico extends JInternalFrame {
 		setClosable(true);
 		setBounds(100, 100, 800, 400);
 		
+		// Codigo dos Botões que alternam o Cardlayout
 		
 		Icon imagemQuarto = new ImageIcon(PainelServicos.class.getResource("/resources/quarto.png"));
 		btnQuartos = new JButton(imagemQuarto);
 		btnQuartos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (getServico() == null) 
+				if (PainelAdicionaServico.this.servico == null) 
 					layoutPainel.show(panelExterno, "quarto" );
 				else {
 					layoutPainel.show(panelExterno, "edita_quarto");
@@ -111,7 +112,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		btnAluguelCarros = new JButton(imagemCarro);
 		btnAluguelCarros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if ((getServico() == null) ) 
+				if ((PainelAdicionaServico.this.servico == null) ) 
 					layoutPainel.show(panelExterno, "carros" );
 				else {
 					layoutPainel.show(panelExterno, "edita_carro");
@@ -123,7 +124,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 		btnBabysitter = new JButton(imagemBabysitter);
 		btnBabysitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if ((getServico() == null) ) 
+				if ((PainelAdicionaServico.this.servico == null) ) 
 					layoutPainel.show(panelExterno, "babysitter");
 				else {
 					layoutPainel.show(panelExterno, "edita_babysitter");
@@ -135,13 +136,15 @@ public class PainelAdicionaServico extends JInternalFrame {
 		btnRestaurante = new JButton(imagemRestaurante);
 		btnRestaurante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if ((getServico() == null) ) 
+				if ((PainelAdicionaServico.this.servico == null) ) 
 					layoutPainel.show(panelExterno, "restaurante");
 				else {
 					layoutPainel.show(panelExterno, "edita_restaurante");
 				}
 			}
 		});
+		
+		// Fim dos Botões que alternam o Cardlayout
 		
 		JButton btnAdicionar = new JButton("Adicionar");
 		
@@ -487,50 +490,15 @@ public class PainelAdicionaServico extends JInternalFrame {
 		);
 		getContentPane().setLayout(groupLayout);
 		
-		if (servico instanceof Quarto) {
-			if (getServico() == null) 
-				layoutPainel.show(panelExterno, "quarto" );
-			else {
-				layoutPainel.show(panelExterno, "edita_quarto");
-			}
-			btnBabysitter.setEnabled(false);
-			btnAluguelCarros.setEnabled(false);
-			btnRestaurante.setEnabled(false);
-		}
-		else if (servico instanceof AluguelCarro) {
-			if ((getServico() == null) ) 
-				layoutPainel.show(panelExterno, "carros" );
-			else {
-				layoutPainel.show(panelExterno, "edita_carro");
-			}
-			btnBabysitter.setEnabled(false);
-			btnRestaurante.setEnabled(false);
-			btnQuartos.setEnabled(false);
-		}
-		else if (servico instanceof Babysitter) {
-			if ((getServico() == null) ) 
-				layoutPainel.show(panelExterno, "babysitter");
-			else {
-				layoutPainel.show(panelExterno, "edita_babysitter");
-			}
-			btnQuartos.setEnabled(false);
-			btnAluguelCarros.setEnabled(false);
-			btnRestaurante.setEnabled(false);
-		}
-		else if (servico instanceof Restaurante) {
-			if ((getServico() == null) ) 
-				layoutPainel.show(panelExterno, "restaurante");
-			else {
-				layoutPainel.show(panelExterno, "edita_restaurante");
-			}
-			btnBabysitter.setEnabled(false);
-			btnQuartos.setEnabled(false);
-			btnAluguelCarros.setEnabled(false);
-		}
+		
+	  // Codigo que mostra o JPanel do Cardlayout de acordo com a instancia do serviço!
+	  // Dependendo do tipo de serviço aparecerá as opções para ele!
+		mostraOCardLayout(servico);
 
 	
 	
-	
+	//Vai adicionar um novo serviço depedendo do JPanel do cardlayout selecionado.
+		
 	btnAdicionar.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 			for (Component comp : panelExterno.getComponents()) {
@@ -549,7 +517,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		break;
 			    	}
 			    	else if(comp == panelQuartos) {
-			    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(null, getColecaoHospedes(), getListaDeQuartos(), getContrato(), getPainelPrincipal(), PainelAdicionaServico.this.diasRestantes);				    			
+			    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(null, PainelAdicionaServico.this.listaHospedes, PainelAdicionaServico.this.listaDeQuartos, PainelAdicionaServico.this.contrato, getPainelPrincipal(), PainelAdicionaServico.this.diasRestantes);				    			
 			    		adicionaNoPainel(painelAddQuarto);
 			    		painelAddQuarto.show();
 			    		dispose();
@@ -579,14 +547,14 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		break;
 			    	}
 			    	else if(comp == panelEditaQuarto_1) {
-			    		Quarto quarto = (Quarto) getServico();
+			    		Quarto quarto = (Quarto) PainelAdicionaServico.this.servico;
 			    		boolean cama = checkBoxEdtCama.isSelected();
 			    		quarto.setCamaExtra(cama);
 			    		dispose();
 			    		break;
 			    	}
 			    	else if(comp == panelEditaRestaurante) {
-			    		Restaurante restaurante = (Restaurante) getServico();
+			    		Restaurante restaurante = (Restaurante) PainelAdicionaServico.this.servico;
 			    		double preco;
 			    		if (!(txtFldPrecoRestaurante.getText().isEmpty())) {
 			    			preco = Double.valueOf(txtFldPrecoRestaurante.getText());
@@ -596,7 +564,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		}
 			    	}
 			    	else if(comp == panelEditaBabysitter) {
-			    		Babysitter babySitter = (Babysitter) getServico();
+			    		Babysitter babySitter = (Babysitter) PainelAdicionaServico.this.servico;
 			    		int horas;
 			    		if (!(textField_horaSaida.getText().isEmpty())) {
 			    			horas = Integer.valueOf(textField_horaSaida.getText());
@@ -606,7 +574,7 @@ public class PainelAdicionaServico extends JInternalFrame {
 			    		}
 			    	}
 			    	else if(comp == panelEditaCarro) {
-			    		AluguelCarro carro = (AluguelCarro) getServico();
+			    		AluguelCarro carro = (AluguelCarro) PainelAdicionaServico.this.servico;
 			    		int diarias = (Integer) spinnerAddDiariasCarro.getValue();
 			    		carro.setDiarias(diarias);
 			    		dispose();
@@ -621,18 +589,55 @@ public class PainelAdicionaServico extends JInternalFrame {
 	);
 		
 	}
+
+  private void mostraOCardLayout(Servico servico) {
+    if (servico instanceof Quarto) {
+			if (PainelAdicionaServico.this.servico == null) 
+				layoutPainel.show(panelExterno, "quarto" );
+			else {
+				layoutPainel.show(panelExterno, "edita_quarto");
+			}
+			btnBabysitter.setEnabled(false);
+			btnAluguelCarros.setEnabled(false);
+			btnRestaurante.setEnabled(false);
+		}
+		else if (servico instanceof AluguelCarro) {
+			if ((PainelAdicionaServico.this.servico == null) ) 
+				layoutPainel.show(panelExterno, "carros" );
+			else {
+				layoutPainel.show(panelExterno, "edita_carro");
+			}
+			btnBabysitter.setEnabled(false);
+			btnRestaurante.setEnabled(false);
+			btnQuartos.setEnabled(false);
+		}
+		else if (servico instanceof Babysitter) {
+			if ((PainelAdicionaServico.this.servico == null) ) 
+				layoutPainel.show(panelExterno, "babysitter");
+			else {
+				layoutPainel.show(panelExterno, "edita_babysitter");
+			}
+			btnQuartos.setEnabled(false);
+			btnAluguelCarros.setEnabled(false);
+			btnRestaurante.setEnabled(false);
+		}
+		else if (servico instanceof Restaurante) {
+			if ((PainelAdicionaServico.this.servico == null) ) 
+				layoutPainel.show(panelExterno, "restaurante");
+			else {
+				layoutPainel.show(panelExterno, "edita_restaurante");
+			}
+			btnBabysitter.setEnabled(false);
+			btnQuartos.setEnabled(false);
+			btnAluguelCarros.setEnabled(false);
+		}
+  }
 	
-	private ColecaoDeHospedes getColecaoHospedes() {
-		return listaHospedes;
-	}
-	
+  // Método que adiciona o serviço Selecionado.
 	private void adicionaServico(Servico servico) {
 		contrato.getListaServicos().add(servico); 
 	}
 	
-	private Contrato getContrato() {
-		return contrato;
-	}
 	
 	public JDesktopPane getPainelPrincipal() {
 		return painelPrincipal;
@@ -660,12 +665,5 @@ public class PainelAdicionaServico extends JInternalFrame {
 		painelPrincipal.add(painel);
 	}
 
-	private List<Quarto> getListaDeQuartos() {
-		return listaDeQuartos;
-	}
-	
-	public Servico getServico() {
-		return servico;
-	}
 }
 
