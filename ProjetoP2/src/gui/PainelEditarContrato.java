@@ -70,8 +70,9 @@ public class PainelEditarContrato extends JInternalFrame {
 	private final static int SELECAO_QUARTO = 3;
 	private int selecaoRelativa = 0;
 	private ColecaoDeHospedes listaHospedesHotel;
+	private Atualizador framePai;
 	
-	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaQuartosHotelColecao, ColecaoDeHospedes listaHospedesHotel) {
+	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaQuartosHotelColecao, ColecaoDeHospedes listaHospedesHotel, Atualizador framePai) {
 		setFrameIcon(new ImageIcon(PainelEditarContrato.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Editar contrato");
 		setClosable(true);
@@ -88,6 +89,7 @@ public class PainelEditarContrato extends JInternalFrame {
 		listaQuartos = contrato.getListaQuartosAlugados();
 		listaHospedes = contrato.getListaHospedes();
 		listaServicos = contrato.getListaServicos();
+		this.framePai = framePai;
 		this.listaHospedesHotel = listaHospedesHotel;
 		this.listaQuartosHotel = listaQuartosHotelColecao.getListaQuartos();
 		lblHospedes = new JLabel("Hóspedes:");
@@ -514,5 +516,9 @@ public class PainelEditarContrato extends JInternalFrame {
 				btnAdicionarDinamico.setText("Adicionar serviço");
 			}
 		}
+	}
+	@Override
+	public void dispose(){
+	  PainelEditarContrato.this.framePai.atualiza();
 	}
 }

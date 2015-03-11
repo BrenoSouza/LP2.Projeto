@@ -29,10 +29,12 @@ import core.Quarto;
 import core.colecoes.ColecaoDeEstrategias;
 import core.colecoes.ColecaoDeHospedes;
 import core.colecoes.ColecaoDeQuartos;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
-public class PainelContratos extends JInternalFrame {
+public class PainelContratos extends JInternalFrame implements Atualizador{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 541654651231465476L;
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
 	private JTable tableContratos;
 	private List<Contrato> listaContratos;
@@ -54,6 +56,11 @@ public class PainelContratos extends JInternalFrame {
 	private ColecaoDeEstrategias colecaoDeEstrategias;
 
 	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos colecaoDeQuartos, ColecaoDeEstrategias colecaoDeEstrategias){
+	  addPropertyChangeListener("tabelaContratos", new PropertyChangeListener() {
+	    public void propertyChange(PropertyChangeEvent arg0) {
+	      escreveTabela();
+	    }
+	  });
 		setNormalBounds(new Rectangle(0, 0, 1000, 1000));
 		addInternalFrameListener(new InternalFrameAdapter() {
 			@Override
@@ -89,7 +96,7 @@ public class PainelContratos extends JInternalFrame {
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelEditar = new PainelEditarContrato(contratoSelecionado, getPainelPrincipal(), PainelContratos.this.colecaoDeQuartos, PainelContratos.this.listaDeHospedes);
+				painelEditar = new PainelEditarContrato(contratoSelecionado, getPainelPrincipal(), PainelContratos.this.colecaoDeQuartos, PainelContratos.this.listaDeHospedes, PainelContratos.this);
 				adicionaNoPainel(painelEditar);
 				painelEditar.show();
 			}
@@ -99,7 +106,7 @@ public class PainelContratos extends JInternalFrame {
 		btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				painelNovo = new PainelNovoContrato(getListaDeHospedes(), getListaQuartosDisponiveis(), getListaContratos(), getPainelPrincipal(), PainelContratos.this.colecaoDeEstrategias);
+				painelNovo = new PainelNovoContrato(getListaDeHospedes(), getListaQuartosDisponiveis(), getListaContratos(), getPainelPrincipal(), PainelContratos.this.colecaoDeEstrategias, PainelContratos.this);
 				adicionaNoPainel(painelNovo);
 				painelNovo.show();
 				if (!painelNovo.getFinalizado()){
@@ -289,4 +296,7 @@ public class PainelContratos extends JInternalFrame {
 			
 				tableContratos.setModel(modeloTabela);
 	}
+  public void atualiza() {
+    escreveTabela();    
+  }
 }

@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -86,17 +87,16 @@ public class PainelNovoContrato extends JInternalFrame {
 	private List<Contrato> listaContratos;
 	private Hospede hospedePrincipal;
 	private JDesktopPane painelPrincipal;
-	//	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JButton btnAlterarDiarias;
 	private boolean isReserva;
 	private Calendar dataCheckIn;
 	private Calendar dataCheckOut = Calendar.getInstance();
-	//	private Reserva reserva;
 	private String cartaoDeCredito;
 	private ColecaoDeEstrategias listaEstrategias;
 	private boolean contratoFeito = false;
+	private Atualizador framePai;
 
-	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeEstrategias listaEstrategias) {
+	public PainelNovoContrato(ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeEstrategias listaEstrategias, Atualizador framePai) {
 		setFrameIcon(new ImageIcon(PainelNovoContrato.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Novo contrato");
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -109,6 +109,7 @@ public class PainelNovoContrato extends JInternalFrame {
 		setClosable(true);
 		setResizable(true);
 		setBounds(0, 0, 1060, 400);
+		this.framePai = framePai;
 		this.painelPrincipal = painelPrincipal;
 		this.listaEstrategias = listaEstrategias;
 		this.listaDeHospedes = listaDeHospedes;
@@ -462,11 +463,11 @@ public class PainelNovoContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				try{
 					Contrato contrato;
-					if (isReserva){
+					if (isReserva){//Se for um contrato do tipo reserva...
 						contrato = new Contrato(dataCheckIn, listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
 						contratoFeito = true;
 						List<Estrategia> estrategiasAtuais = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
-						if (estrategiasAtuais.size() > 0){
+						if (estrategiasAtuais.size() > 0){//Se não houver nenhuma estratégia no período referente...
 						  for (Estrategia estrategiaAtual: estrategiasAtuais){
 						    JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
 	              contrato.adicionaEstrategiaNoContrato(estrategiaAtual);
@@ -477,7 +478,7 @@ public class PainelNovoContrato extends JInternalFrame {
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
 							}
-						}else{
+						}else{//Se houver estratégia no período referente...
 							for (Quarto quarto: listaQuartosDoContrato){
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
 								Reserva reserva = new Reserva(contrato);
@@ -485,12 +486,12 @@ public class PainelNovoContrato extends JInternalFrame {
 
 							}
 						}
-					}else{
+					}else{//Se for um contrato do check-in imediato...
 						contrato = new Contrato(listaQuartosDoContrato, listaHospedesDoContrato, diariasContrato);
 						contratoFeito = true;
 						List<Estrategia> estrategiasAtuais = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
 						
-            if (estrategiasAtuais.size() > 0){
+            if (estrategiasAtuais.size() > 0){//Se houver estratégia no período referente...
               for (Estrategia estrategiaAtual: estrategiasAtuais){
                 JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
                 contrato.adicionaEstrategiaNoContrato(estrategiaAtual);
@@ -500,7 +501,7 @@ public class PainelNovoContrato extends JInternalFrame {
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
 							}
-						}else{
+						}else{//Se não houverem estratégias no período referente...
 							for (Quarto quarto: listaQuartosDoContrato){
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
 								Reserva reserva = new Reserva(contrato);
@@ -508,14 +509,15 @@ public class PainelNovoContrato extends JInternalFrame {
 							}
 						}
 					}contrato.setCartaoDeCredito(cartaoDeCredito);
-					for (Hospede hospede: listaHospedesDoContrato){
+					for (Hospede hospede: listaHospedesDoContrato){//Ligando hóspedes ao contrato.
 						hospede.setContratoLigado(contrato);
 					}
-					if (hospedePrincipal != null){
+					if (hospedePrincipal != null){//Dando a um contrato o seu hóspede principal.
 						contrato.setHospedePrincipal(hospedePrincipal);
 					}
 					getListaContratos().add(contrato);
 					JOptionPane.showMessageDialog(null, "Contrato criado com sucesso!");
+					PainelNovoContrato.this.framePai.atualiza(); //Atualiza frame pai
 					dispose();
 				}catch (core.ParametrosInvalidosException e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage());
@@ -744,13 +746,14 @@ public class PainelNovoContrato extends JInternalFrame {
 	}
 	@Override
 	public void dispose(){
-		if (contratoFeito == false){
+		if (contratoFeito == false){//Retira os contratos daquela tabela de quartos no contrato, mais como um safeguard para uma possível modificação de código.
 			for (int i = listaQuartosDoContrato.size() - 1; i > -1; i--){
 				Quarto quarto = listaQuartosDoContrato.get(i);
 				if (!(listaQuartosDisponiveis.contains(quarto))){
 					listaQuartosDisponiveis.add(quarto);
 				}
 			}
-		}super.dispose();
+		}PainelNovoContrato.this.framePai.atualiza();
+		super.dispose();
 	}
 }
