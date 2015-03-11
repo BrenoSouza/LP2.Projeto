@@ -34,9 +34,7 @@ import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeEstrategias;
 
 public class PainelAdicionaEstrategias extends JInternalFrame {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 8477765149069604363L;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JLabel lblExemplo;
@@ -49,8 +47,9 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 //	private ColecaoDeContratos listaContratos;
 	private ColecaoDeEstrategias listaEstrategias;
 	private JFormattedTextField formattedTextFieldExemplo;
+	private Atualizador framePai;
 
-	public PainelAdicionaEstrategias(ColecaoDeContratos listaContratos, ColecaoDeEstrategias listaEstrategias) {
+	public PainelAdicionaEstrategias(ColecaoDeContratos listaContratos, ColecaoDeEstrategias listaEstrategias, Atualizador framePai) {
 		setClosable(true);
 		setFrameIcon(new ImageIcon(PainelAdicionaEstrategias.class.getResource("/resources/calendar146.png")));
 		setTitle("Painel Adicionar Estratégias");
@@ -58,6 +57,7 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 //		this.listaContratos = listaContratos;
 //		Esse listaContratos serviria se fosse necessário mudar os contratos quando uma estratégia fosse definida. Isso não acontecerá, mas mantenho a linha comentada por qualquer necessidade no futuro
 		this.listaEstrategias = listaEstrategias;
+		this.framePai = framePai;
 		
 		JLabel lblDescrio = new JLabel("Descrição:");
 		lblDescrio.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -149,7 +149,8 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 //				}
 //				JOptionPane.showMessageDialog(null, mensagem);
 				dispose();
-				
+				}catch (IllegalArgumentException exception){
+				  JOptionPane.showMessageDialog(null , "A estratégia não pode ser criada, pois está sobrepondo outra.");
 				}catch (java.text.ParseException e2){
 					JOptionPane.showMessageDialog(null, "Data(s) em formato(s) inválido(s).");
 				}catch (NullPointerException e){
@@ -249,4 +250,10 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 		
 		lblExemplo.setText(exemplo);
 	}
+	
+	@Override
+  public void dispose(){
+    framePai.atualiza();
+    super.dispose();
+  }
 }

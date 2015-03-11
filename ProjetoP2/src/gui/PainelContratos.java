@@ -18,8 +18,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -29,8 +27,6 @@ import core.Quarto;
 import core.colecoes.ColecaoDeEstrategias;
 import core.colecoes.ColecaoDeHospedes;
 import core.colecoes.ColecaoDeQuartos;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeEvent;
 
 public class PainelContratos extends JInternalFrame implements Atualizador{
 	
@@ -56,19 +52,7 @@ public class PainelContratos extends JInternalFrame implements Atualizador{
 	private ColecaoDeEstrategias colecaoDeEstrategias;
 
 	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos colecaoDeQuartos, ColecaoDeEstrategias colecaoDeEstrategias){
-	  addPropertyChangeListener("tabelaContratos", new PropertyChangeListener() {
-	    public void propertyChange(PropertyChangeEvent arg0) {
-	      escreveTabela();
-	    }
-	  });
 		setNormalBounds(new Rectangle(0, 0, 1000, 1000));
-		addInternalFrameListener(new InternalFrameAdapter() {
-			@Override
-			public void internalFrameActivated(InternalFrameEvent arg0) {
-				escreveTabela();
-			}
-		});
-			
 			
 		this.painelPrincipal = painelPrincipal;
 		this.listaDeHospedes = listaDeHospedes;
