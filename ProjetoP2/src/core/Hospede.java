@@ -136,10 +136,10 @@ public class Hospede implements Comparable<Hospede>, Serializable{
 
 	@Override
 	public String toString(){
-		return "Nome: " + getNome() + ".\n"
-				+ "CPF: " + getCpf() + ".\n"
-				+ "Endereço: " + getEndereco() + ".\n"
-				+ "Data de Nascimento: " + Main.converteParaString(getDataNascimento()) + ".\n" 
+		return "Nome: " + getNome() + "." + System.getProperty("line.separator") + ""
+				+ "CPF: " + getCpf() + "." + System.getProperty("line.separator") + ""
+				+ "Endereço: " + getEndereco() + "." + System.getProperty("line.separator") + ""
+				+ "Data de Nascimento: " + Main.converteParaString(getDataNascimento()) + "." + System.getProperty("line.separator") + "" 
 				+ ((getOpiniao() == null) ? "" : ("Opinião: " + getOpiniao().toString() + "."));
 
 	}

@@ -88,10 +88,10 @@ public class Babysitter extends Servico implements Serializable {
 	public String toString(){
 		horasTrabalhadas();
 		return "Serviço --- Babysitter ---" +
-				"\nInício -> " + this.getInicioServico() + " Hora de entrada -> " + this.getHoraEntrada() +
-				"\nFim -> " + this.getFim() + " Hora de saída -> " + this.getHoraSaida() +
-				"\nHoras -> " + this.getHorasPrecoNormal() + ", preço normal | " + this.getHorasPrecoExtra() + ", preço dobrado" +
-				"\nCusto final: " + this.calculaPrecoTotal();
+				System.getProperty("line.separator") + "Início -> " + this.getInicioServico() + " Hora de entrada -> " + this.getHoraEntrada() +
+				System.getProperty("line.separator") + "Fim -> " + this.getFim() + " Hora de saída -> " + this.getHoraSaida() +
+				System.getProperty("line.separator") + "Horas -> " + this.getHorasPrecoNormal() + ", preço normal | " + this.getHorasPrecoExtra() + ", preço dobrado" +
+				System.getProperty("line.separator") + "Custo final: " + this.calculaPrecoTotal();
 	}
 	@Override
 	public String getTipo() {

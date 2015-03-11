@@ -112,12 +112,12 @@ public class AluguelCarro extends Servico implements Serializable {
 	@Override
 	public String toString() {
 		return "Serviço --- Aluguel de Carro ---" +
-				"\nInício -> " + this.getInicioServico() +
-				"\nFim -> " + this.getFim() +
-				"\nExtras -> Tanque cheio? " + (this.isTanqueCheio() ? "Sim" : "Não") +
-				"\n          Segurado? " + (this.isSegurado() ? "Sim" : "Não") +
-				"\n          Luxo? " + (this.isLuxo() ? "Sim" : "Não") +
-				"\nCusto final: " + this.calculaPrecoTotal();
+				System.getProperty("line.separator") + "Início -> " + this.getInicioServico() +
+				System.getProperty("line.separator") + "Fim -> " + this.getFim() +
+				System.getProperty("line.separator") + "Extras -> Tanque cheio? " + (this.isTanqueCheio() ? "Sim" : "Não") +
+				System.getProperty("line.separator") + "          Segurado? " + (this.isSegurado() ? "Sim" : "Não") +
+				System.getProperty("line.separator") + "          Luxo? " + (this.isLuxo() ? "Sim" : "Não") +
+				System.getProperty("line.separator") + "Custo final: " + this.calculaPrecoTotal();
 	}
 
 	@Override

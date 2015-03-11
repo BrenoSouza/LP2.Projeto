@@ -52,7 +52,7 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 		
 		JLabel lblToStringHospede = new JLabel("");
 		String texto = "<html>" + hospede.toString() + "</html>"; //Envolver a string em tags <html> para pular linha
-		texto = texto.replaceAll("\n", "<br> <br>");
+		texto = texto.replaceAll( System.getProperty("line.separator"), "<br> <br>");
 		lblToStringHospede.setText(texto);
 		lblToStringHospede.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		

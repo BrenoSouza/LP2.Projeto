@@ -156,7 +156,7 @@ public class PainelNovoContrato extends JInternalFrame implements Atualizador{
 				listaHospedesDoContrato.add(hospedeSelecionado);
 				listaHospedesSemContrato.remove(hospedeSelecionado);
 				if (hospedePrincipal == null){
-					int escolha = JOptionPane.showOptionDialog(null, "Você deseja marcar esse hóspede como o hóspede principal do contrato? \nO hóspede principal do contrato é o que será procurado para questões financeiras.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					int escolha = JOptionPane.showOptionDialog(null, "Você deseja marcar esse hóspede como o hóspede principal do contrato? " + System.getProperty("line.separator") + "O hóspede principal do contrato é o que será procurado para questões financeiras.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION) {
 						hospedePrincipal = hospedeSelecionado;
 					}
@@ -290,7 +290,7 @@ public class PainelNovoContrato extends JInternalFrame implements Atualizador{
 
 		scrollPane_3 = new JScrollPane();
 
-		btnAdicionarNoContratoQuarto = new JButton("Adicionar no contrato\r\n");
+		btnAdicionarNoContratoQuarto = new JButton("Adicionar no contrato\r" + System.getProperty("line.separator"));
 		btnAdicionarNoContratoQuarto.setEnabled(false);
 		btnAdicionarNoContratoQuarto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -460,7 +460,7 @@ public class PainelNovoContrato extends JInternalFrame implements Atualizador{
 						List<Estrategia> estrategiasAtuais = PainelNovoContrato.this.listaEstrategias.checaContratoComEstrategia(contrato);
 						if (estrategiasAtuais.size() > 0){//Se não houver nenhuma estratégia no período referente...
 						  for (Estrategia estrategiaAtual: estrategiasAtuais){
-						    JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
+						    JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:" + System.getProperty("line.separator") + estrategiaAtual.toString());
 	              contrato.adicionaEstrategiaNoContrato(estrategiaAtual);
 						  }
 							
@@ -484,7 +484,7 @@ public class PainelNovoContrato extends JInternalFrame implements Atualizador{
 						
             if (estrategiasAtuais.size() > 0){//Se houver estratégia no período referente...
               for (Estrategia estrategiaAtual: estrategiasAtuais){
-                JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:\n" + estrategiaAtual.toString());
+                JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:" + System.getProperty("line.separator") + estrategiaAtual.toString());
                 contrato.adicionaEstrategiaNoContrato(estrategiaAtual);
               }
 							for (Quarto quarto: listaQuartosDoContrato){

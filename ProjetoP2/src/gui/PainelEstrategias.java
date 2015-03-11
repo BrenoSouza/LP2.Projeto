@@ -71,7 +71,7 @@ public class PainelEstrategias extends JInternalFrame implements Atualizador {
 		btnRemoverEstrategia = new JButton("Remover estratégia");
 		btnRemoverEstrategia.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int escolha = JOptionPane.showOptionDialog(null, "Você deseja remover a estratégia selecionada da lista?\nLembrando que, ao fazer isso, os contratos que já foram marcados com tal estratégia não serão recalculados.", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+				int escolha = JOptionPane.showOptionDialog(null, "Você deseja remover a estratégia selecionada da lista?" + System.getProperty("line.separator") + "Lembrando que, ao fazer isso, os contratos que já foram marcados com tal estratégia não serão recalculados.", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 				if (escolha == JOptionPane.YES_OPTION){
 					PainelEstrategias.this.listaEstrategias.removeEstrategia(estrategiaSelecionada);
 					escreveTabela();

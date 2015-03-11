@@ -319,8 +319,8 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	public String toString(){
 		String retorno = "";
 		retorno += getDescricao();
-		retorno += "\nDe " + getInicioPeriodoString() + " até " + getFinalPeriodoString();
-		retorno += "\n" + getTipoDeEstrategia().toString() + " de " + getModificador() + "%";
+		retorno += System.getProperty("line.separator") + "De " + getInicioPeriodoString() + " até " + getFinalPeriodoString();
+		retorno += System.getProperty("line.separator") + getTipoDeEstrategia().toString() + " de " + getModificador() + "%";
 		return retorno;
 	}
 	

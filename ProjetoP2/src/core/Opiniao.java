@@ -40,7 +40,7 @@ public class Opiniao implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Comentario: " + getComentario() + "\nNota: " + getNota();
+		return "Comentario: " + getComentario() + System.getProperty("line.separator") + "Nota: " + getNota();
 	}
 	@Override
 	public boolean equals(Object obj){

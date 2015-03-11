@@ -32,13 +32,13 @@ public class DialogoSobre extends JDialog {
 		JLabel lblProjeto = new JLabel("Projeto da Disciplina de Programação 2 do período 2014.2 da UFCG");
 		lblProjeto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblMembros = new JLabel("<html>Membros do projeto:<br>\r\n- Gabriel Dantas (gabriel.dantas@ccc.ufcg.edu.br)<br>\r\n- Gabriel Morais (gabriel.araujo@ccc.ufcg.edu.br)<br>\r\n- Breno Souza (jose.souza@ccc.ufcg.edu.br)<br>\r\n</html>");
+		JLabel lblMembros = new JLabel("<html>Membros do projeto:<br>\r" + System.getProperty("line.separator") + "- Gabriel Dantas (gabriel.dantas@ccc.ufcg.edu.br)<br>\r" + System.getProperty("line.separator") + "- Gabriel Morais (gabriel.araujo@ccc.ufcg.edu.br)<br>\r" + System.getProperty("line.separator") + "- Breno Souza (jose.souza@ccc.ufcg.edu.br)<br>\r" + System.getProperty("line.separator") + "</html>");
 		lblMembros.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel lblLink = new JLabel("Link do repositório: github.com/BrenoSouza/LP2.Projeto");
 		lblLink.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		JLabel lblCredito = new JLabel("<html>\r\nÍcones feitos por Freepik (www.freepik.com) de Flaticon (www.flaticon.com). <br>Licenciados sob Creative Commons BY 3.0 (http://creativecommons.org/licenses/by/3.0/)\r\n</html>");
+		JLabel lblCredito = new JLabel("<html>\r" + System.getProperty("line.separator") + "Ícones feitos por Freepik (www.freepik.com) de Flaticon (www.flaticon.com). <br>Licenciados sob Creative Commons BY 3.0 (http://creativecommons.org/licenses/by/3.0/)\r" + System.getProperty("line.separator") + "</html>");
 		lblCredito.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(

@@ -132,7 +132,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 		btnRemoverDinamico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (objetoDinamico instanceof Hospede){
-					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?" + (objetoDinamico == hospedePrincipal ? "\nEsse hóspede está configurado como o hóspede principal do contrato selecionado." : ""), /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?" + (objetoDinamico == hospedePrincipal ? System.getProperty("line.separator") + "Esse hóspede está configurado como o hóspede principal do contrato selecionado." : ""), /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION){
 						listaHospedes.remove(objetoDinamico);
 						if (objetoDinamico == hospedePrincipal){
@@ -205,7 +205,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (btnFinalizar.getText().equals("Fazer check-out")){
-					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja encerrar esse contrato?\nApós a operação, não será mais possível editar o contrato.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja encerrar esse contrato?" + System.getProperty("line.separator") + "Após a operação, não será mais possível editar o contrato.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION){
 						getContrato().fechaContrato();
 						for (Quarto quarto: listaQuartos){
