@@ -48,6 +48,7 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame impleme
 	private Contrato contratoSelecionado;
 	private JButton btnCriarNovo;
 	private JDesktopPane painelPrincipal;
+	private PainelCadastroClientes painelCadastro;
 	private Atualizador framePai;
 
 
@@ -107,7 +108,7 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame impleme
 		btnCriarNovo = new JButton("Cadastrar novo hóspede");
 		btnCriarNovo.setEnabled(true);
 		btnCriarNovo.addActionListener(new ActionListener() {
-			private PainelCadastroClientes painelCadastro;
+			
 
       public void actionPerformed(ActionEvent e){
 				try {

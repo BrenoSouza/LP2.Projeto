@@ -70,6 +70,9 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 	private final static int SELECAO_QUARTO = 3;
 	private int selecaoRelativa = 0;
 	private ColecaoDeHospedes listaHospedesHotel;
+	private PainelEditarContratoAdicionarHospede painelAddHospede;
+  private PainelAdicionaServico painelAdd;
+  private PainelEditarCliente painelEditarHospede;
 	private Atualizador framePai;
 	
 	public PainelEditarContrato(Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaQuartosHotelColecao, ColecaoDeHospedes listaHospedesHotel, Atualizador framePai) {
@@ -158,8 +161,6 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 		
 		btnAdicionarDinamico = new JButton("Adicionar");
 		btnAdicionarDinamico.addActionListener(new ActionListener() {
-			private PainelEditarContratoAdicionarHospede painelAddHospede;
-      private PainelAdicionaServico painelAdd;
 
       public void actionPerformed(ActionEvent e) {
 				String texto = btnAdicionarDinamico.getText();
@@ -186,8 +187,6 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 		
 		btnEditarDinamico = new JButton("Editar");
 		btnEditarDinamico.addActionListener(new ActionListener() {
-			private PainelEditarCliente painelEditarHospede;
-      private PainelAdicionaServico painelAdd;
 
       public void actionPerformed(ActionEvent e) {
 				try{

@@ -78,6 +78,7 @@ public class PainelNovoContrato extends JInternalFrame implements Atualizador{
 	private JLabel lblHospedes;
 	private JScrollPane scrollPane_4;
 	private JScrollPane scrollPane_5;
+  private PainelCadastroClientes painelCadastro;
 	private JLabel lblQuartos;
 	private JButton btnFinalizar;
 	private JTable tabelaHospedesFinal;
@@ -181,7 +182,6 @@ public class PainelNovoContrato extends JInternalFrame implements Atualizador{
 
 		btnCriarNovo = new JButton("Cadastrar novo hóspede");
 		btnCriarNovo.addActionListener(new ActionListener() {
-			private PainelCadastroClientes painelCadastro;
 
       public void actionPerformed(ActionEvent arg0) {
 				try{

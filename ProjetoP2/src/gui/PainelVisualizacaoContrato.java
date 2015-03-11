@@ -58,6 +58,8 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 	private JButton btnVisualizarQuarto;
 	private JButton btnVisualizarHospede;
 	private JLabel lblCartao;
+  private PainelVisualizacaoServico painelVisualizarServico;
+  private PainelVisualizacaoClientes painelVisualizaHospede;
 	
 
 
@@ -165,7 +167,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		
 		btnVisualizarHospede = new JButton("Visualizar");
 		btnVisualizarHospede.addActionListener(new ActionListener() {
-			private PainelVisualizacaoClientes painelVisualizaHospede;
+
 
       public void actionPerformed(ActionEvent e) {
 			  if (painelVisualizaHospede == null || painelVisualizaHospede.isClosed()){
@@ -363,7 +365,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		
 		btnVisualizarQuarto = new JButton("Visualizar");
 		btnVisualizarQuarto.addActionListener(new ActionListener() {
-			private PainelVisualizacaoServico painelVisualizarServico;
+
 
       public void actionPerformed(ActionEvent arg0) {
 				painelVisualizarServico = new PainelVisualizacaoServico(quartoSelecionado);

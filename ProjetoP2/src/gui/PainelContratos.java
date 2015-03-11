@@ -50,6 +50,7 @@ public class PainelContratos extends JInternalFrame implements Atualizador{
 	private List<Contrato> colecaoAtiva = new ArrayList<Contrato>();
 	private ColecaoDeQuartos colecaoDeQuartos;
 	private ColecaoDeEstrategias colecaoDeEstrategias;
+	private PainelVisualizacaoContrato painelVisualizacao;
 
 	public PainelContratos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeHospedes listaDeHospedes, ColecaoDeQuartos colecaoDeQuartos, ColecaoDeEstrategias colecaoDeEstrategias){
 		setNormalBounds(new Rectangle(0, 0, 1000, 1000));
@@ -69,7 +70,7 @@ public class PainelContratos extends JInternalFrame implements Atualizador{
 		
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
-			private PainelVisualizacaoContrato painelVisualizacao;
+	
 
       public void actionPerformed(ActionEvent arg0) {
         if (painelVisualizacao == null || painelVisualizacao.isClosed()){
