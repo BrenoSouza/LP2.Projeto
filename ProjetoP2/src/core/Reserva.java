@@ -23,8 +23,8 @@ public class Reserva implements Serializable{
 	 */
 	public Reserva(Contrato contrato){
 		this.contrato = contrato;
-		this.dataCheckIn = new DateTime(contrato.getDataCheckIn()).withTimeAtStartOfDay();
-		this.dataCheckOut = new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay();
+		this.dataCheckIn = new DateTime(contrato.getDataCheckIn());
+		this.dataCheckOut = new DateTime(contrato.getDataCheckOut());
 		if (dataCheckOut.isBefore(dataCheckIn)){ //Safeguard para o futuro.
 		  this.dataCheckOut = dataCheckOut.plusYears(1);
 		}
@@ -36,8 +36,8 @@ public class Reserva implements Serializable{
 	 * @param dataCheckOut Um calendar com data de CheckOut
 	 */
 	public Reserva(Calendar dataCheckIn, Calendar dataCheckOut){
-		this.dataCheckIn = new DateTime(dataCheckIn).withTimeAtStartOfDay();
-		this.dataCheckOut = new DateTime(dataCheckOut).withTimeAtStartOfDay();
+		this.dataCheckIn = new DateTime(dataCheckIn);
+		this.dataCheckOut = new DateTime(dataCheckOut);
 		if (this.dataCheckOut.isBefore(this.dataCheckIn)){ //Safeguard para o futuro. Evita ter um possível dataCheckOut antes de dataCheckOut, evitando quebrar na hora de criar o interval abaixo.
 		  this.dataCheckOut = this.dataCheckOut.plusYears(1);
 		  }
@@ -102,9 +102,7 @@ public class Reserva implements Serializable{
 	}
 	public int getNumeroDias(){
 	  int dias = Days.daysBetween(getDataCheckIn().withTimeAtStartOfDay() , getDataCheckOut().withTimeAtStartOfDay() ).getDays();
-	  if (dias == 0){
-	    return 1; //Essa classe Days pode ter certos comportamentos estranhos, principalmente quando se leva em conta horário de verão e afins.
-	  }return dias;
+	  return dias;
 	}
 	@Override
 	public boolean equals(Object obj){

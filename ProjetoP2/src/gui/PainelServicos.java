@@ -120,7 +120,7 @@ public class PainelServicos extends JInternalFrame {
 					servicoSelecionado = (Quarto) servicoSelecionado;
 					PainelServicos.this.listaDeQuartos.add((Quarto)servicoSelecionado);
 					contratoSelecionado.getListaQuartosAlugados().remove((Quarto)servicoSelecionado);
-					((Quarto)servicoSelecionado).setToLivre();
+
 				}
 				escreveTabelaServicos();
 				escreveTabelaQuartos();

@@ -141,7 +141,6 @@ public class PainelEditarContrato extends JInternalFrame {
 					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse quarto do contrato?", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION){
 						listaQuartos.remove(objetoDinamico);
-						((Quarto) objetoDinamico).setToLivre();
 						((Quarto) objetoDinamico).retiraReserva(PainelEditarContrato.this.contrato);
 					}
 				}else if (objetoDinamico instanceof Servico){
@@ -207,7 +206,6 @@ public class PainelEditarContrato extends JInternalFrame {
 					if (escolha == JOptionPane.YES_OPTION){
 						getContrato().fechaContrato();
 						for (Quarto quarto: listaQuartos){
-							quarto.setToLivre();
 							quarto.retiraReserva(PainelEditarContrato.this.contrato);
 						}
 						Collections.sort(PainelEditarContrato.this.listaQuartosHotel);
@@ -241,7 +239,7 @@ public class PainelEditarContrato extends JInternalFrame {
 //							if (!(quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo()))){
 //								JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
 //							}else{
-								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
+//								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
 //								quarto.adicionaReserva(PainelEditarContrato.this.contrato);
 //							}
 						}dispose();

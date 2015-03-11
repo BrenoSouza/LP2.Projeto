@@ -62,9 +62,11 @@ public class ColecaoDeQuartos implements Serializable {
 		return listaQuartos;
 	}
 /**
- * Método que retorna um
+ * Método que retorna uma lista com os quartos vagos para aquele contrato.
  * @param contrato
+ * Um contrato.
  * @return
+ * Uma lista de quartos disponíveis para reserva para o contrato em questão.
  */
 public List<Quarto> getListaQuartosVagosReserva(Contrato contrato){
 		List<Quarto> listaQuartosVagos = new ArrayList<Quarto>();
@@ -74,6 +76,13 @@ public List<Quarto> getListaQuartosVagosReserva(Contrato contrato){
 			}
 		}return listaQuartosVagos;
 	}
+/**
+ * Método que retorna uma lista com os quartos ocupados para aquele contrato.
+ * @param contrato
+ * Um contrato.
+ * @return
+ * Uma lista de quartos não disponíveis para reserva para o contrato em questão.
+ */
 	public List<Quarto> getListaQuartosOcupadosReserva(Contrato contrato){
 		List<Quarto> listaQuartosOcupados = new ArrayList<Quarto>();
 		for (Quarto quarto: listaQuartos){

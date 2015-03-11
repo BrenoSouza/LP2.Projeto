@@ -309,7 +309,6 @@ public class PainelNovoContrato extends JInternalFrame {
 				//					diariasContrato = dialogoDiarias.getDiarias();
 				//				}
 				if (quartoVagoSelecionado.isLivreParaReserva(new Reserva(dataCheckIn, dataCheckOut).getIntervalo())){
-					quartoVagoSelecionado.setToOcupado(diariasContrato);
 					listaQuartosDoContrato.add(quartoVagoSelecionado);
 					PainelNovoContrato.this.listaQuartosDisponiveis.remove(quartoVagoSelecionado);
 				}else{
@@ -474,14 +473,12 @@ public class PainelNovoContrato extends JInternalFrame {
 						  }
 							
 							for (Quarto quarto: listaQuartosDoContrato){
-								quarto.setToLivre();
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
 							}
 						}else{
 							for (Quarto quarto: listaQuartosDoContrato){
-								quarto.setToLivre();
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
@@ -499,14 +496,12 @@ public class PainelNovoContrato extends JInternalFrame {
                 contrato.adicionaEstrategiaNoContrato(estrategiaAtual);
               }
 							for (Quarto quarto: listaQuartosDoContrato){
-								quarto.setToOcupado(contrato.getNumeroDiarias());
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
 							}
 						}else{
 							for (Quarto quarto: listaQuartosDoContrato){
-								quarto.setToOcupado(contrato.getNumeroDiarias());
 								PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
 								Reserva reserva = new Reserva(contrato);
 								quarto.adicionaReserva(reserva);
@@ -746,14 +741,12 @@ public class PainelNovoContrato extends JInternalFrame {
 	private void retiraQuartoLista(Quarto quarto){
 		PainelNovoContrato.this.listaQuartosDisponiveis.add(quarto);
 		listaQuartosDoContrato.remove(quarto);
-		quarto.setToLivre();
 	}
 	@Override
 	public void dispose(){
 		if (contratoFeito == false){
 			for (int i = listaQuartosDoContrato.size() - 1; i > -1; i--){
 				Quarto quarto = listaQuartosDoContrato.get(i);
-				quarto.setToLivre();
 				if (!(listaQuartosDisponiveis.contains(quarto))){
 					listaQuartosDisponiveis.add(quarto);
 				}

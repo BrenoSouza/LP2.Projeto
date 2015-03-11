@@ -15,7 +15,6 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 	private int diarias = 0;
 	private List<Hospede> listaHospedes = new ArrayList<Hospede>();
 	private boolean camaExtra = false;
-	private boolean isLivre = true;
 	private List<Reserva> listaReservas = new ArrayList<Reserva>();
 	private TipoDeQuarto tipoDeQuarto;
 
@@ -43,47 +42,6 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 	public TipoDeQuarto getTipoDeQuarto() {
     return tipoDeQuarto;
   }
-  /**
-	 * Getter do parâmetro "isLivre".
-	 * @return
-	 * True se o quarto estiver desocupado
-	 */
-	public boolean isLivre() {
-		return isLivre;
-	}
-	/**
-	 * Setter do parâmetro "isLivre".
-	 * @param isLivre
-	 * True se o quarto for ser definido como "vago"
-	 */
-	public void setLivre(boolean isLivre) {
-		if (isLivre){
-			setDiarias(0);
-		}
-		this.isLivre = isLivre;
-	}
-	/**
-	 * Getter de uma string revelando se o quarto está vago ou livre.
-	 * @return
-	 * "VAGO" se o quarto estiver livre, "OCUPADO" caso contrário
-	 */
-	public String getEstado(){
-		if (isLivre){
-			return "VAGO";
-		}else{
-			return "OCUPADO";
-		}
-	}
-	/**
-	 * Setter da variável "diarias".
-	 * @param diarias
-	 * O número de diárias
-	 */
-	public void setDiarias(int diarias){
-		if (diarias >= 0){
-			this.diarias = diarias;
-		}
-	}
 	/**
 	 * Retorna o número do quarto.
 	 * @return O número do quarto.
@@ -181,22 +139,6 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 	 */
 	public int compareTo(Quarto q){
 		return this.getNumero() - q.getNumero();
-	}
-	/**
-	 * Método para que o quarto retorne ao seu padrão (Livre e com 0 diárias).
-	 */
-	public void setToLivre(){
-		setDiarias(0);
-		setLivre(true);
-	}
-	/**
-	 * Método para que o quarto entre no estado de Vago.
-	 * @param diarias
-	 * As diárias para o quarto
-	 */
-	public void setToOcupado(int diarias){
-		setDiarias(diarias);
-		setLivre(false);
 	}
 	/**
 	 * Retorna uma List<Reserva> de quarto.

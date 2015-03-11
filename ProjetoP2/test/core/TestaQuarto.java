@@ -37,13 +37,6 @@ public class TestaQuarto {
 		}
 	}
 	@Test
-	public void testa_isLivre(){
-		Assert.assertTrue(quarto1.isLivre());
-		Assert.assertEquals(quarto1.getEstado(), "VAGO");
-		quarto1.setToOcupado(2);
-		Assert.assertFalse(quarto1.isLivre());		
-	}
-	@Test
 	public void testa_reserva(){
 		quarto1.adicionaReserva(new Reserva(checkIn, checkOut));
 		Interval intervalo = new Interval(checkIn.getTimeInMillis(), checkOut.getTimeInMillis());
