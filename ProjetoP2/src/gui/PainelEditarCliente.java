@@ -53,11 +53,13 @@ public class PainelEditarCliente extends JInternalFrame {
 	private JFormattedTextField formattedTextFieldData;
 	private JFormattedTextField formattedTextFieldCpf;
 	private JButton btnEditarInfo;
+	private Atualizador framePai;
 
-	public PainelEditarCliente(final Hospede hospede, JDesktopPane painelPrincipal) throws java.text.ParseException{
+	public PainelEditarCliente(final Hospede hospede, JDesktopPane painelPrincipal, Atualizador framePai) throws java.text.ParseException{
 		setFrameIcon(new ImageIcon(PainelEditarCliente.class.getResource("/resources/clientes_icon.png")));
 		setTitle("Clientes - Editar");
 		setClosable(true);
+		this.framePai = framePai;
 		addInternalFrameListener(new InternalFrameAdapter() {
 		//Para atualizar o painel quando ele for ativado novamente.
 			@Override
@@ -382,5 +384,10 @@ public class PainelEditarCliente extends JInternalFrame {
 	
 	private int getNota() {
 		return nota;
+	}
+	@Override
+	public void dispose(){
+	  framePai.atualiza();
+	  super.dispose();
 	}
 }

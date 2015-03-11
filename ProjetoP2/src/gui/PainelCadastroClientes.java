@@ -32,10 +32,12 @@ public class PainelCadastroClientes extends JInternalFrame {
   private JFormattedTextField campoCPF;
   private JFormattedTextField campoData;
   private ColecaoDeHospedes listaDeHospedes;
+  private Atualizador framePai;
 
-  public PainelCadastroClientes(ColecaoDeHospedes colecao) throws java.text.ParseException{
+  public PainelCadastroClientes(ColecaoDeHospedes colecao, Atualizador framePai) throws java.text.ParseException{
     setFrameIcon(new ImageIcon(PainelClientes.class.getResource("/resources/clientes_icon.png")));
     setTitle("Clientes");
+    this.framePai = framePai;
     setClosable(true);
     setBounds(0, 0, 650, 280);
     listaDeHospedes = colecao;
@@ -129,5 +131,10 @@ public class PainelCadastroClientes extends JInternalFrame {
         );
     getContentPane().setLayout(groupLayout);
 
+  }
+  @Override
+  public void dispose(){
+    framePai.atualiza();
+    super.dispose();
   }
 }

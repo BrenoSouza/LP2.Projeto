@@ -33,7 +33,7 @@ import core.Contrato;
 import core.Hospede;
 import core.colecoes.ColecaoDeHospedes;
 
-public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
+public class PainelEditarContratoAdicionarHospede extends JInternalFrame implements Atualizador{
 
 	private static final long serialVersionUID = 4369742768015429682L;
 	private JScrollPane scrollPane_1;
@@ -50,9 +50,10 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 	private Contrato contratoSelecionado;
 	private JButton btnCriarNovo;
 	private JDesktopPane painelPrincipal;
+	private Atualizador framePai;
 
 
-	public PainelEditarContratoAdicionarHospede(ColecaoDeHospedes listaDeHospedes, Contrato contrato, JDesktopPane painelPrincipal) {
+	public PainelEditarContratoAdicionarHospede(ColecaoDeHospedes listaDeHospedes, Contrato contrato, JDesktopPane painelPrincipal, Atualizador framePai) {
 		setFrameIcon(new ImageIcon(PainelEditarContratoAdicionarHospede.class.getResource("/resources/contrato_icon.png")));
 		setTitle("Adicionar hóspede no contrato");
 		setResizable(true);
@@ -66,6 +67,7 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 		setBounds(0, 0, 970, 380);
 		this.listaDeHospedes = listaDeHospedes;
 		this.painelPrincipal = painelPrincipal;
+		this.framePai = framePai;
 		btnRemoverDoContrato = new JButton("Remover do contrato");
 		btnRemoverDoContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -115,7 +117,7 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 		btnCriarNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e){
 				try {
-					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(PainelEditarContratoAdicionarHospede.this.listaDeHospedes);
+					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(PainelEditarContratoAdicionarHospede.this.listaDeHospedes, PainelEditarContratoAdicionarHospede.this);
 					PainelEditarContratoAdicionarHospede.this.painelPrincipal.add(painelCadastro);
 					painelCadastro.show();
 				} catch (java.text.ParseException e1) {
@@ -281,4 +283,12 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame {
 	private void setHospedeSelecionado2 (int i){
 		hospedeSelecionado2 = listaHospedesDoContrato.get(i);
 	}
+  public void atualiza() {
+    escreveTabelas();    
+  }
+  @Override
+  public void dispose(){
+    framePai.atualiza();
+    dispose();
+  }
 }

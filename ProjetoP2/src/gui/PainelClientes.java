@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import core.Hospede;
 import core.colecoes.ColecaoDeHospedes;
 
-public class PainelClientes extends JInternalFrame {
+public class PainelClientes extends JInternalFrame implements Atualizador{
 
 	private static final long serialVersionUID = 1801359681375083303L;
 	private final JScrollPane scrollPanePrincipal = new JScrollPane();
@@ -107,7 +107,7 @@ public class PainelClientes extends JInternalFrame {
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					painelNovo = new PainelCadastroClientes(getColecaoDeHospedes());
+					painelNovo = new PainelCadastroClientes(getColecaoDeHospedes(), PainelClientes.this);
 				} catch (java.text.ParseException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
@@ -121,7 +121,7 @@ public class PainelClientes extends JInternalFrame {
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					painelEditar = new PainelEditarCliente(hospedeSelecionado, getPainelPrincipal());
+					painelEditar = new PainelEditarCliente(hospedeSelecionado, getPainelPrincipal(), PainelClientes.this);
 				} catch (java.text.ParseException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
@@ -313,4 +313,8 @@ public class PainelClientes extends JInternalFrame {
 	public JDesktopPane getPainelPrincipal(){
 		return painelPrincipal;
 	}
+
+  public void atualiza() {
+    escreveTabela();    
+  }
 }

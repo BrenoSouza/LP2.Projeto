@@ -42,7 +42,7 @@ import core.Reserva;
 import core.colecoes.ColecaoDeEstrategias;
 import core.colecoes.ColecaoDeHospedes;
 
-public class PainelNovoContrato extends JInternalFrame {
+public class PainelNovoContrato extends JInternalFrame implements Atualizador{
 
 	private static final long serialVersionUID = -645307861350726967L;
 
@@ -192,7 +192,7 @@ public class PainelNovoContrato extends JInternalFrame {
 		btnCriarNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try{
-					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(getListaDeHospedes());
+					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(getListaDeHospedes(), PainelNovoContrato.this);
 					getPainelPrincipal().add(painelCadastro);
 					painelCadastro.show();
 				}catch (java.text.ParseException e){
@@ -517,7 +517,6 @@ public class PainelNovoContrato extends JInternalFrame {
 					}
 					getListaContratos().add(contrato);
 					JOptionPane.showMessageDialog(null, "Contrato criado com sucesso!");
-					PainelNovoContrato.this.framePai.atualiza(); //Atualiza frame pai
 					dispose();
 				}catch (core.ParametrosInvalidosException e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage());
@@ -753,7 +752,10 @@ public class PainelNovoContrato extends JInternalFrame {
 					listaQuartosDisponiveis.add(quarto);
 				}
 			}
-		}PainelNovoContrato.this.framePai.atualiza();
+		}framePai.atualiza();
 		super.dispose();
 	}
+  public void atualiza() {
+    escreveTabelas();
+    }
 }

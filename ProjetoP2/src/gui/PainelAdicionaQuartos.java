@@ -57,7 +57,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private List<Hospede> hospedesSemQuarto = new ArrayList<Hospede>();
 	private List<Hospede> hospedesNoQuarto = new ArrayList<Hospede>();
 	public int diasRestantes;
-	@SuppressWarnings("unused")
+	@SuppressWarnings("unused")//IDE alertando para o que não está errado, novamente.
 	private Hospede hospedeSelecionado;
 	
 	public PainelAdicionaQuartos(Servico quarto, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, Contrato contrato, JDesktopPane painelPrincipal, int diasRestantes) {
@@ -73,7 +73,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/quartoIcon.png")));
 		setTitle("Adicionar Quartos / Editar Quartos");
 		getContentPane().setLayout(null);
-		
 		
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.contrato = contrato;
@@ -126,8 +125,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 					//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
 					diariasContrato = dialogoDiarias.getDiarias();
 				}
-				
-					quartoSelecionado.setToOcupado(diariasContrato);
 					PainelAdicionaQuartos.this.contrato.getListaQuartosAlugados().add(quartoSelecionado);
 //					getListaDeQuartos().remove(quartoVagoSelecionado);
 					quartoSelecionado.adicionaReserva(PainelAdicionaQuartos.this.contrato);

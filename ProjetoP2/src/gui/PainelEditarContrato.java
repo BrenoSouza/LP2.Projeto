@@ -39,7 +39,7 @@ import core.Servico;
 import core.colecoes.ColecaoDeHospedes;
 import core.colecoes.ColecaoDeQuartos;
 
-public class PainelEditarContrato extends JInternalFrame {
+public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 
 	private static final long serialVersionUID = 2678439180208101446L;
 	private JLabel lblQuartos;
@@ -161,11 +161,11 @@ public class PainelEditarContrato extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				String texto = btnAdicionarDinamico.getText();
 				if (texto.equals("Adicionar hóspede")){
-					PainelEditarContratoAdicionarHospede painelAddHospede = new PainelEditarContratoAdicionarHospede(PainelEditarContrato.this.listaHospedesHotel, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal);
+					PainelEditarContratoAdicionarHospede painelAddHospede = new PainelEditarContratoAdicionarHospede(PainelEditarContrato.this.listaHospedesHotel, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this);
 					PainelEditarContrato.this.painelPrincipal.add(painelAddHospede);
 					painelAddHospede.show();
 				}else{
-					PainelAdicionaServico painelAdd = new PainelAdicionaServico(null, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotel, PainelEditarContrato.this.listaHospedesHotel);
+					PainelAdicionaServico painelAdd = new PainelAdicionaServico(null, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotel, PainelEditarContrato.this.listaHospedesHotel, PainelEditarContrato.this);
 					PainelEditarContrato.this.painelPrincipal.add(painelAdd);
 					painelAdd.show();
 				}
@@ -179,11 +179,11 @@ public class PainelEditarContrato extends JInternalFrame {
 				try{
 				String texto = btnEditarDinamico.getText();
 				if (texto.equals("Editar hóspede")){
-					PainelEditarCliente painelEditarHospede = new PainelEditarCliente((Hospede) objetoDinamico, PainelEditarContrato.this.painelPrincipal);
+					PainelEditarCliente painelEditarHospede = new PainelEditarCliente((Hospede) objetoDinamico, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this);
 					PainelEditarContrato.this.painelPrincipal.add(painelEditarHospede);
 					painelEditarHospede.show();
 				}else if (texto.equals("Editar serviço") || texto.equals("Editar quarto")){
-					PainelAdicionaServico painelAdd = new PainelAdicionaServico((Servico) objetoDinamico, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotel, PainelEditarContrato.this.listaHospedesHotel);
+					PainelAdicionaServico painelAdd = new PainelAdicionaServico((Servico) objetoDinamico, PainelEditarContrato.this.contrato, PainelEditarContrato.this.painelPrincipal, PainelEditarContrato.this.listaQuartosHotel, PainelEditarContrato.this.listaHospedesHotel, PainelEditarContrato.this);
 					PainelEditarContrato.this.painelPrincipal.add(painelAdd);
 					painelAdd.show();
 				}
@@ -520,5 +520,10 @@ public class PainelEditarContrato extends JInternalFrame {
 	@Override
 	public void dispose(){
 	  PainelEditarContrato.this.framePai.atualiza();
+	  super.dispose();
 	}
+
+  public void atualiza() {
+    escreveTabelas();    
+  }
 }

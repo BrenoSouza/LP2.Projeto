@@ -39,7 +39,7 @@ import core.Restaurante;
 import core.Servico;
 import core.colecoes.ColecaoDeHospedes;
 
-public class PainelAdicionaServico extends JInternalFrame {
+public class PainelAdicionaServico extends JInternalFrame{
 
 	private static final long serialVersionUID = -2800935829318426745L;
 	private Contrato contrato;
@@ -76,15 +76,17 @@ public class PainelAdicionaServico extends JInternalFrame {
 	private JSpinner spinnerAddDiariasCarro;
 	private JCheckBox checkBoxEdtCama;
 	private int diasRestantes;
+	private Atualizador framePai;
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public PainelAdicionaServico(Servico servico, Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaDeQuartos, ColecaoDeHospedes listaHospedes) {
+	public PainelAdicionaServico(Servico servico, Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaDeQuartos, ColecaoDeHospedes listaHospedes, Atualizador framePai) {
 		this.contrato = contrato;
 		this.painelPrincipal = painelPrincipal;
 		this.listaHospedes = listaHospedes;
 		this.listaDeQuartos = listaDeQuartos;
 		this.servico = servico;
+		this.framePai = framePai;
 		DateTime hoje = new DateTime(Calendar.getInstance()).withTimeAtStartOfDay();
 		DateTime checkOut = new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay();
 		diasRestantes = new Period(hoje, checkOut).getDays();
@@ -664,6 +666,10 @@ public class PainelAdicionaServico extends JInternalFrame {
 	public void adicionaNoPainel(JInternalFrame painel){
 		painelPrincipal.add(painel);
 	}
-
+	@Override
+	public void dispose(){
+	  framePai.atualiza();
+	  super.dispose();
+	}
 }
 
