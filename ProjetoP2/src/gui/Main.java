@@ -70,6 +70,7 @@ public class Main extends JFrame {
   private ColecaoDeHospedes listaDeHospedes;
   private ColecaoDeQuartos listaDeQuartos;
   private ColecaoDeEstrategias listaDeEstrategias;
+  private PainelEditaLogin painelEditaLogin;
   private final static SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
   public final static String quebraDeLinha = System.getProperty("line.separator");
   URL url = this.getClass().getResource("/resources/arquivo.data");
@@ -333,10 +334,14 @@ public class Main extends JFrame {
     JButton btnLogin = new JButton("Editar Login");
     btnLogin.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        
-        PainelEditaLogin painelEditaLogin = new PainelEditaLogin(listaDeLogins);
+        if (painelEditaLogin == null || painelEditaLogin.isClosed()){
+        painelEditaLogin = new PainelEditaLogin(listaDeLogins);
         painelPrincipal.add(painelEditaLogin);
         painelEditaLogin.show();
+        }else{
+          painelEditaLogin.toFront();
+        }
+        
       }
     });
     btnLogin.setIcon(new ImageIcon(Main.class.getResource("/resources/administrator.png")));

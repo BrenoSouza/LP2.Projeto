@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 
 public class Contrato implements Serializable{
 
@@ -137,7 +138,7 @@ public class Contrato implements Serializable{
    * @return O preço final a ser pago.
    */
   public double calculaPrecoFinal(){
-    return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos());
+    return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos()) + getMulta();
   }
   /**
    * Método para mudar o status do contrato de "ABERTO" para "FECHADO".
@@ -195,6 +196,20 @@ public class Contrato implements Serializable{
     }
     return servicosPreco;
   }
+  /**
+   * Método que retorna uma String com a descrições das estratégias do contrato.
+   * @return
+   * uma String com a descrições das estratégias do contrato
+   */
+  public String getDescricaoEstrategias(){
+       String retorno = "";
+       for (int i = 0; i < estrategiasDoContrato.size(); i++) {
+         retorno += estrategiasDoContrato.get(i).getDescricao();
+         if (i < estrategiasDoContrato.size() - 1){
+           retorno += ", ";
+         }
+       }return retorno;
+     }
   /**
    * Calcula o preço total de todos os quartos ligados ao contrato.
    * @return O custo total dos quartos.
@@ -299,15 +314,6 @@ public class Contrato implements Serializable{
   public List<Estrategia> getEstrategiasDoContrato() {
     return estrategiasDoContrato;
   }
-  public String getDescricaoEstrategias(){
-    String retorno = "";
-    for (int i = 0; i < estrategiasDoContrato.size(); i++) {
-      retorno += estrategiasDoContrato.get(i).getDescricao();
-      if (i < estrategiasDoContrato.size() - 1){
-        retorno += ", ";
-      }
-    }return retorno;
-  }
   /**
    * Adicionando estratégias no contrato.
    * @param estrategia
@@ -315,6 +321,30 @@ public class Contrato implements Serializable{
    */
   public void adicionaEstrategiaNoContrato (Estrategia estrategia){
     estrategiasDoContrato.add(estrategia);
+  }
+  /**
+   * Método que retorna os dias de atraso entre a data de checkOut e o presente.
+   * @return
+   * Os dias de atraso entre a data de checkOut e o presente
+   */
+  public int getDiasDeAtraso(){
+    DateTime presente = new DateTime().withTimeAtStartOfDay();
+    
+    DateTime checkOut = new DateTime(dataCheckOut).withTimeAtStartOfDay();
+    
+    int dias = Days.daysBetween(checkOut, presente).getDays();
+    return dias;
+  }
+  /**
+   * Método que retorna uma possível multa.
+   * @return
+   * A possível multa do contrato. 
+   */
+  public double getMulta(){
+    if (getDiasDeAtraso() <= 0){
+      return 0.0;
+    }
+    return (CalculaPrecoQuartos() * 0.3) * getDiasDeAtraso(); //Em nenhum lugar da especificação do projeto dizia o valor da multa, então estipulei 30% do preço total dos quartos a cada dia fora do checkOut.
   }
 
   @Override

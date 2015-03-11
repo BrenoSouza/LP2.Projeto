@@ -68,9 +68,13 @@ public class PainelVisualizacaoClientes extends JInternalFrame {
 		btnVisualizarContrato = new JButton("Visualizar contrato");
 		btnVisualizarContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			  if (painelContrato == null || painelContrato.isClosed()){
 				painelContrato = new PainelVisualizacaoContrato(contrato, getPainelPrincipal());
 				adicionaNoPainel(painelContrato);
 				painelContrato.show();
+			  }else{
+			    painelContrato.toFront();
+			  }
 			}
 		});
 		GroupLayout groupLayout = new GroupLayout(getContentPane());

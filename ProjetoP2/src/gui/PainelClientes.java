@@ -86,9 +86,14 @@ public class PainelClientes extends JInternalFrame implements Atualizador{
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			  if (painelVisualizacao == null || painelVisualizacao.isClosed()){
 				painelVisualizacao = new PainelVisualizacaoClientes(hospedeSelecionado, getPainelPrincipal());
 				adicionaNoPainel(painelVisualizacao);
-				painelVisualizacao.show();
+        painelVisualizacao.show();
+			  }else{
+			    painelVisualizacao.toFront();
+			  }
+				
 			}
 		});
 		btnVisualizar.setEnabled(false);
@@ -98,12 +103,17 @@ public class PainelClientes extends JInternalFrame implements Atualizador{
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+				  if (painelNovo == null || painelNovo.isClosed()){
 					painelNovo = new PainelCadastroClientes(getColecaoDeHospedes(), PainelClientes.this);
+					adicionaNoPainel(painelNovo);
+	        painelNovo.show();
+				  }else{
+				    painelNovo.toFront();
+				  }
 				} catch (java.text.ParseException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
-				adicionaNoPainel(painelNovo);
-				painelNovo.show();
+				
 			}
 		});
 
@@ -112,12 +122,17 @@ public class PainelClientes extends JInternalFrame implements Atualizador{
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
+				  if (painelEditar == null || painelEditar.isClosed()){
 					painelEditar = new PainelEditarCliente(hospedeSelecionado, getPainelPrincipal(), PainelClientes.this);
+					adicionaNoPainel(painelEditar);
+	        painelEditar.show();
+				  }else{
+				    painelEditar.toFront();
+				  }
 				} catch (java.text.ParseException e) {
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}
-				adicionaNoPainel(painelEditar);
-				painelEditar.show();
+				
 			}
 		});
 		btnEditar.setEnabled(false);
