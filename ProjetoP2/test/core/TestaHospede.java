@@ -16,7 +16,7 @@ public class TestaHospede {
 	Opiniao opiniao;
 	
 	@Before
-	public void criaHospede() throws IllegalArgumentException {
+	public void criaHospede() throws ParametrosInvalidosException {
 		hospede = new Hospede("Joao", "Brazil", "111111111-11", dataNascimento);
 		segundaDataNascimento.setTime(dataNascimento.getTime());
 		segundaDataNascimento.add(Calendar.DAY_OF_YEAR, 2);
@@ -30,7 +30,7 @@ public class TestaHospede {
 		try {
 	         new Hospede("", "Brazil", "111111111-11", dataNascimento);
 	         Assert.fail("Esperava excecao, o nome está vazio!");
-	      } catch (IllegalArgumentException e) {
+	      } catch (ParametrosInvalidosException e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
 	      }
@@ -38,7 +38,7 @@ public class TestaHospede {
 		try {
 	         new Hospede("Joao", "", "111111111-11", dataNascimento);
 	         Assert.fail("Esperava excecao, o endereço está vazio!");
-	      } catch (IllegalArgumentException e) {
+	      } catch (ParametrosInvalidosException e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
 	      }
@@ -46,7 +46,7 @@ public class TestaHospede {
 		try {
 	         new Hospede(null, "Brazil", "111111111-11", dataNascimento);
 	         Assert.fail("Esperava excecao, o nome é um valor null!");
-	      } catch (IllegalArgumentException e) {
+	      } catch (ParametrosInvalidosException e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
 	      }
@@ -54,7 +54,7 @@ public class TestaHospede {
 		try {
 	         new Hospede("Joao", null, "111111111-11", dataNascimento);
 	         Assert.fail("Esperava excecao, o endereço é um valor null!");
-	      } catch (IllegalArgumentException e) {
+	      } catch (ParametrosInvalidosException e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
 	      }
@@ -62,7 +62,7 @@ public class TestaHospede {
 		try {
 	         new Hospede("Joao", "Brazil", "   .   .   -  ", dataNascimento);
 	         Assert.fail("Esperava excecao, o Cpf é vazio!");
-	      } catch (IllegalArgumentException e) {
+	      } catch (ParametrosInvalidosException e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
 	      }
@@ -70,7 +70,7 @@ public class TestaHospede {
 		try {
 	         new Hospede("Joao", "Brazil", "111111111-11", null);
 	         Assert.fail("Esperava excecao, a data de nascimento é um valor null!");
-	      } catch (IllegalArgumentException e) {
+	      } catch (ParametrosInvalidosException e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
 	      }
@@ -78,14 +78,14 @@ public class TestaHospede {
 		try {
 	         new Hospede("Joao", "Brazil", null, dataNascimento);
 	         Assert.fail("Esperava excecao, o CPF é um valor null!");
-	      } catch (IllegalArgumentException e) {
+	      } catch (ParametrosInvalidosException e) {
 	         Assert.assertEquals("Mensagem errada",
 	               "Dados inválidos. Tente novamente", e.getMessage());
 	      }
 		
 	}
 	@Test
-	public void testa_setters() throws IllegalArgumentException{
+	public void testa_setters() throws ParametrosInvalidosException{
 		Assert.assertEquals(hospede.getNome(), "Joao");
 		hospede.setNome("Fulano de tal");
 		Assert.assertEquals(hospede.getNome(), "Fulano de tal");
@@ -102,7 +102,7 @@ public class TestaHospede {
 		Assert.assertEquals(hospede.getEndereco(), "Lua, colônia espacial nº 5");
 	}
 	@Test
-	public void testa_equals() throws IllegalArgumentException{
+	public void testa_equals() throws ParametrosInvalidosException{
 		Assert.assertFalse(hospede.equals(outroHospede));
 		outroHospede = new Hospede("Joao", "Brazil", "111111111-11", dataNascimento);
 		Assert.assertTrue(hospede.equals(outroHospede));

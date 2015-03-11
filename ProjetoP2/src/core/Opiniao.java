@@ -11,14 +11,14 @@ public class Opiniao implements Serializable {
 	 * Construtor de Opinião.
 	 * @param comentario O comentário do hóspede sobre o hotel.
 	 * @param nota A nota que o hóspede deu ao hotel.
-	 * @throws IllegalArgumentException Caso o comentário tenha mais que 140 caracteres ou seja vazio e caso a nota seja menor que zero ou maior que 5.
+	 * @throws ParametrosInvalidosException Caso o comentário tenha mais que 140 caracteres ou seja vazio e caso a nota seja menor que zero ou maior que 5.
 	 */
-	public Opiniao(String comentario, int nota) throws IllegalArgumentException{
+	public Opiniao(String comentario, int nota) throws ParametrosInvalidosException{
 		if (comentario.length() > 140 ||comentario.length() < 10 || comentario.isEmpty() || comentario == null){
-			throw new IllegalArgumentException("O comentário não pode ser vazio e deve possuir no máximo 140 caracteres.");
+			throw new ParametrosInvalidosException("O comentário não pode ser vazio e deve possuir no máximo 140 caracteres.");
 		}
 		if (nota < 0 || nota > 5){
-			throw new IllegalArgumentException("A nota deve ser entre 0 e 5.");
+			throw new ParametrosInvalidosException("A nota deve ser entre 0 e 5.");
 		}
 		this.comentario = comentario;
 		this.nota = nota;

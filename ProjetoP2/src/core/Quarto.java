@@ -24,12 +24,12 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 	 * @param numero Número do quarto.
 	 * @param numeroHospedes Número de hospedes.
 	 * @param precoDiaria Preço da diária
-	 * @throws IllegalArgumentException Caso o número/numeroHospedes/diárias seja menor que zero.
+	 * @throws ParametrosInvalidosException Caso o número/numeroHospedes/diárias seja menor que zero.
 	 */
-	public Quarto(int numero, TipoDeQuarto tipoDeQuarto) throws IllegalArgumentException{
+	public Quarto(int numero, TipoDeQuarto tipoDeQuarto) throws ParametrosInvalidosException{
 		super();
 		if (numero < 0){
-			throw new IllegalArgumentException("O número do quarto nao pode ser menor que zero.");
+			throw new ParametrosInvalidosException("O número do quarto nao pode ser menor que zero.");
 		}
 		this.numero = numero;
 		this.tipoDeQuarto = tipoDeQuarto;
@@ -132,9 +132,9 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 	 * Adiciona hóspedes no quarto.
 	 * @param hospede O hóspede a ser adicionado.
 	 */
-	public boolean adicionaHospede(Hospede hospede) throws IllegalArgumentException{
+	public boolean adicionaHospede(Hospede hospede) throws ParametrosInvalidosException{
 		if (hospede == null){
-			throw new IllegalArgumentException("Nao é um hóspede válido.");
+			throw new ParametrosInvalidosException("Nao é um hóspede válido.");
 		}
 		return listaHospedes.add(hospede);
 	}
@@ -149,9 +149,9 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 	 * Remove um hóspede do quarto.
 	 * @param hospede O hóspede a ser removido.
 	 */
-	public boolean removeHospede(Hospede hospede) throws IllegalArgumentException{
+	public boolean removeHospede(Hospede hospede) throws ParametrosInvalidosException{
 		if (hospede == null){
-			throw new IllegalArgumentException("Nao é um hóspede valido.");
+			throw new ParametrosInvalidosException("Nao é um hóspede valido.");
 		}
 		return listaHospedes.remove(hospede);
 	}
@@ -174,6 +174,9 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 				"\nPreço da diária -> " + this.getPrecoDiaria();
 
 	}
+	/**
+	 * compareTo sobrescrito.
+	 */
 	public int compareTo(Quarto q){
 		return this.getNumero() - q.getNumero();
 	}
@@ -272,9 +275,7 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 		Quarto outroQuarto = (Quarto) obj;
 		return (this.getNumero() == outroQuarto.getNumero());
 	}
-	public int compareToEstado(Quarto q){
-		return this.getEstado().compareTo(q.getEstado());
-	}
+
   @Override
   public String getTipo() {
     return tipoDeQuarto.getTipo();

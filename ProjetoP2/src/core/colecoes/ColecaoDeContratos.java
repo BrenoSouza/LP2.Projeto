@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import core.Contrato;
+import core.ParametrosInvalidosException;
 
 public class ColecaoDeContratos implements Serializable {
 
@@ -29,22 +30,22 @@ public class ColecaoDeContratos implements Serializable {
 	/**
 	 * Adiciona um contrato na colecao.
 	 * @param contrato O contrato a ser adicionado
-	 * @throws IllegalArgumentException Caso atinja as exceções da classe Contrato
+	 * @throws ParametrosInvalidosException Caso atinja as exceções da classe Contrato
 	 */
-	public void adicionaContrato(Contrato contrato) throws IllegalArgumentException{
+	public void adicionaContrato(Contrato contrato) throws ParametrosInvalidosException{
 		if (contrato == null || listaContratos.contains(contrato)){
-			throw new IllegalArgumentException("O contrato não foi adicionado.");
+			throw new ParametrosInvalidosException("O contrato não foi adicionado.");
 		}
 		listaContratos.add(contrato);
 	}
 	/**
 	 * Adiciona uma lista de contratos a colecao.
 	 * @param contratos Uma lista de contratos
-	 * @throws IllegalArgumentException Caso atinga as exceções da classe Contrato
+	 * @throws ParametrosInvalidosException Caso atinga as exceções da classe Contrato
 	 */
-	public void adicionaContratos(List<Contrato> contratos) throws IllegalArgumentException {
+	public void adicionaContratos(List<Contrato> contratos) throws ParametrosInvalidosException {
 		if (contratos == null || contratos.contains(null) || listaContratos.containsAll(contratos)){
-			throw new IllegalArgumentException("Os contratos não foram adicionados.");
+			throw new ParametrosInvalidosException("Os contratos não foram adicionados.");
 		}
 		listaContratos.addAll(contratos);
 	}

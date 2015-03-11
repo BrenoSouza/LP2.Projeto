@@ -38,14 +38,14 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * Estrategia.ACRESCIMO ou Estrategia.DECRESCIMO.
 	 * @param descricao
 	 * Uma descrição da estratégia.
-	 * @throws IllegalArgumentException
+	 * @throws ParametrosInvalidosException
 	 * Se o modificador não estiver em formato correto. 
 	 */
-	public Estrategia(DateTime inicioPeriodo, DateTime finalPeriodo, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws IllegalArgumentException{
+	public Estrategia(DateTime inicioPeriodo, DateTime finalPeriodo, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws ParametrosInvalidosException{
 		if (modificador < 0 || modificador > 100){
-			throw new IllegalArgumentException("Modificador em formato inválido (menor que 0 ou maior que 100).");
+			throw new ParametrosInvalidosException("Modificador em formato inválido (menor que 0 ou maior que 100).");
 		}if (descricao.isEmpty()){
-			throw new IllegalArgumentException("Insira alguma descrição para a estratégia.");
+			throw new ParametrosInvalidosException("Insira alguma descrição para a estratégia.");
 		}
 		this.inicioPeriodo = inicioPeriodo;
 		if (inicioPeriodo.isAfter(finalPeriodo)){ //No caso de uma estratégia que começa num ano e termina em outro.
@@ -78,10 +78,10 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * O modificador, de 0-100;
 	 * @param tipoDeEstrategia
 	 * Estrategia.ACRESCIMO ou Estrategia.DECRESCIMO.
-	 * @throws IllegalArgumentException
+	 * @throws ParametrosInvalidosException
 	 * Se o modificador não estiver em formato correto.
 	 */
-	public Estrategia(Calendar inicioPeriodo, Calendar finalPeriodo, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws IllegalArgumentException{
+	public Estrategia(Calendar inicioPeriodo, Calendar finalPeriodo, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws ParametrosInvalidosException{
 		this(new DateTime(inicioPeriodo), new DateTime(finalPeriodo), modificador, tipoDeEstrategia, descricao);
 	}
 	/**
@@ -98,10 +98,10 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * Uma curta descrição sobre a estratégia.
 	 * @throws ParseException
 	 * Se a data não estiver em formato correto.
-	 * @throws IllegalArgumentException
+	 * @throws ParametrosInvalidosException
 	 * Se o modificador não estiver em formato correto.
 	 */
-	public Estrategia(String dataInicio, String dataFinal, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws IllegalArgumentException, ParseException{
+	public Estrategia(String dataInicio, String dataFinal, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws ParametrosInvalidosException, ParseException{
 		this(Main.converteParaCalendar(dataInicio), Main.converteParaCalendar(dataFinal), modificador, tipoDeEstrategia, descricao);
 	}
 	/**
@@ -206,6 +206,13 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 		atualizaIntervalo();
 		return intervalo.containsNow();
 	}
+	/**
+	 * Método que informa se a estratégia contém um ReadableInstant
+	 * @param instante
+	 * Readable Instant, engloba a maioria das classes relevantes a tempo da biblioteca Joda-Time
+	 * @return
+	 * true se a estratégia contem o instante.
+	 */
 	public boolean periodoContemIntervalo (ReadableInstant instante){
 	  int ano = instante.get(DateTimeFieldType.year()); //O ano do instante a ser comparado.
 	  
@@ -226,6 +233,9 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	  
 	  return intervalo.contains(instante);
 	}
+	/**
+	 * compareTo sobrescrito.
+	 */
 	public int compareTo(Estrategia outraEstrategia){
 		this.atualizaIntervalo();
 		outraEstrategia.atualizaIntervalo();
@@ -252,6 +262,13 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 		outraEstrategia.atualizaIntervalo();
 		return this.intervalo.overlaps(outraEstrategia.getIntervalo());
 	}
+	/**
+	 * Método que descobre se um contrato está dentro do período da estratégia.
+	 * @param contrato
+	 * Um contrato válido.
+	 * @return
+	 * true ou false.
+	 */
 	public boolean contratoSobrepoe(Contrato contrato){
 	  /*
 	   * O objetivo todo de se definir uma estratégia envolve não colocar um ano nela. Ex: Não se diz que uma estratégia vai de 01/01/2015 até 02/02/2015, se diz que ela vai de 01/01 até 02/02, todo ano.

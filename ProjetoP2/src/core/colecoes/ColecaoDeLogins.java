@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import core.Hospede;
 import core.Login;
+import core.ParametrosInvalidosException;
 
 public class ColecaoDeLogins implements Serializable{
 
@@ -31,11 +31,11 @@ public class ColecaoDeLogins implements Serializable{
 	/**
 	 * Adiciona um ContaLogin na colecao.
 	 * @param ContaLogin A conta a ser adicionada
-	 * @throws IllegalArgumentException Caso atinja as exceções da classe ContaLogin
+	 * @throws ParametrosInvalidosException Caso atinja as exceções da classe ContaLogin
 	 */
-	public void adicionaContaLogin(Login ContaLogin) throws IllegalArgumentException{
+	public void adicionaContaLogin(Login ContaLogin) throws ParametrosInvalidosException{
 		if (ContaLogin == null || listaContasLogin.contains(ContaLogin)){
-			throw new IllegalArgumentException("O ContaLogin não foi adicionado.");
+			throw new ParametrosInvalidosException("O ContaLogin não foi adicionado.");
 		}
 		listaContasLogin.add(ContaLogin);
 	}

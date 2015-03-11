@@ -24,6 +24,8 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import core.ParametrosInvalidosException;
+
 public class DialogoDiarias extends JDialog {
 
 	private static final long serialVersionUID = -3829925346915459261L;
@@ -66,7 +68,7 @@ public class DialogoDiarias extends JDialog {
 					//Lidando com possíveis excessões antes de enviar esses dados para o painel anterior.
 				}catch (java.text.ParseException e2){
 					JOptionPane.showMessageDialog(null, "Data em formato inválido.");
-				}catch (IllegalArgumentException e1){
+				}catch (ParametrosInvalidosException e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}
@@ -175,7 +177,7 @@ public class DialogoDiarias extends JDialog {
 	public int getDiarias(){
 		return (Integer) spinnerDiarias.getValue();
 	}
-	public Calendar getDataCheckIn() throws ParseException, IllegalArgumentException{
+	public Calendar getDataCheckIn() throws ParseException, ParametrosInvalidosException{
 		Calendar checkIn = Calendar.getInstance();
 		checkIn.set(Calendar.HOUR_OF_DAY, 0);
 		if (rdbtnReserva.isSelected()){
@@ -183,7 +185,7 @@ public class DialogoDiarias extends JDialog {
 			Calendar presente = Calendar.getInstance();
 			presente.set(Calendar.HOUR_OF_DAY, 0);
 			if (checkIn.compareTo(presente) <= 0){
-				throw new IllegalArgumentException("Não é possível criar uma reserva antes ou no dia atual.");
+				throw new ParametrosInvalidosException("Não é possível criar uma reserva antes ou no dia atual.");
 			}
 		}		
 		return checkIn;

@@ -14,12 +14,12 @@ public class Restaurante extends Servico implements Serializable{
 	 * Construtor da classe restaurante, onde registra o preço da conta.
 	 * @param isCobertura Se usou o restaurante da cobertura.
 	 * @param preco Preço da conta
-	 * @throws IllegalArgumentException Caso o preço informado seja menor que zero.
+	 * @throws ParametrosInvalidosException Caso o preço informado seja menor que zero.
 	 */
-	public Restaurante(boolean isCobertura, double preco) throws IllegalArgumentException {
+	public Restaurante(boolean isCobertura, double preco) throws ParametrosInvalidosException {
 		super();
 		if (preco < 0){
-			throw new IllegalArgumentException("O preço da conta nao pode ser menor que zero.");
+			throw new ParametrosInvalidosException("O preço da conta nao pode ser menor que zero.");
 		}
 		this.isCobertura = isCobertura;
 		this.preco = preco;
@@ -52,6 +52,9 @@ public class Restaurante extends Servico implements Serializable{
 		}Restaurante outroRestaurante = (Restaurante) obj;
 		return toString().equals(outroRestaurante.toString());
 	}
+	/**
+	 * Método que retorna uma String com uma breve descrição da instância de restaurante.
+	 */
 	public String getTipo() {
 		return "Restaurante" + (getIsCobertura() ? "Cobertura" : "");
 	}

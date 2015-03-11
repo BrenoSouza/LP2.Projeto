@@ -39,14 +39,14 @@ public class Contrato implements Serializable{
    * @param listaQuartosAlugados Um List de Quarto com o(s) quarto(s) alugado(s).
    * @param listaHospedes Um List de Hospede com o(s) hóspede(s) ligado(s) ao contrato.
    * @param numeroDiarias O número de diárias.
-   * @throws IllegalArgumentException
+   * @throws ParametrosInvalidosException
    */
-  public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws IllegalArgumentException{
+  public Contrato(List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws ParametrosInvalidosException{
     if (listaQuartosAlugados == null || numeroDiarias <= 0 || listaQuartosAlugados.size() == 0) {
-      throw new IllegalArgumentException ("Dados inválidos. Tente novamente.");
+      throw new ParametrosInvalidosException ("Dados inválidos. Tente novamente.");
     }
     if (listaHospedes == null || listaHospedes.size() == 0) {
-      throw new IllegalArgumentException ("Lista de hospedes invalida.");
+      throw new ParametrosInvalidosException ("Lista de hospedes invalida.");
     }
     this.listaQuartosAlugados.addAll(listaQuartosAlugados);
     this.listaHospedes.addAll(listaHospedes);
@@ -63,11 +63,11 @@ public class Contrato implements Serializable{
    * @param listaHospedes Um List<Hospede> com o(s) hóspede(s) ligado(s) ao contrato.
    * @param numeroDiarias O número de diárias.
    */
-  public Contrato(Calendar dataCheckIn, List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws IllegalArgumentException{
+  public Contrato(Calendar dataCheckIn, List<Quarto> listaQuartosAlugados, List<Hospede> listaHospedes, int numeroDiarias) throws ParametrosInvalidosException{
     if (listaQuartosAlugados == null || listaHospedes == null || numeroDiarias <= 0 
         || listaQuartosAlugados.size() == 0 || listaHospedes.size() == 0
         ){
-      throw new IllegalArgumentException ("Dados inválidos. Tente novamente.");
+      throw new ParametrosInvalidosException ("Dados inválidos. Tente novamente.");
     }
     this.listaQuartosAlugados.addAll(listaQuartosAlugados);
     this.listaHospedes.addAll(listaHospedes);

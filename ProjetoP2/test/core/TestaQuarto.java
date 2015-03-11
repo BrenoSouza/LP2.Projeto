@@ -18,7 +18,7 @@ public class TestaQuarto {
 	Calendar checkIn, checkOut;
 	
 	@Before
-	public void antes_testes() throws IllegalArgumentException{
+	public void antes_testes() throws ParametrosInvalidosException{
 		quarto1 = new Quarto(1, TipoDeQuarto.EXECUTIVOTRIPLO);
 		quarto2 = new Quarto(2, TipoDeQuarto.EXECUTIVOTRIPLO);
 		quarto3 = new Quarto(3, TipoDeQuarto.PRESIDENCIAL);
@@ -32,7 +32,7 @@ public class TestaQuarto {
 		try{
 			quarto1 = new Quarto(-1, TipoDeQuarto.EXECUTIVODUPLO);
 			Assert.fail("Número negativo de quarto, esperava excessão");
-		}catch (IllegalArgumentException e){
+		}catch (ParametrosInvalidosException e){
 			Assert.assertEquals(e.getMessage(),"O número de hospedes ou diarias ou numero do quarto nao pode ser menor que zero.");
 		}
 	}
@@ -55,7 +55,7 @@ public class TestaQuarto {
 		Assert.assertEquals(quarto1.getListaReservas(), listaReservas);		
 	}
 	@Test
-	public void testa_equals() throws IllegalArgumentException{
+	public void testa_equals() throws ParametrosInvalidosException{
 		Assert.assertFalse(quarto1.equals(quarto2));
 		quarto2 = new Quarto(1, TipoDeQuarto.EXECUTIVOTRIPLO);
 		Assert.assertTrue(quarto1.equals(quarto2));		

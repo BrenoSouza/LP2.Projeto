@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import core.Contrato;
+import core.ParametrosInvalidosException;
 import core.Quarto;
 import core.Reserva;
 import core.TipoDeQuarto;
@@ -57,7 +58,7 @@ public class ColecaoDeQuartos implements Serializable {
 				numeroQuarto++;
 			}
 
-		}catch (IllegalArgumentException e){
+		}catch (ParametrosInvalidosException e){
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 	}

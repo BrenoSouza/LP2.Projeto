@@ -6,6 +6,7 @@ import java.util.List;
 
 import core.Contrato;
 import core.Estrategia;
+import core.ParametrosInvalidosException;
 
 public class ColecaoDeEstrategias implements Serializable{
 	
@@ -24,16 +25,16 @@ public class ColecaoDeEstrategias implements Serializable{
 	 * Método para adicionar uma estratégia a lista de estratégias.
 	 * @param estrategia
 	 * Uma estratégia a ser adicionada.
-	 * @throws IllegalArgumentException
+	 * @throws ParametrosInvalidosException
 	 * Se a estratégia for null, já existir na lista de estratégias ou sobrepoe um intervalo de outra estratégia.
 	 */
-	public void adicionaEstrategia(Estrategia estrategia) throws IllegalArgumentException{
+	public void adicionaEstrategia(Estrategia estrategia) throws ParametrosInvalidosException{
 		if (estrategia == null || listaEstrategias.contains(estrategia)){
-			throw new IllegalArgumentException("A estratégia não foi adicionado");
+			throw new ParametrosInvalidosException("A estratégia não foi adicionado");
 		}
 		for (Estrategia outraEstrategia: listaEstrategias){
 			if (outraEstrategia.sobrepoe(estrategia)){
-				throw new IllegalArgumentException("A estratégia inclui um período referente a outra estratégia existente");
+				throw new ParametrosInvalidosException("A estratégia inclui um período referente a outra estratégia existente");
 			}
 		}
 		

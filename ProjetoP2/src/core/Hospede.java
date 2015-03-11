@@ -25,12 +25,12 @@ public class Hospede implements Comparable<Hospede>, Serializable{
 	 * O CPF do hóspede.
 	 * @param dataNascimento
 	 * Um objeto Calendar contendo a data de nascimento do hóspede.
-	 * @throws IllegalArgumentException
+	 * @throws ParametrosInvalidosException
 	 * Joga uma excessão caso qualquer um dos atributos estiverem em formato inválido.
 	 */
-	public Hospede(String nome, String endereco, String cpf, Calendar dataNascimento) throws IllegalArgumentException{
+	public Hospede(String nome, String endereco, String cpf, Calendar dataNascimento) throws ParametrosInvalidosException{
 		if (nome == null || endereco == null || endereco.isEmpty() || nome.isEmpty() || dataNascimento == null || cpf == null || cpf.equals("   .   .   -  ")){
-			throw new IllegalArgumentException ("Dados inválidos. Tente novamente");
+			throw new ParametrosInvalidosException ("Dados inválidos. Tente novamente");
 		}
 		this.nome = nome;
 		this.cpf = cpf;
@@ -143,7 +143,9 @@ public class Hospede implements Comparable<Hospede>, Serializable{
 				+ ((getOpiniao() == null) ? "" : ("Opinião: " + getOpiniao().toString() + "."));
 
 	}
-
+	/**
+	 * método compareTo sobrescrito.
+	 */
 	public int compareTo(Hospede h) {
 		return (this.getNome().compareTo(h.getNome()));
 	}

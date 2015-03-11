@@ -37,12 +37,12 @@ public class TestaEstrategia {
     try{
       estrategia1 = new Estrategia(inicioPeriodo, finalPeriodo, -1, Estrategia.ACRESCIMO, "Será que vai cair na excessão?");
       Assert.fail("Uma excessão deveria ter sido jogada, pois o modificador foi -1");
-    }catch (IllegalArgumentException e){
+    }catch (ParametrosInvalidosException e){
       Assert.assertEquals("Modificador em formato inválido (menor que 0 ou maior que 100).", e.getMessage());
     }try{
       estrategia1 = new Estrategia(inicioPeriodo, finalPeriodo, 50, Estrategia.ACRESCIMO, "");
       Assert.fail("Uma excessão deveria ter sido jogada, pois a descrição estava vazia.");
-    }catch (IllegalArgumentException e){
+    }catch (ParametrosInvalidosException e){
       Assert.assertEquals("Insira alguma descrição para a estratégia.", e.getMessage());
     }
   }

@@ -127,7 +127,7 @@ public class PainelNovoContrato extends JInternalFrame {
 			dataCheckIn = dialogoDiarias.getDataCheckIn();
 			cartaoDeCredito = dialogoDiarias.getCartaoDeCredito();
 
-		} catch (IllegalArgumentException e3) {
+		} catch (core.ParametrosInvalidosException e3) {
 			JOptionPane.showMessageDialog(null, e3.getMessage());
 		}catch (java.text.ParseException e4){
 		  JOptionPane.showMessageDialog(null, e4.getMessage());
@@ -354,7 +354,7 @@ public class PainelNovoContrato extends JInternalFrame {
 				isReserva = dialogoDiarias.isReserva();
 				try {
 					dataCheckIn = dialogoDiarias.getDataCheckIn();
-				} catch (IllegalArgumentException e3) {
+				} catch (core.ParametrosInvalidosException e3) {
 					JOptionPane.showMessageDialog(null, e3.getMessage());
 				}catch (java.text.ParseException e4){
 				  JOptionPane.showMessageDialog(null, e4.getMessage());
@@ -522,7 +522,7 @@ public class PainelNovoContrato extends JInternalFrame {
 					getListaContratos().add(contrato);
 					JOptionPane.showMessageDialog(null, "Contrato criado com sucesso!");
 					dispose();
-				}catch (IllegalArgumentException e1){
+				}catch (core.ParametrosInvalidosException e1){
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}
 			}

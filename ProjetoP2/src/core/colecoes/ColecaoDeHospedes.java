@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.Hospede;
+import core.ParametrosInvalidosException;
 
 public class ColecaoDeHospedes implements Serializable{
 
@@ -29,20 +30,20 @@ public class ColecaoDeHospedes implements Serializable{
 	 * @param hospede O hospede a ser adicionado
 	 * @throws Exception Caso atinga as exceções da classe hospede
 	 */
-	public void adicionaHospede(Hospede hospede) throws IllegalArgumentException{
+	public void adicionaHospede(Hospede hospede) throws ParametrosInvalidosException{
 		if (hospede == null || listaHospedes.contains(hospede)){
-			throw new IllegalArgumentException("O hospede não foi adicionado.");
+			throw new ParametrosInvalidosException("O hospede não foi adicionado.");
 		}
 		listaHospedes.add(hospede);
 	}
 	/**
 	 * Adiciona uma lista de hospedes a colecao.
 	 * @param hospedes Um List<hospede>
-	 * @throws IllegalArgumentException Caso atinga as exceções da classe hospede
+	 * @throws ParametrosInvalidosException Caso atinga as exceções da classe hospede
 	 */
-	public void adicionaListaHospedes(List<Hospede> hospedes) throws IllegalArgumentException{
+	public void adicionaListaHospedes(List<Hospede> hospedes) throws ParametrosInvalidosException{
 		if (hospedes == null || hospedes.contains(null) || listaHospedes.containsAll(hospedes)){
-			throw new IllegalArgumentException("Os hospedes não foram adicionados.");
+			throw new ParametrosInvalidosException("Os hospedes não foram adicionados.");
 		}
 		listaHospedes.addAll(hospedes);
 	}

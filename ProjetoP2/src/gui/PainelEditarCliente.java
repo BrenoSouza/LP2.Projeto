@@ -194,7 +194,7 @@ public class PainelEditarCliente extends JInternalFrame {
 						getHospede().setOpiniao(opiniao);
 						JOptionPane.showMessageDialog(null, "Mudanças salvas.");
 						dispose();
-					} catch (IllegalArgumentException e1) {
+					} catch (core.ParametrosInvalidosException e1) {
 						JOptionPane.showMessageDialog(null, e1.getMessage());
 					}
 				}
