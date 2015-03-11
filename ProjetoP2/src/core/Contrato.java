@@ -138,16 +138,12 @@ public class Contrato implements Serializable{
    * @return O preço final a ser pago.
    */
   public double calculaPrecoFinal(){
-    if (status.equals("FECHADO")){
-      return precoQueFoiPago;
-    }
     return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos());
   }
   /**
    * Método para mudar o status do contrato de "ABERTO" para "FECHADO".
    */
   public void fechaContrato(){
-    precoQueFoiPago = calculaPrecoFinal();
     status = "FECHADO";
     this.dataCheckOut = Calendar.getInstance();
 
