@@ -51,10 +51,16 @@ public class PainelEstrategias extends JInternalFrame implements Atualizador {
 
 		btnAddEstrategia = new JButton("Adicionar estratégia");
 		btnAddEstrategia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PainelAdicionaEstrategias painelAdd = new PainelAdicionaEstrategias(PainelEstrategias.this.listaContratos, PainelEstrategias.this.listaEstrategias, PainelEstrategias.this);
+			private PainelAdicionaEstrategias painelAdd;
+
+      public void actionPerformed(ActionEvent arg0) {
+        if (painelAdd == null || painelAdd.isClosed()){
+				painelAdd = new PainelAdicionaEstrategias(PainelEstrategias.this.listaContratos, PainelEstrategias.this.listaEstrategias, PainelEstrategias.this);
 				PainelEstrategias.this.painelPrincipal.add(painelAdd);
 				painelAdd.show();
+        }else{
+          painelAdd.toFront();
+        }
 			}
 		});
 

@@ -502,7 +502,9 @@ public class PainelAdicionaServico extends JInternalFrame{
 	//Vai adicionar um novo serviço depedendo do JPanel do cardlayout selecionado.
 		
 	btnAdicionar.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
+		private PainelAdicionaQuartos painelAddQuarto;
+
+    public void actionPerformed(ActionEvent e) {
 			for (Component comp : panelExterno.getComponents()) {
 				if (comp.isVisible() == true) {
 					if(comp == panelCarros) {
@@ -519,7 +521,7 @@ public class PainelAdicionaServico extends JInternalFrame{
 			    		break;
 			    	}
 			    	else if(comp == panelQuartos) {
-			    		PainelAdicionaQuartos painelAddQuarto = new PainelAdicionaQuartos(null, PainelAdicionaServico.this.listaHospedes, PainelAdicionaServico.this.listaDeQuartos, PainelAdicionaServico.this.contrato, getPainelPrincipal(), PainelAdicionaServico.this.diasRestantes);				    			
+			    		painelAddQuarto = new PainelAdicionaQuartos(null, PainelAdicionaServico.this.listaHospedes, PainelAdicionaServico.this.listaDeQuartos, PainelAdicionaServico.this.contrato, getPainelPrincipal(), PainelAdicionaServico.this.diasRestantes);				    			
 			    		adicionaNoPainel(painelAddQuarto);
 			    		painelAddQuarto.show();
 			    		dispose();

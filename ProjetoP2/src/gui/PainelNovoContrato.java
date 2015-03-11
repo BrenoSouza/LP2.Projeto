@@ -181,11 +181,17 @@ public class PainelNovoContrato extends JInternalFrame implements Atualizador{
 
 		btnCriarNovo = new JButton("Cadastrar novo hóspede");
 		btnCriarNovo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			private PainelCadastroClientes painelCadastro;
+
+      public void actionPerformed(ActionEvent arg0) {
 				try{
-					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(getListaDeHospedes(), PainelNovoContrato.this);
+				  if (painelCadastro == null || painelCadastro.isClosed()){
+					painelCadastro = new PainelCadastroClientes(getListaDeHospedes(), PainelNovoContrato.this);
 					getPainelPrincipal().add(painelCadastro);
 					painelCadastro.show();
+				  }else{
+				    painelCadastro.toFront();
+				  }
 				}catch (java.text.ParseException e){
 					JOptionPane.showMessageDialog(null, e.getMessage());
 				}

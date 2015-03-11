@@ -197,6 +197,20 @@ public class Contrato implements Serializable{
     return servicosPreco;
   }
   /**
+   * Método que retorna uma String com a descrições das estratégias do contrato.
+   * @return
+   * uma String com a descrições das estratégias do contrato
+   */
+  public String getDescricaoEstrategias(){
+       String retorno = "";
+       for (int i = 0; i < estrategiasDoContrato.size(); i++) {
+         retorno += estrategiasDoContrato.get(i).getDescricao();
+         if (i < estrategiasDoContrato.size() - 1){
+           retorno += ", ";
+         }
+       }return retorno;
+     }
+  /**
    * Calcula o preço total de todos os quartos ligados ao contrato.
    * @return O custo total dos quartos.
    */

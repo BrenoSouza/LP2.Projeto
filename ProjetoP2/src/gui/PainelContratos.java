@@ -69,8 +69,14 @@ public class PainelContratos extends JInternalFrame implements Atualizador{
 		
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PainelVisualizacaoContrato painelVisualizacao = new PainelVisualizacaoContrato(contratoSelecionado, getPainelPrincipal());
+			private PainelVisualizacaoContrato painelVisualizacao;
+
+      public void actionPerformed(ActionEvent arg0) {
+        if (painelVisualizacao == null || painelVisualizacao.isClosed()){
+				painelVisualizacao = new PainelVisualizacaoContrato(contratoSelecionado, getPainelPrincipal());
+        }else{
+          painelVisualizacao.toFront();
+        }
 				adicionaNoPainel(painelVisualizacao);
 				painelVisualizacao.show();
 			}
@@ -80,9 +86,13 @@ public class PainelContratos extends JInternalFrame implements Atualizador{
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			  if (painelEditar == null || painelEditar.isClosed()){
 				painelEditar = new PainelEditarContrato(contratoSelecionado, getPainelPrincipal(), PainelContratos.this.colecaoDeQuartos, PainelContratos.this.listaDeHospedes, PainelContratos.this);
 				adicionaNoPainel(painelEditar);
 				painelEditar.show();
+			  }else{
+			    painelEditar.toFront();
+			  }
 			}
 		});
 		btnEditar.setEnabled(false);
@@ -90,11 +100,12 @@ public class PainelContratos extends JInternalFrame implements Atualizador{
 		btnNovo = new JButton("Novo");
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			  if (painelNovo == null || painelNovo.isClosed()){
 				painelNovo = new PainelNovoContrato(getListaDeHospedes(), getListaQuartosDisponiveis(), getListaContratos(), getPainelPrincipal(), PainelContratos.this.colecaoDeEstrategias, PainelContratos.this);
 				adicionaNoPainel(painelNovo);
 				painelNovo.show();
-				if (!painelNovo.getFinalizado()){
-				  painelNovo.dispose();
+				}else{
+				painelNovo.toFront();
 				}
 			}
 		});

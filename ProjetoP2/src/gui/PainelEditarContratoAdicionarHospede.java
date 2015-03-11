@@ -107,11 +107,17 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame impleme
 		btnCriarNovo = new JButton("Cadastrar novo hóspede");
 		btnCriarNovo.setEnabled(true);
 		btnCriarNovo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e){
+			private PainelCadastroClientes painelCadastro;
+
+      public void actionPerformed(ActionEvent e){
 				try {
-					PainelCadastroClientes painelCadastro = new PainelCadastroClientes(PainelEditarContratoAdicionarHospede.this.listaDeHospedes, PainelEditarContratoAdicionarHospede.this);
+				  if (painelCadastro == null || painelCadastro.isClosed()){
+					painelCadastro = new PainelCadastroClientes(PainelEditarContratoAdicionarHospede.this.listaDeHospedes, PainelEditarContratoAdicionarHospede.this);
 					PainelEditarContratoAdicionarHospede.this.painelPrincipal.add(painelCadastro);
-					painelCadastro.show();
+					painelCadastro.show();}
+				  else{
+				    painelCadastro.toFront();
+				  }
 				} catch (java.text.ParseException e1) {
 					JOptionPane.showMessageDialog(null, e1.getMessage());
 				}

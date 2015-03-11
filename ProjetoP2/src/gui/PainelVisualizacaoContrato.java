@@ -165,10 +165,16 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		
 		btnVisualizarHospede = new JButton("Visualizar");
 		btnVisualizarHospede.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				PainelVisualizacaoClientes painelVisualizaHospede = new PainelVisualizacaoClientes(hospedeSelecionado, PainelVisualizacaoContrato.this.painelPrincipal);
+			private PainelVisualizacaoClientes painelVisualizaHospede;
+
+      public void actionPerformed(ActionEvent e) {
+			  if (painelVisualizaHospede == null || painelVisualizaHospede.isClosed()){
+				painelVisualizaHospede = new PainelVisualizacaoClientes(hospedeSelecionado, PainelVisualizacaoContrato.this.painelPrincipal);
 				PainelVisualizacaoContrato.this.painelPrincipal.add(painelVisualizaHospede);
 				painelVisualizaHospede.show();
+			  }else{
+			    painelVisualizaHospede.toFront();
+			  }
 			}
 		});
 		btnVisualizarHospede.setEnabled(false);
@@ -289,9 +295,13 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		btnVisualizar = new JButton("Visualizar");
 		btnVisualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			  if (painelVisualizacaoServico == null || painelVisualizacaoServico.isClosed()){
 				painelVisualizacaoServico = new PainelVisualizacaoServico(servicoSelecionado);
 				getPainelPrincipal().add(painelVisualizacaoServico);
 				painelVisualizacaoServico.show();
+			  }else{
+			    painelVisualizacaoServico.toFront();
+			  }
 			}
 		});
 		btnVisualizar.setEnabled(false);
@@ -353,8 +363,10 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		
 		btnVisualizarQuarto = new JButton("Visualizar");
 		btnVisualizarQuarto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				PainelVisualizacaoServico painelVisualizarServico = new PainelVisualizacaoServico(quartoSelecionado);
+			private PainelVisualizacaoServico painelVisualizarServico;
+
+      public void actionPerformed(ActionEvent arg0) {
+				painelVisualizarServico = new PainelVisualizacaoServico(quartoSelecionado);
 				getPainelPrincipal().add(painelVisualizarServico);
 				painelVisualizarServico.show();
 			}
