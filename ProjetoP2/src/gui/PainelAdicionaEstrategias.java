@@ -149,12 +149,12 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 //				}
 //				JOptionPane.showMessageDialog(null, mensagem);
 				dispose();
-				}catch (IllegalArgumentException exception){
-				  JOptionPane.showMessageDialog(null , "A estratégia não pode ser criada, pois está sobrepondo outra.");
+				}catch (core.ParametrosInvalidosException e){
+				  JOptionPane.showMessageDialog(null , e.getMessage());
 				}catch (java.text.ParseException e2){
 					JOptionPane.showMessageDialog(null, "Data(s) em formato(s) inválido(s).");
-				}catch (NullPointerException e){
-					JOptionPane.showMessageDialog(null, e.getMessage());
+				}catch (NullPointerException e3){
+					JOptionPane.showMessageDialog(null, e3.getMessage());
 				}
 				
 			}
