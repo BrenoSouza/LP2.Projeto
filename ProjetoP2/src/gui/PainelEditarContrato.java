@@ -132,7 +132,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 		btnRemoverDinamico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (objetoDinamico instanceof Hospede){
-					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?" + (objetoDinamico == hospedePrincipal ? System.getProperty("line.separator") + "Esse hóspede está configurado como o hóspede principal do contrato selecionado." : ""), /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?" + (objetoDinamico == hospedePrincipal ? Main.quebraDeLinha + "Esse hóspede está configurado como o hóspede principal do contrato selecionado." : ""), /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION){
 						listaHospedes.remove(objetoDinamico);
 						if (objetoDinamico == hospedePrincipal){
@@ -205,7 +205,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 		btnFinalizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (btnFinalizar.getText().equals("Fazer check-out")){
-					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja encerrar esse contrato?" + System.getProperty("line.separator") + "Após a operação, não será mais possível editar o contrato.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja encerrar esse contrato?" + Main.quebraDeLinha + "Após a operação, não será mais possível editar o contrato.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION){
 						getContrato().fechaContrato();
 						for (Quarto quarto: listaQuartos){
@@ -221,32 +221,12 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 					DateTime checkOut = new DateTime(PainelEditarContrato.this.contrato.getDataCheckOut()).withTimeAtStartOfDay();
 					if (checkIn.compareTo(presente) == 1){
 						JOptionPane.showMessageDialog(null, "A data presente vem antes da data de CheckIn do contrato.");
-//						int escolha = JOptionPane.showOptionDialog(null, "A data presente vem antes da data de CheckIn do contrato.\nAo fazer isso, a data de check-out será recalculada. Deseja realmente fazer a operação de check-in?", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
-//						if (escolha == JOptionPane.YES_OPTION){
-//							PainelEditarContrato.this.contrato.fazCheckIn();
-//							btnFinalizar.setText("Fazer check-out");
-//							for (Quarto quarto: listaQuartos){
-//								if (!(quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo()))){
-//									JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
-//								}else{
-//									quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
-//									quarto.adicionaReserva(PainelEditarContrato.this.contrato);
-//								}
-//							}dispose();
-//						}
 					}else if(checkOut.compareTo(presente) == -1){
 						JOptionPane.showMessageDialog(null, "A data de checkout programada veio antes da data presente.");	
 					}else{
 						PainelEditarContrato.this.contrato.fazCheckIn();
 						btnFinalizar.setText("Fazer check-out");
-						for (Quarto quarto: listaQuartos){
-//							if (!(quarto.isLivreParaReserva(new Reserva(PainelEditarContrato.this.contrato).getIntervalo()))){
-//								JOptionPane.showMessageDialog(null, "O quarto número " + quarto.getNumero() + " não está disponível no período.");
-//							}else{
-//								quarto.setToOcupado(PainelEditarContrato.this.contrato.getNumeroDiarias());
-//								quarto.adicionaReserva(PainelEditarContrato.this.contrato);
-//							}
-						}dispose();
+						dispose();
 					}
 				}
 			}

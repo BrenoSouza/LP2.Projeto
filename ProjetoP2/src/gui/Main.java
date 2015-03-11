@@ -71,6 +71,7 @@ public class Main extends JFrame {
   private ColecaoDeQuartos listaDeQuartos;
   private ColecaoDeEstrategias listaDeEstrategias;
   private final static SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
+  public final static String quebraDeLinha = System.getProperty("line.separator");
   URL url = this.getClass().getResource("/resources/arquivo.data");
   File arquivo = new File(url.toURI());
   private boolean primeiraVezInicializado = !arquivo.isFile() || arquivo.length() == 0;
@@ -104,11 +105,11 @@ public class Main extends JFrame {
           painelLogin.setVisible(true);			
 
         }catch (ReflectiveOperationException e){
-          JOptionPane.showMessageDialog(null, e.getMessage() + "" + System.getProperty("line.separator") + "Contate o operador do sistema.");
+          JOptionPane.showMessageDialog(null, e.getMessage() + "" + Main.quebraDeLinha + "Contate o operador do sistema.");
         }catch (UnsupportedLookAndFeelException e1){
-          JOptionPane.showMessageDialog(null, e1.getMessage() + "" + System.getProperty("line.separator") + "Contate o operador do sistema.");
+          JOptionPane.showMessageDialog(null, e1.getMessage() + "" + Main.quebraDeLinha + "Contate o operador do sistema.");
         }catch (URISyntaxException e2){
-          JOptionPane.showMessageDialog(null, e2.getMessage() + "" + System.getProperty("line.separator") + "Contate o operador do sistema.");
+          JOptionPane.showMessageDialog(null, e2.getMessage() + "" + Main.quebraDeLinha + "Contate o operador do sistema.");
         }
       }
     });
@@ -178,7 +179,7 @@ public class Main extends JFrame {
     JMenuItem mntmDeletarDados = new JMenuItem("Deletar dados");
     mntmDeletarDados.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
-        int escolha = JOptionPane.showOptionDialog(null, "Tem certeza de que deseja deletar todos os dados do hotel?" + System.getProperty("line.separator") + "Essa é uma operação irreversível.", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+        int escolha = JOptionPane.showOptionDialog(null, "Tem certeza de que deseja deletar todos os dados do hotel?" + Main.quebraDeLinha + "Essa é uma operação irreversível.", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
         if (escolha == JOptionPane.YES_OPTION) {
             apagaArquivo();
             dispose();
@@ -384,7 +385,7 @@ public class Main extends JFrame {
           listaDeQuartos = new ColecaoDeQuartos();
           listaDeQuartos.criaQuartos();
         } catch (HeadlessException e1) {
-          JOptionPane.showMessageDialog(null, e1.getMessage() + "" + System.getProperty("line.separator") + "Contate o operador do sistema.");
+          JOptionPane.showMessageDialog(null, e1.getMessage() + "" + Main.quebraDeLinha + "Contate o operador do sistema.");
         }
       }
     }else{ //Primeira vez que o usuário abriu o programa
@@ -410,11 +411,11 @@ public class Main extends JFrame {
       FileOutputStream deletaConteudo = new FileOutputStream(arquivo); //Criando um FileOutputStream que não vai escrever nada, ou seja, o arquivo ficará vazio.
       deletaConteudo.close();
     } catch (URISyntaxException e) {
-      JOptionPane.showMessageDialog(null, e.getMessage() + "" + System.getProperty("line.separator") + "Contate o operador do sistema.");
+      JOptionPane.showMessageDialog(null, e.getMessage() + "" + Main.quebraDeLinha + "Contate o operador do sistema.");
     } catch (FileNotFoundException e){
-      JOptionPane.showMessageDialog(null, e.getMessage() + "" + System.getProperty("line.separator") + "Contate o operador do sistema.");
+      JOptionPane.showMessageDialog(null, e.getMessage() + "" + Main.quebraDeLinha + "Contate o operador do sistema.");
     } catch (IOException e){
-      JOptionPane.showMessageDialog(null, e.getMessage() + "" + System.getProperty("line.separator") + "Contate o operador do sistema.");
+      JOptionPane.showMessageDialog(null, e.getMessage() + "" + Main.quebraDeLinha + "Contate o operador do sistema.");
     }
   }
 

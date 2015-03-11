@@ -257,7 +257,7 @@ public class Contrato implements Serializable{
     String servicosToString = "";
     for(Servico i: listaServicos){
       servicosToString += i.toString();
-      servicosToString += System.getProperty("line.separator");
+      servicosToString += Main.quebraDeLinha;
     }
     return servicosToString;
   }
@@ -269,7 +269,7 @@ public class Contrato implements Serializable{
     String quartosToString = "";
     for(Quarto i: listaQuartosAlugados){
       quartosToString += i.toString();
-      quartosToString += System.getProperty("line.separator");
+      quartosToString += Main.quebraDeLinha;
     }
     return quartosToString;
   }
@@ -343,14 +343,14 @@ public class Contrato implements Serializable{
   @Override
   public String toString() {
     return "--- Relatório ---" + " CheckIn: " + this.getDataCheckInToString() + " | CheckOut: "+ this.getDataCheckOutToString() +
-        System.getProperty("line.separator")  + "Status -> " + this.getStatus() +
-        System.getProperty("line.separator")  + " vvv Serviços vvv" +
+        Main.quebraDeLinha  + "Status -> " + this.getStatus() +
+        Main.quebraDeLinha  + " vvv Serviços vvv" +
         ServicosFinal() +
         "Custo total dos serviços: R$ " + this.CalculaPrecoServicos() +
-        System.getProperty("line.separator")  + " vvv Quartos vvv" + 
+        Main.quebraDeLinha  + " vvv Quartos vvv" + 
         QuartosFinal() +
         "Custo total dos quartos: R$ " + this.CalculaPrecoQuartos() +
-        System.getProperty("line.separator")  + "Custo final do contrato: R$ " + this.calculaPrecoFinal();
+        Main.quebraDeLinha  + "Custo final do contrato: R$ " + this.calculaPrecoFinal();
   }
 
 }

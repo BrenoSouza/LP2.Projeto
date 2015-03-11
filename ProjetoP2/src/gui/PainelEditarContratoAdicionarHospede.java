@@ -63,7 +63,7 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame impleme
 		btnRemoverDoContrato = new JButton("Remover do contrato");
 		btnRemoverDoContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?" + (hospedeSelecionado2 == contratoSelecionado.getHospedePrincipal() ? System.getProperty("line.separator") + "Esse hóspede está configurado como o hóspede principal do contrato selecionado." : ""), /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+				int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse hóspede do contrato?" + (hospedeSelecionado2 == contratoSelecionado.getHospedePrincipal() ? Main.quebraDeLinha + "Esse hóspede está configurado como o hóspede principal do contrato selecionado." : ""), /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 				if (escolha == JOptionPane.YES_OPTION){
 					listaHospedesDoContrato.remove(hospedeSelecionado2);
 					if (hospedeSelecionado2.equals(contratoSelecionado.getHospedePrincipal())){
@@ -82,7 +82,7 @@ public class PainelEditarContratoAdicionarHospede extends JInternalFrame impleme
 		btnAdicionarNoContrato.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (contratoSelecionado.getHospedePrincipal() == null){
-					int escolha = JOptionPane.showOptionDialog(null, "Você deseja marcar esse hóspede como o hóspede principal do contrato? " + System.getProperty("line.separator") + "O hóspede principal do contrato é o que será procurado para questões financeiras.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
+					int escolha = JOptionPane.showOptionDialog(null, "Você deseja marcar esse hóspede como o hóspede principal do contrato? " + Main.quebraDeLinha + "O hóspede principal do contrato é o que será procurado para questões financeiras.", /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
 					if (escolha == JOptionPane.YES_OPTION) {
 						contratoSelecionado.setHospedePrincipal(hospedeSelecionado);
 					}

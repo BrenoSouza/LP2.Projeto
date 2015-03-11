@@ -65,7 +65,7 @@ public class PainelAdicionaEstrategias extends JInternalFrame {
 		textFieldDescricao = new JTextField();
 		textFieldDescricao.setColumns(10);
 		
-		JLabel lblPorcentagem = new JLabel("Porcentagem:\r" + System.getProperty("line.separator"));
+		JLabel lblPorcentagem = new JLabel("Porcentagem:\r" + Main.quebraDeLinha);
 		lblPorcentagem.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		spinnerPorcentagem = new JSpinner();

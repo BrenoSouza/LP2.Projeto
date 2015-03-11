@@ -40,9 +40,9 @@ public class Restaurante extends Servico implements Serializable{
 	@Override
 	public String toString() {
 		return "Serviço --- Restaurante ---" +
-				System.getProperty("line.separator") + "Hora -> " + this.getHoraEntrada() +
-				System.getProperty("line.separator") + "Cobertura? " + (this.getIsCobertura() ? "Sim" : "Não") +
-				System.getProperty("line.separator") + "Custo final: " + this.calculaPrecoTotal();
+				Servico.quebraDeLinha + "Hora -> " + this.getHoraEntrada() +
+				Servico.quebraDeLinha + "Cobertura? " + (this.getIsCobertura() ? "Sim" : "Não") +
+				Servico.quebraDeLinha + "Custo final: " + this.calculaPrecoTotal();
 	}
 	
 	@Override

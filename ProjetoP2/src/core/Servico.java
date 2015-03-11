@@ -12,6 +12,7 @@ public abstract class Servico implements Serializable{
 	 */
 	private static final long serialVersionUID = -1379056791595576269L;
 	private Calendar data;
+	public static final String quebraDeLinha = System.getProperty("line.separator");
 	/**
 	 * Construtor de serviço.
 	 */

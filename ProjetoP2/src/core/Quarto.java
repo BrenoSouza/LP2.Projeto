@@ -129,9 +129,9 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 	@Override
 	public String toString() {
 		return "Serviço --- " + getTipo() + " ---" + 		    
-		    System.getProperty("line.separator") + "Número do quarto -> " + this.getNumero() +
-				System.getProperty("line.separator") + "Número de hóspedes -> " + this.getNumeroHospedes()+
-				System.getProperty("line.separator") + "Preço da diária -> " + this.getPrecoDiaria();
+		    Servico.quebraDeLinha + "Número do quarto -> " + this.getNumero() +
+				Servico.quebraDeLinha + "Número de hóspedes -> " + this.getNumeroHospedes()+
+				Servico.quebraDeLinha + "Preço da diária -> " + this.getPrecoDiaria();
 
 	}
 	/**
