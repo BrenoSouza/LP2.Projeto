@@ -214,38 +214,7 @@ public class PainelRelatorio extends JInternalFrame {
 		btnFaturamento = new JButton("Faturamento");
 		btnFaturamento.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent arg0) {
-		    //Criacao do grafico de barras do panelFaturamento
-		    
-		    //Dados
-		    DefaultCategoryDataset graficoBarrasData = new DefaultCategoryDataset();
-		    graficoBarrasData.setValue(mesTotalFaturamento(0), "Faturamento", "Jan");
-		    graficoBarrasData.setValue(mesTotalFaturamento(1), "Faturamento", "Fev");
-		    graficoBarrasData.setValue(mesTotalFaturamento(2), "Faturamento", "Mar");
-		    graficoBarrasData.setValue(mesTotalFaturamento(3), "Faturamento", "Abr");
-		    graficoBarrasData.setValue(mesTotalFaturamento(4), "Faturamento", "Mai");
-		    graficoBarrasData.setValue(mesTotalFaturamento(5), "Faturamento", "Jun");
-		    graficoBarrasData.setValue(mesTotalFaturamento(6), "Faturamento", "Jul");
-		    graficoBarrasData.setValue(mesTotalFaturamento(7), "Faturamento", "Ago");
-		    graficoBarrasData.setValue(mesTotalFaturamento(8), "Faturamento", "Set");
-		    graficoBarrasData.setValue(mesTotalFaturamento(9), "Faturamento", "Out");
-		    graficoBarrasData.setValue(mesTotalFaturamento(10), "Faturamento", "Nov");
-		    graficoBarrasData.setValue(mesTotalFaturamento(11), "Faturamento", "Dez");
-		    //Objetos
-		    JFreeChart barChart = ChartFactory.createBarChart("Faturamento Mensal", "Mês", "Faturamento", graficoBarrasData, PlotOrientation.VERTICAL, false, true, true);
-		    CategoryPlot barChrt = barChart.getCategoryPlot();
-		    BarRenderer renderer = (BarRenderer) barChrt.getRenderer();
-		    //Cores
-		    barChrt.setRangeGridlinePaint(Color.BLACK);
-		    Color cinzaClaro = new Color(224,224,224);
-		    barChrt.setBackgroundPaint(cinzaClaro);
-		    Color verde = new Color(0,204,0);
-		    renderer.setSeriesPaint(0, verde);
-		    //Painel
-		    ChartPanel panelGrafico = new ChartPanel(barChart);
-		    PanelFaturamento.removeAll();
-		    PanelFaturamento.add(panelGrafico, BorderLayout.CENTER);
-		    PanelFaturamento.validate();
-		    
+		    criaGraficoBar();
 		    layoutPainel.show(panel, "Faturamento");
 		  }
 		});
@@ -961,5 +930,37 @@ public class PainelRelatorio extends JInternalFrame {
       btnFaturamento.setEnabled(true);
       btnFaturamento.setToolTipText("Gráfico de barras com o faturamento do hotel.");
     }
+  }
+	//Criacao do grafico de barras do panelFaturamento
+  private void criaGraficoBar() {
+    //Dados
+    DefaultCategoryDataset graficoBarrasData = new DefaultCategoryDataset();
+    graficoBarrasData.setValue(mesTotalFaturamento(0), "Faturamento", "Jan");
+    graficoBarrasData.setValue(mesTotalFaturamento(1), "Faturamento", "Fev");
+    graficoBarrasData.setValue(mesTotalFaturamento(2), "Faturamento", "Mar");
+    graficoBarrasData.setValue(mesTotalFaturamento(3), "Faturamento", "Abr");
+    graficoBarrasData.setValue(mesTotalFaturamento(4), "Faturamento", "Mai");
+    graficoBarrasData.setValue(mesTotalFaturamento(5), "Faturamento", "Jun");
+    graficoBarrasData.setValue(mesTotalFaturamento(6), "Faturamento", "Jul");
+    graficoBarrasData.setValue(mesTotalFaturamento(7), "Faturamento", "Ago");
+    graficoBarrasData.setValue(mesTotalFaturamento(8), "Faturamento", "Set");
+    graficoBarrasData.setValue(mesTotalFaturamento(9), "Faturamento", "Out");
+    graficoBarrasData.setValue(mesTotalFaturamento(10), "Faturamento", "Nov");
+    graficoBarrasData.setValue(mesTotalFaturamento(11), "Faturamento", "Dez");
+    //Objetos
+    JFreeChart barChart = ChartFactory.createBarChart("Faturamento Mensal", "Mês", "Faturamento", graficoBarrasData, PlotOrientation.VERTICAL, false, true, true);
+    CategoryPlot barChrt = barChart.getCategoryPlot();
+    BarRenderer renderer = (BarRenderer) barChrt.getRenderer();
+    //Cores
+    barChrt.setRangeGridlinePaint(Color.BLACK);
+    Color cinzaClaro = new Color(224,224,224);
+    barChrt.setBackgroundPaint(cinzaClaro);
+    Color verde = new Color(0,204,0);
+    renderer.setSeriesPaint(0, verde);
+    //Painel
+    ChartPanel panelGrafico = new ChartPanel(barChart);
+    PanelFaturamento.removeAll();
+    PanelFaturamento.add(panelGrafico, BorderLayout.CENTER);
+    PanelFaturamento.validate();
   }
 }
