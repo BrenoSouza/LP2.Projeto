@@ -55,7 +55,6 @@ public class PainelUsuarios extends JInternalFrame {
   private JButton buttonCancelaPesquisa;
   private List<Login> colecaoAtiva = new ArrayList<Login>();
  
-
   /**
    * Create the frame.
    */

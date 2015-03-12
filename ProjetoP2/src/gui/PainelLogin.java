@@ -39,6 +39,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
   private JPasswordField passwordField;
   private ColecaoDeLogins colecaoDeContas;
   private Main frame;
+  private boolean cancelar;
 
   public PainelLogin(ColecaoDeLogins colecaoDeContas, Main frame) {
     setIconImage(Toolkit.getDefaultToolkit().getImage(PainelLogin.class.getResource("/resources/hotel39.png")));
@@ -65,6 +66,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
         Login loginAtual = PainelLogin.this.colecaoDeContas.verificaLoginESenha(login, password);
         if(loginAtual != null) {
           Main.setLoginUtilizado(loginAtual);
+          cancelar = false;
           dispose();
         }
         else					
@@ -77,9 +79,8 @@ public class PainelLogin<DesktopPane> extends JDialog {
     btnCancelar.setBounds(260, 294, 129, 39);
     btnCancelar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-
+        cancelar = true;
         dispose();
-
       }
     });
 
@@ -151,8 +152,10 @@ public class PainelLogin<DesktopPane> extends JDialog {
   
   @Override
   public void dispose(){
+    if (cancelar != true){
     getFrame().setVisible(true);
     getFrame().toFront();
+    }
     super.dispose();
   }
 }

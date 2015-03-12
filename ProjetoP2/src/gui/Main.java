@@ -75,14 +75,12 @@ public class Main extends JFrame {
   private static Login loginUtilizado;
   private final static SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
   private final static SimpleDateFormat FORMATO_DATA_SEM_ANO = new SimpleDateFormat("dd/MM");
-
   public final static String quebraDeLinha = System.getProperty("line.separator");
+  
   URL url = this.getClass().getResource("/resources/arquivo.data");
   File arquivo = new File(url.toURI());
   private boolean primeiraVezInicializado = !arquivo.isFile() || arquivo.length() == 0;
   private JMenuItem mntmSalvarDados;
-
-
 
 
   public static void main(String[] args) {
