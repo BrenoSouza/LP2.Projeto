@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JInternalFrame;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout;
@@ -22,6 +20,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class PainelEditarUsuario extends JInternalFrame {
+  
+  private static final long serialVersionUID = 8000132155790033924L;
   private Login loginSelecionado;
   private JPasswordField passwordFieldAtual;
   private JPasswordField passwordFieldNovo;
