@@ -234,7 +234,7 @@ public class Contrato implements Serializable{
         Reserva reservaSelecionada = null;
         for (Reserva reserva: i.getListaReservas()){
           System.out.println(reserva.getContrato());
-          if (reserva != null || equals(reserva.getContrato())){
+          if (equals(reserva.getContrato())){
             reservaSelecionada = reserva;
             break;
           }
