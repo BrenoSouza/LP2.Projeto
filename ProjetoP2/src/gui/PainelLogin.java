@@ -64,7 +64,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
         if(loginAtual != null) {
           Main.setLoginUtilizado(loginAtual);
           cancelar = false;
-          dispose();
+          fechar();
         }
         else					
           JOptionPane.showMessageDialog(null, "Senha ou login incorretos!");
@@ -77,7 +77,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
     btnCancelar.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         cancelar = true;
-        dispose();
+        fechar();
       }
     });
 
@@ -147,12 +147,10 @@ public class PainelLogin<DesktopPane> extends JDialog {
     return frame;
   }
 
-  @Override
-  public void dispose(){
+  public void fechar(){
     if (cancelar != true){
       getFrame().setVisible(true);
       getFrame().toFront();
-    }cancelar = true;
-    super.dispose();
+    }dispose();
   }
 }
