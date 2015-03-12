@@ -30,22 +30,19 @@ import java.awt.Toolkit;
 
 public class PainelLogin<DesktopPane> extends JDialog {
 
-  /**
-   * 
-   */
   private static final long serialVersionUID = -7190192353826010805L;
   private final JPanel contentPanel = new JPanel();
   private JTextField txtUsuario;
   private JPasswordField passwordField;
   private ColecaoDeLogins colecaoDeContas;
   private Main frame;
-  private boolean cancelar;
+  private boolean cancelar = true;
 
   public PainelLogin(ColecaoDeLogins colecaoDeContas, Main frame) {
     setIconImage(Toolkit.getDefaultToolkit().getImage(PainelLogin.class.getResource("/resources/hotel39.png")));
     setTitle("Hotel Riviera - Login");
     setResizable(false);
-    setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+    setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 
     setBounds(100, 100, 520, 402);
