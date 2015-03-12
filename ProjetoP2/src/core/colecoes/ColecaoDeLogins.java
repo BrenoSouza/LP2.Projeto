@@ -49,16 +49,15 @@ public class ColecaoDeLogins implements Serializable{
     return listaContasLogin.remove(ContaLogin);
   }
 
-  public boolean verificaLoginESenha(String login, String senha) {
+  public Login verificaLoginESenha(String login, String senha) {
     for (int i = 0; i < listaContasLogin.size(); i++) {
       if (listaContasLogin.get(i).getLogin().equals(login)) {
         if (listaContasLogin.get(i).getSenha().equals(senha)) {
-          return true;
+          return listaContasLogin.get(i);
         }
-        return false;
       }
     }
-    return false;
+    return null;
   }
 
   public Login pesquisaLoginUsuario(String login) {

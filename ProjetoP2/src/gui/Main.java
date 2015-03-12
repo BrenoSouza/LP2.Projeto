@@ -65,13 +65,14 @@ public class Main extends JFrame {
   private PainelContratos painelContratos;
   private PainelEstrategias painelEstrategias;
   private PainelRelatorio painelRelatorio;
+  private PainelUsuarios painelUsuarios;
   private List<Contrato> listaContratos;
   private ColecaoDeLogins listaDeLogins;
   private ColecaoDeContratos listaDeContratos;
   private ColecaoDeHospedes listaDeHospedes;
   private ColecaoDeQuartos listaDeQuartos;
   private ColecaoDeEstrategias listaDeEstrategias;
-  private PainelUsuarios painelEditaLogin;
+  private static Login loginUtilizado;
   private final static SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
   private final static SimpleDateFormat FORMATO_DATA_SEM_ANO = new SimpleDateFormat("dd/MM");
 
@@ -82,7 +83,7 @@ public class Main extends JFrame {
   private JMenuItem mntmSalvarDados;
 
 
-  
+
 
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
@@ -103,6 +104,14 @@ public class Main extends JFrame {
         }
       }
     });
+  }
+
+  public static void setLoginUtilizado(Login login){
+    loginUtilizado = login;
+  }
+
+  public static Login getLoginUtilizado() {
+    return loginUtilizado;
   }
 
   /**
@@ -178,12 +187,12 @@ public class Main extends JFrame {
       public void actionPerformed(ActionEvent arg0) {
         int escolha = JOptionPane.showOptionDialog(null, "Tem certeza de que deseja deletar todos os dados do hotel?" + Main.quebraDeLinha + "Essa é uma operação irreversível.", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
         if (escolha == JOptionPane.YES_OPTION) {
-            apagaArquivo();
-            dispose();
+          apagaArquivo();
+          dispose();
         }
       }
     });
-    
+
     mntmSalvarDados = new JMenuItem("Salvar dados");
     mntmSalvarDados.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent arg0) {
@@ -326,18 +335,22 @@ public class Main extends JFrame {
     btnRelatrios.setIcon(new ImageIcon(Main.class.getResource("/resources/files.png")));
     btnRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 17));
     toolBar.add(btnRelatrios);
-    
+
     JButton btnLogin = new JButton("Usuários");
     btnLogin.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        if (painelEditaLogin == null || painelEditaLogin.isClosed()){
-        painelEditaLogin = new PainelUsuarios(painelPrincipal, listaDeLogins);
-        painelPrincipal.add(painelEditaLogin);
-        painelEditaLogin.show();
+        if (loginUtilizado.getNome().equals("administrador")){
+          if (painelUsuarios == null || painelUsuarios.isClosed()){
+            painelUsuarios = new PainelUsuarios(painelPrincipal, listaDeLogins);
+            painelPrincipal.add(painelUsuarios);
+            painelUsuarios.show();
+          }else{
+            painelUsuarios.toFront();
+          }
         }else{
-          painelEditaLogin.toFront();
+          JOptionPane.showMessageDialog(null, "Apenas o administrador pode ter acesso a esse painel.");
         }
-        
+
       }
     });
     btnLogin.setIcon(new ImageIcon(Main.class.getResource("/resources/administrator.png")));
@@ -399,10 +412,10 @@ public class Main extends JFrame {
       listaDeQuartos.criaQuartos();
       listaDeLogins.adicionaContaLogin(new Login("administrador", "admin", "12345", "12345", "Senha Padrão!"));
       try{
-      Estrategia saoJoao = new Estrategia("23/06", "25/06", 50.0, Estrategia.ACRESCIMO, "São João");
-      Estrategia natalAnoNovo = new Estrategia("24/12", "02/01", 20.0, Estrategia.ACRESCIMO, "Natal e Ano novo");
-      listaDeEstrategias.adicionaEstrategia(saoJoao);
-      listaDeEstrategias.adicionaEstrategia(natalAnoNovo);
+        Estrategia saoJoao = new Estrategia("23/06", "25/06", 50.0, Estrategia.ACRESCIMO, "São João");
+        Estrategia natalAnoNovo = new Estrategia("24/12", "02/01", 20.0, Estrategia.ACRESCIMO, "Natal e Ano novo");
+        listaDeEstrategias.adicionaEstrategia(saoJoao);
+        listaDeEstrategias.adicionaEstrategia(natalAnoNovo);
       }catch (java.text.ParseException e){
         JOptionPane.showMessageDialog(null, e.getMessage() + Main.quebraDeLinha + "Contate o administrador do sistema");
       }

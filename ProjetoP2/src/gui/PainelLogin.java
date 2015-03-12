@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 
 import core.Login;
 import core.colecoes.ColecaoDeLogins;
+import gui.Main;
 
 import javax.swing.ImageIcon;
 
@@ -60,9 +61,11 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			  String password = new String(passwordField.getPassword());
-
-				if(PainelLogin.this.colecaoDeContas.verificaLoginESenha(txtUsuario.getText(), password)) {
+			  String login = txtUsuario.getText();
+			  Login loginAtual = PainelLogin.this.colecaoDeContas.verificaLoginESenha(login, password);
+				if(loginAtual != null) {
 				    getFrame().setVisible(true);
+				    Main.setLoginUtilizado(loginAtual);
 				dispose();
 				}
 				else					
