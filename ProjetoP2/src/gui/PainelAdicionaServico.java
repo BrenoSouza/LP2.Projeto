@@ -4,9 +4,6 @@ import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
-//import java.awt.event.MouseAdapter;
-//import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.GroupLayout;
@@ -21,15 +18,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-//import javax.swing.JPopupMenu;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
-
-import org.joda.time.DateTime;
-import org.joda.time.Period;
 
 import core.AluguelCarro;
 import core.Babysitter;
@@ -89,15 +82,12 @@ public class PainelAdicionaServico extends JInternalFrame{
 		this.listaDeQuartos = listaDeQuartos.getListaQuartosVagosReserva(contrato);
 		this.servico = servico;
 		this.framePai = framePai;
-		DateTime hoje = new DateTime(Calendar.getInstance()).withTimeAtStartOfDay();
-		DateTime checkOut = new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay();
-		if (new Period(hoje, checkOut).getDays() == 0)
-		diasRestantes = (new Period(hoje, checkOut).getDays() == 0 ? 1 : new Period(hoje, checkOut).getDays());
+		diasRestantes = contrato.getNumeroDiarias();
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);
 		setBounds(100, 100, 800, 400);
-		
+
 		// Codigo dos Botões que alternam o Cardlayout
 		
 		Icon imagemQuarto = new ImageIcon(PainelServicos.class.getResource("/resources/quarto.png"));
