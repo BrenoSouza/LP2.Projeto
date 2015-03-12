@@ -99,23 +99,23 @@ public class PanelCadastrarFuncionario extends JPanel {
 		  public void actionPerformed(ActionEvent e) {
 		    String password = new String(passwordSenha.getPassword());
 		    String passwordConfirm = new String(passwordConfirmSenha.getPassword());
-		    if (verificaSenhasIguais(password, passwordConfirm)) {
-		      Login login = new Login(txtNome.getText(), txtLogin.getText(), password, textField.getText());
-		      PanelCadastrarFuncionario.this.listaDeLogins.adicionaContaLogin(login);
-		      JOptionPane.showMessageDialog(null, "Funcionário Cadastrado!");
-		    }
-		    else {
-		      JOptionPane.showMessageDialog(null, "O usuário não foi cadastrado!");
-		    }
+		    Login login = new Login(txtNome.getText(), txtLogin.getText(), password, passwordConfirm, textField.getText());
+		    PanelCadastrarFuncionario.this.listaDeLogins.adicionaContaLogin(login);
 		    
 		  }
 		});
 		btnCadastrar.setBounds(73, 293, 117, 25);
 		panel.add(btnCadastrar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
+		JButton btnCancelar = new JButton("Limpar");
 		btnCancelar.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent e) {
+		    txtNome.setText("");
+		    passwordSenha.setText("");
+		    passwordConfirmSenha.setText("");
+		    txtLogin.setText("");
+		    textField.setText("");
+
 		  }
 		});
 		btnCancelar.setBounds(261, 293, 117, 25);
@@ -123,12 +123,5 @@ public class PanelCadastrarFuncionario extends JPanel {
 
 		
 	
-	}
-	
-	private boolean verificaSenhasIguais(String senha1, String senha2) {
-	  if (senha1.equals(senha2)) {
-	    return true;
-	  }
-	  return false;
 	}
 }
