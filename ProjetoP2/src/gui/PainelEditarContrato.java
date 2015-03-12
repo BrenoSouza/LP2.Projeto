@@ -139,6 +139,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 					if (escolha == JOptionPane.YES_OPTION){
 						listaHospedes.remove(objetoDinamico);
 						if (objetoDinamico == hospedePrincipal){
+						  listaHospedes.remove(objetoDinamico);
 							getContrato().setHospedePrincipal(null);
 						}
 					}

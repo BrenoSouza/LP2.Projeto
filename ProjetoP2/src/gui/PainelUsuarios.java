@@ -45,7 +45,6 @@ public class PainelUsuarios extends JInternalFrame {
   private PanelCadastrarFuncionario cadastraFuncionario;
   private PainelEditarUsuario PainelEditarUsuario;
   private JPanel panelFuncionariosCadastrados;
-  private JTable table;
   private Login loginSelecionado;
   private JTable tableLogin;
   private JTextField textField;
