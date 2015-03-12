@@ -44,6 +44,16 @@ public class Reserva implements Serializable{
 		intervalo = new Interval(this.dataCheckIn, this.dataCheckOut);
 	}
 	/**
+	 * Construtor de Reserva que não usa a data de CheckIn e CheckOut do contrato, mas já marca o contrato como o da Reserva.
+	 * @param contrato Um contrato
+	 * @param dataCheckIn Um calendar com data de CheckIn
+   * @param dataCheckOut Um calendar com data de CheckOut
+	 */
+	public Reserva(Contrato contrato, Calendar dataCheckIn, Calendar dataCheckOut){
+	  this(dataCheckIn, dataCheckOut);
+	  setContrato(contrato);
+	}
+	/**
 	 * Retorna a data de checkIn da reserva.
 	 * @return A data de checkIn
 	 */
