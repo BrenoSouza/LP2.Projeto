@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -27,8 +28,10 @@ import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
 import core.Contrato;
+import core.Estrategia;
 import core.Hospede;
 import core.Quarto;
+import core.Reserva;
 import core.Servico;
 import core.colecoes.ColecaoDeHospedes;
 
@@ -42,15 +45,14 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	private JScrollPane scrollPaneQuartos;
 	private JTable tabelaQuartos;
 	private JPanel panelHospedes;
-	private DialogoDiarias dialogoDiarias;
 	private int diariasContrato;
-	private JScrollPane scrollHospedesSemContrato;
+	private JScrollPane scrollHospedesSemQuarto;
 	private JScrollPane scrollHospedesNoQuarto;
+	private List<Quarto>listaQuartosDoContrato;
 	private JTable tableSemHospedesQuartos;
 	private JTable tableHospedesNoQuarto;
 	private JButton btnAdicionar;
 	private JButton btnAdicionarHospede;
-	private JButton btnRemoverHospede;
 	private Quarto quartoSelecionado;
 	private List<Quarto> listaQuartosDisponiveis;
 	private Contrato contrato;
@@ -69,7 +71,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		});
 		
 		setClosable(true);
-		setBounds(100, 100, 845, 381);
+		setBounds(100, 100, 845, 447);
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/quartoIcon.png")));
 		setTitle("Adicionar Quartos / Editar Quartos");
 		getContentPane().setLayout(null);
@@ -77,8 +79,10 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.contrato = contrato;
 		this.diasRestantes = diasRestantes;
+		listaQuartosDoContrato = new ArrayList<Quarto>();
+		
 		panelPrincipal = new JPanel();
-		panelPrincipal.setBounds(0, 0, 835, 349);
+		panelPrincipal.setBounds(0, 0, 835, 415);
 		getContentPane().add(panelPrincipal);
 		panelPrincipal.setLayout(null);
 		
@@ -103,11 +107,11 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		tabHospedes.setBounds(0, 0, 811, 119);
 		panelHospedes.add(tabHospedes);
 		
-		scrollHospedesSemContrato = new JScrollPane();
-		tabHospedes.addTab("Hospedes Sem Contrato", null, scrollHospedesSemContrato, null);
+		scrollHospedesSemQuarto = new JScrollPane();
+		tabHospedes.addTab("Hospedes Sem Quarto", null, scrollHospedesSemQuarto, null);
 		
 		tableSemHospedesQuartos = new JTable();
-		scrollHospedesSemContrato.setColumnHeaderView(tableSemHospedesQuartos);
+		scrollHospedesSemQuarto.setColumnHeaderView(tableSemHospedesQuartos);
 		
 		scrollHospedesNoQuarto = new JScrollPane();
 		tabHospedes.addTab("Hospedes No Quarto", null, scrollHospedesNoQuarto, null);
@@ -119,18 +123,18 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			  diariasContrato = PainelAdicionaQuartos.this.diasRestantes;
-				if (diariasContrato == 0) {
-					dialogoDiarias = new DialogoDiarias();
-					dialogoDiarias.setVisible(true);
-					//Como DialogoDiarias é modal, daqui para baixo só será processado quando DialogoDiarias for "disposed"
-					diariasContrato = dialogoDiarias.getDiarias();
-				}
-					PainelAdicionaQuartos.this.contrato.getListaQuartosAlugados().add(quartoSelecionado);
-//					getListaDeQuartos().remove(quartoVagoSelecionado);
-					quartoSelecionado.adicionaReserva(PainelAdicionaQuartos.this.contrato);
-				
-					JOptionPane.showMessageDialog(null, "Quarto Adicionado!");
-					dispose();
+			  Calendar data = Calendar.getInstance();
+			  Calendar dataFinal = Calendar.getInstance();
+			  dataFinal.add(Calendar.DATE, diariasContrato);
+			  
+			  if (quartoSelecionado.isLivreParaReserva(new Reserva(data, dataFinal).getIntervalo())){
+			    listaQuartosDoContrato.add(quartoSelecionado);
+			    PainelAdicionaQuartos.this.listaQuartosDisponiveis.remove(quartoSelecionado);
+			    tabelaQuartos(PainelAdicionaQuartos.this.listaQuartosDisponiveis);
+          JOptionPane.showMessageDialog(null, "Quarto adicionado!");
+        }else{
+          JOptionPane.showMessageDialog(null, "O quarto disponível não está disponível durante o período do contrato.");
+        }
 			}	
 		});
 		
@@ -144,18 +148,8 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 				
 			}
 		});
-		btnAdicionarHospede.setBounds(97, 312, 208, 25);
+		btnAdicionarHospede.setBounds(288, 319, 208, 25);
 		panelPrincipal.add(btnAdicionarHospede);
-		
-		btnRemoverHospede = new JButton("Remover Hóspede");
-		btnRemoverHospede.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				//REMOVER HOSPEDE DO QUARTO
-			}
-		});
-		btnRemoverHospede.setBounds(450, 312, 208, 25);
-		panelPrincipal.add(btnRemoverHospede);
 
 		
 		scrollPaneQuartos.setViewportView(tabelaQuartos);
@@ -193,7 +187,64 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 			}
 		});
 	
-		scrollHospedesSemContrato.setViewportView(tableSemHospedesQuartos);
+		scrollHospedesSemQuarto.setViewportView(tableSemHospedesQuartos);
+		
+		JButton btnFinalizar = new JButton("Finalizar");
+		btnFinalizar.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent e) {
+		    
+		    try{
+         // Contrato contrato;
+          if (PainelAdicionaQuartos.this.contrato.getStatus().equals("RESERVA")){//Se for um contrato do tipo reserva...
+            List<Estrategia> estrategiasAtuais = PainelAdicionaQuartos.this.contrato.getEstrategiasDoContrato();
+            if (estrategiasAtuais.size() > 0){//Se não houver nenhuma estratégia no período referente...
+              for (Quarto quarto: listaQuartosDoContrato){
+                PainelAdicionaQuartos.this.listaQuartosDisponiveis.add(quarto);
+                Reserva reserva = new Reserva(PainelAdicionaQuartos.this.contrato);
+                quarto.adicionaReserva(reserva);
+              }
+            }else{//Se houver estratégia no período referente...
+              for (Quarto quarto: listaQuartosDoContrato){
+                PainelAdicionaQuartos.this.listaQuartosDisponiveis.add(quarto);
+                Reserva reserva = new Reserva(PainelAdicionaQuartos.this.contrato);
+                quarto.adicionaReserva(reserva);
+
+              }
+            }
+          }else{//Se for um contrato do check-in imediato...
+            //List<Estrategia> estrategiasAtuais = PainelAdicionaQuartos.this.contrato.getListaEstrategias();
+            
+            //if (estrategiasAtuais.size() > 0){//Se houver estratégia no período referente...
+              //for (Estrategia estrategiaAtual: estrategiasAtuais){
+                //JOptionPane.showMessageDialog(null, "O contrato está em um período referente a seguinte estratégia:" + Main.quebraDeLinha + estrategiaAtual.toString());
+                //PainelAdicionaQuartos.this..adicionaEstrategiaNoContrato(estrategiaAtual);
+              //q}
+             // for (Quarto quarto: listaQuartosDoContrato){
+             // PainelAdicionaQuartos.this.listaQuartosDisponiveis.add(quarto);
+             // Reserva reserva = new Reserva(PainelAdicionaQuartos.this.contrato);
+             // quarto.adicionaReserva(reserva);
+             // }
+          //  else{//Se não houverem estratégias no período referente...
+              for (Quarto quarto: listaQuartosDoContrato){
+                Reserva reserva = new Reserva(PainelAdicionaQuartos.this.contrato);
+                quarto.adicionaReserva(reserva);
+                PainelAdicionaQuartos.this.listaQuartosDisponiveis.add(quarto);
+                System.out.println("adicionou!");
+              }
+          }
+		    }
+
+		    catch (core.ParametrosInvalidosException e1){
+          JOptionPane.showMessageDialog(null, e1.getMessage());
+        }
+		    JOptionPane.showMessageDialog(null, "Finalizado!");
+        dispose();
+		  }
+		});
+		
+		
+		btnFinalizar.setBounds(656, 365, 117, 25);
+		panelPrincipal.add(btnFinalizar);
 		ListSelectionModel modeloSelecaoLinhaSemHospedes = tabelaQuartos.getSelectionModel();
 		
 		modeloSelecaoLinhaSemHospedes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -255,7 +306,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	}
 	
 	public void tabelaQuartos(List<Quarto> listaQuartos) {
-		
+	  Collections.sort(listaQuartos);
 		Object[][] designTabela = new Object[listaQuartos.size()][4];
 		
 		if (listaQuartos.size() > 0){

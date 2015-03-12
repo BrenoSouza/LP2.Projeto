@@ -73,7 +73,6 @@ public class PainelAdicionaServico extends JInternalFrame{
 	private JTextField textField_horaSaida;
 	private JTextField textField_quantidadeHorasBaby;
 	private JPanel panelEditaQuarto_1;
-	private JSpinner spinnerAddDiariasCarro;
 	private JCheckBox checkBoxEdtCama;
 	private int diasRestantes;
 	private PainelAdicionaQuartos painelAddQuarto;
@@ -212,28 +211,14 @@ public class PainelAdicionaServico extends JInternalFrame{
 		
 		panelEditaCarro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelExterno.add(panelEditaCarro, "edita_carro");
-		
-		JLabel lblAcrescentarDirias = new JLabel("Acrescentar Diárias:");
-		
-		spinnerAddDiariasCarro = new JSpinner();
 		GroupLayout gl_panelEditaCarro = new GroupLayout(panelEditaCarro);
 		gl_panelEditaCarro.setHorizontalGroup(
-			gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaCarro.createSequentialGroup()
-					.addGap(37)
-					.addComponent(lblAcrescentarDirias)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(spinnerAddDiariasCarro, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(511, Short.MAX_VALUE))
+		  gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
+		    .addGap(0, 763, Short.MAX_VALUE)
 		);
 		gl_panelEditaCarro.setVerticalGroup(
-			gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaCarro.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panelEditaCarro.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAcrescentarDirias)
-						.addComponent(spinnerAddDiariasCarro, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(129, Short.MAX_VALUE))
+		  gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
+		    .addGap(0, 163, Short.MAX_VALUE)
 		);
 		panelEditaCarro.setLayout(gl_panelEditaCarro);
 		
@@ -579,8 +564,8 @@ public class PainelAdicionaServico extends JInternalFrame{
 			    	}
 			    	else if(comp == panelEditaCarro) {
 			    		AluguelCarro carro = (AluguelCarro) PainelAdicionaServico.this.servico;
-			    		int diarias = (Integer) spinnerAddDiariasCarro.getValue();
-			    		carro.setDiarias(diarias);
+			    		if (true)//contrato.getDataCheckOut() {
+			    		carro.setDiarias(carro.getDiarias() + 1);
 			    		dispose();
 			    		break;
 			    	}
