@@ -9,7 +9,6 @@ public class Login implements Serializable{
 	private static final long serialVersionUID = -1716949112678460565L;
 	private String nome;
 	private String senha;
-	private String confirmaSenha;
 	private String login;
 	private String dica;
 	
@@ -29,13 +28,15 @@ public class Login implements Serializable{
 	public Login(String nome, String login, String senha, String confirmaSenha, String dica) throws ParametrosInvalidosException {
 		
 	  if (nome.equals("") || nome == null || login == null || login.equals("") || senha == null || senha.equals("") ||
-	      confirmaSenha == null || confirmaSenha.equals("") || dica == null || dica.equals("") || verificaSenha(senha, confirmaSenha)) {
+	      confirmaSenha == null || confirmaSenha.equals("") || dica == null || dica.equals("")) {
       throw new ParametrosInvalidosException ("Dados inválidos. Tente novamente.");
+	  } 
+	  if (!(verificaSenha(senha, confirmaSenha))) {
+	    throw new ParametrosInvalidosException ("As senhas não conferem! Digite novamente!");
 	  }
 	  
 		this.nome = nome;
 		this.senha = senha;
-		this.confirmaSenha = confirmaSenha;
 		this.login = login;
 		this.dica = dica;
 		
