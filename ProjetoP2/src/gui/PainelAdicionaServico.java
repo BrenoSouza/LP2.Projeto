@@ -38,6 +38,7 @@ import core.Quarto;
 import core.Restaurante;
 import core.Servico;
 import core.colecoes.ColecaoDeHospedes;
+import core.colecoes.ColecaoDeQuartos;
 
 public class PainelAdicionaServico extends JInternalFrame{
 
@@ -81,11 +82,11 @@ public class PainelAdicionaServico extends JInternalFrame{
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public PainelAdicionaServico(Servico servico, Contrato contrato, JDesktopPane painelPrincipal, List<Quarto> listaDeQuartos, ColecaoDeHospedes listaHospedes, Atualizador framePai) {
+	public PainelAdicionaServico(Servico servico, Contrato contrato, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes, Atualizador framePai) {
 		this.contrato = contrato;
 		this.painelPrincipal = painelPrincipal;
 		this.listaHospedes = listaHospedes;
-		this.listaDeQuartos = listaDeQuartos;
+		this.listaDeQuartos = listaDeQuartos.getListaQuartosVagosReserva(contrato);
 		this.servico = servico;
 		this.framePai = framePai;
 		DateTime hoje = new DateTime(Calendar.getInstance()).withTimeAtStartOfDay();

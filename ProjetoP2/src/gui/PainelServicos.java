@@ -44,7 +44,7 @@ public class PainelServicos extends JInternalFrame implements Atualizador {
 	private Servico servicoSelecionado = null ;
 	private List<Contrato> listaContratos;
 	private ColecaoDeHospedes listaHospedes;
-	private List<Quarto> listaDeQuartos;
+	private ColecaoDeQuartos listaDeQuartos;
 	private JDesktopPane painelPrincipal;
 	private PainelVisualizacaoServico painelVisualizacao;
 	private JButton btnAdicionar;
@@ -66,7 +66,7 @@ public class PainelServicos extends JInternalFrame implements Atualizador {
 		});		
 		this.listaHospedes = listaHospedes;
 		this.painelPrincipal = painelPrincipal;
-		this.listaDeQuartos = listaDeQuartos.getListaQuartos(); // ve isso
+		this.listaDeQuartos = listaDeQuartos; // ve isso
 	
 		this.listaContratos = listaContratos;		
 		
@@ -118,7 +118,7 @@ public class PainelServicos extends JInternalFrame implements Atualizador {
 				//	((Quarto) servicoSelecionado).setToLivre();
 				//	PainelServicos.this.listaDeQuartos.getListaQuartosVagos().add((Quarto) servicoSelecionado);
 					servicoSelecionado = (Quarto) servicoSelecionado;
-					PainelServicos.this.listaDeQuartos.add((Quarto)servicoSelecionado);
+					PainelServicos.this.listaDeQuartos.getListaQuartos().add((Quarto)servicoSelecionado);
 					contratoSelecionado.getListaQuartosAlugados().remove((Quarto)servicoSelecionado);
 
 				}

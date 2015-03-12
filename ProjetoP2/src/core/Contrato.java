@@ -288,6 +288,9 @@ public class Contrato implements Serializable{
     }
     return quartosToString;
   }
+  public void adicionaQuarto(Quarto quarto) {
+    listaQuartosAlugados.add(quarto);
+  }
   /**
    * Faz com que determinados hospedes estejam ligados ao contrato.
    * @param hospedes Uma List<Hospedes> com os hospedes a serem ligados ao contrato

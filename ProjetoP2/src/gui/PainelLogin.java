@@ -38,6 +38,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
 	private final JLabel background = new JLabel("");
 
 	public PainelLogin(ColecaoDeLogins colecaoDeContas, Main frame) {
+	  setTitle("Hotel Riviera - Login");
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);

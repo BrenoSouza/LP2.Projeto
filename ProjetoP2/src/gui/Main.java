@@ -47,6 +47,7 @@ import javax.swing.border.LineBorder;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import core.Contrato;
+import core.Estrategia;
 import core.Login;
 import core.colecoes.ColecaoDeContratos;
 import core.colecoes.ColecaoDeEstrategias;
@@ -72,6 +73,8 @@ public class Main extends JFrame {
   private ColecaoDeEstrategias listaDeEstrategias;
   private PainelEditaLogin painelEditaLogin;
   private final static SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
+  private final static SimpleDateFormat FORMATO_DATA_SEM_ANO = new SimpleDateFormat("dd/MM");
+
   public final static String quebraDeLinha = System.getProperty("line.separator");
   URL url = this.getClass().getResource("/resources/arquivo.data");
   File arquivo = new File(url.toURI());
@@ -79,21 +82,7 @@ public class Main extends JFrame {
   private JMenuItem mntmSalvarDados;
 
 
-  public static SimpleDateFormat getFormatodata() {
-    return FORMATO_DATA;
-  }
-
-  public ColecaoDeHospedes getListaDeHospedes() {
-    return listaDeHospedes;
-  }
-
-  public ColecaoDeQuartos getListaDeQuartos() {
-    return listaDeQuartos;
-  }
-
-  public ColecaoDeLogins getListaDeLogins() {
-    return listaDeLogins;
-  }
+  
 
   public static void main(String[] args) {
     EventQueue.invokeLater(new Runnable() {
@@ -129,6 +118,13 @@ public class Main extends JFrame {
     Calendar dataDeRetorno = Calendar.getInstance();
     dataDeRetorno.set(Calendar.HOUR_OF_DAY, 0);
     dataDeRetorno.setTime(FORMATO_DATA.parse(data));
+    return dataDeRetorno;
+
+  }
+  public static Calendar converteParaCalendarSemAno(String data) throws java.text.ParseException{
+    Calendar dataDeRetorno = Calendar.getInstance();
+    dataDeRetorno.set(Calendar.HOUR_OF_DAY, 0);
+    dataDeRetorno.setTime(FORMATO_DATA_SEM_ANO.parse(data));
     return dataDeRetorno;
 
   }
@@ -402,6 +398,14 @@ public class Main extends JFrame {
       listaDeQuartos = new ColecaoDeQuartos();
       listaDeQuartos.criaQuartos();
       listaDeLogins.adicionaContaLogin(new Login("administrador", "admin", "12345", "12345", "Senha Padrão!"));
+      try{
+      Estrategia saoJoao = new Estrategia("23/06", "25/06", 50.0, Estrategia.ACRESCIMO, "São João");
+      Estrategia natalAnoNovo = new Estrategia("24/12", "02/01", 20.0, Estrategia.ACRESCIMO, "Natal e Ano novo");
+      listaDeEstrategias.adicionaEstrategia(saoJoao);
+      listaDeEstrategias.adicionaEstrategia(natalAnoNovo);
+      }catch (java.text.ParseException e){
+        JOptionPane.showMessageDialog(null, e.getMessage() + Main.quebraDeLinha + "Contate o administrador do sistema");
+      }
     }
   }
   /**
@@ -453,5 +457,20 @@ public class Main extends JFrame {
       JOptionPane.showMessageDialog(null, "Ocorreu um erro no processo de salvar os dados e eles foram perdidos.");
       apagaArquivo();      
     }
+  }
+  public static SimpleDateFormat getFormatodata() {
+    return FORMATO_DATA;
+  }
+
+  public ColecaoDeHospedes getListaDeHospedes() {
+    return listaDeHospedes;
+  }
+
+  public ColecaoDeQuartos getListaDeQuartos() {
+    return listaDeQuartos;
+  }
+
+  public ColecaoDeLogins getListaDeLogins() {
+    return listaDeLogins;
   }
 }

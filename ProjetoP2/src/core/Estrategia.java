@@ -102,7 +102,7 @@ public class Estrategia implements Comparable<Estrategia>, Serializable{
 	 * Se o modificador não estiver em formato correto.
 	 */
 	public Estrategia(String dataInicio, String dataFinal, double modificador, TipoDeEstrategia tipoDeEstrategia, String descricao) throws ParametrosInvalidosException, ParseException{
-		this(Main.converteParaCalendar(dataInicio), Main.converteParaCalendar(dataFinal), modificador, tipoDeEstrategia, descricao);
+		this(Main.converteParaCalendarSemAno(dataInicio), Main.converteParaCalendarSemAno(dataFinal), modificador, tipoDeEstrategia, descricao);
 	}
 	/**
 	 * Getter do inicio do periodo dado pela estratégia.

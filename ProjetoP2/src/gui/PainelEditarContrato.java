@@ -64,7 +64,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 	private double precoTotal;
 	private JLabel lblPrecoTotal;
 	private JButton btnFinalizar;
-	private List<Quarto> listaQuartosHotel;
+	private ColecaoDeQuartos listaQuartosHotel;
 	private final static int SELECAO_HOSPEDE = 1;
 	private final static int SELECAO_SERVICO = 2;
 	private final static int SELECAO_QUARTO = 3;
@@ -94,7 +94,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 		listaServicos = contrato.getListaServicos();
 		this.framePai = framePai;
 		this.listaHospedesHotel = listaHospedesHotel;
-		this.listaQuartosHotel = listaQuartosHotelColecao.getListaQuartos();
+		this.listaQuartosHotel = listaQuartosHotelColecao;
 		lblHospedes = new JLabel("Hóspedes:");
 		lblHospedes.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		scrollPane = new JScrollPane();
@@ -237,7 +237,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
 							quarto.retiraReserva(PainelEditarContrato.this.contrato);
 							quarto.setCamaExtra(false);
 						}
-						Collections.sort(PainelEditarContrato.this.listaQuartosHotel);
+						Collections.sort(PainelEditarContrato.this.listaQuartosHotel.getListaQuartos());
 						dispose();
 					}
 				}else{

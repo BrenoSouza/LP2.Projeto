@@ -125,7 +125,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 			  diariasContrato = PainelAdicionaQuartos.this.diasRestantes;
 			  Calendar data = Calendar.getInstance();
 			  Calendar dataFinal = Calendar.getInstance();
-			  dataFinal.add(Calendar.DATE, diariasContrato);
+			  dataFinal.add(Calendar.DAY_OF_YEAR, diariasContrato);
 			  
 			  if (quartoSelecionado.isLivreParaReserva(new Reserva(data, dataFinal).getIntervalo())){
 			    listaQuartosDoContrato.add(quartoSelecionado);
@@ -202,12 +202,14 @@ public class PainelAdicionaQuartos extends JInternalFrame {
                 PainelAdicionaQuartos.this.listaQuartosDisponiveis.add(quarto);
                 Reserva reserva = new Reserva(PainelAdicionaQuartos.this.contrato);
                 quarto.adicionaReserva(reserva);
+                PainelAdicionaQuartos.this.contrato.adicionaQuarto(quarto);
               }
             }else{//Se houver estratégia no período referente...
               for (Quarto quarto: listaQuartosDoContrato){
                 PainelAdicionaQuartos.this.listaQuartosDisponiveis.add(quarto);
                 Reserva reserva = new Reserva(PainelAdicionaQuartos.this.contrato);
                 quarto.adicionaReserva(reserva);
+                PainelAdicionaQuartos.this.contrato.adicionaQuarto(quarto);
 
               }
             }
