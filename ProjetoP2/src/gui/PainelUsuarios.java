@@ -21,6 +21,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import core.Hospede;
 import core.Login;
 import core.colecoes.ColecaoDeLogins;
 
@@ -32,6 +33,8 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class PainelUsuarios extends JInternalFrame {
@@ -49,14 +52,18 @@ public class PainelUsuarios extends JInternalFrame {
   private JTable tableLogin;
   private JTextField textField;
   private JButton btnEditar;
-
+  private JButton buttonPesquisa;
+  private JButton buttonCancelaPesquisa;
+  private List<Login> colecaoAtiva = new ArrayList<Login>();
+ 
 
   /**
    * Create the frame.
    */
   public PainelUsuarios(JDesktopPane painelPrincipal, ColecaoDeLogins listaDeLogins) {
-    this.listaDeLogins = listaDeLogins;
+    this.colecaoAtiva = listaDeLogins.getListaContasLogin();
     this.painelPrincipal = painelPrincipal;
+    this.listaDeLogins = listaDeLogins;
     setClosable(true);
 
     cadastraFuncionario = new PanelCadastrarFuncionario(PainelUsuarios.this.listaDeLogins);
@@ -124,12 +131,42 @@ public class PainelUsuarios extends JInternalFrame {
     JLabel lblTodosOsUsurios = new JLabel("Usuários");
     lblTodosOsUsurios.setFont(new Font("Tahoma", Font.PLAIN, 13));
 
-    JButton buttonPesquisa = new JButton("");
+    buttonPesquisa = new JButton("");
+    buttonPesquisa.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        if (!(textField.getText().isEmpty())) {
+          List<Login> loginsPesquisados = new ArrayList<Login>();
+          for (Login l: colecaoAtiva){
+            if (l.getNome().toLowerCase().contains(textField.getText().toLowerCase())){
+              loginsPesquisados.add(l);
+            }
+          }
+          colecaoAtiva = loginsPesquisados;
+          if (loginsPesquisados.size() == 0){
+            JOptionPane.showMessageDialog(null, "Sem resultados.");
+            desenhaTabela();
+          }else{
+            JOptionPane.showMessageDialog(null, (loginsPesquisados.size() >= 2) ? loginsPesquisados.size() + " usuários encontrados." : loginsPesquisados.size() + " usuário encontrado.");
+            desenhaTabela();
+          }
+          buttonCancelaPesquisa.setEnabled(true);
+        }
+      }
+    });
     buttonPesquisa.setIcon(new ImageIcon(PainelUsuarios.class.getResource("/resources/search.png")));
 
-    JButton buttonCancelaPesquisa = new JButton("");
-    buttonCancelaPesquisa.setToolTipText("Cancelar pesquisa( A tabela volta a ter todos os usuários.");
-    buttonCancelaPesquisa.setIcon(new ImageIcon(PainelUsuarios.class.getResource("/resources/cross.png")));
+    buttonCancelaPesquisa = new JButton("");
+    buttonCancelaPesquisa.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        textField.setText("");
+        colecaoAtiva = PainelUsuarios.this.listaDeLogins.getListaContasLogin();
+        desenhaTabela();
+        buttonCancelaPesquisa.setEnabled(false);
+      }
+    });
+    buttonCancelaPesquisa.setEnabled(false);
+    buttonCancelaPesquisa.setToolTipText("Cancelar pesquisa( A tabela volta a ter todos os usuários).");
+    buttonCancelaPesquisa.setIcon(new ImageIcon(PainelClientes.class.getResource("/resources/cross.png")));
     GroupLayout gl_panelFuncionariosCadastrados = new GroupLayout(panelFuncionariosCadastrados);
     gl_panelFuncionariosCadastrados.setHorizontalGroup(
         gl_panelFuncionariosCadastrados.createParallelGroup(Alignment.TRAILING)
@@ -225,20 +262,14 @@ public class PainelUsuarios extends JInternalFrame {
 
   private void desenhaTabela() {
 
-    Object [][] designTabela;
-    if(listaDeLogins.getTamanhoListaLogin() == 0) {
-      designTabela = new Object[0][2];
-    }
-    else {
-      int tamanhoTabela = listaDeLogins.getTamanhoListaLogin();
-      designTabela = new Object[tamanhoTabela][2];
+    Object[][] designTabela = new Object[colecaoAtiva.size()][5];
 
-      for (int i = 0; i < tamanhoTabela; i++) {
-        Login loginAtual = listaDeLogins.getListaContasLogin().get(i);
-        designTabela[i][0] = loginAtual.getNome();
-        designTabela[i][1] = loginAtual.getLogin();
-      }
+    for (int i = 0; i < colecaoAtiva.size(); i++) {
+      Login loginAtual = colecaoAtiva.get(i);
+      designTabela[i][0] = loginAtual.getNome();
+      designTabela[i][1] = loginAtual.getLogin();
     }
+
 
     @SuppressWarnings("serial")
     DefaultTableModel modeloTabela = new DefaultTableModel(designTabela, new String[] {
