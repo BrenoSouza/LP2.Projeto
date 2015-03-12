@@ -36,7 +36,7 @@ public class PainelLogin<DesktopPane> extends JDialog {
   private JPasswordField passwordField;
   private ColecaoDeLogins colecaoDeContas;
   private Main frame;
-  private boolean cancelar = true;
+  private boolean cancelar;
 
   public PainelLogin(ColecaoDeLogins colecaoDeContas, Main frame) {
     setIconImage(Toolkit.getDefaultToolkit().getImage(PainelLogin.class.getResource("/resources/hotel39.png")));
@@ -146,13 +146,13 @@ public class PainelLogin<DesktopPane> extends JDialog {
   private Main getFrame() {
     return frame;
   }
-  
+
   @Override
   public void dispose(){
     if (cancelar != true){
-    getFrame().setVisible(true);
-    getFrame().toFront();
-    }
+      getFrame().setVisible(true);
+      getFrame().toFront();
+    }cancelar = true;
     super.dispose();
   }
 }

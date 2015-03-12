@@ -483,4 +483,5 @@ public class Main extends JFrame {
   public ColecaoDeLogins getListaDeLogins() {
     return listaDeLogins;
   }
+  
 }
