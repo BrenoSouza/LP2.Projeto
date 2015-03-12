@@ -63,7 +63,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
   private Hospede hospedeSelecionado;
   private boolean operacaoFinalizada;
 
-  public PainelAdicionaQuartos(Servico quarto, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, Contrato contrato, JDesktopPane painelPrincipal, int diasRestantes) {
+  public PainelAdicionaQuartos(Servico quarto, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, Contrato contrato, JDesktopPane painelPrincipal) {
     addInternalFrameListener(new InternalFrameAdapter() {
       @Override	
       public void internalFrameActivated(InternalFrameEvent e) {

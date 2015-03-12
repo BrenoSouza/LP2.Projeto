@@ -233,7 +233,8 @@ public class Contrato implements Serializable{
       for (Quarto i: listaQuartosAlugados){
         Reserva reservaSelecionada = null;
         for (Reserva reserva: i.getListaReservas()){
-          if (equals(reserva.getContrato())){
+          System.out.println(reserva.getContrato());
+          if (reserva != null || equals(reserva.getContrato())){
             reservaSelecionada = reserva;
             break;
           }
@@ -347,7 +348,7 @@ public class Contrato implements Serializable{
     if (getDiasDeAtraso() <= 0){
       return 0.0;
     }
-    return (CalculaPrecoQuartos() * 0.3) * getDiasDeAtraso(); //Em nenhum lugar da especificação do projeto dizia o valor da multa, então estipulei 30% do preço total dos quartos a cada dia fora do checkOut.
+    return Math.abs((CalculaPrecoQuartos() * 0.3) * getDiasDeAtraso()); //Em nenhum lugar da especificação do projeto dizia o valor da multa, então estipulei 30% do preço total dos quartos a cada dia fora do checkOut.
   }
 
   @Override

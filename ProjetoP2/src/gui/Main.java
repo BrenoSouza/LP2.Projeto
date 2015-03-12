@@ -89,6 +89,7 @@ public class Main extends JFrame {
         try {
           UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
           Main frame = new Main();
+          frame.inicializacao();
           PainelLogin<Object> painelLogin = new PainelLogin<Object>(frame.getListaDeLogins(), frame);
           painelLogin.toFront();
           painelLogin.setVisible(true);			
@@ -159,8 +160,6 @@ public class Main extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBounds(0, 0, 1366, 700);
     toFront();
-
-    inicializacao();
 
     //MenuBar com opções para fechar janelas abertas e informações sobre o projeto
     JMenuBar menuBar = new JMenuBar();

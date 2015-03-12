@@ -82,7 +82,7 @@ public class PainelAdicionaServico extends JInternalFrame{
 		this.listaDeQuartos = listaDeQuartos.getListaQuartosVagosReserva(contrato);
 		this.servico = servico;
 		this.framePai = framePai;
-		diasRestantes = contrato.getNumeroDiarias();
+//		diasRestantes = contrato.getNumeroDiarias();
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);
@@ -513,7 +513,7 @@ public class PainelAdicionaServico extends JInternalFrame{
 			    		break;
 			    	}
 			    	else if(comp == panelQuartos) {
-			    		painelAddQuarto = new PainelAdicionaQuartos(null, PainelAdicionaServico.this.listaHospedes, PainelAdicionaServico.this.listaDeQuartos, PainelAdicionaServico.this.contrato, getPainelPrincipal(), PainelAdicionaServico.this.diasRestantes);				    			
+			    		painelAddQuarto = new PainelAdicionaQuartos(null, PainelAdicionaServico.this.listaHospedes, PainelAdicionaServico.this.listaDeQuartos, PainelAdicionaServico.this.contrato, getPainelPrincipal());				    			
 			    		adicionaNoPainel(painelAddQuarto);
 			    		painelAddQuarto.show();
 			    		dispose();
