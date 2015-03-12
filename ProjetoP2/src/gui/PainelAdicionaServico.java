@@ -77,6 +77,7 @@ public class PainelAdicionaServico extends JInternalFrame{
 	private int diasRestantes;
 	private PainelAdicionaQuartos painelAddQuarto;
 	private Atualizador framePai;
+	private JSpinner spinner;
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -211,14 +212,28 @@ public class PainelAdicionaServico extends JInternalFrame{
 		
 		panelEditaCarro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panelExterno.add(panelEditaCarro, "edita_carro");
+		
+		JLabel lblDiarias = new JLabel("Diarias");
+		
+		spinner = new JSpinner();
 		GroupLayout gl_panelEditaCarro = new GroupLayout(panelEditaCarro);
 		gl_panelEditaCarro.setHorizontalGroup(
 		  gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
-		    .addGap(0, 763, Short.MAX_VALUE)
+		    .addGroup(gl_panelEditaCarro.createSequentialGroup()
+		      .addGap(37)
+		      .addComponent(lblDiarias)
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addComponent(spinner, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+		      .addContainerGap(624, Short.MAX_VALUE))
 		);
 		gl_panelEditaCarro.setVerticalGroup(
 		  gl_panelEditaCarro.createParallelGroup(Alignment.LEADING)
-		    .addGap(0, 163, Short.MAX_VALUE)
+		    .addGroup(gl_panelEditaCarro.createSequentialGroup()
+		      .addContainerGap()
+		      .addGroup(gl_panelEditaCarro.createParallelGroup(Alignment.BASELINE)
+		        .addComponent(lblDiarias)
+		        .addComponent(spinner, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+		      .addContainerGap(136, Short.MAX_VALUE))
 		);
 		panelEditaCarro.setLayout(gl_panelEditaCarro);
 		
@@ -566,6 +581,8 @@ public class PainelAdicionaServico extends JInternalFrame{
 			    		AluguelCarro carro = (AluguelCarro) PainelAdicionaServico.this.servico;
 			    		if (true)//contrato.getDataCheckOut() {
 			    		carro.setDiarias(carro.getDiarias() + 1);
+			    		int diarias = (Integer) PainelAdicionaServico.this.spinner.getValue();
+			    		carro.setDiarias(diarias);
 			    		dispose();
 			    		break;
 			    	}
