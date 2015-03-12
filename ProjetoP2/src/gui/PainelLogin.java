@@ -23,6 +23,7 @@ import java.awt.Color;
 
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
+import java.awt.Toolkit;
 
 public class PainelLogin<DesktopPane> extends JDialog {
 
@@ -35,9 +36,9 @@ public class PainelLogin<DesktopPane> extends JDialog {
 	private JPasswordField passwordField;
 	private ColecaoDeLogins colecaoDeContas;
 	private Main frame;
-	private final JLabel background = new JLabel("");
 
 	public PainelLogin(ColecaoDeLogins colecaoDeContas, Main frame) {
+	  setIconImage(Toolkit.getDefaultToolkit().getImage(PainelLogin.class.getResource("/resources/hotel39.png")));
 	  setTitle("Hotel Riviera - Login");
 		setResizable(false);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -117,9 +118,16 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		contentPanel.add(btnEsqueceuSuaSenha);
 		contentPanel.add(btnEntrar);
 		contentPanel.add(btnCancelar);
-		background.setIcon(new ImageIcon(PainelLogin.class.getResource("/resources/background.jpg")));
-		background.setBounds(0, 0, 520, 374);
-		contentPanel.add(background);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(PainelLogin.class.getResource("/resources/hotel39.png")));
+		lblNewLabel.setBounds(228, 30, 44, 67);
+		contentPanel.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(PainelLogin.class.getResource("/resources/background.jpg")));
+		lblNewLabel_1.setBounds(0, 0, 514, 373);
+		contentPanel.add(lblNewLabel_1);
 	}
 
 	

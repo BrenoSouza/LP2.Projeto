@@ -26,6 +26,7 @@ import core.colecoes.ColecaoDeLogins;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.ImageIcon;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class PainelEditaLogin extends JInternalFrame {
@@ -38,10 +39,9 @@ public class PainelEditaLogin extends JInternalFrame {
   private PanelEditarLogin editaLogin = new PanelEditarLogin();
   private PanelCadastrarFuncionario cadastraFuncionario;
   private JPanel panelFuncionariosCadastrados;
-  private JPanel panel;
-  private JScrollPane scrollPane;
-  private JTable tableLogins;
+  private JTable table;
   private Login loginSelecionado;
+  private JTable tableLogin;
   
   
   /**
@@ -55,7 +55,7 @@ public class PainelEditaLogin extends JInternalFrame {
     cadastraFuncionario.setSize(new Dimension(500, 330));
     editaLogin.setSize(new Dimension(470, 320));
     setBounds(100, 100, 714, 467);
-    panelExterno.setBounds(231, 69, 447, 338);
+    panelExterno.setBounds(23, 69, 655, 338);
     panelExterno.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
     panelExterno.setLayout(layout);
     panelExterno.add(editaLogin, "editaLogin");
@@ -64,7 +64,7 @@ public class PainelEditaLogin extends JInternalFrame {
         
     JButton btnEditarDados = new JButton("Editar Dados");
     btnEditarDados.setIcon(new ImageIcon(PainelEditaLogin.class.getResource("/resources/editardados.png")));
-    btnEditarDados.setBounds(32, 98, 161, 34);
+    btnEditarDados.setBounds(429, 11, 161, 34);
     btnEditarDados.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         
@@ -75,7 +75,7 @@ public class PainelEditaLogin extends JInternalFrame {
     
     btnCadastrarFuncionrio = new JButton("Cadastrar");
     btnCadastrarFuncionrio.setIcon(new ImageIcon(PainelEditaLogin.class.getResource("/resources/cadastrar.png")));
-    btnCadastrarFuncionrio.setBounds(32, 209, 161, 34);
+    btnCadastrarFuncionrio.setBounds(23, 11, 161, 34);
     btnCadastrarFuncionrio.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         layout.show(panelExterno, "cadastrarLogin");
@@ -85,23 +85,6 @@ public class PainelEditaLogin extends JInternalFrame {
     
     panelFuncionariosCadastrados = new JPanel();
     panelExterno.add(panelFuncionariosCadastrados, "cadastrados");
-    panelFuncionariosCadastrados.setLayout(null);
-    
-    panel = new JPanel();
-    panel.setBounds(36, 59, 383, 181);
-    panelFuncionariosCadastrados.add(panel);
-    panel.setLayout(null);
-    
-    scrollPane = new JScrollPane();
-    scrollPane.setBounds(0, 0, 385, 181);
-    panel.add(scrollPane);
-    
-    tableLogins = new JTable();
-    scrollPane.setColumnHeaderView(tableLogins);
-    
-    //Configurações da Tabela
-    
-    scrollPane.setViewportView(tableLogins);
     
     JButton btnRemover = new JButton("Remover");
     btnRemover.addActionListener(new ActionListener() {
@@ -123,19 +106,49 @@ public class PainelEditaLogin extends JInternalFrame {
       }
 
     });
-    btnRemover.setBounds(201, 263, 117, 25);
-    panelFuncionariosCadastrados.add(btnRemover);
-    ListSelectionModel modeloSelecaoLinha = tableLogins.getSelectionModel();
     
+    JScrollPane scrollPane = new JScrollPane();
+    
+    JButton btnEditar = new JButton("Editar");
+    GroupLayout gl_panelFuncionariosCadastrados = new GroupLayout(panelFuncionariosCadastrados);
+    gl_panelFuncionariosCadastrados.setHorizontalGroup(
+      gl_panelFuncionariosCadastrados.createParallelGroup(Alignment.LEADING)
+        .addGroup(gl_panelFuncionariosCadastrados.createSequentialGroup()
+          .addGap(23)
+          .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 601, GroupLayout.PREFERRED_SIZE)
+          .addContainerGap(27, Short.MAX_VALUE))
+        .addGroup(Alignment.TRAILING, gl_panelFuncionariosCadastrados.createSequentialGroup()
+          .addGap(71)
+          .addComponent(btnEditar)
+          .addPreferredGap(ComponentPlacement.RELATED, 327, Short.MAX_VALUE)
+          .addComponent(btnRemover, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+          .addGap(75))
+    );
+    gl_panelFuncionariosCadastrados.setVerticalGroup(
+      gl_panelFuncionariosCadastrados.createParallelGroup(Alignment.LEADING)
+        .addGroup(gl_panelFuncionariosCadastrados.createSequentialGroup()
+          .addGap(39)
+          .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 211, GroupLayout.PREFERRED_SIZE)
+          .addGap(18)
+          .addGroup(gl_panelFuncionariosCadastrados.createParallelGroup(Alignment.BASELINE)
+            .addComponent(btnRemover, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnEditar))
+          .addGap(41))
+    );
+    
+    tableLogin = new JTable();
+    scrollPane.setColumnHeaderView(tableLogin);
+    panelFuncionariosCadastrados.setLayout(gl_panelFuncionariosCadastrados);
+    
+    ListSelectionModel modeloSelecaoLinha = tableLogin.getSelectionModel();
     modeloSelecaoLinha.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    
     modeloSelecaoLinha.addListSelectionListener(new ListSelectionListener() {
       public void valueChanged(ListSelectionEvent e) {
-        int[] indiceLogin = tableLogins.getSelectedRows(); 
+        int[] indiceLogin = tableLogin.getSelectedRows(); 
         if (indiceLogin.length <= 0){
-          indiceLogin = null;
+          loginSelecionado = null;
         }else{
-          tableLogins.clearSelection();
+          tableLogin.clearSelection();
           setLoginSelecionado(indiceLogin[0]);
         }
         
@@ -167,7 +180,7 @@ public class PainelEditaLogin extends JInternalFrame {
         
       }
     });
-    btnCadastrados.setBounds(32, 318, 161, 34);
+    btnCadastrados.setBounds(231, 11, 161, 34);
     getContentPane().add(btnCadastrados);
 
   }
@@ -203,7 +216,7 @@ public class PainelEditaLogin extends JInternalFrame {
         }
     };
     
-    tableLogins.setModel(modeloTabela); 
+    tableLogin.setModel(modeloTabela); 
 
     
     
