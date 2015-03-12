@@ -91,7 +91,8 @@ public class PainelAdicionaServico extends JInternalFrame{
 		this.framePai = framePai;
 		DateTime hoje = new DateTime(Calendar.getInstance()).withTimeAtStartOfDay();
 		DateTime checkOut = new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay();
-		diasRestantes = new Period(hoje, checkOut).getDays();
+		if (new Period(hoje, checkOut).getDays() == 0)
+		diasRestantes = (new Period(hoje, checkOut).getDays() == 0 ? 1 : new Period(hoje, checkOut).getDays());
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);
