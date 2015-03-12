@@ -61,6 +61,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 	public int diasRestantes;
 	@SuppressWarnings("unused")//IDE alertando para o que não está errado, novamente.
 	private Hospede hospedeSelecionado;
+	private boolean operacaoFinalizada;
 	
 	public PainelAdicionaQuartos(Servico quarto, ColecaoDeHospedes listaDeHospedes, List<Quarto> listaQuartosDisponiveis, Contrato contrato, JDesktopPane painelPrincipal, int diasRestantes) {
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -203,6 +204,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
                 Reserva reserva = new Reserva(PainelAdicionaQuartos.this.contrato);
                 quarto.adicionaReserva(reserva);
                 PainelAdicionaQuartos.this.contrato.adicionaQuarto(quarto);
+                operacaoFinalizada = true;
               }
             }else{//Se houver estratégia no período referente...
               for (Quarto quarto: listaQuartosDoContrato){
@@ -210,7 +212,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
                 Reserva reserva = new Reserva(PainelAdicionaQuartos.this.contrato);
                 quarto.adicionaReserva(reserva);
                 PainelAdicionaQuartos.this.contrato.adicionaQuarto(quarto);
-
+                operacaoFinalizada = true;
               }
             }
           }else{//Se for um contrato do check-in imediato...
@@ -232,9 +234,12 @@ public class PainelAdicionaQuartos extends JInternalFrame {
                 quarto.adicionaReserva(reserva);
                 PainelAdicionaQuartos.this.listaQuartosDisponiveis.add(quarto);
                 System.out.println("adicionou!");
+                operacaoFinalizada = true;
               }
           }
 		    }
+		    
+		    
 
 		    catch (core.ParametrosInvalidosException e1){
           JOptionPane.showMessageDialog(null, e1.getMessage());
@@ -407,4 +412,18 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 			tableHospedesNoQuarto.setModel(modeloTabela);
 			tableHospedesNoQuarto.setRowSelectionAllowed(true);
 	}
+	
+	 @Override
+	  public void dispose(){
+	    if (operacaoFinalizada == false){//Retira os contratos daquela tabela de quartos no contrato, mais como um safeguard para uma possível modificação de código.
+	      for (int i = listaQuartosDoContrato.size() - 1; i > -1; i--){
+	        Quarto quarto = listaQuartosDoContrato.get(i);
+	        if (!(listaQuartosDisponiveis.contains(quarto))){
+	          listaQuartosDisponiveis.add(quarto);
+	        }
+	      }
+	    }
+	    super.dispose();
+	  }
+	 
 }
