@@ -80,7 +80,7 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 		this.listaQuartosDisponiveis = listaQuartosDisponiveis;
 		this.contrato = contrato;
 		this.diasRestantes = diasRestantes;
-		listaQuartosDoContrato = new ArrayList<Quarto>();
+		listaQuartosDoContrato = contrato.getListaQuartosAlugados();
 		
 		panelPrincipal = new JPanel();
 		panelPrincipal.setBounds(0, 0, 835, 415);
@@ -233,7 +233,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
                 Reserva reserva = new Reserva(PainelAdicionaQuartos.this.contrato);
                 quarto.adicionaReserva(reserva);
                 PainelAdicionaQuartos.this.listaQuartosDisponiveis.add(quarto);
-                System.out.println("adicionou!");
                 operacaoFinalizada = true;
               }
           }
