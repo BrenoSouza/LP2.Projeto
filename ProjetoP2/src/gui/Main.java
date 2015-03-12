@@ -71,7 +71,7 @@ public class Main extends JFrame {
   private ColecaoDeHospedes listaDeHospedes;
   private ColecaoDeQuartos listaDeQuartos;
   private ColecaoDeEstrategias listaDeEstrategias;
-  private PainelEditaLogin painelEditaLogin;
+  private PainelUsuarios painelEditaLogin;
   private final static SimpleDateFormat FORMATO_DATA = new SimpleDateFormat("dd/MM/yyyy");
   private final static SimpleDateFormat FORMATO_DATA_SEM_ANO = new SimpleDateFormat("dd/MM");
 
@@ -327,11 +327,11 @@ public class Main extends JFrame {
     btnRelatrios.setFont(new Font("Tahoma", Font.PLAIN, 17));
     toolBar.add(btnRelatrios);
     
-    JButton btnLogin = new JButton("Editar Login");
+    JButton btnLogin = new JButton("Usuários");
     btnLogin.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         if (painelEditaLogin == null || painelEditaLogin.isClosed()){
-        painelEditaLogin = new PainelEditaLogin(listaDeLogins);
+        painelEditaLogin = new PainelUsuarios(painelPrincipal, listaDeLogins);
         painelPrincipal.add(painelEditaLogin);
         painelEditaLogin.show();
         }else{

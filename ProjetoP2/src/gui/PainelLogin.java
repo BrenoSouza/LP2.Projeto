@@ -15,6 +15,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import core.Login;
 import core.colecoes.ColecaoDeLogins;
 
 import javax.swing.ImageIcon;
@@ -23,6 +24,7 @@ import java.awt.Color;
 
 import javax.swing.UIManager;
 import javax.swing.border.EtchedBorder;
+
 import java.awt.Toolkit;
 
 public class PainelLogin<DesktopPane> extends JDialog {
@@ -80,6 +82,17 @@ public class PainelLogin<DesktopPane> extends JDialog {
 		});
 		
 		JButton btnEsqueceuSuaSenha = new JButton("Esqueceu sua Senha?");
+		btnEsqueceuSuaSenha.addActionListener(new ActionListener() {
+		  public void actionPerformed(ActionEvent e) {
+		    String login = txtUsuario.getText();
+		    Login esqueci = PainelLogin.this.colecaoDeContas.pesquisaLoginUsuario(login);
+		    if (esqueci != null){
+		      JOptionPane.showMessageDialog(null, "Dica:" + Main.quebraDeLinha + esqueci.getDica());
+		    }else{
+		      JOptionPane.showMessageDialog(null, "Usuário não encontrado.");
+		    }
+		  }
+		});
 		btnEsqueceuSuaSenha.setBounds(166, 252, 173, 19);
 		btnEsqueceuSuaSenha.setForeground(Color.BLACK);
 		btnEsqueceuSuaSenha.setContentAreaFilled(false);

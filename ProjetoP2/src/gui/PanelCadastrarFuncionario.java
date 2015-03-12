@@ -97,11 +97,15 @@ public class PanelCadastrarFuncionario extends JPanel {
 		JButton btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 		  public void actionPerformed(ActionEvent e) {
+		    try{
 		    String password = new String(passwordSenha.getPassword());
 		    String passwordConfirm = new String(passwordConfirmSenha.getPassword());
 		    Login login = new Login(txtNome.getText(), txtLogin.getText(), password, passwordConfirm, textField.getText());
 		    PanelCadastrarFuncionario.this.listaDeLogins.adicionaContaLogin(login);
-		    
+		    JOptionPane.showMessageDialog(null, "Usuário criado com sucesso!");
+		    }catch (core.ParametrosInvalidosException exception){
+		      JOptionPane.showMessageDialog(null , exception.getMessage());
+		    }
 		  }
 		});
 		btnCadastrar.setBounds(73, 293, 117, 25);
