@@ -1,5 +1,7 @@
 package core;
 
+import gui.Main;
+
 import java.io.Serializable;
 
 public class Login implements Serializable{
@@ -103,11 +105,34 @@ public class Login implements Serializable{
 		return nome;
 	}
 	
+	/**
+	 * Método que verifica se a senha e a confimação de senhas são iguais.
+	 * @param senha
+	 * Senha do login
+	 * @param confirmaSenha
+	 * Senha do login
+	 * @return
+	 * Verdadeiro se a senha e confirmaSenha são iguais.
+	 */
 	private boolean verificaSenha(String senha, String confirmaSenha) {
 	  if (senha.equals(confirmaSenha)) {
 	    return true;
 	  }
 	  return false;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+	   if (!(obj instanceof Login)){
+	      return false;
+	    }Login outroLogin = (Login) obj;
+	    return toString().equals(outroLogin.toString());
+	}
+	
+	@Override
+  public String toString() {
+    return "Nome: " + getNome() + "." + Main.quebraDeLinha + ""
+        + "Login: " + getLogin();
+  }
 
 }
