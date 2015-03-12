@@ -85,6 +85,8 @@ public class PainelRelatorio extends JInternalFrame {
 	private JLabel lblHospedeReserva;
 	private JButton btnFaturamento;
 	private JPanel PanelFaturamento;
+	private JLabel lblServioMaisUsado;
+	private JLabel lblTipoServUsado;
 
 	public PainelRelatorio(ColecaoDeHospedes listaDeHospedes, ColecaoDeContratos listaContratos, JDesktopPane painelPrincipal) {
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -146,6 +148,7 @@ public class PainelRelatorio extends JInternalFrame {
 				int numCarros = 0;
 				int numPedidosRestaurante = 0;
 				int numBabySitter = 0;
+				String maisUsado = "";
 				for (Contrato c: colecaoDeContratos.getListaContratos()) {
 					numServicos += c.getListaServicos().size() ;
 					if (c.getStatus().equals("ABERTO")) {
@@ -153,6 +156,13 @@ public class PainelRelatorio extends JInternalFrame {
 						numQuartos += c.getListaQuartosAlugados().size();
 					}else if (c.getStatus().equals("FECHADO") ){
 						numServicosFec++;
+					}
+					if (ValorMaior(numCarros, numPedidosRestaurante, numBabySitter) == numCarros){
+					  maisUsado = "Aluguel de carro";
+					}else if (ValorMaior(numCarros, numPedidosRestaurante, numBabySitter) == numPedidosRestaurante){
+					  maisUsado = "Restaurante";
+					}else{
+					  maisUsado = "Babysitter";
 					}
 					for (Servico s: c.getListaServicos()) {
 						if (s instanceof AluguelCarro) {
@@ -164,6 +174,7 @@ public class PainelRelatorio extends JInternalFrame {
 						}
 					}
 				}
+				ValorMaior(numCarros, numPedidosRestaurante, numBabySitter);
 				lblNumServicos.setText("" + numServicos);
 				lblAbeServi.setText("" + numServicosAbe);
 				lblFecServi.setText("" + numServicosFec);
@@ -171,6 +182,7 @@ public class PainelRelatorio extends JInternalFrame {
 				lblBabyAtivas.setText("" + numBabySitter);
 				lblQuartosAtivo.setText("" + numQuartos);
 				lblRestaurantePed.setText("" + numPedidosRestaurante);
+				lblTipoServUsado.setText(maisUsado);
 				escreveTabelaServicos(numServicos);
 				
 				//Habilitar o botao para ver o faturamento no grafico
@@ -622,90 +634,105 @@ public class PainelRelatorio extends JInternalFrame {
 		lblRestaurantePed.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		JScrollPane scrollPaneServicos = new JScrollPane();
+		
+		lblServioMaisUsado = new JLabel("Serviço mais usado:");
+		lblServioMaisUsado.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		lblTipoServUsado = new JLabel("New label");
+		lblTipoServUsado.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GroupLayout gl_PanelServicos = new GroupLayout(PanelServicos);
 		gl_PanelServicos.setHorizontalGroup(
-			gl_PanelServicos.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PanelServicos.createSequentialGroup()
-					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_PanelServicos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNDeServios)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblNumServicos))
-						.addGroup(gl_PanelServicos.createSequentialGroup()
-							.addGap(78)
-							.addComponent(lblServios))
-						.addGroup(gl_PanelServicos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNDeServios_1)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblAbertos)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblAbeServi)
-							.addGap(18)
-							.addComponent(lblFechados)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblFecServi))
-						.addGroup(gl_PanelServicos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNDePedidos)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblRestaurantePed))
-						.addGroup(gl_PanelServicos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNDeCarros)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblCarrosAtivos))
-						.addGroup(gl_PanelServicos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNDeBabysitters)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblBabyAtivas))
-						.addGroup(gl_PanelServicos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblNDeQuartos)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblQuartosAtivo))
-						.addGroup(gl_PanelServicos.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(scrollPaneServicos, GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)))
-					.addContainerGap())
+		  gl_PanelServicos.createParallelGroup(Alignment.LEADING)
+		    .addGroup(gl_PanelServicos.createSequentialGroup()
+		      .addGroup(gl_PanelServicos.createParallelGroup(Alignment.LEADING)
+		        .addGroup(gl_PanelServicos.createSequentialGroup()
+		          .addContainerGap()
+		          .addComponent(lblNDeServios)
+		          .addGroup(gl_PanelServicos.createParallelGroup(Alignment.LEADING)
+		            .addGroup(gl_PanelServicos.createSequentialGroup()
+		              .addPreferredGap(ComponentPlacement.RELATED)
+		              .addComponent(lblNumServicos))
+		            .addGroup(gl_PanelServicos.createSequentialGroup()
+		              .addGap(84)
+		              .addComponent(lblServioMaisUsado)
+		              .addPreferredGap(ComponentPlacement.RELATED)
+		              .addComponent(lblTipoServUsado))))
+		        .addGroup(gl_PanelServicos.createSequentialGroup()
+		          .addGap(78)
+		          .addComponent(lblServios))
+		        .addGroup(gl_PanelServicos.createSequentialGroup()
+		          .addContainerGap()
+		          .addComponent(lblNDeServios_1)
+		          .addPreferredGap(ComponentPlacement.UNRELATED)
+		          .addComponent(lblAbertos)
+		          .addPreferredGap(ComponentPlacement.RELATED)
+		          .addComponent(lblAbeServi)
+		          .addGap(18)
+		          .addComponent(lblFechados)
+		          .addPreferredGap(ComponentPlacement.RELATED)
+		          .addComponent(lblFecServi))
+		        .addGroup(gl_PanelServicos.createSequentialGroup()
+		          .addContainerGap()
+		          .addComponent(lblNDePedidos)
+		          .addPreferredGap(ComponentPlacement.RELATED)
+		          .addComponent(lblRestaurantePed))
+		        .addGroup(gl_PanelServicos.createSequentialGroup()
+		          .addContainerGap()
+		          .addComponent(lblNDeCarros)
+		          .addPreferredGap(ComponentPlacement.RELATED)
+		          .addComponent(lblCarrosAtivos))
+		        .addGroup(gl_PanelServicos.createSequentialGroup()
+		          .addContainerGap()
+		          .addComponent(lblNDeBabysitters)
+		          .addPreferredGap(ComponentPlacement.RELATED)
+		          .addComponent(lblBabyAtivas))
+		        .addGroup(gl_PanelServicos.createSequentialGroup()
+		          .addContainerGap()
+		          .addComponent(lblNDeQuartos)
+		          .addPreferredGap(ComponentPlacement.RELATED)
+		          .addComponent(lblQuartosAtivo))
+		        .addGroup(gl_PanelServicos.createSequentialGroup()
+		          .addContainerGap()
+		          .addComponent(scrollPaneServicos, GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)))
+		      .addContainerGap())
 		);
 		gl_PanelServicos.setVerticalGroup(
-			gl_PanelServicos.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_PanelServicos.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblServios)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNDeServios)
-						.addComponent(lblNumServicos))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNDeServios_1)
-						.addComponent(lblAbertos)
-						.addComponent(lblAbeServi)
-						.addComponent(lblFechados)
-						.addComponent(lblFecServi))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNDeCarros)
-						.addComponent(lblCarrosAtivos))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNDeBabysitters)
-						.addComponent(lblBabyAtivas))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNDeQuartos)
-						.addComponent(lblQuartosAtivo))
-					.addGap(7)
-					.addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNDePedidos)
-						.addComponent(lblRestaurantePed))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPaneServicos, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-					.addContainerGap())
+		  gl_PanelServicos.createParallelGroup(Alignment.LEADING)
+		    .addGroup(gl_PanelServicos.createSequentialGroup()
+		      .addContainerGap()
+		      .addComponent(lblServios)
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+		        .addComponent(lblNDeServios)
+		        .addComponent(lblNumServicos)
+		        .addComponent(lblServioMaisUsado)
+		        .addComponent(lblTipoServUsado))
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+		        .addComponent(lblNDeServios_1)
+		        .addComponent(lblAbertos)
+		        .addComponent(lblAbeServi)
+		        .addComponent(lblFechados)
+		        .addComponent(lblFecServi))
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+		        .addComponent(lblNDeCarros)
+		        .addComponent(lblCarrosAtivos))
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+		        .addComponent(lblNDeBabysitters)
+		        .addComponent(lblBabyAtivas))
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+		        .addComponent(lblNDeQuartos)
+		        .addComponent(lblQuartosAtivo))
+		      .addGap(7)
+		      .addGroup(gl_PanelServicos.createParallelGroup(Alignment.BASELINE)
+		        .addComponent(lblNDePedidos)
+		        .addComponent(lblRestaurantePed))
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addComponent(scrollPaneServicos, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+		      .addContainerGap())
 		);
 		
 		//Criacao da tabela da parte de servico
@@ -963,4 +990,13 @@ public class PainelRelatorio extends JInternalFrame {
     PanelFaturamento.add(panelGrafico, BorderLayout.CENTER);
     PanelFaturamento.validate();
   }
+  
+  private double ValorMaior(int... vals) {
+    int max = 0;
+
+    for (int i : vals) {
+       if (i > max) max = i;
+    }
+    return max;
+ }
 }
