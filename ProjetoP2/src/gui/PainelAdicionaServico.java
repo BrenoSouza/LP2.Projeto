@@ -24,6 +24,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EtchedBorder;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+
 import core.AluguelCarro;
 import core.Babysitter;
 import core.Contrato;
@@ -68,7 +71,7 @@ public class PainelAdicionaServico extends JInternalFrame{
 	private JTextField textField_quantidadeHorasBaby;
 	private JPanel panelEditaQuarto_1;
 	private JCheckBox checkBoxEdtCama;
-	private int diasRestantes;
+	private int diasRestantes = 1;
 	private PainelAdicionaQuartos painelAddQuarto;
 	private Atualizador framePai;
 	private JSpinner spinner;
@@ -82,7 +85,13 @@ public class PainelAdicionaServico extends JInternalFrame{
 		this.listaDeQuartos = listaDeQuartos.getListaQuartosVagosReserva(contrato);
 		this.servico = servico;
 		this.framePai = framePai;
-//		diasRestantes = contrato.getNumeroDiarias();
+    DateTime presente = new DateTime().withTimeAtStartOfDay();
+    DateTime checkOut = new DateTime(contrato.getDataCheckOut()).withTimeAtStartOfDay();
+    if (Days.daysBetween(presente, checkOut).getDays() > 0){
+		diasRestantes = Days.daysBetween(presente, checkOut).getDays();
+    }else{
+      diasRestantes = 1;
+    }
 		setFrameIcon(new ImageIcon(PainelServicos.class.getResource("/resources/servicos_icon.png")));
 		setTitle("Adicionar Servi\u00E7os");
 		setClosable(true);
