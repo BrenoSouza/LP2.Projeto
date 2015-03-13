@@ -79,7 +79,6 @@ public class PainelAdicionaQuartos extends JInternalFrame {
 
     this.listaQuartosDisponiveis = listaQuartosDisponiveis;
     this.contrato = contrato;
-    this.diasRestantes = diasRestantes;
     listaQuartosDoContrato = contrato.getListaQuartosAlugados();
 
     panelPrincipal = new JPanel();

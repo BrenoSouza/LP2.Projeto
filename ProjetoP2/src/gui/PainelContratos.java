@@ -269,7 +269,7 @@ public class PainelContratos extends JInternalFrame implements Atualizador{
 								dataFormatadaCheckOut = Main.converteParaString(contratoAtual.getDataCheckOut());
 							designTabela[i][2] = dataFormatadaCheckOut;
 							// Para colocar na tabela o total de despesas do contrato.
-							designTabela[i][3] = "R$ " + contratoAtual.calculaPrecoFinal();
+							designTabela[i][3] = "R$ " + contratoAtual.calculaPrecoFinalSemMulta();
 							if (contratoAtual.getStatus().equals("RESERVA")){
 								designTabela[i][3] = "-- RESERVA --";
 							}

@@ -136,7 +136,7 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 		lblTotalASerPago.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		lblTotalASerPagoVariavel = new JLabel("New label");
-		lblTotalASerPagoVariavel.setText(Double.toString(contrato.calculaPrecoFinal()));
+		lblTotalASerPagoVariavel.setText(Double.toString(contrato.calculaPrecoFinalSemMulta()));
 		if (contrato.getStatus().equals("RESERVA")){
 			lblTotalASerPagoVariavel.setText("--RESERVA--");
 		}
@@ -528,6 +528,6 @@ public class PainelVisualizacaoContrato extends JInternalFrame {
 			tabelaQuartos.getColumnModel().getColumn(3).setPreferredWidth(180); //Aumentando o tamanho da quarta coluna, pq a String de título dela é grande
 			tabelaQuartos.getColumnModel().getColumn(0).setPreferredWidth(130); // Idem ao comment acima
 			tabelaQuartos.setRowSelectionAllowed(true);
-		lblTotalASerPagoVariavel.setText("R$ " + contrato.calculaPrecoFinal());
+		lblTotalASerPagoVariavel.setText("R$ " + contrato.calculaPrecoFinalSemMulta());
 	}
 }

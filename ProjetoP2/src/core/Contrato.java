@@ -1,7 +1,6 @@
 package core;
 
 import gui.Main;
-import gui.PainelEditarContrato;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -135,11 +134,18 @@ public class Contrato implements Serializable{
     return hospedePrincipal;
   }
   /**
-   * Método que calcula o preço final a ser pago por tudo relevante ao contrato.
+   * Método que calcula o preço final a ser pago por tudo relevante ao contrato (com multa).
    * @return O preço final a ser pago.
    */
-  public double calculaPrecoFinal(){
+  public double calculaPrecoFinalComMulta(){
     return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos()) + getMulta();
+  }
+  /**
+   * Método que calcula o preço final a ser pago por tudo relevante ao contrato (sem multa).
+   * @return O preço final a ser pago.
+   */
+  public double calculaPrecoFinalSemMulta(){
+    return (this.CalculaPrecoQuartos() + this.CalculaPrecoServicos());
   }
   /**
    * Método para mudar o status do contrato de "ABERTO" para "FECHADO".
@@ -334,13 +340,17 @@ public class Contrato implements Serializable{
    * @return
    * Os dias de atraso entre a data de checkOut e o presente
    */
-  public int getDiasDeAtraso(){
+  public int getDiasDeDiferenca(){
     DateTime presente = new DateTime().withTimeAtStartOfDay();
     
     DateTime checkOut = new DateTime(dataCheckOut).withTimeAtStartOfDay();
     
-    int dias = Days.daysBetween(checkOut, presente).getDays();
-    return dias;
+    if (Days.daysBetween(checkOut, presente).getDays() > 0){//Se o checkOut estiver atrasado.
+      return Days.daysBetween(checkOut, presente).getDays();
+    }else if (Days.daysBetween(presente, checkOut).getDays() > 0){//Se o checkOut estiver adiantado.
+      return Days.daysBetween(presente, checkOut).getDays();
+    }
+    return 0;
   }
   /**
    * Método que retorna uma possível multa.
@@ -348,10 +358,10 @@ public class Contrato implements Serializable{
    * A possível multa do contrato. 
    */
   public double getMulta(){
-    if (getDiasDeAtraso() <= 0){
+    if (getDiasDeDiferenca() <= 0){
       return 0.0;
     }
-    return Math.abs((CalculaPrecoQuartos() * 0.3) * getDiasDeAtraso()); //Em nenhum lugar da especificação do projeto dizia o valor da multa, então estipulei 30% do preço total dos quartos a cada dia fora do checkOut.
+    return Math.abs((CalculaPrecoQuartos() * 0.3) * getDiasDeDiferenca()); //Em nenhum lugar da especificação do projeto dizia o valor da multa, então estipulei 30% do preço total dos quartos a cada dia fora do checkOut.
   }
 
   @Override
@@ -375,7 +385,7 @@ public class Contrato implements Serializable{
         Main.quebraDeLinha  + " vvv Quartos vvv" + 
         QuartosFinal() +
         "Custo total dos quartos: R$ " + this.CalculaPrecoQuartos() +
-        Main.quebraDeLinha  + "Custo final do contrato: R$ " + this.calculaPrecoFinal();
+        Main.quebraDeLinha  + "Custo final do contrato: R$ " + this.calculaPrecoFinalSemMulta();
   }
 
 }

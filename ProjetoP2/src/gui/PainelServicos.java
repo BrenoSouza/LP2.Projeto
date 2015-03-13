@@ -354,7 +354,7 @@ public class PainelServicos extends JInternalFrame implements Atualizador {
 				dataFormatadaCheckOut = Main.converteParaString(contratoAtual.getDataCheckOut());
 			designTabela[i][2] = dataFormatadaCheckOut;
 			// Para colocar na tabela o total de despesas do contrato.
-			designTabela[i][3] = contratoAtual.calculaPrecoFinal();
+			designTabela[i][3] = contratoAtual.calculaPrecoFinalSemMulta();
 			// Para colocar na tabela o status do contrato.
 			designTabela[i][4] = contratoAtual.getStatus();
 	// FIM DE CONSTRUÇÃO DE TABELA.
