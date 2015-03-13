@@ -1,6 +1,7 @@
 package core;
 
 import java.util.Calendar;
+import gui.Main;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -23,7 +24,8 @@ public class TestaBabysitter {
 	@Test
 	public void testMetodosBabySitter() {
 		Assert.assertEquals(data.get(Calendar.HOUR_OF_DAY), babySitter.getHoraEntrada());
-		Assert.assertEquals(data.get(Calendar.HOUR_OF_DAY) + 3, babySitter.getHoraSaida());
+		data.set(Calendar.HOUR_OF_DAY, babySitter.getHoraEntrada() + 3);
+		Assert.assertEquals(data.get(Calendar.HOUR_OF_DAY), babySitter.getHoraSaida());
 		babySitter.horasTrabalhadas();
 		Assert.assertEquals((babySitter.getHorasPrecoNormal() * 25) + (babySitter.getHorasPrecoExtra() * 50), babySitter.calculaPrecoTotal(), 0.001);
 	}
@@ -31,11 +33,12 @@ public class TestaBabysitter {
 	@Test
 	public void TesteToString() {
 		babySitter.horasTrabalhadas();
+		babySitter.toString();
 		Assert.assertEquals("Serviço --- Babysitter ---" +
-				System.getProperty("line.separator") + "Início -> " + babySitter.getInicioServico() + " Hora de entrada -> " + babySitter.getHoraEntrada() +
-				System.getProperty("line.separator") + "Fim -> " + babySitter.getFim() + " Hora de saída -> " + babySitter.getHoraSaida() +
-				System.getProperty("line.separator") + "Horas -> " + babySitter.getHorasPrecoNormal() + ", preço normal | " + babySitter.getHorasPrecoExtra() + ", preço dobrado" +
-				System.getProperty("line.separator") + "Custo final: " + babySitter.calculaPrecoTotal(), babySitter.toString());
+				Main.quebraDeLinha + "Início -> " + babySitter.getInicioServico() + " Hora de entrada -> " + babySitter.getHoraEntrada() +
+				Main.quebraDeLinha + "Fim -> " + babySitter.getFim() + " Hora de saída -> " + babySitter.getHoraSaida() +
+				Main.quebraDeLinha + "Horas -> " + babySitter.getHorasPrecoNormal() + ", preço normal | " + babySitter.getHorasPrecoExtra() + ", preço dobrado" +
+				Main.quebraDeLinha + "Custo final: " + babySitter.calculaPrecoTotal(), babySitter.toString());
 	}
 	
 	@Test

@@ -59,15 +59,15 @@ public class TestaAluguelCarro {
 		Assert.assertEquals("Serviço --- Aluguel de Carro ---" +
 		    Main.quebraDeLinha + "Início -> " + Main.converteParaString(dataInicio) +
 				Main.quebraDeLinha +"Fim -> " + Main.converteParaString(dataFim) +
-				Main.quebraDeLinha + "Extras -> Tanque cheio? Não" + Main.quebraDeLinha +"Segurado? Não" + Main.quebraDeLinha +"Luxo? Não" +
+				Main.quebraDeLinha + "Extras -> Tanque cheio? Não" + Main.quebraDeLinha +"          Segurado? Não" + Main.quebraDeLinha +"          Luxo? Não" +
 				Main.quebraDeLinha + "Custo final: 60.0" , aluguelCarroExecutivo.toString());
 		//Luxo
 		dataFim.set(Calendar.DAY_OF_MONTH, dataInicio.get(Calendar.DAY_OF_MONTH) + aluguelCarroLuxo.getDiarias());
 		Assert.assertEquals("Serviço --- Aluguel de Carro ---" +
-				"\nInício -> " + Main.converteParaString(dataInicio) +
-				"\nFim -> " + Main.converteParaString(dataFim) +
-				"\nExtras -> Tanque cheio? Não\n          Segurado? Não\n          Luxo? Sim" +
-				"\nCusto final: 100.0" , aluguelCarroLuxo.toString());
+				Main.quebraDeLinha + "Início -> " + Main.converteParaString(dataInicio) +
+				Main.quebraDeLinha + "Fim -> " + Main.converteParaString(dataFim) +
+				Main.quebraDeLinha + "Extras -> Tanque cheio? Não" + Main.quebraDeLinha +"          Segurado? Não" + Main.quebraDeLinha +"          Luxo? Sim" +
+				Main.quebraDeLinha + "Custo final: 100.0" , aluguelCarroLuxo.toString());
 	}
 	
 	@Test

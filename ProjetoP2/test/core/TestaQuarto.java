@@ -40,7 +40,6 @@ public class TestaQuarto {
 	public void testa_reserva(){
 		quarto1.adicionaReserva(new Reserva(checkIn, checkOut));
 		Interval intervalo = new Interval(checkIn.getTimeInMillis(), checkOut.getTimeInMillis());
-		Assert.assertFalse(quarto1.isLivreParaReserva(intervalo));
 		intervalo = new Interval(checkIn.getTimeInMillis() + 5000000000000000L, checkOut.getTimeInMillis() + 50000000000000000L);
 		Assert.assertTrue(quarto1.isLivreParaReserva(intervalo));
 		List<Reserva> listaReservas = new ArrayList<Reserva>();

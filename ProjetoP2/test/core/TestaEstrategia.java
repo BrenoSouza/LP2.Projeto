@@ -1,6 +1,10 @@
 package core;
 
+import gui.Main;
+
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +13,7 @@ public class TestaEstrategia {
   private DateTime inicioPeriodo;
   private DateTime finalPeriodo;
   private Estrategia estrategia1, estrategia2;
+  DateTimeFormatter formatador = DateTimeFormat.forPattern("dd/MM");
 
   @Before
   public void criaObjetos(){
@@ -48,7 +53,9 @@ public class TestaEstrategia {
   }
   @Test
   public void testa_toString(){
-    Assert.assertEquals("Qualquer coisa" + "\nDe 10/03 até 10/03" + "\nAcréscimo de 50.0%", estrategia1.toString());
+    Assert.assertEquals("Qualquer coisa" + 
+                        Main.quebraDeLinha + "De " + formatador.print(inicioPeriodo) + " até " + formatador.print(finalPeriodo) + 
+                        Main.quebraDeLinha + "Acréscimo de 50.0%", estrategia1.toString());
   }
   @Test
   public void testa_compareTo(){
