@@ -79,13 +79,13 @@ public class PainelServicos extends JInternalFrame implements Atualizador {
 		btnAdicionar = new JButton("Adicionar");
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(contratoSelecionado != null) {
+				if(contratoSelecionado != null && !(contratoSelecionado.getStatus().equals("FECHADO"))) {
 					painelAdicionar = new PainelAdicionaServico(null, contratoSelecionado, getPainelPrincipal(), PainelServicos.this.listaDeQuartos, PainelServicos.this.listaHospedes, PainelServicos.this);
 					adicionaNoPainel(painelAdicionar);
 					painelAdicionar.show();
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Selecione um contrato!");
+					JOptionPane.showMessageDialog(null, "Selecione um contrato ABERTO ou em RESERVA!");
 				}
 				escreveTabelaServicos();
 				escreveTabelaContratos();
