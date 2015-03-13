@@ -218,6 +218,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
     atualizaBotoes();
 
     precoTotal = contrato.calculaPrecoFinalComMulta();
+    lblPrecoTotal = new JLabel("Preço a ser pago: R$ " + precoTotal);
     escrevePrecoTotal();
     lblPrecoTotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
@@ -529,7 +530,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
   }
 
   private void escrevePrecoTotal(){
-    lblPrecoTotal = new JLabel("Preço a ser pago: R$ " + precoTotal);
+    lblPrecoTotal.setText("Preço a ser pago: R$ " + precoTotal);
     if (contrato.getDiasDeDiferenca() > 0){
       lblPrecoTotal.setText("Preço a ser pago, com multa de " + contrato.getDiasDeDiferenca() + " dia(s) de diferença do Check-Out: R$ " + precoTotal);
     }

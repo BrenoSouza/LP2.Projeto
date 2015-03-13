@@ -53,7 +53,6 @@ public class PainelServicos extends JInternalFrame implements Atualizador {
 	private JButton btnVisualizar;;
 	private PainelAdicionaServico painelAdicionar;
 	private ListSelectionModel modeloSelecaoLinhaContrato;
-	private Atualizador framePai;
 	
 	public PainelServicos(List<Contrato> listaContratos, JDesktopPane painelPrincipal, ColecaoDeQuartos listaDeQuartos, ColecaoDeHospedes listaHospedes) {
 		addInternalFrameListener(new InternalFrameAdapter() {
@@ -66,8 +65,7 @@ public class PainelServicos extends JInternalFrame implements Atualizador {
 		});		
 		this.listaHospedes = listaHospedes;
 		this.painelPrincipal = painelPrincipal;
-		this.listaDeQuartos = listaDeQuartos; // ve isso
-	
+		this.listaDeQuartos = listaDeQuartos;
 		this.listaContratos = listaContratos;		
 		
 		setResizable(true);
@@ -99,7 +97,7 @@ public class PainelServicos extends JInternalFrame implements Atualizador {
 		btnAtualizar = new JButton("Atualizar");
 		btnAtualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				painelAdicionar = new PainelAdicionaServico(servicoSelecionado, contratoSelecionado, getPainelPrincipal(), PainelServicos.this.listaDeQuartos, PainelServicos.this.listaHospedes, framePai);
+				painelAdicionar = new PainelAdicionaServico(servicoSelecionado, contratoSelecionado, getPainelPrincipal(), PainelServicos.this.listaDeQuartos, PainelServicos.this.listaHospedes, PainelServicos.this);
 				adicionaNoPainel(painelAdicionar);
 				painelAdicionar.show();
 				

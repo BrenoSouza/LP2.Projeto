@@ -589,7 +589,7 @@ public class PainelAdicionaServico extends JInternalFrame{
 			    	}
 			    }			
 				
-			}
+			}PainelAdicionaServico.this.framePai.atualiza();
 		}
 
 	}
