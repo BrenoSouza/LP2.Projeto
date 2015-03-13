@@ -77,6 +77,8 @@ public class PainelCadastroClientes extends JInternalFrame {
           listaDeHospedes.adicionaHospede(hospede);
           JOptionPane.showMessageDialog(null, "Hóspede criado com sucesso!");
           dispose();
+        }catch (core.ParametrosInvalidosException exception){
+          JOptionPane.showMessageDialog(null, exception.getMessage());
         }catch (java.text.ParseException e){
           JOptionPane.showMessageDialog(null, "Data em formato inválido.");
         }catch (NullPointerException e){
