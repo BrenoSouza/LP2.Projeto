@@ -59,6 +59,8 @@ public class PainelUsuarios extends JInternalFrame {
    * Create the frame.
    */
   public PainelUsuarios(JDesktopPane painelPrincipal, ColecaoDeLogins listaDeLogins) {
+    setFrameIcon(new ImageIcon(PainelUsuarios.class.getResource("/resources/male.png")));
+    setTitle("Usuários");
     this.colecaoAtiva = listaDeLogins.getListaContasLogin();
     this.painelPrincipal = painelPrincipal;
     this.listaDeLogins = listaDeLogins;
