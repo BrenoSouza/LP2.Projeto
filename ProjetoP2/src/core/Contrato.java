@@ -1,6 +1,7 @@
 package core;
 
 import gui.Main;
+import gui.PainelEditarContrato;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -146,6 +147,9 @@ public class Contrato implements Serializable{
   public void fechaContrato(){
     status = "FECHADO";
     this.dataCheckOut = Calendar.getInstance();
+    for (Quarto quarto: listaQuartosAlugados){
+      quarto.setCamaExtra(false);
+    }
 
   }
   /**
@@ -233,10 +237,9 @@ public class Contrato implements Serializable{
       for (Quarto i: listaQuartosAlugados){
         Reserva reservaSelecionada = null;
         for (Reserva reserva: i.getListaReservas()){
-          System.out.println(reserva.getContrato());
-          if (equals(reserva.getContrato())){
-            reservaSelecionada = reserva;
-            break;
+          
+         if (reserva.getContrato().getHospedePrincipal().equals(getHospedePrincipal())){
+            reservaSelecionada = reserva;         
           }
         }
         if (reservaSelecionada == null){
@@ -357,20 +360,8 @@ public class Contrato implements Serializable{
       return false;
     }
     Contrato outroContrato = (Contrato) obj;
-    boolean datasIguais = getDataCheckInToString().equals(outroContrato.getDataCheckInToString()) && getDataCheckOutToString().equals(outroContrato.getDataCheckOutToString());
-
-    boolean hospedePrincipalIgual;
-
-    if (hospedePrincipal == null || outroContrato.getHospedePrincipal() == null){
-      // Existe a possibilidade que hospedePrincipal seja null, então...
-      hospedePrincipalIgual = hospedePrincipal == outroContrato.getHospedePrincipal();
-    }else{
-      hospedePrincipalIgual = hospedePrincipal.equals(outroContrato.getHospedePrincipal());
-    }	  
-
-    boolean dadosIguais = numeroDiarias == outroContrato.getNumeroDiarias() && cartaoDeCredito.equals(outroContrato.getCartaoDeCredito());
-
-    return (datasIguais && hospedePrincipalIgual && dadosIguais);
+    boolean listasIguais = getListaHospedes().equals(outroContrato.getListaHospedes()) && getListaQuartosAlugados().equals(outroContrato.getListaQuartosAlugados());
+    return listasIguais;
 
   }
 

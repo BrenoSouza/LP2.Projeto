@@ -163,25 +163,13 @@ public class Quarto extends Servico implements Comparable<Quarto>, Serializable{
 		listaReservas.add(reserva);
 	}
 	/**
-	 * Retira uma reserva da lista de reserva.
-	 * @param contrato O contrato ligado a reserva a ser removida
-	 */
-	public void retiraReserva(Contrato contrato){
-		for (Reserva reserva: listaReservas){
-			if (reserva.getContrato().equals(contrato)){
-				listaReservas.remove(reserva);
-				break;
-			}
-		}
-	}
-	/**
 	 * Checa se o quarto está livre para reserva ou não.
 	 * @param intervalo O intervalo de tempo que o quarto será utilizado
 	 * @return True - se está livre para reserva / False - se está ocupado/reservado
 	 */
 	public boolean isLivreParaReserva(Interval intervalo){
 		for (Reserva reserva: listaReservas){
-			if (reserva.getIntervaloSobrepoe(intervalo)){
+			if (reserva.getIntervaloSobrepoe(intervalo) && !reserva.getContrato().getStatus().equals("FECHADO")){
 				return false;
 			}
 		}return true;

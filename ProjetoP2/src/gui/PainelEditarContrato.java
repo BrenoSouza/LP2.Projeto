@@ -147,7 +147,6 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
           int escolha = JOptionPane.showOptionDialog(null, "Você realmente deseja retirar esse quarto do contrato?", "" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
           if (escolha == JOptionPane.YES_OPTION){
             listaQuartos.remove(objetoDinamico);
-            ((Quarto) objetoDinamico).retiraReserva(PainelEditarContrato.this.contrato);
             ((Quarto) objetoDinamico).setCamaExtra(false);
           }
         }else if (objetoDinamico instanceof Servico){
@@ -242,10 +241,6 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
             int escolha = JOptionPane.showOptionDialog(null, mensagem, /*Aqui seria o título, mas não achei necessário */"" , JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new String[] { "Sim", "Não" }, JOptionPane.NO_OPTION);
             if (escolha == JOptionPane.YES_OPTION){
               getContrato().fechaContrato();
-              for (Quarto quarto: listaQuartos){
-                quarto.retiraReserva(PainelEditarContrato.this.contrato);
-                quarto.setCamaExtra(false);
-              }
               Collections.sort(PainelEditarContrato.this.listaQuartosHotel.getListaQuartos());
               dispose();
             }
