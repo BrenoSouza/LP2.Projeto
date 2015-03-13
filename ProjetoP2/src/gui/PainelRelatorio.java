@@ -157,13 +157,6 @@ public class PainelRelatorio extends JInternalFrame {
 					}else if (c.getStatus().equals("FECHADO") ){
 						numServicosFec++;
 					}
-					if (ValorMaior(numCarros, numPedidosRestaurante, numBabySitter) == numCarros){
-					  maisUsado = "Aluguel de carro";
-					}else if (ValorMaior(numCarros, numPedidosRestaurante, numBabySitter) == numPedidosRestaurante){
-					  maisUsado = "Restaurante";
-					}else{
-					  maisUsado = "Babysitter";
-					}
 					for (Servico s: c.getListaServicos()) {
 						if (s instanceof AluguelCarro) {
 							numCarros++;
@@ -174,7 +167,6 @@ public class PainelRelatorio extends JInternalFrame {
 						}
 					}
 				}
-				ValorMaior(numCarros, numPedidosRestaurante, numBabySitter);
 				lblNumServicos.setText("" + numServicos);
 				lblAbeServi.setText("" + numServicosAbe);
 				lblFecServi.setText("" + numServicosFec);
@@ -182,6 +174,13 @@ public class PainelRelatorio extends JInternalFrame {
 				lblBabyAtivas.setText("" + numBabySitter);
 				lblQuartosAtivo.setText("" + numQuartos);
 				lblRestaurantePed.setText("" + numPedidosRestaurante);
+				if (ValorMaior(numCarros, numPedidosRestaurante, numBabySitter) == numCarros){
+          maisUsado = "Aluguel de carro";
+        }else if (ValorMaior(numCarros, numPedidosRestaurante, numBabySitter) == numPedidosRestaurante){
+          maisUsado = "Restaurante";
+        }else if (ValorMaior(numCarros, numPedidosRestaurante, numBabySitter) == numBabySitter){
+          maisUsado = "Babysitter";
+        }
 				lblTipoServUsado.setText(maisUsado);
 				escreveTabelaServicos(numServicos);
 				
