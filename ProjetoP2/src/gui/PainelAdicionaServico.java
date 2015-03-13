@@ -45,7 +45,6 @@ public class PainelAdicionaServico extends JInternalFrame{
 	private ColecaoDeHospedes listaHospedes;
 	private JPanel panelExterno = new JPanel();  
 	private CardLayout layoutPainel = new CardLayout();  
-	private JPanel panelQuartos = new JPanel();
 	private JPanel panelBabysitter = new JPanel();
 	private JPanel panelCarros = new JPanel();
 	private JPanel panelRestaurante = new JPanel();
@@ -56,12 +55,10 @@ public class PainelAdicionaServico extends JInternalFrame{
 	private JComboBox cBoxTipoCarro;
 	private JCheckBox chckbxSeguro;
 	private JCheckBox chckbxTanqueCheio;
-	private JButton btnQuartos;
 	private JButton btnBabysitter;
 	private JButton btnRestaurante;
 	private JButton btnAluguelCarros;
 	private JSpinner spinnerDiariasCarro;
-	private JCheckBox chckbxCamasExtras;
 	private JCheckBox chckbxCobertura;
 	private JTextField txtfi_preco;
 	private Servico servico;
@@ -69,8 +66,6 @@ public class PainelAdicionaServico extends JInternalFrame{
 	private JTextField txtFldPrecoRestaurante;
 	private JTextField textField_horaSaida;
 	private JTextField textField_quantidadeHorasBaby;
-	private JPanel panelEditaQuarto_1;
-	private JCheckBox checkBoxEdtCama;
 	private int diasRestantes = 1;
 	private PainelAdicionaQuartos painelAddQuarto;
 	private Atualizador framePai;
@@ -100,20 +95,10 @@ public class PainelAdicionaServico extends JInternalFrame{
 		// Codigo dos Botões que alternam o Cardlayout
 		
 		Icon imagemQuarto = new ImageIcon(PainelServicos.class.getResource("/resources/quarto.png"));
-		btnQuartos = new JButton(imagemQuarto);
-		btnQuartos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (PainelAdicionaServico.this.servico == null) 
-					layoutPainel.show(panelExterno, "quarto" );
-				else {
-					layoutPainel.show(panelExterno, "edita_quarto");
-				}
-				
-			}
-		});
 		
 		Icon imagemCarro = new ImageIcon(PainelServicos.class.getResource("/resources/carro.png"));
 		btnAluguelCarros = new JButton(imagemCarro);
+		btnAluguelCarros.setBounds(167, 43, 77, 74);
 		btnAluguelCarros.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ((PainelAdicionaServico.this.servico == null) ) 
@@ -126,6 +111,7 @@ public class PainelAdicionaServico extends JInternalFrame{
 		
 		Icon imagemBabysitter = new ImageIcon(PainelServicos.class.getResource("/resources/babysitter.png"));
 		btnBabysitter = new JButton(imagemBabysitter);
+		btnBabysitter.setBounds(321, 43, 78, 74);
 		btnBabysitter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ((PainelAdicionaServico.this.servico == null) ) 
@@ -138,6 +124,7 @@ public class PainelAdicionaServico extends JInternalFrame{
 		
 		Icon imagemRestaurante = new ImageIcon(PainelServicos.class.getResource("/resources/restaurante.png"));
 		btnRestaurante = new JButton(imagemRestaurante);
+		btnRestaurante.setBounds(467, 43, 81, 74);
 		btnRestaurante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ((PainelAdicionaServico.this.servico == null) ) 
@@ -151,9 +138,11 @@ public class PainelAdicionaServico extends JInternalFrame{
 		// Fim dos Botões que alternam o Cardlayout
 		
 		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.setBounds(267, 323, 100, 25);
 		
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(404, 323, 96, 25);
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -161,53 +150,9 @@ public class PainelAdicionaServico extends JInternalFrame{
 				
 			}
 		});
+		panelExterno.setBounds(12, 144, 767, 167);
 		
 		panelExterno.setLayout(layoutPainel);
-		panelQuartos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		
-		panelExterno.add(panelQuartos, "quarto");
-		
-		chckbxCamasExtras = new JCheckBox("Camas Extras");
-		
-		GroupLayout gl_panelQuartos = new GroupLayout(panelQuartos);
-		gl_panelQuartos.setHorizontalGroup(
-		  gl_panelQuartos.createParallelGroup(Alignment.LEADING)
-		    .addGroup(gl_panelQuartos.createSequentialGroup()
-		      .addGap(335)
-		      .addComponent(chckbxCamasExtras)
-		      .addContainerGap(308, Short.MAX_VALUE))
-		);
-		gl_panelQuartos.setVerticalGroup(
-		  gl_panelQuartos.createParallelGroup(Alignment.LEADING)
-		    .addGroup(gl_panelQuartos.createSequentialGroup()
-		      .addContainerGap()
-		      .addComponent(chckbxCamasExtras)
-		      .addContainerGap(128, Short.MAX_VALUE))
-		);
-		
-		panelQuartos.setLayout(gl_panelQuartos);
-		
-		panelEditaQuarto_1 = new JPanel();
-		panelEditaQuarto_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		panelExterno.add(panelEditaQuarto_1, "edita_quarto");
-		
-		checkBoxEdtCama = new JCheckBox("Camas Extras");
-		GroupLayout gl_panelEditaQuarto_1 = new GroupLayout(panelEditaQuarto_1);
-		gl_panelEditaQuarto_1.setHorizontalGroup(
-			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
-					.addGap(68)
-					.addComponent(checkBoxEdtCama)
-					.addContainerGap(575, Short.MAX_VALUE))
-		);
-		gl_panelEditaQuarto_1.setVerticalGroup(
-			gl_panelEditaQuarto_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelEditaQuarto_1.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(checkBoxEdtCama)
-					.addContainerGap(132, Short.MAX_VALUE))
-		);
-		panelEditaQuarto_1.setLayout(gl_panelEditaQuarto_1);
 		
 		panelEditaCarro = new JPanel();
 		
@@ -418,81 +363,24 @@ public class PainelAdicionaServico extends JInternalFrame{
 		);
 		panelRestaurante.setLayout(gl_panelRestaurante);
 		
-		JLabel lblQuartos = new JLabel("Quartos");
-		
 		JLabel lblCarros = new JLabel("Carros");
+		lblCarros.setBounds(177, 123, 47, 15);
 		
 		JLabel lblBabysitter = new JLabel("Babysitter");
+		lblBabysitter.setBounds(321, 123, 74, 15);
 		
 		JLabel lblRestaurante = new JLabel("Restaurante");
-		
-		GroupLayout groupLayout = new GroupLayout(getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(panelExterno, GroupLayout.PREFERRED_SIZE, 767, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(138)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(11)
-									.addComponent(lblQuartos))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnQuartos, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-									.addGap(54)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnAdicionar)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addGroup(groupLayout.createSequentialGroup()
-													.addGap(12)
-													.addComponent(lblCarros))
-												.addComponent(btnAluguelCarros, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE))))
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGap(37)
-											.addComponent(btnCancelar))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGap(34)
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lblBabysitter)
-												.addComponent(btnBabysitter, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-											.addGap(55)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblRestaurante)
-												.addComponent(btnRestaurante, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))))))))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(43)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(btnAluguelCarros, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnQuartos, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnRestaurante, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-						.addComponent(btnBabysitter, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblQuartos)
-							.addComponent(lblCarros)
-							.addComponent(lblBabysitter))
-						.addComponent(lblRestaurante))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(panelExterno, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnAdicionar)
-						.addComponent(btnCancelar))
-					.addGap(21))
-		);
-		getContentPane().setLayout(groupLayout);
+		lblRestaurante.setBounds(467, 123, 89, 15);
+		getContentPane().setLayout(null);
+		getContentPane().add(panelExterno);
+		getContentPane().add(btnAdicionar);
+		getContentPane().add(lblCarros);
+		getContentPane().add(btnAluguelCarros);
+		getContentPane().add(btnCancelar);
+		getContentPane().add(lblBabysitter);
+		getContentPane().add(btnBabysitter);
+		getContentPane().add(lblRestaurante);
+		getContentPane().add(btnRestaurante);
 		
 		
 	  // Codigo que mostra o JPanel do Cardlayout de acordo com a instancia do serviço!
@@ -521,13 +409,6 @@ public class PainelAdicionaServico extends JInternalFrame{
 						}
 			    		break;
 			    	}
-			    	else if(comp == panelQuartos) {
-			    		painelAddQuarto = new PainelAdicionaQuartos(null, PainelAdicionaServico.this.listaHospedes, PainelAdicionaServico.this.listaDeQuartos, PainelAdicionaServico.this.contrato, getPainelPrincipal());				    			
-			    		adicionaNoPainel(painelAddQuarto);
-			    		painelAddQuarto.show();
-			    		dispose();
-			    		break;
-			    	}
 			    	else if(comp == panelBabysitter) {
 			    		Babysitter babysitter = new Babysitter();
 			    		if (!(textField_quantidadeHorasBaby.getText().isEmpty())) {
@@ -549,13 +430,6 @@ public class PainelAdicionaServico extends JInternalFrame{
 						} catch (NullPointerException e1) {
 							e1.printStackTrace();
 						}
-			    		break;
-			    	}
-			    	else if(comp == panelEditaQuarto_1) {
-			    		Quarto quarto = (Quarto) PainelAdicionaServico.this.servico;
-			    		boolean cama = checkBoxEdtCama.isSelected();
-			    		quarto.setCamaExtra(cama);
-			    		dispose();
 			    		break;
 			    	}
 			    	else if(comp == panelEditaRestaurante) {
@@ -616,7 +490,6 @@ public class PainelAdicionaServico extends JInternalFrame{
 			}
 			btnBabysitter.setEnabled(false);
 			btnRestaurante.setEnabled(false);
-			btnQuartos.setEnabled(false);
 		}
 		else if (servico instanceof Babysitter) {
 			if ((PainelAdicionaServico.this.servico == null) ) 
@@ -624,7 +497,6 @@ public class PainelAdicionaServico extends JInternalFrame{
 			else {
 				layoutPainel.show(panelExterno, "edita_babysitter");
 			}
-			btnQuartos.setEnabled(false);
 			btnAluguelCarros.setEnabled(false);
 			btnRestaurante.setEnabled(false);
 		}
@@ -635,7 +507,6 @@ public class PainelAdicionaServico extends JInternalFrame{
 				layoutPainel.show(panelExterno, "edita_restaurante");
 			}
 			btnBabysitter.setEnabled(false);
-			btnQuartos.setEnabled(false);
 			btnAluguelCarros.setEnabled(false);
 		}
   }
