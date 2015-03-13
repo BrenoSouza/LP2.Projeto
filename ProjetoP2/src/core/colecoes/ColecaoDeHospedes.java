@@ -32,7 +32,7 @@ public class ColecaoDeHospedes implements Serializable{
 	 */
 	public void adicionaHospede(Hospede hospede) throws ParametrosInvalidosException{
 		if (hospede == null || listaHospedes.contains(hospede)){
-			throw new ParametrosInvalidosException("O hospede não foi adicionado.");
+			throw new ParametrosInvalidosException("O hospede já existe.");
 		}
 		listaHospedes.add(hospede);
 	}
