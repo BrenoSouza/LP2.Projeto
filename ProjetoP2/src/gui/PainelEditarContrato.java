@@ -156,6 +156,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
           }
         }
         escreveTabelas();
+        escrevePrecoTotal();
       }
     });
 
@@ -217,10 +218,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
     atualizaBotoes();
 
     precoTotal = contrato.calculaPrecoFinalComMulta();
-    lblPrecoTotal = new JLabel("Preço a ser pago: R$ " + precoTotal);
-    if (contrato.getDiasDeDiferenca() > 0){
-      lblPrecoTotal.setText("Preço a ser pago, com multa de " + contrato.getDiasDeDiferenca() + " dia(s) de diferença do Check-Out: R$ " + precoTotal);
-    }
+    escrevePrecoTotal();
     lblPrecoTotal.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
     btnFinalizar = new JButton("Fazer check-out");
@@ -259,61 +257,59 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
     });
     GroupLayout groupLayout = new GroupLayout(getContentPane());
     groupLayout.setHorizontalGroup(
-        groupLayout.createParallelGroup(Alignment.LEADING)
+      groupLayout.createParallelGroup(Alignment.LEADING)
         .addGroup(groupLayout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+          .addContainerGap()
+          .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+            .addGroup(groupLayout.createSequentialGroup()
+              .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+                .addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE)
+                .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))
+              .addGap(13))
+            .addGroup(groupLayout.createSequentialGroup()
+              .addComponent(lblServicos)
+              .addContainerGap(888, Short.MAX_VALUE))
+            .addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+              .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+                .addComponent(lblPrecoTotal, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
                 .addGroup(groupLayout.createSequentialGroup()
-                    .addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-                        .addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE)
-                        .addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))
-                        .addGap(13))
-                        .addGroup(groupLayout.createSequentialGroup()
-                            .addComponent(lblServicos)
-                            .addContainerGap(888, Short.MAX_VALUE))
-                            .addGroup(groupLayout.createSequentialGroup()
-                                .addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-                                    .addGroup(groupLayout.createSequentialGroup()
-                                        .addComponent(btnRemoverDinamico, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                                        .addGap(104)
-                                        .addComponent(btnEditarDinamico, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                                        .addGap(133)
-                                        .addComponent(btnAdicionarDinamico, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                                        .addGap(145)
-                                        .addComponent(btnFinalizar, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(scrollPane_2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 929, GroupLayout.PREFERRED_SIZE))
-                                        .addGap(15))
-                                        .addGroup(groupLayout.createSequentialGroup()
-                                            .addComponent(lblPrecoTotal, GroupLayout.PREFERRED_SIZE, 494, GroupLayout.PREFERRED_SIZE)
-                                            .addContainerGap())))
-        );
+                  .addComponent(btnRemoverDinamico, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                  .addGap(104)
+                  .addComponent(btnEditarDinamico, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                  .addGap(133)
+                  .addComponent(btnAdicionarDinamico, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                  .addGap(145)
+                  .addComponent(btnFinalizar, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE))
+                .addComponent(scrollPane_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE))
+              .addGap(15))))
+    );
     groupLayout.setVerticalGroup(
-        groupLayout.createParallelGroup(Alignment.LEADING)
+      groupLayout.createParallelGroup(Alignment.LEADING)
         .addGroup(groupLayout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(ComponentPlacement.RELATED)
-            .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(ComponentPlacement.RELATED)
-            .addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
-            .addGap(8)
-            .addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(ComponentPlacement.UNRELATED)
-            .addComponent(lblServicos)
-            .addPreferredGap(ComponentPlacement.RELATED)
-            .addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
-            .addGap(11)
-            .addComponent(lblPrecoTotal)
-            .addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-            .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-                .addComponent(btnRemoverDinamico)
-                .addComponent(btnFinalizar)
-                .addComponent(btnAdicionarDinamico)
-                .addComponent(btnEditarDinamico))
-                .addContainerGap())
-        );
+          .addContainerGap()
+          .addComponent(lblHospedes, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+          .addPreferredGap(ComponentPlacement.RELATED)
+          .addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE)
+          .addPreferredGap(ComponentPlacement.RELATED)
+          .addComponent(lblQuartos, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+          .addGap(8)
+          .addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+          .addPreferredGap(ComponentPlacement.UNRELATED)
+          .addComponent(lblServicos)
+          .addPreferredGap(ComponentPlacement.RELATED)
+          .addComponent(scrollPane_2, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+          .addPreferredGap(ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+          .addComponent(lblPrecoTotal)
+          .addGap(9)
+          .addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+            .addComponent(btnRemoverDinamico)
+            .addComponent(btnFinalizar)
+            .addComponent(btnAdicionarDinamico)
+            .addComponent(btnEditarDinamico))
+          .addContainerGap())
+    );
 
     tabelaServicos = new JTable();
     scrollPane_2.setViewportView(tabelaServicos);
@@ -477,6 +473,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
     }
   }
   public void atualizaBotoes(){
+    btnAdicionarDinamico.setVisible(!btnAdicionarDinamico.getText().equals("Adicionar quarto"));
     if (objetoDinamico == null){
       btnRemoverDinamico.setEnabled(false);
       btnAdicionarDinamico.setEnabled(false);
@@ -488,14 +485,17 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
       if (objetoDinamico instanceof Hospede){
         btnRemoverDinamico.setText("Remover hóspede");
         btnAdicionarDinamico.setText("Adicionar hóspede");
+        btnAdicionarDinamico.setVisible(true);
         btnEditarDinamico.setText("Editar hóspede");
       }else if (objetoDinamico instanceof Quarto){
         btnRemoverDinamico.setText("Remover quarto");
         btnAdicionarDinamico.setText("Adicionar quarto");
+        btnAdicionarDinamico.setVisible(false);
         btnEditarDinamico.setText("Editar quarto");
       }else if (objetoDinamico instanceof Servico){
         btnRemoverDinamico.setText("Remover serviço");
         btnAdicionarDinamico.setText("Adicionar serviço");
+        btnAdicionarDinamico.setVisible(true);
         btnEditarDinamico.setText("Editar serviço");
       }
     }
@@ -515,6 +515,7 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
       }else if (selecaoRelativa == SELECAO_QUARTO){
         btnAdicionarDinamico.setEnabled(true);
         btnAdicionarDinamico.setText("Adicionar quarto");
+        btnAdicionarDinamico.setVisible(!btnAdicionarDinamico.getText().equals("Adicionar quarto"));
       }else if (selecaoRelativa == SELECAO_SERVICO){
         btnAdicionarDinamico.setEnabled(true);
         btnAdicionarDinamico.setText("Adicionar serviço");
@@ -527,6 +528,13 @@ public class PainelEditarContrato extends JInternalFrame implements Atualizador{
     super.dispose();
   }
 
+  private void escrevePrecoTotal(){
+    lblPrecoTotal = new JLabel("Preço a ser pago: R$ " + precoTotal);
+    if (contrato.getDiasDeDiferenca() > 0){
+      lblPrecoTotal.setText("Preço a ser pago, com multa de " + contrato.getDiasDeDiferenca() + " dia(s) de diferença do Check-Out: R$ " + precoTotal);
+    }
+  }
+  
   public void atualiza() {
     escreveTabelas();    
   }
